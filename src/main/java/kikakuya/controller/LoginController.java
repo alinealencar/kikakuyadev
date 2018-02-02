@@ -52,7 +52,7 @@ public class LoginController {
 	public String processLogin(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("user") User user, Model model){
 
-		String redirectTo = "login";
+		String redirectTo = "/";
 
 		try {
 			boolean isValidUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());

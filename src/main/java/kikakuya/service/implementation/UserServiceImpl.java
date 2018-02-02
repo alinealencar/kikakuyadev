@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	public boolean insertUser(String name, String email, String password) throws SQLException {
+	public boolean addUser(String name, String email, String password) throws SQLException {
 		User user = new User();
 		user.setUserName(name);
 		user.setEmail(email);

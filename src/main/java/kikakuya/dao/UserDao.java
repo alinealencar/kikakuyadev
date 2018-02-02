@@ -1,7 +1,7 @@
 /**
  * Interface: UserDao
  * Description: This interface is used to communicate with the database.
- * Data Access Object interfaces defines methods for performing CRUD operations in each table.
+ * Data Access Object interfaces define methods for performing CRUD operations in each table.
  */
 
 package kikakuya.dao;

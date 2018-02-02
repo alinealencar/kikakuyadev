@@ -17,6 +17,6 @@ public class SignUpDelegate {
 	
 	public boolean insertUser(String name, String email, String password) 
 			throws SQLException {
-		return userService.insertUser(name, email, password);
+		return userService.addUser(name, email, password);
 	}
 }
