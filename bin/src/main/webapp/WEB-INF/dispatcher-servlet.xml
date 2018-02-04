@@ -22,7 +22,6 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	</bean>
 	
 	<import resource="beans/userBeans.xml"/>
-	<import resource="beans/searchBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -31,7 +30,4 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 		<property name="username" value="admin" />
 		<property name="password" value="admin" />
 	</bean>
-	
-	<!-- Specifying the Resource location to load images -->
-    <mvc:resources mapping="/resources/**" location="/resources/" />
 </beans>

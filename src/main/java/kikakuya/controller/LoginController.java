@@ -66,7 +66,7 @@ public class LoginController {
 //					Cookie rememberMe = CookieUtilities.createRememberMeCookie("uuid", UUID.randomUUID().toString());
 //				}
 				//Set the url the page will be redirected to
-				redirectTo = "home";
+				redirectTo = "search";
 			}
 			else {
 				System.out.println("Login unsuccessful");
