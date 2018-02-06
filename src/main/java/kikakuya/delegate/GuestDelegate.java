@@ -1,5 +1,8 @@
 package kikakuya.delegate;
 
+import java.sql.SQLException;
+
+import kikakuya.model.Guest;
 import kikakuya.service.GuestService;
 
 public class GuestDelegate {
@@ -13,5 +16,16 @@ public class GuestDelegate {
 		this.guestService = guestService;
 	}
 	
+	public boolean addGuest(Guest guest) throws SQLException {
+		return guestService.addGuest(guest);
+	}
+	
+	public boolean editGuest(Guest guest) throws SQLException {
+		return guestService.editGuest(guest);
+	}
+	
+	public boolean removeGuest(Guest guest) throws SQLException {
+		return guestService.deleteGuest(guest);
+	}
 	
 }
