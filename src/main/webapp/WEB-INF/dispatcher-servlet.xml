@@ -23,6 +23,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	
 	<import resource="beans/userBeans.xml"/>
 	<import resource="beans/searchBeans.xml"/>
+	<import resource="beans/guestBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
