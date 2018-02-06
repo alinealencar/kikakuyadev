@@ -68,7 +68,7 @@ public class SignUpController {
 		System.out.println("name: " + user.getUserName());
 		System.out.println("email: " + user.getEmail());
 		System.out.println("password: " + user.getUserPassword());
-		
+
 		return "home";
 	}
 }
