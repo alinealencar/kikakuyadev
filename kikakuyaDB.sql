@@ -67,7 +67,7 @@ CREATE TABLE `User` (
   userPassword varchar(255) NOT NULL, 
   email    varchar(255) NOT NULL UNIQUE, 
   token    varchar(255) UNIQUE,
-  isRememberMe int(1),
+  isRememberMes boolean NOT NULL,
   PRIMARY KEY (userId));
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
