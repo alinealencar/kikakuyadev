@@ -3,11 +3,14 @@ package kikakuya.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import kikakuya.delegate.CommunicationDelegate;
 import kikakuya.delegate.SearchDelegate;
 import kikakuya.model.Vendor;
 
@@ -24,7 +28,7 @@ public class SearchController {
 	
 	@Autowired
 	private SearchDelegate searchDelegate;
-	
+
 	/**
 	 * When the page is loaded, this method is run.
 	 * Create the kikakuya.model object (Vendor) and put it into the kikakuya.model map with the key "vendor".
@@ -62,17 +66,19 @@ public class SearchController {
 			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
 			request.setAttribute("vendors", vendors);
 			
+			//searchDelegate.sendEmail();
+			
 			redirectTo = "search-result";	
 		} catch (JSONException e) {
-			//request.setAttribute("searchError", "No results found.");
-			e.printStackTrace();
+			request.setAttribute("searchError", "No results found.");
+			//e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
-		}
+			request.setAttribute("searchError", "No results found.");
+			//e.printStackTrace();
+		}	
 
 		return redirectTo;
 
 	}
-
 }
 

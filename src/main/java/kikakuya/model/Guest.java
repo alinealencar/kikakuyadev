@@ -1,6 +1,9 @@
 package kikakuya.model;
 
 public class Guest {
+<<<<<<< HEAD
+
+=======
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -83,4 +86,5 @@ public class Guest {
 	public void setMealChoice(String mealChoice) {
 		this.mealChoice = mealChoice;
 	}
+>>>>>>> 70d2a4207be942be32e7aa98bc99702bb0668fb3
 }

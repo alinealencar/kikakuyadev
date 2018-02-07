@@ -27,7 +27,11 @@ public class SearchDelegate {
 
 	public ArrayList<Vendor> createVendorObjects(JSONArray vendors) throws JSONException {
 		return searchService.createVendorObjects(vendors);
-	} 
+	}
+
+
+
+	
 	
 	
 }
