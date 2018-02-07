@@ -1,0 +1,22 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   
+   	<bean id="guestDelegate" class="kikakuya.delegate.GuestDelegate">
+		<property name="guestService" ref="guestService"></property>
+	</bean>
+	
+	<bean id="guestService" class="kikakuya.service.implementation.GuestServiceImpl">
+		<property name="guestDao" ref="guestDao"></property>
+	</bean>
+
+	<bean name="guestDao" class="kikakuya.dao.implementation.GuestDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+</beans>
