@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.SignUpDelegate;
+import kikakuya.model.Event;
 import kikakuya.model.User;
 
 @Controller
@@ -44,8 +45,9 @@ public class SignUpController {
 	 */
 	@RequestMapping(method = RequestMethod.POST)
 	public String processSignUp(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user, Model model){
-		String redirectTo = "login";
+		String redirectTo = "index";
 
+		System.out.println("NAME: " + user.getUserName());
 		try {
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){
@@ -53,7 +55,7 @@ public class SignUpController {
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
 				//Set the url the page will be redirected to
-				redirectTo = "home";
+				redirectTo = "event_add";
 			}
 			else {
 				System.out.println("SignUp unsuccessful");
@@ -68,7 +70,7 @@ public class SignUpController {
 		System.out.println("name: " + user.getUserName());
 		System.out.println("email: " + user.getEmail());
 		System.out.println("password: " + user.getUserPassword());
-
-		return "home";
+		model.addAttribute("event", new Event());
+		return redirectTo;
 	}
 }

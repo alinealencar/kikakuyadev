@@ -14,8 +14,8 @@ CREATE TABLE Appointment (
 CREATE TABLE Event (
   eventId    int(10) NOT NULL AUTO_INCREMENT, 
   eventName  varchar(255) NOT NULL, 
-  eventDate  date, 
-  UseruserId int(10) NOT NULL,
+  eventDate  varchar(255), 
+  UseruserId int(10),
   location varchar(255) NOT NULL, 
   PRIMARY KEY (eventId));
 CREATE TABLE Good (

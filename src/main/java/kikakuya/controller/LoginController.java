@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.LoginDelegate;
+import kikakuya.model.Event;
 import kikakuya.model.User;
 import kikakuya.utilities.AuthenticationUtilities;
 import kikakuya.utilities.CookieUtilities;
@@ -91,7 +92,7 @@ public class LoginController {
 					loginDelegate.setRememberMe(user);
 				}
 				//Set the url the page will be redirected to
-				redirectTo = "events";
+				redirectTo = "event_add";
 			}
 			else {
 				System.out.println("Login unsuccessful");
@@ -105,7 +106,7 @@ public class LoginController {
 		System.out.println("LOGIN");
 		System.out.println("email: " + user.getEmail());
 		System.out.println("password: " + user.getUserPassword());
-		
+		model.addAttribute("event", new Event());
 		return redirectTo;
 	}
 }
