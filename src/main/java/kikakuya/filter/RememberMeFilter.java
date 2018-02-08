@@ -10,8 +10,10 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.sql.DataSource;
 
 import org.springframework.beans.factory.config.AutowireCapableBeanFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 import org.springframework.web.context.support.WebApplicationContextUtils;
@@ -19,6 +21,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import kikakuya.utilities.AuthenticationUtilities;
 
 public class RememberMeFilter implements Filter {
+	DataSource dataSource;
 
     public RememberMeFilter() {
     }
@@ -35,7 +38,7 @@ public class RememberMeFilter implements Filter {
 		
 		try{
 			// Check if user has the RememberMe cookies (uuid and user) or if the user is currently logged in
-			if(AuthenticationUtilities.isRememberMe(request) || AuthenticationUtilities.isLoggedIn(request.getSession())){
+			if(AuthenticationUtilities.isRememberMe(request, dataSource) || AuthenticationUtilities.isLoggedIn(request.getSession())){
 				response.sendRedirect("home.jsp");
 			}
 			else
@@ -47,6 +50,10 @@ public class RememberMeFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
+		ServletContext ctx = fConfig.getServletContext();
+		WebApplicationContext springContext = WebApplicationContextUtils.getWebApplicationContext(ctx);
+		dataSource = (DataSource) springContext.getBean("dataSource");
+		//ctx.setAttribute("INFO", beanRep.getInfoFromDB());
 	}
 
 }

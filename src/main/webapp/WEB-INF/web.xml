@@ -31,6 +31,11 @@
 			org.springframework.web.context.ContextLoaderListener
 		</listener-class>
 	</listener>
+	<listener>
+		<listener-class>
+			kikakuya.filter.RememberMeFilter
+		</listener-class>
+	</listener>
 
 	<servlet>
 		<servlet-name>dispatcher</servlet-name>

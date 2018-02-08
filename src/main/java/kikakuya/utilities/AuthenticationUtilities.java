@@ -9,19 +9,18 @@ import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import kikakuya.delegate.LoginDelegate;
 import kikakuya.model.User;
 import kikakuya.service.implementation.UserServiceImpl;
 
 public class AuthenticationUtilities {
-	@Autowired
-	private static DataSource dataSource;
 	
 	public static boolean isLoggedIn(HttpSession session){
 		return !(session == null || session.getAttribute("userName") == null);
 	}
-	public static boolean isRememberMe(HttpServletRequest request) throws Exception{
+	public static boolean isRememberMe(HttpServletRequest request, DataSource dataSource) throws Exception{
 		
 		Cookie[] cookies = request.getCookies();
 
@@ -37,21 +36,29 @@ public class AuthenticationUtilities {
 					rememberMeCookies[1] = aCookie;
 				}
 			}
-		}
-
-		System.out.println("DATASOURCE: " + dataSource);
-		User user = new User();
-		String query = "Select userName, email, token, series from user where series = ?";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
-		pstmt.setString(1, rememberMeCookies[1].getValue());
-		ResultSet resultSet = pstmt.executeQuery();
-		if(resultSet.next()){
-			user.setUserName(resultSet.getString(1));
-			user.setEmail(resultSet.getString(2));
-			user.setToken(resultSet.getString(3));
-			user.setSeries(resultSet.getString(4));
+			
+			//If both cookies exist
+			if(rememberMeCookies[0] != null && rememberMeCookies[1] != null) {
+				System.out.println("DATASOURCE: " + dataSource);
+				User user = new User();
+				String query = "Select userName, email, token, series from user where series = ?";
+				PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+				pstmt.setString(1, rememberMeCookies[1].getValue());
+				ResultSet resultSet = pstmt.executeQuery();
+				if(resultSet.next()){
+					user.setUserName(resultSet.getString(1));
+					user.setEmail(resultSet.getString(2));
+					user.setToken(resultSet.getString(3));
+					user.setSeries(resultSet.getString(4));
+				}
+				
+				return (user.getToken().equals(rememberMeCookies[0].getValue()));
+			}
+			
 		}
 		
-		return (user.getToken().equals(rememberMeCookies[0].getValue()));
+		return false;
+
+		
 	}
 }
