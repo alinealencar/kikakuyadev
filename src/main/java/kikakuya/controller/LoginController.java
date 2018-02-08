@@ -1,5 +1,8 @@
 package kikakuya.controller;
 
+import java.net.URLEncoder;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.LoginDelegate;
 import kikakuya.model.User;
+import kikakuya.utilities.AuthenticationUtilities;
+import kikakuya.utilities.CookieUtilities;
+import kikakuya.utilities.HelperUtilities;
 
 @Controller
 @RequestMapping(value="/login")
@@ -30,7 +36,18 @@ public class LoginController {
 	 * @return
 	 */
 	@RequestMapping(method = RequestMethod.GET)
-	public String viewLogin(Model model){
+	public String viewLogin(HttpServletRequest request, Model model){
+//		//If user is logged in, redirect then to the landing page
+//		try {
+//			Cookie[] rememberMeCookies = AuthenticationUtilities.isRememberMe(request);
+//		
+//			if(loginDelegate.isRememberMe(rememberMeCookies) || AuthenticationUtilities.isLoggedIn(request.getSession())){
+//				return "events";
+//			}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		model.addAttribute("user", new User());
 		return "index";
 	}
@@ -57,12 +74,24 @@ public class LoginController {
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
 				
-//				if(user.getIsRememberMe() == 1){
-//					//Unique identifier
-//					Cookie rememberMe = CookieUtilities.createRememberMeCookie("uuid", UUID.randomUUID().toString());
-//				}
+				if(user.getIsRememberMe() == 1){
+					String token = HelperUtilities.newUUID();
+					String series = HelperUtilities.newUUID();
+					//Unique identifier
+					Cookie rememberMeToken = CookieUtilities.createRememberMeCookie("token", token);
+					Cookie rememberMeSeries = CookieUtilities.createRememberMeCookie("series", series);
+					response.addCookie(rememberMeToken);
+					response.addCookie(rememberMeSeries);
+					
+					//Set user attributes
+					user.setToken(token);
+					user.setSeries(series);
+					
+					//Write token and series in the database
+					loginDelegate.setRememberMe(user);
+				}
 				//Set the url the page will be redirected to
-				redirectTo = "search";
+				redirectTo = "events";
 			}
 			else {
 				System.out.println("Login unsuccessful");
@@ -76,6 +105,7 @@ public class LoginController {
 		System.out.println("LOGIN");
 		System.out.println("email: " + user.getEmail());
 		System.out.println("password: " + user.getUserPassword());
+		
 		return redirectTo;
 	}
 }

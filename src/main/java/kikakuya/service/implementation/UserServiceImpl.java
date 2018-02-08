@@ -39,4 +39,16 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.insertUser(user);
 	}
+
+	public boolean setRememberMe(User user) throws SQLException {
+		return userDao.updateUser(user);
+	}
+
+	public boolean getRememberMe(String token, String series) throws SQLException {
+		User user = userDao.findBySeries(series);
+		if(user != null)
+			return user.getToken().equals(token);
+		else
+			return false;
+	}
 }
