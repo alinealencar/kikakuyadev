@@ -1,6 +1,7 @@
 package kikakuya.model;
 
 public class User {
+	private int userId;
 	private String userName;
     private String userPassword;
     private String email;
@@ -10,6 +11,14 @@ public class User {
 	
     public User() {
 		
+	}
+    
+	public int getUserId() {
+		return userId;
+	}
+
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 
 	public String getUserName() {
