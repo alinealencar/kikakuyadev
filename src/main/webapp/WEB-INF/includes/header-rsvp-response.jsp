@@ -3,7 +3,7 @@
 	<header>
 		<div class="row">
 			<div class="col-sm-1">
-				<img alt="Kikakuya logo" src="images/logo_white.png">
+				<img alt="Kikakuya logo" src="resources/images/header/logo.png">
 			</div>
 			<div class="col-sm-11">
 				<table>
