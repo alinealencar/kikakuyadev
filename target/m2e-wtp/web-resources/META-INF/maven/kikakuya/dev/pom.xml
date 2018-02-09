@@ -134,13 +134,6 @@
     	<artifactId>mail</artifactId>
     	<version>1.4.7</version>
 	</dependency>
-	
-	<!-- Google API Dependency -->
-	<dependency>
-    	<groupId>com.google.api-client</groupId>
-    	<artifactId>google-api-client</artifactId>
-    	<version>1.23.0</version>
-	</dependency>
 </dependencies>
 <build>
         <plugins>
