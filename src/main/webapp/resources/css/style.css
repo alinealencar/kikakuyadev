@@ -6,16 +6,16 @@ common components
 /****** common *****/
 body div#container{
 	
-	color: #333333;
-	background-color: #f9f9f9;
+	color: #2E294E;
+	background-color: #F1E9DA;
 	font-family: 'Quicksand', sans-serif;
 	
 }
 /****** header ******/
 header{
 	padding: 15px;
-	background-color: #f9f9f9;
-    color: #333333;	
+	background-color: #541388;
+    color: #F1E9DA;	
 	margin-bottom: 15px;
 }
 
@@ -25,18 +25,21 @@ header table{
 }
 
 header #btn-account{
-	color: white;
+	color: #F1E9DA;
 	margin: 10px;
 }
 
 a.dropdown-item.linked:hover {
   background-image: none !important;
-    background-color:  #f06f86;
-    color: white;
+    background-color:  #D90368;
+    color: #F1E9DA;
 }
 /****** menu ******/
+nav{
+	background-color: #541388;
+}
 nav h2{
-	color: #66cdcc;
+	color: #FFD400;
 }
 nav ul{
 	height:50px;
@@ -58,7 +61,7 @@ nav li{
 footer {
 	height: 50px;
     padding: 15px;
-    color: white;
+    color: #F1E9DA;
 	background-color: #541388;
 	
 }

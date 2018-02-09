@@ -24,39 +24,39 @@
 			${vendor.name}<br>
 			<c:choose>
   				<c:when test="${vendor.rating == 0}">
-  					<img src="resources/images/regular_0.png" alt="zero star">
+  					<img src="resources/images/search/regular_0.png" alt="zero star">
   				</c:when>
   				<c:when test="${vendor.rating == 1}">
-  					<img src="resources/images/regular_1.png" alt="one star">
+  					<img src="resources/images/search/regular_1.png" alt="one star">
   				</c:when>
   				<c:when test="${vendor.rating == 1.5}">
-  					<img src="resources/images/regular_1_half.png" alt="one and a half stars">
+  					<img src="resources/images/search/regular_1_half.png" alt="one and a half stars">
   				</c:when>
   				<c:when test="${vendor.rating == 2}">
-  					<img src="resources/images/regular_2.png" alt="two stars">
+  					<img src="resources/images/search/regular_2.png" alt="two stars">
   				</c:when>
   				<c:when test="${vendor.rating == 2.5}">
-  					<img src="resources/images/regular_2_half.png" alt="two and a half stars">
+  					<img src="resources/images/search/regular_2_half.png" alt="two and a half stars">
   				</c:when>
   				<c:when test="${vendor.rating == 3}">
-  					<img src="resources/images/regular_3.png" alt="three stars">
+  					<img src="resources/images/search/regular_3.png" alt="three stars">
   				</c:when>
   				<c:when test="${vendor.rating == 3.5}">
-  					<img src="resources/images/regular_3_half.png" alt="three and a half stars">
+  					<img src="resources/images/search/regular_3_half.png" alt="three and a half stars">
   				</c:when>
   				<c:when test="${vendor.rating == 4}">
-  					<img src="resources/images/regular_4.png" alt="four stars">
+  					<img src="resources/images/search/regular_4.png" alt="four stars">
   				</c:when>
   				<c:when test="${vendor.rating == 4.5}">
-  					<img src="resources/images/regular_4_half.png" alt="four and a half stars">
+  					<img src="resources/images/search/regular_4_half.png" alt="four and a half stars">
   				</c:when>
   				<c:when test="${vendor.rating == 5}">
-  					<img src="resources/images/regular_5.png"  alt="five stars">
+  					<img src="resources/images/search/regular_5.png"  alt="five stars">
   				</c:when>
   			</c:choose><br>
 			${vendor.address}<br>
 			${vendor.phoneNo}<br>
-			<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/yelp_logo.png"  width="80" height="50"></a></li><br>
+			<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a></li><br>
 		</c:forEach>
 	</ul>
 </body>

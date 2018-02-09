@@ -3,7 +3,7 @@
 	<header>
 		<div class="row">
 			<div class="col-sm-1">
-				<img alt="Kikakuya logo" src="images/logo_white.png">
+				<img alt="Kikakuya logo" src="resources/images/header/logo.png">
 
 				<div id="sm-account" class="dropdown float-right d-block d-sm-none">
 		     		<button id="btn-account" class="btn btn-link" type="button" data-toggle="dropdown">
@@ -60,4 +60,5 @@
 				 </div>
 			</div>
 		</div><!-- .row -->
+		<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 	</header>
