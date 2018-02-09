@@ -3,10 +3,16 @@ package kikakuya.delegate;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import kikakuya.model.Email;
+import kikakuya.model.Guest;
 import kikakuya.model.Vendor;
+import kikakuya.service.CommunicationService;
 import kikakuya.service.SearchService;
 
 public class SearchDelegate {
@@ -30,9 +36,10 @@ public class SearchDelegate {
 	}
 
 
-
 	
 	
 	
 }
+
+
 

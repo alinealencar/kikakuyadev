@@ -1,0 +1,67 @@
+@CHARSET "UTF-8";
+
+/*********************************
+common components
+**********************************/
+/****** common *****/
+body div#container{
+	
+	color: #2E294E;
+	background-color: #F1E9DA;
+	font-family: 'Quicksand', sans-serif;
+	
+}
+/****** header ******/
+header{
+	padding: 15px;
+	background-color: #541388;
+    color: #F1E9DA;	
+	margin-bottom: 15px;
+}
+
+header table{
+	height: 100%;
+	width: 100%;
+}
+
+header #btn-account{
+	color: #F1E9DA;
+	margin: 10px;
+}
+
+a.dropdown-item.linked:hover {
+  background-image: none !important;
+    background-color:  #D90368;
+    color: #F1E9DA;
+}
+/****** menu ******/
+nav{
+	background-color: #541388;
+}
+nav h2{
+	color: #FFD400;
+}
+nav ul{
+	height:50px;
+	padding: 0;
+	text-align: justify;
+	text-justify: distribute-all-lines; 
+}
+nav ul:after{
+	content:"";
+	display: inline-block;
+	width: 100%;
+	line-height:0;
+	height: 0;
+}
+nav li{
+	display: inline-block;
+}
+/****** footer ******/
+footer {
+	height: 50px;
+    padding: 15px;
+    color: #F1E9DA;
+	background-color: #541388;
+	
+}

@@ -1,0 +1,10 @@
+@CHARSET "UTF-8";
+@media only screen and (max-width: 767px){
+	#lg-account{
+		display:none;
+	}
+	#sm-account{
+		display:inline-block;
+	}
+}
+

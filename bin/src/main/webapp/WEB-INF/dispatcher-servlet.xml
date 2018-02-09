@@ -22,6 +22,8 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	</bean>
 	
 	<import resource="beans/userBeans.xml"/>
+	<import resource="beans/eventBeans.xml"/>
+	<import resource="beans/searchBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

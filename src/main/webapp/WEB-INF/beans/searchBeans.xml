@@ -13,5 +13,5 @@
 	
 	<bean id="searchService" class="kikakuya.service.implementation.SearchServiceImpl">
 	</bean>
-
+	
 </beans>
