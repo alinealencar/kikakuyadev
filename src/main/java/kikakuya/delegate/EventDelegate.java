@@ -21,8 +21,8 @@ public class EventDelegate {
 		return eventService.listAllEvents();
 	}
 	
-	public boolean insertEvent(Event event) throws SQLException{
-		return eventService.insertEvent(event);
+	public boolean insertEvent(Event event, User user) throws SQLException{
+		return eventService.insertEvent(event, user);
 	}
 	
 	public boolean updateEvent(Event event)throws SQLException{

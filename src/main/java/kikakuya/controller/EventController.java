@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
+import kikakuya.model.User;
 
 @Controller
 //@RequestMapping(value="/viewEvent")
@@ -29,7 +30,6 @@ public class EventController {
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewAddEvent(Model model, HttpServletRequest request) throws SQLException{
-		
 		model.addAttribute("event", new Event());
 		List <Event> list = eventDelegate.listAllEvents();
 		//model.addAttribute("listEvent", list);
@@ -48,45 +48,21 @@ public class EventController {
 		return "event_add";
 	}
 	
-//	@RequestMapping(value = "/list", method = RequestMethod.GET)
-//    public String displayItems(Map<String, Object> map) throws SQLException {
-//        //model.addAttribute("event", event);
-//		map.put("eventList", eventDelegate.listAllEvents());
-//		return "list";
-//    }
-	
-	
-/*@RequestMapping(value="/list", method = RequestMethod.GET)
-	public String displayEvents(Map<String, Object> events) throws SQLException{
-		
-		events.put("events", eventDelegate.listAllEvents());
-		
-		return "event_add";
-		
-	}*/
-	
 	//working
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("event") Event event,/* BindingResult bindingResult, */Model model, HttpServletRequest request){
-		//String redirectTo = "event_add";
-		//ModelAndView model = new ModelAndView("event_add");
-		
-		//Event event = new Event();
-		//model.addAttribute("event", event);
+	public String add(@ModelAttribute("event") Event event, @ModelAttribute("user") User user,
+			Model model, HttpServletRequest request){ // come back here!
 		
 		try {
 			List <Event> list = eventDelegate.listAllEvents();
 			if(list.size() <3 ){
-			boolean isValidEvent = eventDelegate.insertEvent(event);
+			boolean isValidEvent = eventDelegate.insertEvent(event, user);
 			if(isValidEvent){
 				System.out.println("Insert successful");
 				
 				model.addAttribute("eventName", event.getEventName());
 				//model.addAttribute("eventDate", event.getUserUserId());
 				model.addAttribute("location", event.getLocation());
-				
-				
-				//redirectTo = "event_add";
 			}
 			else {
 					System.out.println("Insert unsuccessful");
@@ -153,24 +129,24 @@ public class EventController {
 		return "redirect:/list";
 	}
 	
-	@RequestMapping(value="/save", method=RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("eventAdd")Event event) throws SQLException{
-		
-		//come back here!!!!!!!!!!!!!!!!!
-		if (event != null ){ 
-			// update
-			eventDelegate.updateEvent(event);
-		}
-		//*else if (event.getEventId) != null){
-			// update
-			//eventService.updateEvent(event);}
-		
-		else{
-			// add new
-			eventDelegate.insertEvent(event);
-		}
-		
-		return new ModelAndView("redirect:/list");
-	}
+//	@RequestMapping(value="/save", method=RequestMethod.POST)
+//	public ModelAndView save(@ModelAttribute("eventAdd")Event event, User user) throws SQLException{
+//		
+//		//come back here!!!!!!!!!!!!!!!!!
+//		if (event != null ){ 
+//			// update
+//			eventDelegate.updateEvent(event);
+//		}
+//		//*else if (event.getEventId) != null){
+//			// update
+//			//eventService.updateEvent(event);}
+//		
+//		else{
+//			// add new
+//			eventDelegate.insertEvent(event, user);
+//		}
+//		
+//		return new ModelAndView("redirect:/list");
+//	}
 	
 }
