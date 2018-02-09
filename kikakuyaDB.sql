@@ -14,8 +14,8 @@ CREATE TABLE Appointment (
 CREATE TABLE Event (
   eventId    int(10) NOT NULL AUTO_INCREMENT, 
   eventName  varchar(255) NOT NULL, 
-  eventDate  date, 
-  UseruserId int(10) NOT NULL,
+  eventDate  varchar(255), 
+  UseruserId int(10),
   location varchar(255) NOT NULL, 
   PRIMARY KEY (eventId));
 CREATE TABLE Good (
@@ -66,8 +66,8 @@ CREATE TABLE `User` (
   userName     varchar(50) NOT NULL, 
   userPassword varchar(255) NOT NULL, 
   email    varchar(255) NOT NULL UNIQUE, 
-  token    varchar(255) UNIQUE,
-  isRememberMes boolean NOT NULL,
+  token    varchar(255),
+  series varchar(255),
   PRIMARY KEY (userId));
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 

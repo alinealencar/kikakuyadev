@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import kikakuya.delegate.CommunicationDelegate;
 import kikakuya.delegate.SearchDelegate;
 import kikakuya.model.Vendor;
 
@@ -65,8 +64,6 @@ public class SearchController {
 			//populate vendors list
 			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
 			request.setAttribute("vendors", vendors);
-			
-			//searchDelegate.sendEmail();
 			
 			redirectTo = "search-result";	
 		} catch (JSONException e) {
