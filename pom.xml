@@ -80,6 +80,19 @@
       <scope>provided</scope>
     </dependency>
     
+    <dependency>
+    	<groupId>javax.servlet.jsp.jstl</groupId>
+      <artifactId>jstl-api</artifactId>
+      <version>1.2</version>
+    </dependency>
+    
+    <dependency>
+    	<groupId>org.glassfish.web</groupId>
+      <artifactId>jstl-impl</artifactId>
+      <version>1.2</version>
+    </dependency>
+    
+    
       <!-- JSON Dependency -->
     <dependency>
    	 <groupId>org.json</groupId>
@@ -128,9 +141,19 @@
     	<artifactId>google-api-client</artifactId>
     	<version>1.23.0</version>
 	</dependency>
-	
 </dependencies>
-  <build>
-    <finalName>dev</finalName>
-  </build>
+<build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

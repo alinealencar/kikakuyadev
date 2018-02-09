@@ -11,8 +11,9 @@ import java.sql.SQLException;
 import kikakuya.model.User;
 
 public interface UserDao {
+	public User findBySeries(String series) throws SQLException;
 	public User findByEmail(String email) throws SQLException;
 	public boolean insertUser(User user) throws SQLException;
-//	public boolean updateUser(User user) throws SQLException;
+	public boolean updateUser(User user) throws SQLException;
 //	public boolean deleteUser(User user) throws SQLException;
 }

@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmail(String email) throws SQLException {
 		User user = new User();
 		//Using MD5 encryption for the password
-		String query = "Select userName, userPassword, email, token, isRememberMe from user where email = ?";
+		String query = "Select userName, userPassword, email, token, series from user where email = ?";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, email);
 		ResultSet resultSet = pstmt.executeQuery();
@@ -46,7 +46,36 @@ public class UserDaoImpl implements UserDao {
 			user.setUserPassword(resultSet.getString(2));
 			user.setEmail(resultSet.getString(3));
 			user.setToken(resultSet.getString(4));
-			user.setIsRememberMe(resultSet.getInt(5));
+			user.setSeries(resultSet.getString(5));
+		}
+        
+		return user;
+	}
+
+	public boolean updateUser(User user) throws SQLException {
+		String query = "update user set userName = '" + user.getUserName() + 
+				"', userPassword = '" + user.getUserPassword() + 
+				"', token = '" + user.getToken() + 
+				"', series = '" + user.getSeries() + 
+				"' where email = '" + user.getEmail() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+		
+	}
+
+	public User findBySeries(String series) throws SQLException {
+		User user = new User();
+		String query = "Select userName, email, token, series from user where series = ?";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		pstmt.setString(1, series);
+		ResultSet resultSet = pstmt.executeQuery();
+		if(resultSet.next()){
+			user.setUserName(resultSet.getString(1));
+			user.setEmail(resultSet.getString(2));
+			user.setToken(resultSet.getString(3));
+			user.setSeries(resultSet.getString(4));
 		}
         
 		return user;

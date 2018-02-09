@@ -11,6 +11,7 @@ http://www.springframework.org/schema/context/spring-context.xsd
 http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 	<mvc:annotation-driven />
 	<context:component-scan base-package="kikakuya.controller" />
+	<context:component-scan base-package="kikakuya.utilities"/>
 
 	<bean		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix">
@@ -24,6 +25,7 @@ http://www.springframework.org/schema/mvc http://www.springframework.org/schema/
 	<import resource="beans/userBeans.xml"/>
 	<import resource="beans/searchBeans.xml"/>
 	<import resource="beans/guestBeans.xml"/>
+	<import resource="beans/eventBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

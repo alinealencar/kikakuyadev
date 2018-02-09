@@ -5,7 +5,8 @@ public class User {
     private String userPassword;
     private String email;
     private String token;
-    private Integer isRememberMe;
+    private String series;
+    private int isRememberMe;
 	
     public User() {
 		
@@ -43,13 +44,19 @@ public class User {
 		this.token = token;
 	}
 
-	//1 for true, 0 for false.
-	public Integer getIsRememberMe() {
+	public String getSeries() {
+		return series;
+	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	public int getIsRememberMe() {
 		return isRememberMe;
 	}
 
-	public void setIsRememberMe(Integer isRememberMe) {
+	public void setIsRememberMe(int isRememberMe) {
 		this.isRememberMe = isRememberMe;
 	}
-    
 }
