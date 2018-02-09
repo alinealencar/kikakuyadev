@@ -37,16 +37,17 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmail(String email) throws SQLException {
 		User user = new User();
 		//Using MD5 encryption for the password
-		String query = "Select userName, userPassword, email, token, series from user where email = ?";
+		String query = "Select userId, userName, userPassword, email, token, series from user where email = ?";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, email);
 		ResultSet resultSet = pstmt.executeQuery();
 		if(resultSet.next()){
-			user.setUserName(resultSet.getString(1));
-			user.setUserPassword(resultSet.getString(2));
-			user.setEmail(resultSet.getString(3));
-			user.setToken(resultSet.getString(4));
-			user.setSeries(resultSet.getString(5));
+			user.setUserId(resultSet.getInt(1));
+			user.setUserName(resultSet.getString(2));
+			user.setUserPassword(resultSet.getString(3));
+			user.setEmail(resultSet.getString(4));
+			user.setToken(resultSet.getString(5));
+			user.setSeries(resultSet.getString(6));
 		}
         
 		return user;
