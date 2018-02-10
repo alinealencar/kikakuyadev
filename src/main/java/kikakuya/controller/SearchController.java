@@ -58,14 +58,14 @@ public class SearchController {
 		
 		ArrayList<Vendor> vendors = new ArrayList<Vendor>();
 		
-		String redirectTo = "search-result";
+		String redirectTo = "searchResult";
 		
 		try {
 			//populate vendors list
 			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
 			request.setAttribute("vendors", vendors);
 			
-			redirectTo = "search-result";	
+			redirectTo = "searchResult";	
 		} catch (JSONException e) {
 			request.setAttribute("searchError", "No results found.");
 			//e.printStackTrace();

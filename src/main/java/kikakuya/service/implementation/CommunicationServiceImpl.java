@@ -37,15 +37,15 @@ public class CommunicationServiceImpl implements CommunicationService{
 	    return props;
 	}
 	
-	public void sendRSVP(Guest guest, Email email, User user)  {
+	public void sendRSVP(Email email)  {
 		String subject = "Kikakuya - RSVP to <user>'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
 		String message = "<img src=\"cid:logo.png\" width=\"250px\" height=\"180px\"></img><br/>";
 		message += "<h3>You are invited to Kie's Wedding!</h3>";
 		message += "<h4>Location: <br> Date: </h4>";
-		message += "<p>Please let us know if you are coming before <date>.</p><br><br>";
-		message += "<form action = \"http://localhost:8081/dev/search\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
+		message += "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>";
+		message += "<form action = \"http://localhost:8080/dev/rsvpResponse\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
 		message += "<p>Sincerely,<br>Kie</p>";
 		
 		//email account information
