@@ -6,6 +6,7 @@ import kikakuya.model.User;
 
 public interface CommunicationService {
 	//public void sendRSVP(Guest guest, Email email, User user);
-	public void sendMessage(Guest guest, Email email, User user);
+	//public void sendMessage(Guest guest, Email email, User user);
+	public void sendBroadcast(Email email);
 	public void sendRSVP(Email email);
 }

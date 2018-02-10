@@ -18,7 +18,7 @@ import kikakuya.model.User;
 import kikakuya.model.Vendor;
 
 @Controller
-@RequestMapping(value="/sendRSVP")
+@RequestMapping(value="/sendMessage")
 public class RSVPController {
 	
 	@Autowired
@@ -47,13 +47,14 @@ public class RSVPController {
 		return ""; //fill this up once jsp is done
 	}*/
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
 	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("email") Email email, Model model){
 		
-		String redirectTo = "rsvpConfirmation";
+		String redirectTo = "sendMessage";
 		
 		rsvpDelegate.sendRSVP(email);
+		request.setAttribute("sendRSVPSuccess", "Success! RSVPs been successfully sent to all guests.");
 		
 		return redirectTo;
 	}

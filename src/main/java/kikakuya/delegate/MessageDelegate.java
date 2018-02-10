@@ -22,8 +22,11 @@ public class MessageDelegate {
 		this.communicationService = communicationService;
 	}
 	
-	public void sendMessage(Guest guest, Email email, User user){
-		communicationService.sendMessage(guest, email, user);
-	}
+	/*public void sendBroadcast(Guest guest, Email email, User user){
+		communicationService.sendBroadcast(guest, email, user);
+	}*/
 	
+	public void sendBroadcast(Email email){
+		communicationService.sendBroadcast(email);
+	}
 }

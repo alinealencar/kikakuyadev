@@ -16,11 +16,9 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
 import kikakuya.dao.GuestDao;
-import kikakuya.dao.UserDao;
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
 import kikakuya.model.User;
-import kikakuya.model.Vendor;
 import kikakuya.service.CommunicationService;
 
 public class CommunicationServiceImpl implements CommunicationService{
@@ -79,16 +77,22 @@ public class CommunicationServiceImpl implements CommunicationService{
 		     //iterate through all the guests
 		     for(int i=0; i<guestList.size(); i++){
 		    	 //body of the email
-		   		message = "<img src=\"cid:logo.png\" width=\"250px\" height=\"180px\"></img><br/>";
+		    	message += "<div style=\"background-color: #F1E9DA; width: 50%; margin: 0 auto;\">";
+		    	message += "<div style=\"background-color: #541388; padding: 15px;";
+		   		message += "<img src=\"cid:logo.png\" width=\"250px\" height=\"180px\"></img></div>";
+		   		message += "<div style=\"min-height: 300px; height: auto; height: 300px; background-color: #F1E9DA; padding: 15px;\">";
 		   		message += "<h3>You are invited to Kie's Wedding!</h3>";
 		   		message += "<h4>Location: <br> Date: </h4>";
 		   		message += "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>";
 		   		message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
-		   		message += "<p>Sincerely,<br>Kie</p>";
+		   		message += "<p>Sincerely,<br>Kie</p></div>";
+		   		message += "<div style=\"background-color: #541388; color: #F1E9DA; padding: 15px;\"><br>";
+			    message += "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>";
+			    message += "Do you want to plan an event? <a href=\"localhost:8080/dev\" style=\"text-decoration: underline; color: #F1E9DA;\">Try Kikakuya!</a></h4></div></div>";
 		   		
 		   		//set email content and information into the MimeMessageHelper
 		   		helper.setText(message, true); //true indicates that the text included is HTML
-		   		helper.addInline("logo.png",new ClassPathResource("yelp_logo.png"));
+		   		helper.addInline("logo.png",new ClassPathResource("logo.png"));
 		   		helper.setSubject(subject);
 		   		helper.setTo(guestList.get(i).getEmail());
 		   		helper.setFrom(from);
@@ -101,8 +105,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		}
 	}
 	
-	public void sendMessage(Guest guest, Email email, User user)  {
-		String subject = "Kikakuya - RSVP to <user>'s Event";
+	public void sendBroadcast(Email email)  {
+		//String subject = "Kikakuya - Event Announcement";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
 		
@@ -120,16 +124,25 @@ public class CommunicationServiceImpl implements CommunicationService{
 		     MimeMessage msg = new MimeMessage(session);
 		     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		     
-		     //set email content and information into the MimeMessageHelper
-		     helper.setText(email.getMessage(), true); //true indicates that the text included is HTML
-		     helper.addInline("logo.png",new ClassPathResource("yelp_logo.png"));
-		     helper.setSubject(subject);
-		     helper.setBcc(to);
-		     helper.setFrom(from);
+		     String message = "<div style=\"background-color: #F1E9DA; width: 50%; margin: 0 auto;\">"
+		     		+ "<div style=\"background-color: #541388; padding: 15px;\"><br><img src=\"cid:logo.png\"></img></div>"
+		     		+"<div style=\"min-height: 300px; height: auto; height: 300px; padding: 15px;\"><h4>"+email.getMessage()+"</h4></div>"
+		     		+ "<div style=\"background-color: #541388; color: #F1E9DA; padding: 15px;\">"
+		     		+ "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
+		     		+ "Do you want to plan an event? <a href=\"http://localhost:8080/dev\" style=\"text-decoration: underline; color: #F1E9DA;\">Try Kikakuya!</a><br></h4></div></div>";
+		     
+		     //iterate through all the selected guests
+		     //for(int i=0; i<guestList.size(); i++){
+		    	 //set email content and information into the MimeMessageHelper
+		    	 helper.setText(message, true); //true indicates that the text included is HTML
+		    	 helper.addInline("logo.png",new ClassPathResource("logo.png"));
+		    	 helper.setSubject(email.getTitle());
+		    	 helper.setBcc(to);
+		    	 helper.setFrom(from);
 		     
 		     //send the email
 		     Transport.send(msg);
-
+		     //}
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}

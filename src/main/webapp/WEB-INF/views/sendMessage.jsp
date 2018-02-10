@@ -1,4 +1,3 @@
-
 <!-- Change feature variable -->
 <%! String feature = "Guests" ;%>
 
@@ -6,11 +5,15 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <div class="container">
 	<!-- body contents start -->
 	<h2>Send Messages</h2>
-
+	<div>
+		<div class="${(sendRSVPSuccess != null) ? 'alert alert-success':''}" role="alert">${sendRSVPSuccess}</div>
+		<div class="${(sendBroadcastSuccess != null) ? 'alert alert-success':''}" role="alert">${sendBroadcastSuccess}</div>
+	</div>
 	<div class="form-group row">
 		<div class="col-sm-4">
 		  	<h5>1. Select type of the message</h5>
@@ -25,7 +28,7 @@
 
 
 	<div  id="rsvpForm" style="display:none;">
-		<form action="sendRSVP" method="post">
+		<form:form action="rsvp" method="post" modelAttribute="email">
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
@@ -33,7 +36,7 @@
 				</div>		
   				<label for="replyDue" class="sr-only col-2 col-form-label">Reply Due</label>
   				<div class="col-sm-8">
-    				<input class="form-control" type="date"  id="replyDue">
+    				<form:input class="form-control" type="date"  id="replyDue" path="replyDue"/>
   				</div>
      		</div>
      		
@@ -43,21 +46,21 @@
 				</div>		
   				<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
 	   			<div class="col-sm-2">
-		      		<select class="form-control" id="adult">
+		      		<form:select class="form-control" id="adult" path="adultsMax">
 		        		<option>0</option>
 		        		<option>1</option>
 		        		<option>2</option>
 		        		<option>3</option>
-		      		</select>
+		      		</form:select>
 		      	</div>
 	   			<label for="kid" class="col-form-label col-sm-2 text-sm-right">Kids:</label>
 	   			<div class="col-sm-2">
-	      			<select class="form-control" id="kid">
+	      			<form:select class="form-control" id="kid" path="kidsMax">
 	        			<option>0</option>
 	        			<option>1</option>
 	        			<option>2</option>
 	        			<option>3</option>
-	      			</select>
+	      			</form:select>
 	      		</div>
      		</div>
      		
@@ -67,27 +70,27 @@
 				</div>
 				<div class="col-sm-8">		
  					<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="checkbox" id="beef" value="beef">
+  						<form:checkbox class="form-check-input" id="beef" value="beef" path="mealChoice" />
   						<label class="form-check-label" for="beaf">Beef</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="pork" value="pork">
+					  <form:checkbox class="form-check-input" id="pork" value="pork" path="mealChoice" />
 					  <label class="form-check-label" for="pork">Pork</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="chicken" value="chicken">
+					  <form:checkbox class="form-check-input" id="chicken" value="chicken" path="mealChoice" />
 					  <label class="form-check-label" for="chicken">Chicken</label>
 					</div>
 					<div class="form-check form-check-inline">
-  						<input class="form-check-input" type="checkbox" id="vegetarian" value="vegetarian">
+  						<form:checkbox class="form-check-input" id="vegetarian" value="vegetarian" path="mealChoice" />
   						<label class="form-check-label" for="vegetarian">Vegetarian</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="fish" value="fish">
+					  <form:checkbox class="form-check-input" id="fish" value="fish" path="mealChoice" />
 					  <label class="form-check-label" for="fish">Fish</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <input class="form-check-input" type="checkbox" id="kids" value="kids">
+					  <form:checkbox class="form-check-input" id="kids" value="kids" path="mealChoice" />
 					  <label class="form-check-label" for="kids">Kids</label>
 					</div>
   				</div>
@@ -105,12 +108,12 @@
 				</div>
      		</div>
      		
-		</form>		
+		</form:form>		
 	</div>
 
 	
 	<div id="broadcastForm" style="display:none;">
-		<form action="" method="post">
+		<form:form action="broadcast" method="post" modelAttribute="email">
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
@@ -118,7 +121,7 @@
 				</div>
   				<label for="subject" class="sr-only col-2 col-form-label">Subject</label>
   				<div class="col-sm-8">
-    				<input class="form-control" type="text" id="subject">
+    				<form:input class="form-control" type="text" id="subject" path="title"/>
   				</div>
 			</div>
     
@@ -159,13 +162,13 @@
 					</div>
 					<div id="guestDropdown" class="form-group" style="display:none;">
 					    <label for="guestSelection" class="sr-only">Guest Selection</label>
-					    <select class="form-control" id="guestSelection" onchange="selectedGuestList()">
+					    <form:select class="form-control" id="guestSelection" onchange="selectedGuestList()" path="recipients">
 					      <option>1</option>
 					      <option>2</option>
 					      <option>3</option>
 					      <option>4</option>
 					      <option>5</option>
-					    </select>
+					    </form:select>
 					</div>
 					
 				</div>
@@ -181,7 +184,7 @@
 				</div>
 				<div class="col-sm-8">
 					<h5><label for="message" class="sr-only">Compose message</label></h5>				
-    				<textarea class="form-control" id="message" rows="3"></textarea>
+    				<form:textarea class="form-control" id="message" rows="3" path="message"></form:textarea>
     			</div>
   			</div>
   			
@@ -197,7 +200,7 @@
 				</div>
      		</div>
   			
-		</form>		
+		</form:form>		
 	</div>
 	
 
@@ -205,23 +208,19 @@
 function showRSVP() {
     var rsvp = document.getElementById("rsvpForm");
     var broadcast = document.getElementById("broadcastForm");
-
     if (rsvp.style.display === "none") {
         rsvp.style.display = "block";
         broadcast.style.display = "none";
     }
 }
-
 function showBroadcast() {
     var rsvp = document.getElementById("rsvpForm");
     var broadcast = document.getElementById("broadcastForm");
-
     if (broadcast.style.display === "none") {
         broadcast.style.display = "block";
         rsvp.style.display = "none";
     }
 }
-
 function showSelectGuests(){
 	var guestDropdown = document.getElementById("guestDropdown"); 
 	var guestTextarea = document.getElementById("guestTextarea"); 
@@ -231,7 +230,6 @@ function showSelectGuests(){
 		guestTextarea.style.display = "block";
 	}
 }
-
 function hideSelectGuests(){
 	var guestDropdown = document.getElementById("guestDropdown"); 
 	var guestTextarea = document.getElementById("guestTextarea"); 
@@ -241,12 +239,10 @@ function hideSelectGuests(){
 		guestTextarea.style.display = "none";
 	}
 }
-
 /********************* need to modify**************************/
 function selectedGuestList(){
 	var guestTextarea = document.getElementById('guestTextarea');
     var guestDropdown = document.getElementById('guestDropdown');
-
     guestDropdown.onchange = function(){
     	guestTextarea.text = guestTextarea.text  + this.text; //to appened
          //mytextbox.innerHTML = this.value;

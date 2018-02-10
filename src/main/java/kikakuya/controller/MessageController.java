@@ -1,8 +1,12 @@
 package kikakuya.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -12,26 +16,20 @@ import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 @Controller
-@RequestMapping(value="/send")
 public class MessageController {
 
-	//@Autowired
+	@Autowired
 	private MessageDelegate messageDelegate;
 
-	/**
-	 * When the page is loaded, this method is run.
-	 * Create the kikakuya.model object (Vendor) and put it into the kikakuya.model map with the key "vendor".
-	 * @param kikakuya.model
-	 * @return
-	 */
-	@RequestMapping(method = RequestMethod.GET)
-	public String viewSendMessage(Model model){
-		model.addAttribute("Email", new Email());
-		Email email = new Email();
-		Guest guest = new Guest();
-		User user = new User();
-		String msg;
-		messageDelegate.sendMessage(guest, email, user);
-		return ""; //fill this up once jsp is done
+	@RequestMapping(value="/broadcast", method = RequestMethod.POST)
+	public String processSendBroadcast(HttpServletRequest request, HttpServletResponse response, 
+			@ModelAttribute("email") Email email, Model model){
+		
+		String redirectTo = "sendMessage";
+		
+		messageDelegate.sendBroadcast(email);
+		request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
+		
+		return redirectTo;
 	}
 }
