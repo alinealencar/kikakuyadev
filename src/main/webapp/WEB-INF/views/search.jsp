@@ -1,12 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Search</title>
-</head>
-<body>
+<!-- Change feature variable -->
+<%! String feature = "Search" ;%>
+
+<% session.setAttribute("feature", feature); %>
+<% session.setAttribute("title", "KIKAKUYA - " + feature); %>
+<jsp:include page="/WEB-INF/includes/head.jsp" />
+<jsp:include page="/WEB-INF/includes/header.jsp"/>
+<div class="container">
+	<!-- body contents start -->
 	<form action="search" method="post" >
 		<div>
 			<input name="category" placeholder="Category">
@@ -18,5 +18,6 @@
 		</div>
 		<input type = "submit" value = "Search" />
 	</form>
-</body>
-</html>
+<!-- body contents end -->
+</div>
+<jsp:include page="/WEB-INF/includes/footer.jsp"/>
