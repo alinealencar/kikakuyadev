@@ -1,5 +1,5 @@
 <!-- Change feature variable -->
-<%! String feature = "Budget Management" ;%>
+<%! String feature = "Lists" ;%>
 
 <% session.setAttribute("feature", feature); %>
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>

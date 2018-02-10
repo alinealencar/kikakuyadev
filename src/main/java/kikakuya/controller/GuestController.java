@@ -18,6 +18,12 @@ public class GuestController {
 	@Autowired
 	private GuestDelegate guestDelegate;
 	
+	@RequestMapping(value = "/guests", method = RequestMethod.GET)
+	public String viewGuest1(Model model){
+		model.addAttribute("guest", new Guest());
+		return "guests";
+	}
+	
 	//Add guest
 	@RequestMapping(value = "/addGuest", method = RequestMethod.GET)
 	public String viewGuest(Model model){
