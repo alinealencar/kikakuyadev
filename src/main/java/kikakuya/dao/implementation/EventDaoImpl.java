@@ -46,13 +46,14 @@ public class EventDaoImpl implements EventDao {
 	}
 	
 	
-	public boolean insertEvent(Event event) throws SQLException {
+	public boolean insertEvent(Event event, User user) throws SQLException {
 		//Event event = new Event();
-		String query = "Insert into event (eventName, eventDate, location) values (?,?,?)";
+		String query = "Insert into event (eventName, eventDate, location, userUserId) values (?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, event.getEventName());
 		pstmt.setString(2,event.getEventDate());
 		pstmt.setString(3,event.getLocation());
+		//pstmt.set(3,user.get()); // userId 
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -92,5 +93,4 @@ public class EventDaoImpl implements EventDao {
 		}
 		return event;
 	}
-	
 }

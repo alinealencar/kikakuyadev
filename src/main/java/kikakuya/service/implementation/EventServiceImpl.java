@@ -33,8 +33,8 @@ public class EventServiceImpl implements EventService{
 		return eventDao.listAllEvents();
 	}
 
-	public boolean insertEvent(Event event) throws SQLException{
-		return eventDao.insertEvent(event);
+	public boolean insertEvent(Event event, User user) throws SQLException{
+		return eventDao.insertEvent(event, user);
 		
 	}
 

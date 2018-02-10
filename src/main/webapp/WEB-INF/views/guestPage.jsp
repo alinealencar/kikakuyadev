@@ -10,7 +10,7 @@
 <form:form action="" method="post" modelAttribute="">
 	<span>First Name: </span>
 	<form:input path="firstName"/>
-	
+
 	<br>
 	
 	<span>Last Name: </span>
@@ -22,23 +22,39 @@
 	
 	<br>
 	
-	<!--<span>Companion </span>
+	<span>Companion: </span> <br/>
+		<div>Adult:</div>
+        	<select>
+  				<option value="1">1</option>
+  				<option value="2">2</option>
+            	<option value="3">3</option>
+			</select>
+        <div>Kid:</div>
+        	<select>
+  				<option value="1">1</option>
+  				<option value="2">2</option>
+            	<option value="3">3</option>
+			</select>
 	<form:password path=""/>
 	
 	<br>
 	<span>Status: </span>
-	<form:input path=""/>
+		<select>
+  			<option value="1">Present</option>
+  			<option value="2">Not present</option>
+		</select>
+	<form:input path="isPresent"/>
 	
 	<br>
 	
 	<span>Belong to: </span>
-	<form:password path=""/>
+	<form:password path="company"/>
 	
 	<br>
 	<span>Note: </span>
-	<form:input path=""/>-->
-	
-	<input type="submit" value="">
+	<form:input path="specialRequests"/>
+	<br/>
+	<span><input type="submit" value="Done"></span>
 </form:form>
 </body>
 </html>
