@@ -72,9 +72,9 @@ public class GuestController {
 	
 	//Remove guest
 	@RequestMapping(value = "/removeGuest", method = RequestMethod.POST)
-	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
+	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute("guest") int guestId, Model model){
 		try {
-			boolean deleteSuccessful = guestDelegate.removeGuest(guest);
+			boolean deleteSuccessful = guestDelegate.removeGuest(guestId);
 			if(deleteSuccessful){
 				System.out.println("Remove guest successful");
 				request.setAttribute("removeGuestSuccess", "remove sucessful");

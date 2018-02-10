@@ -1,6 +1,9 @@
 package kikakuya.dao.implementation;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -20,13 +23,42 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests() throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		String query = "SELECT * FROM guest";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		ResultSet rs = pstmt.executeQuery(query);
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setSpecialRequests(rs.getString(11));
+			
+			guests.add(guest);
+		}
+		return guests;
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsWith, adultsWith, specialRequests) VALUES (?,?,?,?,?,?,?,?)";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		
+		pstmt.setString(1, guest.getFirstName());
+		pstmt.setString(2, guest.getLastName());
+		pstmt.setString(3, guest.getEmail());
+		pstmt.setInt(4, guest.getIsPresent());
+		pstmt.setString(5, guest.getCompany());
+		pstmt.setInt(6, guest.getKidsWith());
+		pstmt.setInt(7, guest.getAdultsWith());
+		pstmt.setString(8, guest.getSpecialRequests());
+		
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return rowsAffected > 0;
 	}
 
 	public boolean updateGuest(Guest guest) throws SQLException {
@@ -34,9 +66,11 @@ public class GuestDaoImpl implements GuestDao {
 		return false;
 	}
 
-	public boolean deleteGuest(Guest guest) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteGuest(int guestId) throws SQLException {
+		String query = "DELETE FROM guest WHERE guestId="+guestId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
 	}
 
 }

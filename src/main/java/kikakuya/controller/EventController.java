@@ -32,7 +32,6 @@ public class EventController {
 	public String viewAddEvent(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("event", new Event());
 		List <Event> list = eventDelegate.listAllEvents();
-		//model.addAttribute("listEvent", list);
 		request.setAttribute("listEvent", list);
 		return "event_add";
 	}
@@ -40,10 +39,7 @@ public class EventController {
 	@RequestMapping(value="/list", method=RequestMethod.POST)
 	public String list(Model model, HttpServletRequest request) throws SQLException{
 		
-		//Model model = new Model("event_add");
-		
 		List <Event> list = eventDelegate.listAllEvents();
-		//model.addAttribute("listEvent", list);
 		request.setAttribute("listEvent", list);
 		return "event_add";
 	}
@@ -81,11 +77,6 @@ public class EventController {
 	@RequestMapping(value="/update/{eventId}", method=RequestMethod.GET)
 	public String update(@PathVariable("eventId") @ModelAttribute("event") Event event)throws SQLException{
 		
-//		ModelAndView model = new ModelAndView("views/event_add");
-//		
-//		Event event = eventDelegate.findEventById(eventId);
-//		model.addObject("eventAdd", event);
-		
 		try {
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
@@ -107,17 +98,10 @@ public class EventController {
 	
 	@RequestMapping(value="/delete/{eventId}", method=RequestMethod.GET)
 	public String delete(@PathVariable("eventId")int eventId) throws SQLException{
-		
-		//eventDelegate.deleteEvente(eventId);
-		
-		//return new ModelAndView("redirect:/list");
 		try {
 			boolean isDeleteEvent = eventDelegate.deleteEvent(eventId);
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
-			
-				
-				//redirectTo = "event_add";
 			}
 			else {
 					System.out.println("Delete unsuccessful");

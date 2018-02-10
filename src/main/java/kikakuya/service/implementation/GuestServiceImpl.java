@@ -22,8 +22,8 @@ public class GuestServiceImpl implements GuestService {
 		return guestDao.insertGuest(guest);
 	}
 
-	public boolean deleteGuest(Guest guest) throws SQLException {
-		return guestDao.deleteGuest(guest);
+	public boolean deleteGuest(int guestId) throws SQLException {
+		return guestDao.deleteGuest(guestId);
 	}
 
 	public boolean editGuest(Guest guest) throws SQLException {

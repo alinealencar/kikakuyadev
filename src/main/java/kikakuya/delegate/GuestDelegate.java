@@ -24,8 +24,8 @@ public class GuestDelegate {
 		return guestService.editGuest(guest);
 	}
 	
-	public boolean removeGuest(Guest guest) throws SQLException {
-		return guestService.deleteGuest(guest);
+	public boolean removeGuest(int guestId) throws SQLException {
+		return guestService.deleteGuest(guestId);
 	}
 	
 }

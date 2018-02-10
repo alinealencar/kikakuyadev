@@ -23,7 +23,7 @@
 		<td><form:input path="location"/>
 	</tr>
 
-	<!-- Date // just added -->	
+	<!-- Date // just added // come back here -->	
 	<tr>
 		<td>Date:</td>
 		<td><form:input type="date" path="eventDate"/>
