@@ -25,7 +25,7 @@
 
 
 	<div  id="rsvpForm" style="display:none;">
-		<form action="" method="post">
+		<form action="sendRSVP" method="post">
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">

@@ -1,6 +1,7 @@
 package kikakuya.model;
 
 public class Guest {
+	private int guestId;
 	private String firstName;
 	private String lastName;
 	private String email;
@@ -16,7 +17,12 @@ public class Guest {
 	public Guest() {
 	
 	}
-	
+	public int getGuestId() {
+		return guestId;
+	}
+	public void setGuestId(int guestId) {
+		this.guestId = guestId;
+	}
 	public String getFirstName() {
 		return firstName;
 	}

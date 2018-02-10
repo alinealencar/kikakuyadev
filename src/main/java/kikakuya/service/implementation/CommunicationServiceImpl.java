@@ -1,6 +1,8 @@
 package kikakuya.service.implementation;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import javax.mail.Authenticator;
@@ -13,12 +15,25 @@ import javax.mail.internet.MimeMessage;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.MimeMessageHelper;
 
+import kikakuya.dao.GuestDao;
+import kikakuya.dao.UserDao;
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
 import kikakuya.model.User;
+import kikakuya.model.Vendor;
 import kikakuya.service.CommunicationService;
 
 public class CommunicationServiceImpl implements CommunicationService{
+
+	private GuestDao guestDao;
+	
+	public GuestDao getGuestDao() {
+		return guestDao;
+	}
+
+	public void setGuestDao(GuestDao guestDao) {
+		this.guestDao = guestDao;
+	}
 
 	public Properties setProperties(){
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
@@ -41,12 +56,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		String subject = "Kikakuya - RSVP to <user>'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
-		String message = "<img src=\"cid:logo.png\" width=\"250px\" height=\"180px\"></img><br/>";
-		message += "<h3>You are invited to Kie's Wedding!</h3>";
-		message += "<h4>Location: <br> Date: </h4>";
-		message += "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>";
-		message += "<form action = \"http://localhost:8080/dev/rsvpResponse\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
-		message += "<p>Sincerely,<br>Kie</p>";
+		String message = "";
+		List<Guest> guestList = new ArrayList<Guest>();
 		
 		//email account information
 		final String username = "kikakuyadev@gmail.com";
@@ -62,17 +73,30 @@ public class CommunicationServiceImpl implements CommunicationService{
 		     MimeMessage msg = new MimeMessage(session);
 		     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		     
-		     //set email content and information into the MimeMessageHelper
-		     helper.setText(message, true); //true indicates that the text included is HTML
-		     helper.addInline("logo.png",new ClassPathResource("yelp_logo.png"));
-		     helper.setSubject(subject);
-		     helper.setBcc(to);
-		     helper.setFrom(from);
+		     //get all guests
+		     guestList = guestDao.findGuests();
 		     
-		     //send the email
-		     Transport.send(msg);
-
-		} catch (MessagingException e) {
+		     //iterate through all the guests
+		     for(int i=0; i<guestList.size(); i++){
+		    	 //body of the email
+		   		message = "<img src=\"cid:logo.png\" width=\"250px\" height=\"180px\"></img><br/>";
+		   		message += "<h3>You are invited to Kie's Wedding!</h3>";
+		   		message += "<h4>Location: <br> Date: </h4>";
+		   		message += "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>";
+		   		message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
+		   		message += "<p>Sincerely,<br>Kie</p>";
+		   		
+		   		//set email content and information into the MimeMessageHelper
+		   		helper.setText(message, true); //true indicates that the text included is HTML
+		   		helper.addInline("logo.png",new ClassPathResource("yelp_logo.png"));
+		   		helper.setSubject(subject);
+		   		helper.setTo(guestList.get(i).getEmail());
+		   		helper.setFrom(from);
+		     
+		   		//send the email
+		   		Transport.send(msg);
+		     }
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

@@ -16,6 +16,11 @@
 	</bean>
 	
 	<bean id="communicationService" class="kikakuya.service.implementation.CommunicationServiceImpl">
+	<property name="guestDao" ref="guestDao"></property>
+	</bean>
+
+	<bean name="guestDao" class="kikakuya.dao.implementation.GuestDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
 </beans>
