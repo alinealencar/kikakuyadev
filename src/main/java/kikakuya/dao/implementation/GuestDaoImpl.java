@@ -29,6 +29,7 @@ public class GuestDaoImpl implements GuestDao {
 		ResultSet rs = pstmt.executeQuery(query);
 		while(rs.next()){
 			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
 			guest.setFirstName(rs.getString(2));
 			guest.setLastName(rs.getString(3));
 			guest.setEmail(rs.getString(4));
