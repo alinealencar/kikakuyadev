@@ -16,6 +16,10 @@
 <!-- link css -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <link rel="stylesheet" type="text/css" href="resources/css/medium.css" media="only screen and (min-width: 0px) and (max-width: 767px)">
+<!-- link js -->
+<script src="resources/js/validateForm.js"></script>
+<!-- Font Awesome (icons) -->
+<link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
 
 <!-- import jQuery -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
