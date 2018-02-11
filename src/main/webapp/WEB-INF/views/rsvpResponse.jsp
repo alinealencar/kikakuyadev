@@ -10,7 +10,7 @@
 <div class="container"><!-- body contents start -->
 	<h4 class="text-center">The favor of reply is required by <b>February 8th, 2018${deadline}</b></h4>
 	<h1 class="text-center">Maria Alyssa Villacete${guestName}</h1>
-	<form action="" method="post">
+	<form action="{responseURL}" method="post">
 	  
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">

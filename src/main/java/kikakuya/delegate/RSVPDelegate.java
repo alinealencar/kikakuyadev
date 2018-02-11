@@ -1,5 +1,8 @@
 package kikakuya.delegate;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
 import kikakuya.model.User;
@@ -21,7 +24,18 @@ public class RSVPDelegate {
 		communicationService.sendRSVP(guest, email, user);
 	}*/
 	
-	public void sendRSVP(Email email){
-		communicationService.sendRSVP(email);
+	public void sendRSVP(Email email, List<Guest> guestList){
+		communicationService.sendRSVP(email, guestList);
 	}
+
+	public List<Guest> findGuests() throws SQLException {
+		return communicationService.findGuests();
+	}
+
+	public boolean insertEmail(Email email) throws SQLException {
+		return communicationService.insertEmail(email);
+	}
+	
+	
+	
 }

@@ -1,32 +1,78 @@
 package kikakuya.model;
 
 public class Email {
-	String type, replyDue, title, message;
+	String replyDue, title, message, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids;
 	int adultsMax, kidsMax;
-	String[] mealChoice, recipients;
+	String[] recipients;
 	
 	public Email() {
-		super();
+	
 	}
 
-	public Email(String type, String replyDue, String title, String message, int adultsMax, int kidsMax,
-			String[] mealChoice, String[] recipients) {
-		this.type = type;
+	public Email(String replyDue, String title, String message, String mealChoiceBeef, String mealChoicePork,
+			String mealChoiceChicken, String mealChoiceVeg, String mealChoiceFish, String mealChoiceKids, int adultsMax,
+			int kidsMax, String[] recipients) {
+		super();
 		this.replyDue = replyDue;
 		this.title = title;
 		this.message = message;
+		this.mealChoiceBeef = mealChoiceBeef;
+		this.mealChoicePork = mealChoicePork;
+		this.mealChoiceChicken = mealChoiceChicken;
+		this.mealChoiceVeg = mealChoiceVeg;
+		this.mealChoiceFish = mealChoiceFish;
+		this.mealChoiceKids = mealChoiceKids;
 		this.adultsMax = adultsMax;
 		this.kidsMax = kidsMax;
-		this.mealChoice = mealChoice;
 		this.recipients = recipients;
 	}
 
-	public String getType() {
-		return type;
+	public String getMealChoiceBeef() {
+		return mealChoiceBeef;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setMealChoiceBeef(String mealChoiceBeef) {
+		this.mealChoiceBeef = mealChoiceBeef;
+	}
+
+	public String getMealChoicePork() {
+		return mealChoicePork;
+	}
+
+	public void setMealChoicePork(String mealChoicePork) {
+		this.mealChoicePork = mealChoicePork;
+	}
+
+	public String getMealChoiceChicken() {
+		return mealChoiceChicken;
+	}
+
+	public void setMealChoiceChicken(String mealChoiceChicken) {
+		this.mealChoiceChicken = mealChoiceChicken;
+	}
+
+	public String getMealChoiceVeg() {
+		return mealChoiceVeg;
+	}
+
+	public void setMealChoiceVeg(String mealChoiceVeg) {
+		this.mealChoiceVeg = mealChoiceVeg;
+	}
+
+	public String getMealChoiceFish() {
+		return mealChoiceFish;
+	}
+
+	public void setMealChoiceFish(String mealChoiceFish) {
+		this.mealChoiceFish = mealChoiceFish;
+	}
+
+	public String getMealChoiceKids() {
+		return mealChoiceKids;
+	}
+
+	public void setMealChoiceKids(String mealChoiceKids) {
+		this.mealChoiceKids = mealChoiceKids;
 	}
 
 	public String getReplyDue() {
@@ -67,14 +113,6 @@ public class Email {
 
 	public void setKidsMax(int kidsMax) {
 		this.kidsMax = kidsMax;
-	}
-
-	public String[] getMealChoice() {
-		return mealChoice;
-	}
-
-	public void setMealChoice(String[] mealChoice) {
-		this.mealChoice = mealChoice;
 	}
 
 	public String[] getRecipients() {

@@ -1,5 +1,8 @@
 package kikakuya.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
@@ -18,7 +22,7 @@ import kikakuya.model.User;
 import kikakuya.model.Vendor;
 
 @Controller
-@RequestMapping(value="/sendMessage")
+//@RequestMapping(value="/sendMessage")
 public class RSVPController {
 	
 	@Autowired
@@ -30,7 +34,7 @@ public class RSVPController {
 	* @param kikakuya.model
 	* @return
 	*/
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(value="/sendMessage", method = RequestMethod.GET)
 	public String viewSendMessage(Model model){
 		model.addAttribute("email", new Email());
 		return "sendMessage";
@@ -53,15 +57,26 @@ public class RSVPController {
 		
 		String redirectTo = "sendMessage";
 		
-		rsvpDelegate.sendRSVP(email);
-		request.setAttribute("sendRSVPSuccess", "Success! RSVPs been successfully sent to all guests.");
+		List<Guest> guestList;
+		try {
+			guestList = rsvpDelegate.findGuests();
+			rsvpDelegate.insertEmail(email);
+			rsvpDelegate.sendRSVP(email, guestList);
+			request.setAttribute("sendRSVPSuccess", "Success! RSVPs been successfully sent to all guests.");
+			redirectTo = "sendMessage";
 		
-		return redirectTo;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("sendRSVPError", "Error! Message sending failed.");
+		}
+		
+		return redirectTo;	
 	}
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
-	public String viewResponseForm(Model model){
+	public String viewResponseForm(@RequestParam("guestId") int guestId, Model model){
 		model.addAttribute("guest", new Guest());
+		System.out.println(guestId);
 		return "rsvpResponse";
 	}
 }
