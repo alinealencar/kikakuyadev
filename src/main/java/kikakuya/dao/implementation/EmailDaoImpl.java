@@ -22,8 +22,8 @@ public class EmailDaoImpl implements EmailDao{
 		this.dataSource = dataSource;
 	}
 
-	public Email findEmailById(int emailId) throws SQLException {
-		String query = "SELECT * FROM email WHERE emailId="+emailId;
+	public Email findEmailById() throws SQLException {
+		String query = "SELECT * FROM email WHERE emailId=(SELECT max(emailId) FROM email);";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Email email = new Email();

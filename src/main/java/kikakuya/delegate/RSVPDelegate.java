@@ -40,7 +40,7 @@ public class RSVPDelegate {
 		return communicationService.findGuestById(guestId);
 	}
 
-	public Email findEmailById(int emailId) throws SQLException {
-		return communicationService.findEmailById(emailId);
+	public Email findEmailById() throws SQLException {
+		return communicationService.findEmailById();
 	}	
 }

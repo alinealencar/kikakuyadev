@@ -13,6 +13,6 @@ public interface CommunicationService {
 	public List<Guest> findGuests() throws SQLException;
 	public boolean insertEmail(Email email) throws SQLException;
 	public Guest findGuestById(int guestId) throws SQLException;
-	public Email findEmailById(int emailId) throws SQLException;
+	public Email findEmailById() throws SQLException;
 	//public boolean updateEmailIdGuest(Guest guest) throws SQLException;
 }

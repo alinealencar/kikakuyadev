@@ -59,7 +59,7 @@ public class RSVPController {
 				}
 			}
 		
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("sendRSVPError", "Error! Message sending failed.");
 		}
@@ -72,7 +72,8 @@ public class RSVPController {
 		//model.addAttribute("guest", new Guest());
 		try {
 			Guest guest = rsvpDelegate.findGuestById(guestId);
-			Email email = rsvpDelegate.findEmailById(1);
+			Email email = rsvpDelegate.findEmailById();
+			//Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);
 			request.setAttribute("email", email);
 		} catch (SQLException e) {

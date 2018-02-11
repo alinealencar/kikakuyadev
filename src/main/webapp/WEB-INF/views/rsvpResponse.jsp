@@ -53,7 +53,7 @@
 			<div class="row">
 				<div class="col-sm-6">
     				<label for="guestName" class="sr-only">Guest Name</label>
-    				<input type="text" id="guestName" class="form-control" placeholder="${guest.lastName} ${guest.firstName}">
+    				<input type="text" id="guestName" class="form-control" placeholder="${guest.firstName} ${guest.lastName}">
     			</div>
     			<div class="col-sm-6">
     				<select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" required>

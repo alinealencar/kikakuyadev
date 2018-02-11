@@ -55,8 +55,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return emailDao.insertEmail(email);
 	}
 	
-	public Email findEmailById(int emailId) throws SQLException {
-		return emailDao.findEmailById(emailId);
+	public Email findEmailById() throws SQLException {
+		return emailDao.findEmailById();
 	}
 	
 	/*public boolean updateEmailIdGuest(Guest guest) throws SQLException {
