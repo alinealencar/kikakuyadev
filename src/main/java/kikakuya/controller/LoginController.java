@@ -71,11 +71,11 @@ public class LoginController {
 		try {
 			boolean isValidUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
 			if(isValidUser){
-				System.out.println("Login successful. Is Remember Me: " + user.getIsRememberMe());
+				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
 				
-				if(user.getIsRememberMe() == 1){
+				if(request.getParameter("isRememberMe") != null){
 					String token = HelperUtilities.newUUID();
 					String series = HelperUtilities.newUUID();
 					//Unique identifier

@@ -54,8 +54,9 @@ public class SignUpController {
 				System.out.println("SignUp successful");
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
+				request.setAttribute("signupSuccess", "Sign Up Successful. Please log in to start using Kikakuya.");
 				//Set the url the page will be redirected to
-				redirectTo = "event_add";
+				redirectTo = "index";
 			}
 			else {
 				System.out.println("SignUp unsuccessful");

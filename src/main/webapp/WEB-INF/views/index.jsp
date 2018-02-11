@@ -19,7 +19,7 @@
 	<form:password path="userPassword"/>
 	
 	<br>
-	<form:checkbox path="isRememberMe" value="1"/> Remember Me
+	<input type="checkbox" name="isRememberMe" value="1"/> Remember Me
 	<br>
 	<input type="submit" value="Login">
 </form:form>

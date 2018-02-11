@@ -22,7 +22,7 @@
 	
 	<br>
 	
-	<span>Companion: </span> <br/>
+	<span>Plus ones: </span> <br/>
 		<span>Adult:</span>
         	<form:select path="adultsMax">
   				<option value="1">1</option>
@@ -44,13 +44,14 @@
 		</form:select>
 	<br>
 	
-	<span>Belong to: </span>
+	<span>Group: </span>
 	<form:input path="company"/>
 	
 	<br>
 	<span>Note: </span>
 	<form:input path="specialRequests"/>
 	<br/>
+	<!-- TO IMPLEMENT: Show addGuest first and hide editGuest. When the user clicks on "edit", hide addGuest and show editGuest -->
 	<span><input id="addGuest" type="button" value="Done" onclick="submitForm('addGuest')"></span>
 	<span><input id="editGuest" type="button" value="Save" onclick="submitForm('editGuest')"></span>
 </form:form>
