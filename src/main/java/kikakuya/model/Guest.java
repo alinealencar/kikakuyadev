@@ -9,7 +9,7 @@ public class Guest {
 	private String company;
 	private int kidsWith;
 	private int adultsWith;
-	private int kidMax;
+	private int kidsMax;
 	private int adultsMax;
 	private String specialRequests;
 	private String mealChoice;
@@ -65,11 +65,11 @@ public class Guest {
 	public void setAdultsWith(int adultsWith) {
 		this.adultsWith = adultsWith;
 	}
-	public int getKidMax() {
-		return kidMax;
+	public int getKidsMax() {
+		return kidsMax;
 	}
-	public void setKidMax(int kidMax) {
-		this.kidMax = kidMax;
+	public void setKidsMax(int kidsMax) {
+		this.kidsMax = kidsMax;
 	}
 	public int getAdultsMax() {
 		return adultsMax;
