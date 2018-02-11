@@ -54,6 +54,14 @@ public class CommunicationServiceImpl implements CommunicationService{
 	public boolean insertEmail(Email email) throws SQLException {
 		return emailDao.insertEmail(email);
 	}
+	
+	public Email findEmailById(int emailId) throws SQLException {
+		return emailDao.findEmailById(emailId);
+	}
+	
+	/*public boolean updateEmailIdGuest(Guest guest) throws SQLException {
+		return guestDao.updateEmailIdGuest(guest);
+	}*/
 
 	public Properties setProperties(){
 		final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";

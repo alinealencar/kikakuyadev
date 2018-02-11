@@ -49,10 +49,15 @@ public class RSVPController {
 		List<Guest> guestList;
 		try {
 			guestList = rsvpDelegate.findGuests();
-			rsvpDelegate.insertEmail(email);
-			rsvpDelegate.sendRSVP(email, guestList);
-			request.setAttribute("sendRSVPSuccess", "Success! RSVPs been successfully sent to all guests.");
-			redirectTo = "sendMessage";
+			if(guestList.size() > 0){
+				if(rsvpDelegate.insertEmail(email)){
+					//for(int i=0; i<guestList.size(); i++)
+						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
+					rsvpDelegate.sendRSVP(email, guestList);
+					request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
+					redirectTo = "sendMessage";
+				}
+			}
 		
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -67,7 +72,9 @@ public class RSVPController {
 		//model.addAttribute("guest", new Guest());
 		try {
 			Guest guest = rsvpDelegate.findGuestById(guestId);
+			Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);
+			request.setAttribute("email", email);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
