@@ -73,5 +73,24 @@ public class GuestDaoImpl implements GuestDao {
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
 	}
+	
+	public Guest findGuestById(int guestId) throws SQLException {
+		String query = "SELECT * FROM guest WHERE guestId="+guestId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		Guest guest = new Guest();
+		while(rs.next()){
+			guest.setGuestId(rs.getInt(1));
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setSpecialRequests(rs.getString(11));
+		}
+		return guest;
+	}
 
 }

@@ -40,17 +40,6 @@ public class RSVPController {
 		return "sendMessage";
 	}
 	
-	/*@RequestMapping(method = RequestMethod.GET)
-	public String viewSendMessage(Model model){
-		model.addAttribute("Email", new Email());
-		Email email = new Email();
-		Guest guest = new Guest();
-		User user = new User();
-		String msg;
-		rsvpDelegate.sendRSVP(guest, email, user);
-		return ""; //fill this up once jsp is done
-	}*/
-	
 	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
 	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("email") Email email, Model model){
@@ -74,9 +63,14 @@ public class RSVPController {
 	}
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
-	public String viewResponseForm(@RequestParam("guestId") int guestId, Model model){
-		model.addAttribute("guest", new Guest());
-		System.out.println(guestId);
+	public String viewResponseForm(@RequestParam("guestId") int guestId, Model model, HttpServletRequest request){
+		//model.addAttribute("guest", new Guest());
+		try {
+			Guest guest = rsvpDelegate.findGuestById(guestId);
+			request.setAttribute("guest", guest);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "rsvpResponse";
 	}
 }

@@ -14,4 +14,5 @@ public interface CommunicationService {
 	public void sendRSVP(Email email, List<Guest> guestList);
 	public List<Guest> findGuests() throws SQLException;
 	public boolean insertEmail(Email email) throws SQLException;
+	public Guest findGuestById(int guestId) throws SQLException;
 }

@@ -35,6 +35,12 @@ public class RSVPDelegate {
 	public boolean insertEmail(Email email) throws SQLException {
 		return communicationService.insertEmail(email);
 	}
+
+	public Guest findGuestById(int guestId) throws SQLException {
+		return communicationService.findGuestById(guestId);
+	}
+	
+	
 	
 	
 	

@@ -10,4 +10,5 @@ public interface GuestDao {
 	public boolean insertGuest(Guest guest) throws SQLException;
 	public boolean updateGuest(Guest guest) throws SQLException;
 	public boolean deleteGuest(int guestId) throws SQLException;
+	public Guest findGuestById(int guestId) throws SQLException;
 }
