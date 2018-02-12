@@ -23,11 +23,13 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 
-	public boolean isValidUser(String email, String password) throws SQLException {
+	public User isValidUser(String email, String password) throws SQLException {
 		User user = userDao.findByEmail(email);
 		password = HelperUtilities.toMd5(password);
-		
-		return (user.getUserPassword().equals(password));
+		if (user.getUserPassword().equals(password))
+			return user;
+		else
+			return null;
 
 	}
 

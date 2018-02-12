@@ -24,7 +24,7 @@ public class LoginDelegate {
 		this.userService = userService;
 	}
 	
-	public boolean isValidUser(String email, String password) 
+	public User isValidUser(String email, String password) 
 			throws SQLException {
 		return userService.isValidUser(email, password);
 	}
