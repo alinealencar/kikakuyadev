@@ -42,7 +42,7 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
 	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
-			@ModelAttribute("email") Email email, Model model){
+			@ModelAttribute("email") Email email, @ModelAttribute("user") User user, Model model){
 		
 		String redirectTo = "sendMessage";
 		
@@ -53,7 +53,7 @@ public class RSVPController {
 				if(rsvpDelegate.insertEmail(email)){
 					//for(int i=0; i<guestList.size(); i++)
 						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
-					rsvpDelegate.sendRSVP(email, guestList);
+					rsvpDelegate.sendRSVP(email, userId, guestList);
 					request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
 					redirectTo = "sendMessage";
 				}

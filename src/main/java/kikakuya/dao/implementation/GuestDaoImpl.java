@@ -37,6 +37,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setCompany(rs.getString(6));
 			guest.setKidsWith(rs.getInt(7));
 			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
 			guest.setSpecialRequests(rs.getString(11));
 			
 			guests.add(guest);
@@ -88,6 +90,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setCompany(rs.getString(6));
 			guest.setKidsWith(rs.getInt(7));
 			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
 			guest.setSpecialRequests(rs.getString(11));
 		}
 		return guest;
