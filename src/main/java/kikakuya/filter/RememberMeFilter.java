@@ -34,8 +34,6 @@ public class RememberMeFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) resp;
 		
-		System.out.println("Remember Me filter applied");
-		
 		try{
 			// Check if user has the RememberMe cookies (uuid and user) or if the user is currently logged in
 			if(AuthenticationUtilities.isRememberMe(request, dataSource) || AuthenticationUtilities.isLoggedIn(request.getSession())){
