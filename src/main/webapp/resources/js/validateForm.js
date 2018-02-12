@@ -6,16 +6,26 @@
 
 /** Validate Sign Up form and submit it */
 function validateSignUpForm(){
+	console.log("VALIDATE SIGN UP FORM")
+	console.log("name: " + validName);
+	console.log("email: " + validEmail);
+	console.log("password: " + validPassword);
+	console.log("c password:" + validConfirmPassword);
 	if(validName && validEmail && validPassword && validConfirmPassword){
-		document.getElementById("signUpForm").reset();
 		form.submit();
+		form.reset();
 	}
-		
+	else {
+		return false;
+	}
+	
+	return true;
 }
 	
 /** Validate name */
 function validateName(name) {
-	if(name === "") {
+	name = document.getElementsByClassName(name)[0].value;
+	if(name == "") {
 		document.getElementById("nameError").innerHTML = "<i class='fas fa-times'></i>  Please enter a name";
 		validName = false;
 	}
@@ -27,7 +37,8 @@ function validateName(name) {
 	
 /** Validate email */
 function validateEmail(email, id) {
-
+	email = document.getElementsByClassName(email)[0].value;
+	
 	var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
 
 	if (email === "") {
@@ -46,7 +57,7 @@ function validateEmail(email, id) {
 
 /** Validate password and confirm password */
 function validatePassword() {
-	var password = document.getElementById("signUpPassword").value;
+	var password = document.getElementsByClassName("signUpPassword")[0].value;
 	var passwordConfirm = document.getElementById("signUpConfirmPassword").value;
 
 	if (password === "") {

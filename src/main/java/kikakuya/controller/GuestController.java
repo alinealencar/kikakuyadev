@@ -18,19 +18,21 @@ public class GuestController {
 	@Autowired
 	private GuestDelegate guestDelegate;
 	
-	@RequestMapping(value = "/guests", method = RequestMethod.GET)
-	public String viewGuest1(Model model){
-		model.addAttribute("guest", new Guest());
+	//Show guest dashboard
+	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
+	public String viewGuestDashboard(Model model){
+		//model.addAttribute("guest", new Guest());
 		return "guests";
 	}
 	
-	//Add guest
-	@RequestMapping(value = "/addGuest", method = RequestMethod.GET)
+	//Show guest management
+	@RequestMapping(value = "/guestMgmt", method = RequestMethod.GET)
 	public String viewGuest(Model model){
 		model.addAttribute("guest", new Guest());
-		return "guests";
+		return "guestMgmt";
 	}
 
+	//Add guest
 	@RequestMapping(value = "/addGuest", method = RequestMethod.POST)
 	public String processAddGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {

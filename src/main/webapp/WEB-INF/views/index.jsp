@@ -17,18 +17,20 @@
 	</form:form>
 </div>
 <br>
+<span>${signUpSuccess}</span>
+<span>${signUpError}</span>
 <div id="SignUp">
-	<form:form action="signup" id="signUpForm" method="post" modelAttribute="user" onSubmit="return validateSignUpForm();">
+	<form:form action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
 		<span>Name: </span>
-		<form:input path="userName" class="name"/>
+		<form:input path="userName" class="signUpName" oninput="validateName('signUpName')"/>
 		<span id="nameError" class="formError"></span>
 		<br>
 		<span>Email: </span>
-		<form:input path="email" oninput="validateEmail(this.value, 'emailSignUpError')"/>
+		<form:input path="email" class="signUpEmail" oninput="validateEmail('signUpEmail', 'emailSignUpError')"/>
 		<span id="emailSignUpError" class="formError"></span>
 		<br>
 		<span>Password: </span>
-		<form:password path="userPassword" id="signUpPassword" oninput="validatePassword()"/>
+		<form:password path="userPassword" class="signUpPassword" oninput="validatePassword()"/>
 		<span id="passwordSignUpError" class="formError"></span>
 		<br>
 		<span>Confirm Password: </span>

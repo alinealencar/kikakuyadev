@@ -54,7 +54,7 @@ public class SignUpController {
 				System.out.println("SignUp successful");
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
-				request.setAttribute("signupSuccess", "Sign Up Successful. Please log in to start using Kikakuya.");
+				request.setAttribute("signUpSuccess", "Sign Up Successful. Please log in to start using Kikakuya.");
 				//Set the url the page will be redirected to
 				redirectTo = "index";
 			}
@@ -63,7 +63,12 @@ public class SignUpController {
 				request.setAttribute("signUpError", "Error in the sign up");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			if(e.getMessage().indexOf("for key 'email'") != -1){
+				request.setAttribute("signUpError", "This email is already registered. Please log in.");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		
 		//For testing purposes:
@@ -71,7 +76,10 @@ public class SignUpController {
 		System.out.println("name: " + user.getUserName());
 		System.out.println("email: " + user.getEmail());
 		System.out.println("password: " + user.getUserPassword());
+		
 		model.addAttribute("event", new Event());
+		System.out.println("");
 		return redirectTo;
+
 	}
 }
