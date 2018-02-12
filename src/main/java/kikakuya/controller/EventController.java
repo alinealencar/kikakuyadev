@@ -33,7 +33,7 @@ public class EventController {
 		model.addAttribute("event", new Event());
 		List <Event> list = eventDelegate.listAllEvents();
 		request.setAttribute("listEvent", list);
-		return "event_add";
+		return "event";
 	}
 	
 	@RequestMapping(value="/list", method=RequestMethod.POST)
@@ -41,14 +41,16 @@ public class EventController {
 		
 		List <Event> list = eventDelegate.listAllEvents();
 		request.setAttribute("listEvent", list);
-		return "event_add";
+		return "event";
 	}
 	
 	//working
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("event") Event event, @ModelAttribute("user") User user,
-			Model model, HttpServletRequest request){ // come back here!
+	public String add(@ModelAttribute("event") Event event, 
+					@ModelAttribute("user") User user, Model model, 
+					HttpServletRequest request){ // come back here!
 		
+		System.out.println("EVENT CONTROLLER. USER ID: " + user.getUserId());
 		try {
 			List <Event> list = eventDelegate.listAllEvents();
 			if(list.size() <3 ){
@@ -56,9 +58,9 @@ public class EventController {
 			if(isValidEvent){
 				System.out.println("Insert successful");
 				
-				model.addAttribute("eventName", event.getEventName());
-				//model.addAttribute("eventDate", event.getUserUserId());
-				model.addAttribute("location", event.getLocation());
+//				model.addAttribute("eventName", event.getEventName());
+//				//model.addAttribute("eventDate", event.getUserUserId());
+//				model.addAttribute("location", event.getLocation());
 			}
 			else {
 					System.out.println("Insert unsuccessful");
@@ -70,10 +72,10 @@ public class EventController {
 		catch(Exception e) {
 				e.printStackTrace();
 			}
-		return "event_add";
+		return "event";
 	}
 	
-	
+	//work on this one
 	@RequestMapping(value="/update/{eventId}", method=RequestMethod.GET)
 	public String update(@PathVariable("eventId") @ModelAttribute("event") Event event)throws SQLException{
 		
