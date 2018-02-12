@@ -65,3 +65,8 @@ footer {
 	background-color: #541388;
 	
 }
+
+/***** form validation *****/
+.formError {
+	color: red;
+}

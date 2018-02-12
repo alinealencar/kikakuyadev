@@ -7,7 +7,7 @@ CREATE TABLE Appointment (
   apptId       int(10) NOT NULL AUTO_INCREMENT, 
   apptDateTime date NOT NULL, 
   apptNotes    varchar(255), 
-  UseruserId   int(10) NOT NULL,
+  UseruserId   int(10),
   location    varchar(255),
   color varchar(6) NOT NULL,
   PRIMARY KEY (apptId));

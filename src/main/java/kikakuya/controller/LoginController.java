@@ -5,6 +5,7 @@ import java.net.URLEncoder;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,13 +68,15 @@ public class LoginController {
 			@ModelAttribute("user") User user, Model model){
 
 		String redirectTo = "/";
-
+		HttpSession session = request.getSession();
 		try {
 			boolean isValidUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
 			if(isValidUser){
 				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
 				//Send the user name to the request scope
-				request.setAttribute("userName", user.getUserName());
+				session.setAttribute("userName", user.getUserName());
+				session.setAttribute("userId", user.getUserId());
+				session.setAttribute("userEmail", user.getEmail());
 				
 				if(request.getParameter("isRememberMe") != null){
 					String token = HelperUtilities.newUUID();
@@ -92,7 +95,7 @@ public class LoginController {
 					loginDelegate.setRememberMe(user);
 				}
 				//Set the url the page will be redirected to
-				redirectTo = "event_add";
+				redirectTo = "event";
 			}
 			else {
 				System.out.println("Login unsuccessful");
