@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kikakuya.delegate.LoginDelegate;
 import kikakuya.model.Event;
@@ -23,6 +24,7 @@ import kikakuya.utilities.HelperUtilities;
 
 @Controller
 @RequestMapping(value="/login")
+@SessionAttributes("user")
 public class LoginController {
 	
 	//Autowired annotation tells the application context (the container) to inject
