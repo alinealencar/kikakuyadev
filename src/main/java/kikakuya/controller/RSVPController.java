@@ -42,9 +42,10 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
 	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
-			@ModelAttribute("email") Email email, @ModelAttribute("user") User user, Model model){
+			@ModelAttribute("email") Email email, Model model){
 		
 		String redirectTo = "sendMessage";
+		int userId = 0;
 		
 		List<Guest> guestList;
 		try {
