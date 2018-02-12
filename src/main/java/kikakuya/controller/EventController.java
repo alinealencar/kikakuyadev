@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import kikakuya.delegate.EventDelegate;
@@ -46,11 +47,11 @@ public class EventController {
 	
 	//working
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("event") Event event, 
-					@ModelAttribute("user") User user, Model model, 
+	public String add(@ModelAttribute("event") Event event, Model model, 
 					HttpServletRequest request){ // come back here!
 		
-		System.out.println("EVENT CONTROLLER. USER ID: " + user.getUserId());
+		System.out.println("EVENT CONTROLLER. USER ID: " + ((User) request.getSession().getAttribute("user")).getUserId());
+		User user = (User) request.getSession().getAttribute("user");
 		try {
 			List <Event> list = eventDelegate.listAllEvents();
 			if(list.size() <3 ){

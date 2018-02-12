@@ -40,17 +40,6 @@ public class LoginController {
 	 */
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewLogin(HttpServletRequest request, Model model){
-//		//If user is logged in, redirect then to the landing page
-//		try {
-//			Cookie[] rememberMeCookies = AuthenticationUtilities.isRememberMe(request);
-//		
-//			if(loginDelegate.isRememberMe(rememberMeCookies) || AuthenticationUtilities.isLoggedIn(request.getSession())){
-//				return "events";
-//			}
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		model.addAttribute("user", new User());
 		return "index";
 	}
@@ -71,13 +60,14 @@ public class LoginController {
 		String redirectTo = "/";
 		HttpSession session = request.getSession();
 		try {
-			boolean isValidUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
-			if(isValidUser){
+			User LoginUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
+			if(LoginUser != null){
 				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
+				session.setAttribute("user", LoginUser);
 				//Send the user name to the request scope
-				session.setAttribute("userName", user.getUserName());
-				session.setAttribute("userId", user.getUserId());
-				session.setAttribute("userEmail", user.getEmail());
+				session.setAttribute("userName", LoginUser.getUserName());
+				session.setAttribute("userId", LoginUser.getUserId());
+				session.setAttribute("userEmail", LoginUser.getEmail());
 				
 				if(request.getParameter("isRememberMe") != null){
 					String token = HelperUtilities.newUUID();
