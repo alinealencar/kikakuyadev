@@ -6,19 +6,19 @@
 			<ul>
 				
 				<li id="btnBudget"><form action="budget" method="get"><input class="img-fluid" type="image" src="resources/images/header/budget_circle_line.png" alt="Budget" width="55"></form></li>
-				<li id="btnBudgetFill" style="display:none;"><input class="img-fluid" type="image" src="resources/images/header/budget_circle_fill.png" alt="Budget" width="55"></li>
+				<li id="btnBudgetFill" style="display:none;"><form action="budget" method="get"><input class="img-fluid" type="image" src="resources/images/header/budget_circle_fill.png" alt="Budget" width="55"></form></li>
 				
 				<li id="btnCalendar"><form action="calendar" method="get"><input type="image" class="img-fluid" src="resources/images/header/calendar_circle_line.png" alt="Calendar" width="55" ></form></li>
-				<li id="btnCalendarFill" style="display:none;"><input id="btnCalendar"class="img-fluid" type="image" src="resources/images/header/calendar_circle_fill.png" alt="Calendar" width="55"></li>
+				<li id="btnCalendarFill" style="display:none;"><form action="calendar" method="get"><input id="btnCalendar"class="img-fluid" type="image" src="resources/images/header/calendar_circle_fill.png" alt="Calendar" width="55"></form></li>
 				
 				<li id="btnGuest"><form action="guestsDash" method="get"><input id="btnGuest"class="img-fluid" type="image" src="resources/images/header/guest_circle_line.png" alt="Guest" width="55"></form></li>
-				<li id="btnGuestFill" style="display:none;"><input id="btnGuest"class="img-fluid" type="image" src="resources/images/header/guest_circle_fill.png" alt="Guest" width="55"></li>
+				<li id="btnGuestFill" style="display:none;"><form action="guestsDash" method="get"><input id="btnGuest"class="img-fluid" type="image" src="resources/images/header/guest_circle_fill.png" alt="Guest" width="55"></form></li>
 				
 				<li id="btnList"><form action="lists" method="get"><input id="btnList"class="img-fluid" type="image" src="resources/images/header/list_circle_line.png" alt="List" width="55"></form></li>
-				<li id="btnListFill" style="display:none;"><input id="btnList"class="img-fluid" type="image" src="resources/images/header/list_circle_fill.png" alt="List" width="55"></li>
+				<li id="btnListFill" style="display:none;"><form action="lists" method="get"><input id="btnList"class="img-fluid" type="image" src="resources/images/header/list_circle_fill.png" alt="List" width="55"></form></li>
 				
 				<li id="btnSearch"><form action="search" method="get"><input id="btnSearch"class="img-fluid" type="image" src="resources/images/header/search_circle_line.png" alt="Search" width="55"></form></li>
-				<li id="btnSearchFill" style="display:none;"><input id="btnSearch"class="img-fluid" type="image" src="resources/images/header/search_circle_fill.png" alt="Search" width="55"></li>
+				<li id="btnSearchFill" style="display:none;"><form action="search" method="get"><input id="btnSearch"class="img-fluid" type="image" src="resources/images/header/search_circle_fill.png" alt="Search" width="55"></form></li>
 				
 			</ul>
 		</div>

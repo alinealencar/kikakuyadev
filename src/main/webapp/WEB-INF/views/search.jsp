@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <div class="container">
-	<!-- body contents start -->
+<!-- body contents start -->
 	<form action="search" method="post" >
 		<div>
 			<input name="category" placeholder="Category">

@@ -6,10 +6,13 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <div class="container">
-	<!-- body contents start -->
-		  <h1>NEW PAGE</h1>
-		  <p>This is some text.</p> 
-		  <img  src="resources/images/guests/message_circle_line.png" alt="message" class="img-fluid">
-  	<!-- body contents end -->
+<!-- body contents start -->
+	<div class="row">
+		<form action="sendMessage" method="get"><input class="img-fluid" type="image" src="resources/images/guests/message_circle_line.png" alt="Send Message"></form>
+		<form action="guestMgmt" method="get"><input class="img-fluid" type="image" src="resources/images/guests/guest_circle_line.png" alt="Guest List"></form>
+
+	</div>
+	
+<!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
