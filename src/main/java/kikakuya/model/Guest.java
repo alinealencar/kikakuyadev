@@ -1,5 +1,8 @@
 package kikakuya.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Guest {
 	private int guestId;
 	private String firstName;
@@ -13,6 +16,7 @@ public class Guest {
 	private int adultsMax;
 	private String specialRequests;
 	private String mealChoice;
+	private List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 	
 	public Guest() {
 	
@@ -89,4 +93,11 @@ public class Guest {
 	public void setMealChoice(String mealChoice) {
 		this.mealChoice = mealChoice;
 	}
+	public List<GuestPlusOne> getPlusOneList() {
+		return plusOneList;
+	}
+	public void setPlusOneList(List<GuestPlusOne> plusOneList) {
+		this.plusOneList = plusOneList;
+	}
+	
 }

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -42,7 +43,7 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
 	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
-			@ModelAttribute("email") Email email, Model model){
+			@ModelAttribute("email") Email email){
 		
 		String redirectTo = "sendMessage";
 		int userId = 0;
@@ -74,12 +75,35 @@ public class RSVPController {
 		try {
 			Guest guest = rsvpDelegate.findGuestById(guestId);
 			Email email = rsvpDelegate.findEmailById();
+			model.addAttribute("guest", guest);
 			//Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);
 			request.setAttribute("email", email);
+			request.setAttribute("guestId", guestId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return "rsvpResponse";
 	}
+	
+	@RequestMapping(value="/sendRsvpResponse", method = RequestMethod.POST)
+	public String processSendRSVPResponse(HttpServletRequest request, 
+			@ModelAttribute("guest") Guest guest, Model model){
+		String redirectTo = "rsvpResponse";
+		//guest.setGuestId(guestId);
+		try {
+			System.out.println(guest.getGuestId());
+			System.out.println(guest.getMealChoice());
+			if(rsvpDelegate.updateGuest(guest))
+				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
+			else
+				request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("respondRSVPError", "Error!");
+		}
+		
+		return redirectTo;
+	}
+	
 }

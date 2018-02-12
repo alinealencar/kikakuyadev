@@ -60,6 +60,10 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return emailDao.findEmailById();
 	}
 	
+	public boolean updateGuest(Guest guest) throws SQLException {
+		return guestDao.updateGuest(guest);
+	}
+	
 	/*public boolean updateEmailIdGuest(Guest guest) throws SQLException {
 		return guestDao.updateEmailIdGuest(guest);
 	}*/
@@ -173,6 +177,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 			e.printStackTrace();
 		}
 	}
+
+	
 }
 	
 	

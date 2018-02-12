@@ -2,7 +2,7 @@ package kikakuya.model;
 
 public class GuestPlusOne {
 
-	private String firstName, lastName, mealChoice;
+	private String firstName, lastName, fullName, mealChoice;
 	private int guestGuestId;
 	
 	public GuestPlusOne() {
@@ -39,6 +39,14 @@ public class GuestPlusOne {
 
 	public void setGuestGuestId(int guestGuestId) {
 		this.guestGuestId = guestGuestId;
+	}
+
+	public String getFullName() {
+		return fullName;
+	}
+
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 	 
 	

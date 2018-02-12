@@ -42,5 +42,11 @@ public class RSVPDelegate {
 
 	public Email findEmailById() throws SQLException {
 		return communicationService.findEmailById();
+	}
+
+	public boolean updateGuest(Guest guest) throws SQLException {
+		return communicationService.updateGuest(guest);
 	}	
+	
+	
 }

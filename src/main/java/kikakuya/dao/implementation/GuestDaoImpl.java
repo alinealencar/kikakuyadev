@@ -65,8 +65,32 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean updateGuest(Guest guest) throws SQLException {
-		// TODO Auto-generated method stub
-		return false;
+		/*String query = "UPDATE guest SET isPresent = ?, kidsWith = ?, adultsWith = ?, specialRequests = ?, mealChoice = ? WHERE guestId = ?";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		
+		pstmt.setInt(1, guest.getIsPresent());
+		pstmt.setInt(2, guest.getKidsWith());
+		pstmt.setInt(3, guest.getAdultsWith());
+		pstmt.setString(4, guest.getSpecialRequests());
+		pstmt.setString(5, guest.getMealChoice());
+		pstmt.setInt(6, guest.getGuestId());
+		
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return rowsAffected > 0;*/
+		
+		String query = "update guest set isPresent = '" + guest.getIsPresent() + 
+				"', kidsWith = '" + guest.getKidsWith() + 
+				"', adultsWith = '" + guest.getAdultsWith() + 
+				"', specialRequests = '" + guest.getSpecialRequests() + 
+				"', mealChoice = '" + guest.getMealChoice() + 
+				"' where guestId = '" + guest.getGuestId() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+		
+		
 	}
 
 	public boolean deleteGuest(int guestId) throws SQLException {
