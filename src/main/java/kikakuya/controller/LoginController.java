@@ -24,7 +24,6 @@ import kikakuya.utilities.HelperUtilities;
 
 @Controller
 @RequestMapping(value="/login")
-@SessionAttributes("user")
 public class LoginController {
 	
 	//Autowired annotation tells the application context (the container) to inject
