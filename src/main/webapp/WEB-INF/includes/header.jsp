@@ -13,7 +13,7 @@
 						<h6 class="dropdown-header">Name:</h6>
 					    <a class="dropdown-item disabled" href="#">${userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${email}</a>
+					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
 					    <a class="dropdown-item linked" href="#">Logout</a>
@@ -36,7 +36,7 @@
 						<h6 class="dropdown-header">Name:</h6>
 					    <a class="dropdown-item disabled" href="#">${userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${email}</a>
+					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
 					    <a class="dropdown-item linked" href="#">Logout</a>
@@ -52,7 +52,7 @@
 						<h6 class="dropdown-header">Name:</h6>
 					    <a class="dropdown-item disabled" href="#">${userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${email}</a>
+					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
 					    <a class="dropdown-item linked" href="#">Logout</a>
