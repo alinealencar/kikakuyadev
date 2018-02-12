@@ -91,5 +91,4 @@ public class GuestController {
 		
 		return "guests";
 	}
-	
 }

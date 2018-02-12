@@ -45,6 +45,7 @@ public class RSVPController {
 			@ModelAttribute("email") Email email, Model model){
 		
 		String redirectTo = "sendMessage";
+		int userId = 0;
 		
 		List<Guest> guestList;
 		try {
@@ -53,7 +54,7 @@ public class RSVPController {
 				if(rsvpDelegate.insertEmail(email)){
 					//for(int i=0; i<guestList.size(); i++)
 						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
-					rsvpDelegate.sendRSVP(email, guestList);
+					rsvpDelegate.sendRSVP(email, userId, guestList);
 					request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
 					redirectTo = "sendMessage";
 				}

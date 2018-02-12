@@ -30,7 +30,7 @@
 	   		<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
 	   		<div class="col-sm-2">
 		    	<select class="form-control" id="adult">
-		    	<c:forEach begin="0" end="${email.adultsMax}" varStatus="loop">
+		    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
 		       		<option>${loop.index}</option>
 		       	</c:forEach>
 		    	</select>
@@ -38,7 +38,7 @@
 	   		<label for="kid" class="col-form-label col-sm-2 text-sm-right">Kids:</label>
 	   		<div class="col-sm-2">
 	      		<select class="form-control" id="kid">
-	        	<c:forEach begin="0" end="${email.kidsMax}" varStatus="loop">
+	        	<c:forEach begin="0" end="${guest.kidsMax}" varStatus="loop">
 		       		<option>${loop.index}</option>
 		       	</c:forEach>
 	      		</select>
@@ -81,7 +81,7 @@
     		</div>
     			
     		<!-- meal choice for +1 -->
-    		<c:forEach begin="0" end="${email.adultsMax}" varStatus="loop">
+    		<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
     		<div class="row">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>

@@ -48,18 +48,34 @@ public class EventDaoImpl implements EventDao {
 	
 	public boolean insertEvent(Event event, User user) throws SQLException {
 		//Event event = new Event();
-		String query = "Insert into event (eventName, eventDate, location, userUserId) values (?,?,?)";
+		
+		String query = "Insert into event (eventName, eventDate, location, UseruserId) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, event.getEventName());
 		pstmt.setString(2,event.getEventDate());
 		pstmt.setString(3,event.getLocation());
-		//pstmt.set(3,user.get()); // userId 
-		
+		pstmt.setInt(4,user.getUserId());
+		System.out.println("USER ID BEING ADDED: " + user.getUserId());
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
 	}
 
+//	public boolean insertEvent(Event event) throws SQLException {
+//		//Event event = new Event();
+//		//
+//		String query = "Insert into event (eventName, eventDate, location) values (?,?,?)";
+//		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+//		pstmt.setString(1, event.getEventName());
+//		pstmt.setString(2,event.getEventDate());
+//		pstmt.setString(3,event.getLocation());
+//		//pstmt.set(3,user.get()); // userId 
+//		
+//		int rowsAffected = pstmt.executeUpdate();
+//		
+//		return rowsAffected > 0;
+//	}
+	
 	public boolean updateEvent(Event event)throws SQLException {
 		String query = "UPDATE event SET eventName = ?, eventDate = ?, location = ? WHERE eventId = ?";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);

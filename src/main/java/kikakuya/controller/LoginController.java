@@ -97,7 +97,7 @@ public class LoginController {
 					loginDelegate.setRememberMe(user);
 				}
 				//Set the url the page will be redirected to
-				redirectTo = "event_add";
+				redirectTo = "event";
 			}
 			else {
 				System.out.println("Login unsuccessful");

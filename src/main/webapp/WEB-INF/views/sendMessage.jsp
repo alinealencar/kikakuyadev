@@ -43,55 +43,31 @@
      		
      		<div  class="form-group row">
 				<div class="col-sm-4">
-					<h5>2. Max number of the people with the guest</h5>
-				</div>		
-  				<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
-	   			<div class="col-sm-2">
-		      		<form:select class="form-control" id="adult" path="adultsMax">
-		        		<option>0</option>
-		        		<option>1</option>
-		        		<option>2</option>
-		        		<option>3</option>
-		      		</form:select>
-		      	</div>
-	   			<label for="kid" class="col-form-label col-sm-2 text-sm-right">Kids:</label>
-	   			<div class="col-sm-2">
-	      			<form:select class="form-control" id="kid" path="kidsMax">
-	        			<option>0</option>
-	        			<option>1</option>
-	        			<option>2</option>
-	        			<option>3</option>
-	      			</form:select>
-	      		</div>
-     		</div>
-     		
-     		<div  class="form-group row">
-				<div class="col-sm-4">
 					<h5>3. Meal choices</h5>
 				</div>
 				<div class="col-sm-8">		
  					<div class="form-check form-check-inline">
-  						<form:checkbox class="form-check-input" id="beef" value="beef" path="mealChoiceBeef" />
+  						<form:checkbox class="form-check-input" id="beef" value="Beef" path="mealChoiceBeef" />
   						<label class="form-check-label" for="beaf">Beef</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <form:checkbox class="form-check-input" id="pork" value="pork" path="mealChoicePork" />
+					  <form:checkbox class="form-check-input" id="pork" value="Pork" path="mealChoicePork" />
 					  <label class="form-check-label" for="pork">Pork</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <form:checkbox class="form-check-input" id="chicken" value="chicken" path="mealChoiceChicken" />
+					  <form:checkbox class="form-check-input" id="chicken" value="Chicken" path="mealChoiceChicken" />
 					  <label class="form-check-label" for="chicken">Chicken</label>
 					</div>
 					<div class="form-check form-check-inline">
-  						<form:checkbox class="form-check-input" id="vegetarian" value="vegetarian" path="mealChoiceVeg" />
+  						<form:checkbox class="form-check-input" id="vegetarian" value="Vegetarian" path="mealChoiceVeg" />
   						<label class="form-check-label" for="vegetarian">Vegetarian</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <form:checkbox class="form-check-input" id="fish" value="fish" path="mealChoiceFish" />
+					  <form:checkbox class="form-check-input" id="fish" value="Fish" path="mealChoiceFish" />
 					  <label class="form-check-label" for="fish">Fish</label>
 					</div>
 					<div class="form-check form-check-inline">
-					  <form:checkbox class="form-check-input" id="kids" value="kids" path="mealChoiceKids" />
+					  <form:checkbox class="form-check-input" id="kids" value="Kids" path="mealChoiceKids" />
 					  <label class="form-check-label" for="kids">Kids</label>
 					</div>
   				</div>

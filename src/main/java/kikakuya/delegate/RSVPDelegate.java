@@ -24,8 +24,8 @@ public class RSVPDelegate {
 		communicationService.sendRSVP(guest, email, user);
 	}*/
 	
-	public void sendRSVP(Email email, List<Guest> guestList){
-		communicationService.sendRSVP(email, guestList);
+	public void sendRSVP(Email email, int userId, List<Guest> guestList){
+		communicationService.sendRSVP(email, userId, guestList);
 	}
 
 	public List<Guest> findGuests() throws SQLException {
