@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add a guest</title>
-</head>
-<body>
+<!-- Change feature variable -->
+<%! String feature = "Guests" ;%>
+
+<% session.setAttribute("feature", feature); %>
+<% session.setAttribute("title", "KIKAKUYA - " + feature); %>
+<jsp:include page="/WEB-INF/includes/head.jsp" />
+<jsp:include page="/WEB-INF/includes/header.jsp"/>
+
 <form:form id="guestForm" method="post" modelAttribute="guest">
 	<span>First Name: </span>
 	<form:input path="firstName"/>
@@ -25,6 +26,7 @@
 	<span>Plus ones: </span> <br/>
 		<span>Adult:</span>
         	<form:select path="adultsMax">
+        		<option value="0">0</option>
   				<option value="1">1</option>
   				<option value="2">2</option>
             	<option value="3">3</option>
@@ -32,13 +34,15 @@
 			</form:select>
         <span>Kid:</span>
         	<form:select path="kidsMax">
+        		<option value="0">0</option>
   				<option value="1">1</option>
   				<option value="2">2</option>
             	<option value="3">3</option>
 			</form:select>
 	<br>
-	<span>Status: </span>
+	<span>RSVP Status: </span>
 		<form:select path="isPresent">
+			<option value=""> - </option>
   			<option value="1">Present</option>
   			<option value="0">Not present</option>
 		</form:select>
@@ -62,5 +66,4 @@
         document.getElementById('guestForm').submit();
     }
 </script>
-</body>
-</html>
+<jsp:include page="/WEB-INF/includes/footer.jsp"/>

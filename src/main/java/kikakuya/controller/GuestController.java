@@ -39,6 +39,8 @@ public class GuestController {
 			boolean addSuccessful = guestDelegate.addGuest(guest);
 			if(addSuccessful){
 				System.out.println("Add guest successful");
+				
+				//Add success message to the request scope
 				request.setAttribute("addGuestSuccess", "add sucessful");
 			}
 			else {

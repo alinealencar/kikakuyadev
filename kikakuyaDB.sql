@@ -49,6 +49,7 @@ CREATE TABLE Guest (
   adultsMax int(3),
   specialRequests varchar(255),
   mealChoice varchar(50),
+  EventeventId int(10) NOT NULL,
   /*EmailemailId int(10),*/
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (
@@ -57,9 +58,6 @@ CREATE TABLE GuestPlusOne (
 	mealChoice varchar(50),
 	GuestguestId int(10) NOT NULL,
 	PRIMARY KEY(guestPlusOneId));
-CREATE TABLE Guest_Event (
-  EventeventId int(10) NOT NULL, 
-  GuestguestId int(10) NOT NULL);
 CREATE TABLE Item (
   itemId     int(10) NOT NULL AUTO_INCREMENT, 
   itemName   varchar(255) NOT NULL, 
@@ -92,8 +90,7 @@ ALTER TABLE Vendor ADD INDEX FKVendorEvent (EventeventId), ADD CONSTRAINT FKVend
 ALTER TABLE Item ADD INDEX FKItemList (ListlistId), ADD CONSTRAINT FKItemList FOREIGN KEY (ListlistId) REFERENCES List (listId);
 ALTER TABLE List ADD INDEX FKListEvent (EventeventId), ADD CONSTRAINT FKListEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT FKGuestPlusOne FOREIGN KEY (GuestguestId) REFERENCES Guest(guestId);
-ALTER TABLE Guest_Event ADD INDEX FKGuestEvent1 (GuestguestId), ADD CONSTRAINT FKGuestEvent1 FOREIGN KEY (GuestguestId) REFERENCES Guest (guestId);
-ALTER TABLE Guest_Event ADD INDEX FKGuestEvent2 (EventeventId), ADD CONSTRAINT FKGuestEvent2 FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE Event ADD INDEX FKEventUser (UseruserId), ADD CONSTRAINT FKEventUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
 ALTER TABLE Appointment ADD INDEX FKAppointmentUser (UseruserId), ADD CONSTRAINT FKAppointmentUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
+ALTER TABLE Guest ADD INDEX FKEventGuest (EventeventId), ADD CONSTRAINT FKEventGuest FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 /*ALTER TABLE Guest ADD INDEX FKEmailGuest (EmailemailId), ADD CONSTRAINT FKEmailGuest FOREIGN KEY (EmailemailId) REFERENCES `Email` (emailId);*/

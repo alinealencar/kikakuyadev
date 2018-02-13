@@ -63,6 +63,7 @@ public class LoginController {
 			User LoginUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
 			if(LoginUser != null){
 				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
+				//Send the user to the session scope
 				session.setAttribute("user", LoginUser);
 				//Send the user name to the request scope
 				session.setAttribute("userName", LoginUser.getUserName());

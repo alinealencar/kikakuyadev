@@ -16,6 +16,7 @@ public class Guest {
 	private int adultsMax;
 	private String specialRequests;
 	private String mealChoice;
+	private int eventId;
 	private List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 	
 	public Guest() {
@@ -92,6 +93,12 @@ public class Guest {
 	}
 	public void setMealChoice(String mealChoice) {
 		this.mealChoice = mealChoice;
+	}
+	public int getEventId() {
+		return eventId;
+	}
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
 	public List<GuestPlusOne> getPlusOneList() {
 		return plusOneList;

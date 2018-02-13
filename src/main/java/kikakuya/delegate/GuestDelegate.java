@@ -27,5 +27,4 @@ public class GuestDelegate {
 	public boolean removeGuest(int guestId) throws SQLException {
 		return guestService.deleteGuest(guestId);
 	}
-	
 }
