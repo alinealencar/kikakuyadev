@@ -18,14 +18,17 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 import kikakuya.dao.EmailDao;
 import kikakuya.dao.GuestDao;
+import kikakuya.dao.GuestPlusOneDao;
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.service.CommunicationService;
 
 public class CommunicationServiceImpl implements CommunicationService{
 
 	private GuestDao guestDao;
+	private GuestPlusOneDao guestPlusOneDao;
 	private EmailDao emailDao;
 	
 	public EmailDao getEmailDao() {
@@ -44,6 +47,14 @@ public class CommunicationServiceImpl implements CommunicationService{
 		this.guestDao = guestDao;
 	}
 	
+	public GuestPlusOneDao getGuestPlusOneDao() {
+		return guestPlusOneDao;
+	}
+
+	public void setGuestPlusOneDao(GuestPlusOneDao guestPlusOneDao) {
+		this.guestPlusOneDao = guestPlusOneDao;
+	}
+
 	public List<Guest> findGuests() throws SQLException {
 		return guestDao.findGuests();
 	}
@@ -54,6 +65,10 @@ public class CommunicationServiceImpl implements CommunicationService{
 	
 	public boolean insertEmail(Email email) throws SQLException {
 		return emailDao.insertEmail(email);
+	}
+	
+	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
+		return guestPlusOneDao.insertPlusOne(plusOne, guest);
 	}
 	
 	public Email findEmailById() throws SQLException {
@@ -110,12 +125,13 @@ public class CommunicationServiceImpl implements CommunicationService{
 			    	+ "<div style=\"background-color: #541388; padding: 15px;\">"
 			   		+ "<img src=\"cid:logo.png\"></img></div>"
 			   		+ "<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\">"
-			   		+ "<h3>You are invited to Kie's Wedding!</h3>"
+			   		+ "<h3>Hello " + guestList.get(i).getFirstName() + ",<br><br>"
+			   		+ "You are invited to Kie's Wedding!</h3>"
 			   		+ "<h4>Location: <br> Date: </h4>"
-			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>"
+			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		//message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
 			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\">Click here to RSVP</a>"
-			   		+ "<p>Sincerely,<br>Kie</p></div>"
+			   		+ "<p>Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
 				    + "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a></h4></div></div>";
@@ -177,7 +193,6 @@ public class CommunicationServiceImpl implements CommunicationService{
 			e.printStackTrace();
 		}
 	}
-
 	
 }
 	

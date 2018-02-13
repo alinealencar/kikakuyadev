@@ -5,6 +5,7 @@ import java.util.List;
 
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 
 public interface CommunicationService {
@@ -15,5 +16,6 @@ public interface CommunicationService {
 	public boolean insertEmail(Email email) throws SQLException;
 	public Guest findGuestById(int guestId) throws SQLException;
 	public Email findEmailById() throws SQLException;
+	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException;
 	//public boolean updateEmailIdGuest(Guest guest) throws SQLException;
 }

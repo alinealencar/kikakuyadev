@@ -7,7 +7,7 @@ CREATE TABLE Appointment (
   apptId       int(10) NOT NULL AUTO_INCREMENT, 
   apptDateTime date NOT NULL, 
   apptNotes    varchar(255), 
-  UseruserId   int(10),
+  UseruserId   int(10) NOT NULL,
   location    varchar(255),
   color varchar(6) NOT NULL,
   PRIMARY KEY (apptId));
@@ -53,8 +53,7 @@ CREATE TABLE Guest (
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (
 	guestPlusOneId int(10) NOT NULL AUTO_INCREMENT,
-	firstName varchar(50) NOT NULL,
-	lastName varchar(50) NOT NULL,
+	fullName varchar(50) NOT NULL,
 	mealChoice varchar(50),
 	GuestguestId int(10) NOT NULL,
 	PRIMARY KEY(guestPlusOneId));

@@ -21,8 +21,6 @@ public class MessageController {
 	@Autowired
 	private MessageDelegate messageDelegate;
 
-
-	
 	@RequestMapping(value="/broadcast", method = RequestMethod.POST)
 	public String processSendBroadcast(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("email") Email email, Model model){

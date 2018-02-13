@@ -5,6 +5,7 @@ import java.util.List;
 
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.service.CommunicationService;
 
@@ -46,6 +47,10 @@ public class RSVPDelegate {
 
 	public boolean updateGuest(Guest guest) throws SQLException {
 		return communicationService.updateGuest(guest);
+	}
+
+	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
+		return communicationService.insertPlusOne(plusOne, guest);
 	}	
 	
 	

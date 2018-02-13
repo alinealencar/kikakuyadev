@@ -1,6 +1,7 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +20,7 @@ import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
 import kikakuya.model.Email;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.model.Vendor;
 
@@ -90,7 +92,12 @@ public class RSVPController {
 	public String processSendRSVPResponse(HttpServletRequest request, 
 			@ModelAttribute("guest") Guest guest, Model model){
 		String redirectTo = "rsvpResponse";
+		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
+		plusOneList = guest.getPlusOneList();
 		try {
+			for(int i=0; i<plusOneList.size(); i++){
+				rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
+			}
 			if(rsvpDelegate.updateGuest(guest))
 				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
 			else

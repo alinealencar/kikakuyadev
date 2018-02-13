@@ -17,10 +17,15 @@
 	
 	<bean id="communicationService" class="kikakuya.service.implementation.CommunicationServiceImpl">
 		<property name="guestDao" ref="guestDao"></property>
+		<property name="guestPlusOneDao" ref="guestPlusOneDao"></property>
 		<property name="emailDao" ref="emailDao"></property>
 	</bean>
 
 	<bean name="guestDao" class="kikakuya.dao.implementation.GuestDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="guestPlusOneDao" class="kikakuya.dao.implementation.GuestPlusOneDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
