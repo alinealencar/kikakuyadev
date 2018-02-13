@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kikakuya.dao.GuestDao;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.service.GuestService;
 
@@ -30,8 +31,7 @@ public class GuestServiceImpl implements GuestService {
 		return guestDao.updateGuest(guest);
 	}
 
-	public List<Guest> getAllGuests() throws SQLException {
-		return guestDao.findGuests();
+	public List<Guest> getAllGuests(Event event) throws SQLException {
+		return guestDao.findGuests(event);
 	}
-
 }
