@@ -9,8 +9,12 @@ body div#container{
 	color: #2E294E;
 	background-color: #F1E9DA;
 	font-family: 'Quicksand', sans-serif;
-	
 }
+.container{
+	padding-top: 50px;
+	padding-bottom: 50px;
+}
+
 /****** header ******/
 header{
 	padding: 15px;
