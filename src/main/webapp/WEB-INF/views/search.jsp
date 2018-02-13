@@ -24,7 +24,7 @@
 			</div>
 			<div class="col-sm-2 text-center">
 				<button type="submit" class="btn btn-info">
-      				<span class="material-icons align-bottom" style="font-size: 200%;">search</span><span class="align-text-bottom"> Search</span>
+      				<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom"> Search</span>
    				</button>
 			</div>				
 		</div>

@@ -66,6 +66,15 @@ footer {
 	
 }
 
+
+/*********************************
+Search result
+**********************************/
+/***** add vendor button *****/
+#btnAddVendor{
+	background-color: #F1E9DA;
+	color: #D90368;
+}
 /***** form validation *****/
 .formError {
 	color: red;
