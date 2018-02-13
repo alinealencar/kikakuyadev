@@ -85,8 +85,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 	    return props;
 	}
 	
-	public void sendRSVP(Email email, int userId, List<Guest> guestList)  {
-		String subject = "Kikakuya - RSVP to <user>'s Event";
+	public void sendRSVP(Email email, User user, List<Guest> guestList)  {
+		String subject = "Kikakuya - RSVP to " + user.getUserName() + "'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
 		

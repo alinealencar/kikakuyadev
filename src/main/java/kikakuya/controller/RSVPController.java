@@ -46,7 +46,7 @@ public class RSVPController {
 			@ModelAttribute("email") Email email){
 		
 		String redirectTo = "sendMessage";
-		int userId = 0;
+		User user = (User) request.getSession().getAttribute("user");
 		
 		List<Guest> guestList;
 		try {
@@ -55,7 +55,7 @@ public class RSVPController {
 				if(rsvpDelegate.insertEmail(email)){
 					//for(int i=0; i<guestList.size(); i++)
 						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
-					rsvpDelegate.sendRSVP(email, userId, guestList);
+					rsvpDelegate.sendRSVP(email, user, guestList);
 					request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
 					redirectTo = "sendMessage";
 				}
@@ -90,10 +90,7 @@ public class RSVPController {
 	public String processSendRSVPResponse(HttpServletRequest request, 
 			@ModelAttribute("guest") Guest guest, Model model){
 		String redirectTo = "rsvpResponse";
-		//guest.setGuestId(guestId);
 		try {
-			System.out.println(guest.getGuestId());
-			System.out.println(guest.getMealChoice());
 			if(rsvpDelegate.updateGuest(guest))
 				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
 			else
