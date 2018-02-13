@@ -85,10 +85,10 @@
     			</div>
     		</div>
     			
-    		<!-- meal choice for +1 -->
-    		<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
-    		 <c:forEach varStatus="i" var="plusOneList" items="${guest.plusOneList}" >
+    	<!-- meal choice for +1 -->
+    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
     		<div class="row">
+    		<c:forEach varStatus="i" var="plusOneList" items="${guest.plusOneList}" >
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[${i.index}].fullName"/>
@@ -116,20 +116,26 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:forEach>
     		</div>
-    		</c:forEach>
-    		</c:forEach>
-		</div>
+    	</c:forEach>
+		</div> 
 			
 		<div class="form-group">
 			<h5><label for="specialRequirements">Special Requirements (Optional)</label></h5>
-    		<form:textarea class="form-control" id="specialRequirments" rows="3" path="specialRequests"></form:textarea>
+			<c:if test="${not empty guest.specialRequests}">
+    			<form:textarea class="form-control" id="specialRequirments" rows="3" value="${guest.specialRequests}" path="specialRequests"></form:textarea>
+			</c:if>
+			<c:if test="${empty guest.specialRequests}">
+    			<form:textarea class="form-control" id="specialRequirments" rows="3" value="" path="specialRequests"></form:textarea>
+			</c:if>
 		</div>
 			
 		<div class="text-center">
 			<button type="submit" class="btn btn-success col-4 mb-2">Send</button>
 		</div>
 	</form:form>
-  	
+ 
+
 </div><!-- body contents end -->
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

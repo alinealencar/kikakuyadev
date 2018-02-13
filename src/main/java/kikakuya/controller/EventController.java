@@ -12,6 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+<<<<<<< HEAD
+=======
+//import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
+
+>>>>>>> e8763f52ab8d2af928dbaa80e02320eaf59f81a7
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.User;
