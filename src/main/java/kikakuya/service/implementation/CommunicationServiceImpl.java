@@ -20,6 +20,7 @@ import kikakuya.dao.EmailDao;
 import kikakuya.dao.GuestDao;
 import kikakuya.dao.GuestPlusOneDao;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
@@ -55,24 +56,28 @@ public class CommunicationServiceImpl implements CommunicationService{
 		this.guestPlusOneDao = guestPlusOneDao;
 	}
 
-	public List<Guest> findGuests() throws SQLException {
-		return guestDao.findGuests();
+	public List<Guest> findGuests(Event event) throws SQLException {
+		return guestDao.findGuests(event);
 	}
 	
 	public Guest findGuestById(int guestId) throws SQLException {
 		return guestDao.findGuestById(guestId);
 	}
 	
-	public boolean insertEmail(Email email) throws SQLException {
-		return emailDao.insertEmail(email);
+	public boolean insertEmail(Email email, Event event) throws SQLException {
+		return emailDao.insertEmail(email, event);
 	}
 	
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
 		return guestPlusOneDao.insertPlusOne(plusOne, guest);
 	}
 	
-	public Email findEmailById() throws SQLException {
-		return emailDao.findEmailById();
+	public Email findEmailById(Event event) throws SQLException {
+		return emailDao.findEmailById(event);
+	}
+	
+	public boolean findEmailByEvent(Event event) throws SQLException {
+		return emailDao.findEmailByEvent(event);
 	}
 	
 	public boolean updateGuest(Guest guest) throws SQLException {
@@ -100,7 +105,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 	    return props;
 	}
 	
-	public void sendRSVP(Email email, User user, List<Guest> guestList)  {
+	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList)  {
 		String subject = "Kikakuya - RSVP to " + user.getUserName() + "'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
@@ -125,9 +130,9 @@ public class CommunicationServiceImpl implements CommunicationService{
 			    	+ "<div style=\"background-color: #541388; padding: 15px;\">"
 			   		+ "<img src=\"cid:logo.png\"></img></div>"
 			   		+ "<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\">"
-			   		+ "<h3>Hello " + guestList.get(i).getFirstName() + ",<br><br>"
-			   		+ "You are invited to Kie's Wedding!</h3>"
-			   		+ "<h4>Location: <br> Date: </h4>"
+			   		+ "<h4>Hello " + guestList.get(i).getFirstName() + ",</h4>"
+			   		+ "<h3>You are invited to " + event.getEventName() +"!</h3>"
+			   		+ "<h4>Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</h4>"
 			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		//message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
 			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\">Click here to RSVP</a>"

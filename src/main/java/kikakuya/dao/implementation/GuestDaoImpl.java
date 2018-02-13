@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import kikakuya.dao.GuestDao;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 
 public class GuestDaoImpl implements GuestDao {
@@ -22,8 +23,10 @@ public class GuestDaoImpl implements GuestDao {
 		this.dataSource = dataSource;
 	}
 	
-	public List<Guest> findGuests() throws SQLException {
-		String query = "SELECT * FROM guest";
+	public List<Guest> findGuests(Event event) throws SQLException {
+		String query = "SELECT * FROM guest INNER JOIN guest_event "
+				+ "ON guest.guestId = guest_event.GuestguestId "
+				+ "WHERE guest_event.EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
 		ResultSet rs = pstmt.executeQuery(query);
