@@ -1,17 +1,10 @@
 package kikakuya.dao.implementation;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.sql.DataSource;
-
-import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
-import kikakuya.model.User;
 
 public class GuestPlusOneImpl {
 
