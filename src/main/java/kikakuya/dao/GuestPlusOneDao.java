@@ -1,12 +1,9 @@
 package kikakuya.dao;
 
 import java.sql.SQLException;
-import java.util.List;
-
-import kikakuya.model.GuestPlusOne;
+import kikakuya.model.Guest;
 
 public interface GuestPlusOneDao {
 
-	public List<GuestPlusOne> listPlusOne() throws SQLException;
-	public boolean insertPlusOne(GuestPlusOne guestPlusOne) throws SQLException;
+	public boolean insertPlusOne(Guest guest) throws SQLException;
 }

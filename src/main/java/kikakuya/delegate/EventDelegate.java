@@ -17,8 +17,8 @@ public class EventDelegate {
 		this.eventService = eventService;
 	}
 	
-	public List<Event> listAllEvents()throws SQLException{
-		return eventService.listAllEvents();
+	public List<Event> listEventsByUser(User user)throws SQLException{
+		return eventService.listEventsByUser(user);
 	}
 	
 	public boolean insertEvent(Event event, User user) throws SQLException{

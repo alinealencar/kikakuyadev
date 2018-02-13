@@ -2,58 +2,50 @@ package kikakuya.controller;
 
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.servlet.ModelAndView;
-
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.User;
 
 @Controller
-//@RequestMapping(value="/viewEvent")
 public class EventController {
 
 	@Autowired
 	EventDelegate eventDelegate;
 	
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public String viewAddEvent(Model model, HttpServletRequest request) throws SQLException{
+	public String viewAddEvent(User user, Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("event", new Event());
-		List <Event> list = eventDelegate.listAllEvents();
+		List <Event> list = eventDelegate.listEventsByUser(user);
 		request.setAttribute("listEvent", list);
 		return "event";
 	}
 	
-	@RequestMapping(value="/list", method=RequestMethod.POST)
-	public String list(Model model, HttpServletRequest request) throws SQLException{
-		
-		List <Event> list = eventDelegate.listAllEvents();
-		request.setAttribute("listEvent", list);
-		return "event";
-	}
+//	@RequestMapping(value="/list", method=RequestMethod.POST)
+//	public String list(User user, Model model, HttpServletRequest request) throws SQLException{
+//		
+//		List <Event> list = eventDelegate.listEventsByUser(user);
+//		request.setAttribute("listEvent", list);
+//		return "event";
+//	}
 	
 	//working
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute("event") Event event, Model model, 
 					HttpServletRequest request){ // come back here!
 		
-		System.out.println("EVENT CONTROLLER. USER ID: " + ((User) request.getSession().getAttribute("user")).getUserId());
 		User user = (User) request.getSession().getAttribute("user");
 		try {
-			List <Event> list = eventDelegate.listAllEvents();
+			List <Event> list = eventDelegate.listEventsByUser(user);
 			if(list.size() <3 ){
 			boolean isValidEvent = eventDelegate.insertEvent(event, user);
 			if(isValidEvent){

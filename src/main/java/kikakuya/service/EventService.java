@@ -8,7 +8,7 @@ import kikakuya.model.User;
 
 public interface EventService {
 	
-	public List<Event> listAllEvents() throws SQLException;
+	public List<Event> listEventsByUser(User user) throws SQLException;
 	public boolean insertEvent(Event event, User user) throws SQLException;
 	public boolean updateEvent(Event event) throws SQLException;
 	public boolean deleteEvent(int eventId) throws SQLException;

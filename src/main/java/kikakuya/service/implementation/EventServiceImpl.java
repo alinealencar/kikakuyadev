@@ -29,8 +29,8 @@ public class EventServiceImpl implements EventService{
 		this.eventDao = eventDao;
 	}
 	
-	public List<Event> listAllEvents() throws SQLException {
-		return eventDao.listAllEvents();
+	public List<Event> listEventsByUser(User user) throws SQLException {
+		return eventDao.listEventsByUser(user);
 	}
 
 	public boolean insertEvent(Event event, User user) throws SQLException{

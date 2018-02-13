@@ -12,7 +12,7 @@
 
 <spring:url value="/add" var="saveURL"/>
 <form:form modelAttribute="event" method="POST" action="add" >
-	<!--<form:hidden path="eventId"/>-->
+	<form:hidden path="eventId"/>
 <table>
 	<tr>
 		<td>Event Name:</td>
@@ -23,7 +23,6 @@
 		<td><form:input path="location"/>
 	</tr>
 
-	<!-- Date // just added -->	
 	<tr>
 		<td>Date:</td>
 		<td><form:input type="date" path="eventDate"/>
@@ -43,6 +42,7 @@
 		<th>Event Id</th>
 		<th>Event Name</th>
 		<th>Location</th>
+		<th>Event Date</th>
 		
 		<th colspan="2">Action</th>
 	</tr>
@@ -52,6 +52,7 @@
 			<td>${event.eventId}</td>
 			<td>${event.eventName}</td>
 			<td>${event.location}</td>
+			<td>${event.eventDate}</td>
 			<form:form modelAttribute="event" method="GET" action="update?eventId=${event.eventId}" >
 			<td>
 				<!--<spring:url value="update/${event.eventId }" var="updateURL"/>-->

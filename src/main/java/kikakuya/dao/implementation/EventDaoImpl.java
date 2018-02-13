@@ -26,8 +26,8 @@ public class EventDaoImpl implements EventDao {
 	}
 	
 	//is this even right? :P
-	public List<Event> listAllEvents() throws SQLException  {
-		String query = "Select * from event";
+	public List<Event> listEventsByUser(User user) throws SQLException  {
+		String query = "Select * from event WHERE UseruserId = " + user.getUserId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Event> events = new ArrayList<Event>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -35,10 +35,8 @@ public class EventDaoImpl implements EventDao {
 			Event event = new Event();
 			event.setEventId(rs.getInt(1));
 			event.setEventName(rs.getString(2));
+			event.setEventDate(rs.getString(3));
 			event.setLocation(rs.getString(5));
-			//pstmt.setString(1, event.getEventName());
-			//pstmt.setString(2, event.getEventDate());
-			//pstmt.setString(3, event.getLocation());
 			
 			events.add(event);
 		}
@@ -54,27 +52,11 @@ public class EventDaoImpl implements EventDao {
 		pstmt.setString(1, event.getEventName());
 		pstmt.setString(2,event.getEventDate());
 		pstmt.setString(3,event.getLocation());
-		pstmt.setInt(4,user.getUserId());
-		System.out.println("USER ID BEING ADDED: " + user.getUserId());
+		pstmt.setInt(4, user.getUserId());
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
 	}
-
-//	public boolean insertEvent(Event event) throws SQLException {
-//		//Event event = new Event();
-//		//
-//		String query = "Insert into event (eventName, eventDate, location) values (?,?,?)";
-//		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
-//		pstmt.setString(1, event.getEventName());
-//		pstmt.setString(2,event.getEventDate());
-//		pstmt.setString(3,event.getLocation());
-//		//pstmt.set(3,user.get()); // userId 
-//		
-//		int rowsAffected = pstmt.executeUpdate();
-//		
-//		return rowsAffected > 0;
-//	}
 	
 	public boolean updateEvent(Event event)throws SQLException {
 		String query = "UPDATE event SET eventName = ?, eventDate = ?, location = ? WHERE eventId = ?";
