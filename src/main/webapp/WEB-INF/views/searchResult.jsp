@@ -1,22 +1,38 @@
 <!-- Change feature variable -->
-<%! String feature = "Search Results" ;%>
+<%! String feature = "Search" ;%>
 <% session.setAttribute("feature", feature); %>
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ page isELIgnored="false" %>
-
-	<form action="search" method="post">
-			<input type="text" name="category" placeholder="Category">
-			<input type="text" name="location" placeholder="Location">
-		<input type = "submit" value = "Search" />
+<div class="container">
+<!-- body contents start -->
+	<h2>Search Results</h2>
+	<form action="search" method="post" >
+		<div class="form-group row" style="margin-top: 50px;">		
+			<div class="col-sm-5 text-center">			
+				<div>
+					<input name="category" placeholder="Category" class="col-12">
+					<br><br>
+				</div>
+			</div>
+			<div class="col-sm-5 text-center">
+				<div>
+					<input name="location" placeholder="Location" class="col-12">
+					<br><br>
+				</div>
+			</div>
+			<div class="col-sm-2 text-center">
+				<button type="submit" class="btn btn-info">
+      				<span class="material-icons align-bottom" style="font-size: 200%;">search</span><span class="align-text-bottom"> Search</span>
+   				</button>
+			</div>				
+		</div>
 	</form>
-	<br><br><br>
-	<div>
 		<div class="${(searchError != null) ? 'alert alert-danger':''}" role="alert">${searchError}</div>
 	</div>
-	<ul>
+	<ul style="margin-bottom: 0px; list-style: none;"">
 		<c:forEach items="${vendors}" var="vendor" >
 			<li><img src="${vendor.imageURL}" alt="Vendor product" height="120px" width="120px"><br>
 			${vendor.name}<br>
@@ -57,4 +73,6 @@
 			<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a></li><br>
 		</c:forEach>
 	</ul>
+<!-- body contents end -->
+</div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
