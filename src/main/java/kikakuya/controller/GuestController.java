@@ -27,7 +27,7 @@ public class GuestController {
 	//Show guest dashboard
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
 	public String viewGuestDashboard(Model model){
-		//model.addAttribute("guest", new Guest());
+		model.addAttribute("guest", new Guest());
 		return "guests";
 	}
 	
@@ -93,7 +93,7 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
-		return "guests";
+		return "guestMgmt";
 	}
 	
 	//Remove guest
@@ -113,6 +113,25 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
-		return "guests";
+		return "guestMgmt";
+	}
+	
+	//Show guest details
+	@RequestMapping(value = "/showGuest", method = RequestMethod.POST)
+	public String showGuestDetails(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model) {
+		try {
+			//get guestId from the form
+			int guestId = Integer.valueOf(request.getParameter("selectedGuest"));
+			
+			//get guest object by guest id
+			Guest selectedGuest = guestDelegate.getSelectedGuest(guestId);
+			
+			//add the selected guest to the request scope
+			request.setAttribute("selectedGuest", selectedGuest);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return "guestMgmt";
 	}
 }

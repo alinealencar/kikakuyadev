@@ -34,4 +34,8 @@ public class GuestServiceImpl implements GuestService {
 	public List<Guest> getAllGuests(Event event) throws SQLException {
 		return guestDao.findGuests(event);
 	}
+	
+	public Guest getGuestById(int guestId) throws SQLException {
+		return guestDao.findGuestById(guestId);
+	}
 }

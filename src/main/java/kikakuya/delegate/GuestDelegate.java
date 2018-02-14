@@ -35,4 +35,8 @@ public class GuestDelegate {
 		event.setEventId(eventId);
 		return guestService.getAllGuests(event);
 	}
+	
+	public Guest getSelectedGuest(int guestId) throws SQLException {
+		return guestService.getGuestById(guestId);
+	}
 }

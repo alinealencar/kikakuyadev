@@ -11,4 +11,5 @@ public interface GuestService {
 	public boolean deleteGuest(int guestId) throws SQLException;
 	public boolean editGuest(Guest guest) throws SQLException;
 	public List<Guest> getAllGuests(Event event) throws SQLException;
+	public Guest getGuestById(int guestId) throws SQLException;
 }
