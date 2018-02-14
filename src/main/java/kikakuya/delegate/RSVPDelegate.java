@@ -4,7 +4,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.service.CommunicationService;
 
@@ -24,28 +26,37 @@ public class RSVPDelegate {
 		communicationService.sendRSVP(guest, email, user);
 	}*/
 	
-	public void sendRSVP(Email email, User user, List<Guest> guestList){
-		communicationService.sendRSVP(email, user, guestList);
+	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList){
+		communicationService.sendRSVP(email, user, event, guestList);
 	}
 
-	public List<Guest> findGuests() throws SQLException {
-		return communicationService.findGuests();
+	public List<Guest> findGuests(Event event) throws SQLException {
+		return communicationService.findGuests(event);
 	}
 
-	public boolean insertEmail(Email email) throws SQLException {
-		return communicationService.insertEmail(email);
+	public boolean insertEmail(Email email, Event event) throws SQLException {
+		return communicationService.insertEmail(email, event);
 	}
 
 	public Guest findGuestById(int guestId) throws SQLException {
 		return communicationService.findGuestById(guestId);
 	}
 
-	public Email findEmailById() throws SQLException {
-		return communicationService.findEmailById();
+	public Email findEmailByEvent(Event event) throws SQLException {
+		return communicationService.findEmailByEvent(event);
+	}
+
+	
+	public boolean countEmailByEvent(Event event) throws SQLException {
+		return communicationService.countEmailByEvent(event);
 	}
 
 	public boolean updateGuest(Guest guest) throws SQLException {
 		return communicationService.updateGuest(guest);
+	}
+
+	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
+		return communicationService.insertPlusOne(plusOne, guest);
 	}	
 	
 	

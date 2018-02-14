@@ -1,7 +1,5 @@
 package kikakuya.controller;
 
-import java.net.URLEncoder;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,12 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import kikakuya.delegate.LoginDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.User;
-import kikakuya.utilities.AuthenticationUtilities;
 import kikakuya.utilities.CookieUtilities;
 import kikakuya.utilities.HelperUtilities;
 
@@ -63,6 +59,7 @@ public class LoginController {
 			User LoginUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
 			if(LoginUser != null){
 				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
+				//Send the user to the session scope
 				session.setAttribute("user", LoginUser);
 				//Send the user name to the request scope
 				session.setAttribute("userName", LoginUser.getUserName());
@@ -97,9 +94,9 @@ public class LoginController {
 		}
 		
 		//For testing purposes:
-		System.out.println("LOGIN");
-		System.out.println("email: " + user.getEmail());
-		System.out.println("password: " + user.getUserPassword());
+//		System.out.println("LOGIN");
+//		System.out.println("email: " + user.getEmail());
+//		System.out.println("password: " + user.getUserPassword());
 		model.addAttribute("event", new Event());
 		return redirectTo;
 	}

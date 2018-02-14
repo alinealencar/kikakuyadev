@@ -1,30 +1,12 @@
 package kikakuya.model;
 
 public class Email {
-	String replyDue, title, message, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids;
+	String replyDue, title, message, status, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids;
 	int adultsMax, kidsMax;
-	String[] recipients;
+	int[] recipients;
 	
 	public Email() {
 	
-	}
-
-	public Email(String replyDue, String title, String message, String mealChoiceBeef, String mealChoicePork,
-			String mealChoiceChicken, String mealChoiceVeg, String mealChoiceFish, String mealChoiceKids, int adultsMax,
-			int kidsMax, String[] recipients) {
-		super();
-		this.replyDue = replyDue;
-		this.title = title;
-		this.message = message;
-		this.mealChoiceBeef = mealChoiceBeef;
-		this.mealChoicePork = mealChoicePork;
-		this.mealChoiceChicken = mealChoiceChicken;
-		this.mealChoiceVeg = mealChoiceVeg;
-		this.mealChoiceFish = mealChoiceFish;
-		this.mealChoiceKids = mealChoiceKids;
-		this.adultsMax = adultsMax;
-		this.kidsMax = kidsMax;
-		this.recipients = recipients;
 	}
 
 	public String getMealChoiceBeef() {
@@ -115,13 +97,22 @@ public class Email {
 		this.kidsMax = kidsMax;
 	}
 
-	public String[] getRecipients() {
+	public int[] getRecipients() {
 		return recipients;
 	}
 
-	public void setRecipients(String[] recipients) {
+	public void setRecipients(int[] recipients) {
 		this.recipients = recipients;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 	
 	

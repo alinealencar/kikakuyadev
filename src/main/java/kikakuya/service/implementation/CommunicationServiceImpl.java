@@ -18,14 +18,18 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 
 import kikakuya.dao.EmailDao;
 import kikakuya.dao.GuestDao;
+import kikakuya.dao.GuestPlusOneDao;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.service.CommunicationService;
 
 public class CommunicationServiceImpl implements CommunicationService{
 
 	private GuestDao guestDao;
+	private GuestPlusOneDao guestPlusOneDao;
 	private EmailDao emailDao;
 	
 	public EmailDao getEmailDao() {
@@ -44,20 +48,45 @@ public class CommunicationServiceImpl implements CommunicationService{
 		this.guestDao = guestDao;
 	}
 	
-	public List<Guest> findGuests() throws SQLException {
-		return guestDao.findGuests();
+	public GuestPlusOneDao getGuestPlusOneDao() {
+		return guestPlusOneDao;
+	}
+
+	public void setGuestPlusOneDao(GuestPlusOneDao guestPlusOneDao) {
+		this.guestPlusOneDao = guestPlusOneDao;
+	}
+
+	public List<Guest> findGuests(Event event) throws SQLException {
+		return guestDao.findGuests(event);
 	}
 	
 	public Guest findGuestById(int guestId) throws SQLException {
 		return guestDao.findGuestById(guestId);
 	}
 	
-	public boolean insertEmail(Email email) throws SQLException {
-		return emailDao.insertEmail(email);
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		return guestDao.findGuestByStatus(status, eventId);
+	}
+
+	
+	public List<Guest> findGuestNoReply(int eventId) throws SQLException {
+		return guestDao.findGuestNoReply(eventId);
+	}
+
+	public boolean insertEmail(Email email, Event event) throws SQLException {
+		return emailDao.insertEmail(email, event);
 	}
 	
-	public Email findEmailById() throws SQLException {
-		return emailDao.findEmailById();
+	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
+		return guestPlusOneDao.insertPlusOne(plusOne, guest);
+	}
+	
+	public Email findEmailByEvent(Event event) throws SQLException {
+		return emailDao.findEmailByEvent(event);
+	}
+	
+	public boolean countEmailByEvent(Event event) throws SQLException {
+		return emailDao.countEmailByEvent(event);
 	}
 	
 	public boolean updateGuest(Guest guest) throws SQLException {
@@ -85,7 +114,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 	    return props;
 	}
 	
-	public void sendRSVP(Email email, User user, List<Guest> guestList)  {
+	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList)  {
 		String subject = "Kikakuya - RSVP to " + user.getUserName() + "'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
@@ -110,12 +139,13 @@ public class CommunicationServiceImpl implements CommunicationService{
 			    	+ "<div style=\"background-color: #541388; padding: 15px;\">"
 			   		+ "<img src=\"cid:logo.png\"></img></div>"
 			   		+ "<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\">"
-			   		+ "<h3>You are invited to Kie's Wedding!</h3>"
-			   		+ "<h4>Location: <br> Date: </h4>"
-			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br><br>"
+			   		+ "<h4>Hello " + guestList.get(i).getFirstName() + ",</h4>"
+			   		+ "<h3>You are invited to " + event.getEventName() +"!</h3>"
+			   		+ "<h4>Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</h4>"
+			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		//message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
 			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\">Click here to RSVP</a>"
-			   		+ "<p>Sincerely,<br>Kie</p></div>"
+			   		+ "<p>Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
 				    + "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a></h4></div></div>";
@@ -135,7 +165,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 		}
 	}
 	
-	public void sendBroadcast(Email email)  {
+	public void sendBroadcast(Email email, List<Guest> guestList)  {
 		//String subject = "Kikakuya - Event Announcement";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
@@ -151,8 +181,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		    	 //check if email account and password combination is valid
 		         return new PasswordAuthentication(username, password);}});
 		     
-		     MimeMessage msg = new MimeMessage(session);
-		     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+		    // MimeMessage msg = new MimeMessage(session);
+		    // MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		     
 		     String message = "<div style=\"width: 75%; margin: 0 auto;\">"
 			     		+ "<div style=\"background-color: #541388; padding: 15px;\"><img src=\"cid:logo.png\"></img></div>"
@@ -162,23 +192,23 @@ public class CommunicationServiceImpl implements CommunicationService{
 			     		+ "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a><br></h4></div></div>";
 		     
 		     //iterate through all the selected guests
-		     //for(int i=0; i<guestList.size(); i++){
+		     for(int i=0; i<guestList.size(); i++){
+		    	 MimeMessage msg = new MimeMessage(session);
+			     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		    	 //set email content and information into the MimeMessageHelper
 		    	 helper.setText(message, true); //true indicates that the text included is HTML
 		    	 helper.addInline("logo.png",new ClassPathResource("logo.png"));
 		    	 helper.setSubject(email.getTitle());
-		    	 helper.setTo(to);
+		    	 helper.setTo(guestList.get(i).getEmail());
 		    	 helper.setFrom(from);
 		     
 		     //send the email
 		     Transport.send(msg);
-		     //}
+		   }
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 	}
-
-	
 }
 	
 	

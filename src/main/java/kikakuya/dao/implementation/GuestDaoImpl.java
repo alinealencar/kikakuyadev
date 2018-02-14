@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import kikakuya.dao.GuestDao;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 
 public class GuestDaoImpl implements GuestDao {
@@ -22,8 +23,8 @@ public class GuestDaoImpl implements GuestDao {
 		this.dataSource = dataSource;
 	}
 	
-	public List<Guest> findGuests() throws SQLException {
-		String query = "SELECT * FROM guest";
+	public List<Guest> findGuests(Event event) throws SQLException {
+		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -47,7 +48,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsWith, adultsWith, specialRequests) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId) VALUES (?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, guest.getFirstName());
@@ -55,9 +56,10 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setString(3, guest.getEmail());
 		pstmt.setInt(4, guest.getIsPresent());
 		pstmt.setString(5, guest.getCompany());
-		pstmt.setInt(6, guest.getKidsWith());
-		pstmt.setInt(7, guest.getAdultsWith());
+		pstmt.setInt(6, guest.getKidsMax());
+		pstmt.setInt(7, guest.getAdultsMax());
 		pstmt.setString(8, guest.getSpecialRequests());
+		pstmt.setInt(9, guest.getEventId());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -105,6 +107,54 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(11));
 		}
 		return guest;
+	}
+	
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		String query = "SELECT * FROM guest WHERE isPresent=" + status + " AND EventeventID=" + eventId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
+			guest.setSpecialRequests(rs.getString(11));
+			
+			guests.add(guest);
+		}
+		return guests;
+	}
+	
+	public List<Guest> findGuestNoReply(int eventId) throws SQLException{
+		String query = "SELECT * FROM guest WHERE isPresent IS NULL AND EventeventID=" + eventId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
+			guest.setSpecialRequests(rs.getString(11));
+			
+			guests.add(guest);
+		}
+		return guests;
 	}
 
 }

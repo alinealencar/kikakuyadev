@@ -1,6 +1,7 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.model.Vendor;
 
@@ -36,8 +39,19 @@ public class RSVPController {
 	* @return
 	*/
 	@RequestMapping(value="/sendMessage", method = RequestMethod.GET)
-	public String viewSendMessage(Model model){
+	public String viewSendMessage(Model model, HttpServletRequest request){
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+				
 		model.addAttribute("email", new Email());
+		List<Guest> guestList = new ArrayList<Guest>();
+		try {
+			guestList = rsvpDelegate.findGuests(event);
+			request.setAttribute("guests", guestList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "sendMessage";
 	}
 	
@@ -48,18 +62,29 @@ public class RSVPController {
 		String redirectTo = "sendMessage";
 		User user = (User) request.getSession().getAttribute("user");
 		
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+		event.setLocation("ACC"); 
+		event.setEventDate("2018-05-29");
+		
 		List<Guest> guestList;
+		
 		try {
-			guestList = rsvpDelegate.findGuests();
-			if(guestList.size() > 0){
-				if(rsvpDelegate.insertEmail(email)){
+			if(!rsvpDelegate.countEmailByEvent(event)){
+				guestList = rsvpDelegate.findGuests(event);
+				if(guestList.size() > 0){
+					if(rsvpDelegate.insertEmail(email, event)){
 					//for(int i=0; i<guestList.size(); i++)
 						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
-					rsvpDelegate.sendRSVP(email, user, guestList);
-					request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
-					redirectTo = "sendMessage";
+						rsvpDelegate.sendRSVP(email, user, event, guestList);
+						request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
+						redirectTo = "sendMessage";
+					}
 				}
 			}
+			else
+				request.setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
 		
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,10 +96,16 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
 	public String viewResponseForm(@RequestParam("guestId") int guestId, Model model, HttpServletRequest request){
-		//model.addAttribute("guest", new Guest());
+	
+		//for testing
+				Event event = new Event(); 
+				event.setEventId(1); 
+				event.setLocation("ACC"); 
+				event.setEventDate("2018-05-29");
+				event.setEventName("Chace's Birthday");
 		try {
 			Guest guest = rsvpDelegate.findGuestById(guestId);
-			Email email = rsvpDelegate.findEmailById();
+			Email email = rsvpDelegate.findEmailByEvent(event);
 			model.addAttribute("guest", guest);
 			//Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);
@@ -89,8 +120,13 @@ public class RSVPController {
 	@RequestMapping(value="/sendRsvpResponse", method = RequestMethod.POST)
 	public String processSendRSVPResponse(HttpServletRequest request, 
 			@ModelAttribute("guest") Guest guest, Model model){
-		String redirectTo = "rsvpResponse";
+		String redirectTo = "rsvpConfirmation";
+		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
+		plusOneList = guest.getPlusOneList();
 		try {
+			for(int i=0; i<plusOneList.size(); i++){
+				rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
+			}
 			if(rsvpDelegate.updateGuest(guest))
 				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
 			else

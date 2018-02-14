@@ -70,7 +70,7 @@
     						<option value="${email.mealChoicePork}">${email.mealChoicePork}</option>
     					</c:if>
     					<c:if test="${not empty email.mealChoiceChicken}">
-    						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
+    						<option value="${email.mealChoiceChicken}">${email.mealChoiceChicken}</option>
     					</c:if>
     					<c:if test="${not empty email.mealChoiceVeg}">
     						<option value="${email.mealChoiceVeg}">${email.mealChoiceVeg}</option>
@@ -85,16 +85,15 @@
     			</div>
     		</div>
     			
-    	<!-- meal choice for +1 -->
-    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
+    		<!-- meal choice for +1 -->
+    		<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
     		<div class="row">
-    		<c:forEach varStatus="i" var="plusOneList" items="${guest.plusOneList}" >
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[${i.index}].fullName"/>
+     				<form:input type="text" id="+1" class="form-control" path="plusOneList[${loop.index}].fullName"/>
       			</div>
       			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[${i.index}].mealChoice">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[${loop.index}].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -103,7 +102,7 @@
     						<option value="${email.mealChoicePork}">${email.mealChoicePork}</option>
     					</c:if>
     					<c:if test="${not empty email.mealChoiceChicken}">
-    						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
+    						<option value="${email.mealChoiceChicken}">${email.mealChoiceChicken}</option>
     					</c:if>
     					<c:if test="${not empty email.mealChoiceVeg}">
     						<option value="${email.mealChoiceVeg}">${email.mealChoiceVeg}</option>
@@ -116,10 +115,8 @@
     					</c:if>
   					</form:select>
       			</div>
-      			</c:forEach>
     		</div>
-    	</c:forEach>
-		</div> 
+    		</c:forEach>
 			
 		<div class="form-group">
 			<h5><label for="specialRequirements">Special Requirements (Optional)</label></h5>

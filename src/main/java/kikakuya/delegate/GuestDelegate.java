@@ -1,7 +1,9 @@
 package kikakuya.delegate;
 
 import java.sql.SQLException;
+import java.util.List;
 
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.service.GuestService;
 
@@ -28,4 +30,9 @@ public class GuestDelegate {
 		return guestService.deleteGuest(guestId);
 	}
 	
+	public List<Guest> getAllGuests(int eventId) throws SQLException {
+		Event event = new Event();
+		event.setEventId(eventId);
+		return guestService.getAllGuests(event);
+	}
 }

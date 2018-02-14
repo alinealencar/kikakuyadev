@@ -2,27 +2,11 @@ package kikakuya.model;
 
 public class GuestPlusOne {
 
-	private String firstName, lastName, fullName, mealChoice;
+	private String fullName, mealChoice;
 	private int guestGuestId;
 	
 	public GuestPlusOne() {
 		super();
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
 	}
 
 	public String getMealChoice() {

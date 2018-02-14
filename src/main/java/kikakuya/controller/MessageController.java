@@ -1,5 +1,9 @@
 package kikakuya.controller;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.User;
 
@@ -21,17 +26,50 @@ public class MessageController {
 	@Autowired
 	private MessageDelegate messageDelegate;
 
-
-	
 	@RequestMapping(value="/broadcast", method = RequestMethod.POST)
 	public String processSendBroadcast(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("email") Email email, Model model){
 		
 		String redirectTo = "sendMessage";
+		List<Guest> guestList = new ArrayList<Guest>();
+		int statusId;
 		
-		messageDelegate.sendBroadcast(email);
-		request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1);
+				
+		//guestList = messageDelegate.findGuestByStatus(, eventId)
+		try {
+			if(email.getStatus().equals("all")){
+				guestList = messageDelegate.findGuests(event);
+			}
+			else if(email.getStatus().equals("attending")){
+				statusId = 1;
+				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
+			}
+			else if(email.getStatus().equals("absent")){
+				statusId = 0;
+				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
+			}
+			else if(email.getStatus().equals("noReply")){
+				guestList = messageDelegate.findGuestNoReply(event.getEventId());
+			}
+			else{
+				for(int i=0; i<email.getRecipients().length; i++){
+					Guest guest = new Guest();
+					guest = messageDelegate.findGuestById(email.getRecipients()[i]);
+					guestList.add(guest);
+				}
+			}
+			messageDelegate.sendBroadcast(email, guestList);
+			request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
+		} catch (Exception e) {
+				e.printStackTrace();
+				request.setAttribute("sendBroadcastError", "Error! Message sending failed.");
+			}
 		
 		return redirectTo;
+		}
+		
 	}
-}
+
