@@ -49,7 +49,6 @@ CREATE TABLE Guest (
   specialRequests varchar(255),
   mealChoice varchar(50),
   EventeventId int(10) NOT NULL,
-  /*EmailemailId int(10),*/
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (
 	guestPlusOneId int(10) NOT NULL AUTO_INCREMENT,

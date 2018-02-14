@@ -6,6 +6,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 
 <div class="container">
 	<!-- body contents start -->
@@ -108,50 +109,48 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-check">
-						<input class="form-check-input" type="radio" name="recipients" id="all" value="all" checked onclick="hideSelectGuests()">
+						<form:radiobutton class="form-check-input" name="recipients" id="all" value="all" path="status" onclick="hideSelectGuests()" />
 						<label class="form-check-label" for="all">
 							 All
 						</label>
 					</div>
 					<div class="form-check">
-					  	<input class="form-check-input" type="radio" name="recipients" id="attending" value="attending" onclick="hideSelectGuests()">
+					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="1" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="attending">
 					    	Attending guests
 					  	</label>
 					</div>
 					<div class="form-check">
-					  	<input class="form-check-input" type="radio" name="recipients" id="absent" value="absent" onclick="hideSelectGuests()">
+					  	<form:radiobutton class="form-check-input" name="recipients" id="absent" value="absent" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="absent">
 					    	Absent guests
 					  	</label>
 					</div>
 					<div class="form-check">
-					  	<input class="form-check-input" type="radio" name="recipients" id="noReply" value="noReply" onclick="hideSelectGuests()">
+					  	<form:radiobutton class="form-check-input" name="recipients" id="noReply" value="noReply" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="noReply">
 					    	Guests who haven't reply
 					  	</label>
 					</div>
 					<div class="form-check">
-					  	<input class="form-check-input" type="radio" name="recipients" id="select" value="select" onclick="showSelectGuests()">
+					  	<input class="form-check-input" type="radio" name="recipients" id="select" value="select" path="status" onclick="showSelectGuests()">
 					  	<label class="form-check-label" for="select">
 					    	Select guests
 					  	</label>
 					</div>
 					<div id="guestDropdown" class="form-group" style="display:none;">
 					    <label for="guestSelection" class="sr-only">Guest Selection</label>
-					    <form:select class="form-control" id="guestSelection" onchange="selectedGuestList()" path="recipients">
-					      <option>1</option>
-					      <option>2</option>
-					      <option>3</option>
-					      <option>4</option>
-					      <option>5</option>
-					    </form:select>
+					    <select class="form-control" id="guestSelection" onchange="selectedGuestList()" >
+					      <c:forEach items="${guests}" var="guest" varStatus="loop">
+					      	<option value="${guest.guestId}">${guest.firstName} ${guest.lastName}</option>
+					      </c:forEach>
+					    </select>
 					</div>
 					
 				</div>
 				<div id="guestTextarea" class="col-sm-4" style="display:none;">
 					<label for="selectedGuests">Selected guests:</label>
-    				<textarea class="form-control" id="selectedGuests" rows="5" readonly></textarea>
+    				<form:textarea class="form-control" id="selectedGuests" rows="5" path="recipients"></form:textarea>
 				</div>
   			</div>
   			

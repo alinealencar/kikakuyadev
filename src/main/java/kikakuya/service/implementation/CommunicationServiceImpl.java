@@ -64,6 +64,15 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return guestDao.findGuestById(guestId);
 	}
 	
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		return guestDao.findGuestByStatus(status, eventId);
+	}
+
+	
+	public List<Guest> findGuestNoReply(int eventId) throws SQLException {
+		return guestDao.findGuestNoReply(eventId);
+	}
+
 	public boolean insertEmail(Email email, Event event) throws SQLException {
 		return emailDao.insertEmail(email, event);
 	}
@@ -72,12 +81,12 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return guestPlusOneDao.insertPlusOne(plusOne, guest);
 	}
 	
-	public Email findEmailById(Event event) throws SQLException {
-		return emailDao.findEmailById(event);
+	public Email findEmailByEvent(Event event) throws SQLException {
+		return emailDao.findEmailByEvent(event);
 	}
 	
-	public boolean findEmailByEvent(Event event) throws SQLException {
-		return emailDao.findEmailByEvent(event);
+	public boolean countEmailByEvent(Event event) throws SQLException {
+		return emailDao.countEmailByEvent(event);
 	}
 	
 	public boolean updateGuest(Guest guest) throws SQLException {
@@ -156,7 +165,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 		}
 	}
 	
-	public void sendBroadcast(Email email)  {
+	public void sendBroadcast(Email email, List<Guest> guestList)  {
 		//String subject = "Kikakuya - Event Announcement";
 		String from = "kikakuyadev@gmail.com"; //add email address
 		String[] to = {"mavillacete@gmail.com"};//add recipient
@@ -172,8 +181,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		    	 //check if email account and password combination is valid
 		         return new PasswordAuthentication(username, password);}});
 		     
-		     MimeMessage msg = new MimeMessage(session);
-		     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+		    // MimeMessage msg = new MimeMessage(session);
+		    // MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		     
 		     String message = "<div style=\"width: 75%; margin: 0 auto;\">"
 			     		+ "<div style=\"background-color: #541388; padding: 15px;\"><img src=\"cid:logo.png\"></img></div>"
@@ -183,22 +192,23 @@ public class CommunicationServiceImpl implements CommunicationService{
 			     		+ "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a><br></h4></div></div>";
 		     
 		     //iterate through all the selected guests
-		     //for(int i=0; i<guestList.size(); i++){
+		     for(int i=0; i<guestList.size(); i++){
+		    	 MimeMessage msg = new MimeMessage(session);
+			     MimeMessageHelper helper = new MimeMessageHelper(msg, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
 		    	 //set email content and information into the MimeMessageHelper
 		    	 helper.setText(message, true); //true indicates that the text included is HTML
 		    	 helper.addInline("logo.png",new ClassPathResource("logo.png"));
 		    	 helper.setSubject(email.getTitle());
-		    	 helper.setTo(to);
+		    	 helper.setTo(guestList.get(i).getEmail());
 		    	 helper.setFrom(from);
 		     
 		     //send the email
 		     Transport.send(msg);
-		     //}
+		   }
 		} catch (MessagingException e) {
 			e.printStackTrace();
 		}
 	}
-	
 }
 	
 	

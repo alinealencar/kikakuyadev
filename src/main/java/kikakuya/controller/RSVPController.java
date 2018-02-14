@@ -39,8 +39,19 @@ public class RSVPController {
 	* @return
 	*/
 	@RequestMapping(value="/sendMessage", method = RequestMethod.GET)
-	public String viewSendMessage(Model model){
+	public String viewSendMessage(Model model, HttpServletRequest request){
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+				
 		model.addAttribute("email", new Email());
+		List<Guest> guestList = new ArrayList<Guest>();
+		try {
+			guestList = rsvpDelegate.findGuests(event);
+			request.setAttribute("guests", guestList);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "sendMessage";
 	}
 	
@@ -60,7 +71,7 @@ public class RSVPController {
 		List<Guest> guestList;
 		
 		try {
-			if(!rsvpDelegate.findEmailByEvent(event)){
+			if(!rsvpDelegate.countEmailByEvent(event)){
 				guestList = rsvpDelegate.findGuests(event);
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
@@ -94,7 +105,7 @@ public class RSVPController {
 				event.setEventName("Chace's Birthday");
 		try {
 			Guest guest = rsvpDelegate.findGuestById(guestId);
-			Email email = rsvpDelegate.findEmailById(event);
+			Email email = rsvpDelegate.findEmailByEvent(event);
 			model.addAttribute("guest", guest);
 			//Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);

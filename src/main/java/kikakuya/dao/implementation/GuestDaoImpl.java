@@ -24,9 +24,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests(Event event) throws SQLException {
-		String query = "SELECT * FROM guest INNER JOIN guest_event "
-				+ "ON guest.guestId = guest_event.GuestguestId "
-				+ "WHERE guest_event.EventeventId=" + event.getEventId();
+		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -108,6 +106,54 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(11));
 		}
 		return guest;
+	}
+	
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		String query = "SELECT * FROM guest WHERE isPresent=" + status + " AND EventeventID=" + eventId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
+			guest.setSpecialRequests(rs.getString(11));
+			
+			guests.add(guest);
+		}
+		return guests;
+	}
+	
+	public List<Guest> findGuestNoReply(int eventId) throws SQLException{
+		String query = "SELECT * FROM guest WHERE isPresent IS NULL AND EventeventID=" + eventId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
+			guest.setFirstName(rs.getString(2));
+			guest.setLastName(rs.getString(3));
+			guest.setEmail(rs.getString(4));
+			guest.setIsPresent(rs.getInt(5));
+			guest.setCompany(rs.getString(6));
+			guest.setKidsWith(rs.getInt(7));
+			guest.setAdultsWith(rs.getInt(8));
+			guest.setKidsMax(rs.getInt(9));
+			guest.setAdultsMax(rs.getInt(10));
+			guest.setSpecialRequests(rs.getString(11));
+			
+			guests.add(guest);
+		}
+		return guests;
 	}
 
 }

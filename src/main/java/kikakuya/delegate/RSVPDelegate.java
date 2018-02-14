@@ -42,13 +42,13 @@ public class RSVPDelegate {
 		return communicationService.findGuestById(guestId);
 	}
 
-	public Email findEmailById(Event event) throws SQLException {
-		return communicationService.findEmailById(event);
+	public Email findEmailByEvent(Event event) throws SQLException {
+		return communicationService.findEmailByEvent(event);
 	}
 
 	
-	public boolean findEmailByEvent(Event event) throws SQLException {
-		return communicationService.findEmailByEvent(event);
+	public boolean countEmailByEvent(Event event) throws SQLException {
+		return communicationService.countEmailByEvent(event);
 	}
 
 	public boolean updateGuest(Guest guest) throws SQLException {
