@@ -7,7 +7,7 @@
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
-<div class="container">
+<div id="contents" class="container">
 	<!-- body contents start -->
 	<h2>Send Messages</h2>
 	<div>
@@ -20,10 +20,10 @@
 		  	<h5>1. Select type of the message</h5>
 		</div>
 		<label class="radio-inline text-sm-center col-sm-4" onclick="showRSVP()">
-			<input type="radio" name="messageType" value="RSVP">RSVP
+			<input id="rbRsvp" type="radio" name="messageType" value="RSVP">RSVP
 		</label>
 		<label class="radio-inline text-sm-center col-sm-4" onclick="showBroadcast()">
-			<input type="radio" name="messageType" value="broadcast">Broadcast Message
+			<input id="rbBroadcast" type="radio" name="messageType" value="broadcast">Broadcast Message
 		</label>
 	</div>
 
@@ -85,7 +85,7 @@
 				</div>
      		</div>
      		
-		</form:form>		
+		</form:form>	
 	</div>
 
 	
@@ -173,7 +173,7 @@
 	     			 <button type="button" class="btn btn-outline-secondary col-6">Clear</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-					 <button type="button" class="btn btn-danger col-6">Cancel</button>
+					 <button type="button" class="btn btn-danger col-6">Cancel</button><br>
 				</div>
      		</div>
   			
@@ -190,6 +190,7 @@ function showRSVP() {
         broadcast.style.display = "none";
     }
 }
+
 function showBroadcast() {
     var rsvp = document.getElementById("rsvpForm");
     var broadcast = document.getElementById("broadcastForm");
@@ -216,6 +217,7 @@ function hideSelectGuests(){
 		guestTextarea.style.display = "none";
 	}
 }
+	   
 /********************* need to modify**************************/
 function selectedGuestList(){
 	var guestTextarea = document.getElementById('guestTextarea');
@@ -226,7 +228,6 @@ function selectedGuestList(){
     }
 }
 </script>
-	
   	<!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
