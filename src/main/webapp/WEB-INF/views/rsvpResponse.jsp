@@ -17,7 +17,7 @@
 	<h4 class="text-center">The favor of reply is required by <b>${email.replyDue}</b></h4>
 	<h1 class="text-center">${guest.firstName} ${guest.lastName}</h1>
 	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest">
-	  	<form:hidden value="${token}" path="guestId" />
+	  	<form:hidden value="${token}" path="token" />
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">
 		  		<h4><form:radiobutton name="attendance" value="1" path="isPresent" />Happily attend!</h4>

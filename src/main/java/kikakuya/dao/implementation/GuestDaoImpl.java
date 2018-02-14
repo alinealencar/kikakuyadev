@@ -100,16 +100,17 @@ public class GuestDaoImpl implements GuestDao {
 		Guest guest = new Guest();
 		while(rs.next()){
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
 		}
 		return guest;
 	}
@@ -122,16 +123,17 @@ public class GuestDaoImpl implements GuestDao {
 		while(rs.next()){
 			Guest guest = new Guest();
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
 			
 			guests.add(guest);
 		}
@@ -145,16 +147,17 @@ public class GuestDaoImpl implements GuestDao {
 		Guest guest = new Guest();
 		while(rs.next()){
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
 		}
 		return guest;
 	}
