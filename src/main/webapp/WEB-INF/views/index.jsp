@@ -3,20 +3,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <% session.setAttribute("title", "KIKAKUYA"); %>
+
 <jsp:include page="/WEB-INF/includes/head.jsp" />
+<jsp:include page="/WEB-INF/includes/header-login.jsp"/>
 <body>
-<div id="login">
-	<form:form action="login" method="post" modelAttribute="user">
-		<span>Email: </span>
-		<form:input path="email"/>
-		<span>Password: </span>
-		<form:password path="userPassword"/>
-		<input type="checkbox" name="isRememberMe" value="1"/> Remember Me
-		<br>
-		<input type="submit" value="Login">
-	</form:form>
-</div>
-<br>
 <span>${signUpSuccess}</span>
 <span>${signUpError}</span>
 <div id="SignUp">
