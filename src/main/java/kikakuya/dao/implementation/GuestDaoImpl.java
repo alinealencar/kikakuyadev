@@ -24,6 +24,9 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests(Event event) throws SQLException {
+//		String query = "SELECT * FROM guest INNER JOIN guest_event "
+//				+ "ON guest.guestId = guest_event.GuestguestId "
+//				+ "WHERE guest_event.EventeventId=" + event.getEventId();
 		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
@@ -31,16 +34,17 @@ public class GuestDaoImpl implements GuestDao {
 		while(rs.next()){
 			Guest guest = new Guest();
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
 			
 			guests.add(guest);
 		}
@@ -48,7 +52,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId) VALUES (?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, guest.getFirstName());
@@ -60,6 +64,7 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setInt(7, guest.getAdultsMax());
 		pstmt.setString(8, guest.getSpecialRequests());
 		pstmt.setInt(9, guest.getEventId());
+		pstmt.setString(10, guest.getToken());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		

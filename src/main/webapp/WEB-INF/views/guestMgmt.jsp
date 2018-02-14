@@ -8,30 +8,30 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
-<table>
-	<tr>
-		<th>Select</th>
-		<th>First Name</th>
-		<th>Last Name</th>
-		<th>Plus Ones - Adults</th>
-		<th>Plus Ones - Kids
-		<th>Status</th>
+<div class="table">
+	<div class="row">
+		<div class="cell">Select</div>
+		<div class="cell">First Name</div>
+		<div class="cell">Last Name</div>
+		<div class="cell">Plus Ones - Adults</div>
+		<div class="cell">Plus Ones - Kids</div>
+		<div class="cell">Status</div>
 		<!-- Load all guests for the selected event -->
-	</tr>
+	</div>
 	<c:forEach items="${guests}" var="guest" >
-		<tr>
-			<td>rd</td>
-			<td>${guest.firstName}</td>
-			<td>${guest.lastName}</td>
-			<td>${guest.adultsWith}</td>
-			<td>${guest.kidsWith}</td>
-			<td>${guest.isPresent}</td>
-		</tr>
+		<a class="row" href="#">
+			<div class="cell">rd</div>
+			<div class="cell">${guest.firstName}</div>
+			<div class="cell">${guest.lastName}</div>
+			<div class="cell">${guest.adultsWith}</div>
+			<div class="cell">${guest.kidsWith}</div>
+			<div class="cell">${guest.isPresent}</div>
+		</a>
 	</c:forEach>
 	
-</table>
+</div>
 <br>
-<form:form id="guestForm" method="post" modelAttribute="guest">
+<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
 	<span>First Name: </span>
 	<form:input path="firstName"/>
 
@@ -47,7 +47,7 @@
 	<br>
 	
 	<span>Plus ones: </span> <br/>
-		<span>Adult:</span>
+		<span>Adults:</span>
         	<form:select path="adultsMax">
         		<form:option value="0" label="0" selected="selected"/>
         		<form:option value="1" label="1"/>
@@ -55,7 +55,7 @@
         		<form:option value="3" label="3"/>
         		<form:option value="4" label="4"/>
 			</form:select>
-        <span>Kid:</span>
+        <span>Kids:</span>
         	<form:select path="kidsMax">
         		<form:option value="0" label="0" selected="selected"/>
         		<form:option value="1" label="1"/>
@@ -83,14 +83,6 @@
 	<form:hidden path="eventId" value="1"/>
 	
 	<!-- TO IMPLEMENT: Show addGuest first and hide editGuest. When the user clicks on "edit", hide addGuest and show editGuest -->
-	<span><input id="addGuest" type="button" value="Done" onclick="submitForm('addGuest')"></span>
-	<span><input id="editGuest" type="button" value="Save" onclick="submitForm('editGuest')"></span>
+	<span><input type="submit" value="Done"/></span>
 </form:form>
-<script>
-    function submitForm(action)
-    {
-        document.getElementById('guestForm').action = action;
-        document.getElementById('guestForm').submit();
-    }
-</script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
