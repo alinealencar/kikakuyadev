@@ -133,13 +133,12 @@ public class GuestDaoImpl implements GuestDao {
 		return guests;
 	}
 	
-	public List<Guest> findGuestNoReply(int eventId) throws SQLException{
-		String query = "SELECT * FROM guest WHERE isPresent IS NULL AND EventeventID=" + eventId;
+	public Guest findGuestByToken(String token) throws SQLException{
+		String query = "SELECT * FROM guest WHERE token='"+token+"'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
-		List<Guest> guests = new ArrayList<Guest>();
+		Guest guest = new Guest();
 		while(rs.next()){
-			Guest guest = new Guest();
 			guest.setGuestId(rs.getInt(1));
 			guest.setFirstName(rs.getString(2));
 			guest.setLastName(rs.getString(3));
@@ -151,10 +150,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(9));
 			guest.setAdultsMax(rs.getInt(10));
 			guest.setSpecialRequests(rs.getString(11));
-			
-			guests.add(guest);
 		}
-		return guests;
+		return guest;
 	}
 
 }

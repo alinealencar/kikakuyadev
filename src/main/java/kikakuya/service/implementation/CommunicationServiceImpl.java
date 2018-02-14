@@ -67,12 +67,11 @@ public class CommunicationServiceImpl implements CommunicationService{
 	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
 		return guestDao.findGuestByStatus(status, eventId);
 	}
-
 	
-	public List<Guest> findGuestNoReply(int eventId) throws SQLException {
-		return guestDao.findGuestNoReply(eventId);
+	public Guest findGuestByToken(String token) throws SQLException {
+		return guestDao.findGuestByToken(token);
 	}
-
+	
 	public boolean insertEmail(Email email, Event event) throws SQLException {
 		return emailDao.insertEmail(email, event);
 	}
