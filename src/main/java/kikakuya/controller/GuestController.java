@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
 import kikakuya.model.Guest;
+import kikakuya.utilities.HelperUtilities;
 
 @Controller
 public class GuestController {
@@ -52,12 +53,17 @@ public class GuestController {
 	@RequestMapping(value = "/addGuest", method = RequestMethod.POST)
 	public String processAddGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
+			guest.setToken(HelperUtilities.newUUID());
 			boolean addSuccessful = guestDelegate.addGuest(guest);
 			if(addSuccessful){
 				System.out.println("Add guest successful");
 				
 				//Add success message to the request scope
 				request.setAttribute("addGuestSuccess", "add sucessful");
+				//Update guest list
+				int eventId = 1;
+				List<Guest> allGuests = guestDelegate.getAllGuests(eventId);
+				request.getSession().setAttribute("guests", allGuests);
 			}
 			else {
 				request.setAttribute("addGuestError", "Error in the add guest");
