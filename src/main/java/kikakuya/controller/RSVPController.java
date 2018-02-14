@@ -95,22 +95,22 @@ public class RSVPController {
 	}
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
-	public String viewResponseForm(@RequestParam("guestId") int guestId, Model model, HttpServletRequest request){
+	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
 	
 		//for testing
-				Event event = new Event(); 
-				event.setEventId(1); 
-				event.setLocation("ACC"); 
-				event.setEventDate("2018-05-29");
-				event.setEventName("Chace's Birthday");
+		Event event = new Event(); 
+		event.setEventId(1); 
+		event.setLocation("ACC"); 
+		event.setEventDate("2018-05-29");
+		event.setEventName("Chace's Birthday");
 		try {
-			Guest guest = rsvpDelegate.findGuestById(guestId);
+			Guest guest = rsvpDelegate.findGuestByToken(token);
 			Email email = rsvpDelegate.findEmailByEvent(event);
 			model.addAttribute("guest", guest);
 			//Email email = rsvpDelegate.findEmailById(1);
 			request.setAttribute("guest", guest);
 			request.setAttribute("email", email);
-			request.setAttribute("guestId", guestId);
+			request.setAttribute("token", token);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

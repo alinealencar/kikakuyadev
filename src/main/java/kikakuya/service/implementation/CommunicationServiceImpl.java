@@ -67,12 +67,11 @@ public class CommunicationServiceImpl implements CommunicationService{
 	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
 		return guestDao.findGuestByStatus(status, eventId);
 	}
-
 	
-	public List<Guest> findGuestNoReply(int eventId) throws SQLException {
-		return guestDao.findGuestNoReply(eventId);
+	public Guest findGuestByToken(String token) throws SQLException {
+		return guestDao.findGuestByToken(token);
 	}
-
+	
 	public boolean insertEmail(Email email, Event event) throws SQLException {
 		return emailDao.insertEmail(email, event);
 	}
@@ -144,7 +143,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 			   		+ "<h4>Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</h4>"
 			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		//message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
-			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\">Click here to RSVP</a>"
+			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?token=\""+guestList.get(i).getToken()+"\"\">Click here to RSVP</a>"
 			   		+ "<p>Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"

@@ -140,7 +140,7 @@
 					</div>
 					<div id="guestDropdown" class="form-group" style="display:none;">
 					    <label for="guestSelection" class="sr-only">Guest Selection</label>
-					    <select class="form-control" id="guestSelection" onchange="selectedGuestList()" >
+					    <select class="form-control" id="guestSelection" onchange="selectedGuestList()" multiple>
 					      <c:forEach items="${guests}" var="guest" varStatus="loop">
 					      	<option value="${guest.guestId}">${guest.firstName} ${guest.lastName}</option>
 					      </c:forEach>

@@ -44,9 +44,9 @@ public class MessageDelegate {
 		return communicationService.findGuestByStatus(status, eventId);
 	}
 
-	public List<Guest> findGuestNoReply(int eventId) throws SQLException {
+	/*public List<Guest> findGuestNoReply(int eventId) throws SQLException {
 		return communicationService.findGuestNoReply(eventId);
-	}
+	}*/
 	
 	
 	

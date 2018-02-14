@@ -17,13 +17,13 @@
 	<h4 class="text-center">The favor of reply is required by <b>${email.replyDue}</b></h4>
 	<h1 class="text-center">${guest.firstName} ${guest.lastName}</h1>
 	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest">
-	  	<form:hidden value="${guestId}" path="guestId" />
+	  	<form:hidden value="${token}" path="token" />
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">
 		  		<h4><form:radiobutton name="attendance" value="1" path="isPresent" />Happily attend!</h4>
 		  	</label>
 		  	<label class="radio-inline text-center col-sm-6">
-		  		<h4><form:radiobutton name="attendance" value="0" path="isPresent" />Sadly decline...</h4>
+		  		<h4><form:radiobutton name="attendance" value="2" path="isPresent" />Sadly decline...</h4>
 		  	</label>
 		</div>
 		  	
@@ -86,11 +86,11 @@
     		</div>
     			
     		<!-- meal choice for +1 -->
-    		<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
-    		<div class="row">
+    		<!--<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">-->
+    		<div class="row" id="adult1" style="display:none;">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[${loop.index}].fullName"/>
+     				<form:input type="text" id="+1" class="form-control" path="plusOneList[0].fullName"/>
       			</div>
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[${loop.index}].mealChoice">
@@ -116,7 +116,7 @@
   					</form:select>
       			</div>
     		</div>
-    		</c:forEach>
+    		<!--</c:forEach>-->
 			
 		<div class="form-group">
 			<h5><label for="specialRequirements">Special Requirements (Optional)</label></h5>
@@ -132,7 +132,14 @@
 			<button type="submit" class="btn btn-success col-4 mb-2">Send</button>
 		</div>
 	</form:form>
- 
+ <script type="text/javascript">
+ function showAdultGroup() {
+	    var rsvp = document.getElementById("adult");
+	    if (adult.style.display === "none") {
+	        adult.style.display = "block";
+	    }
+	}
+ </script>
 
 </div><!-- body contents end -->
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

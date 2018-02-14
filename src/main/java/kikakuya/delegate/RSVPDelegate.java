@@ -41,6 +41,10 @@ public class RSVPDelegate {
 	public Guest findGuestById(int guestId) throws SQLException {
 		return communicationService.findGuestById(guestId);
 	}
+	
+	public Guest findGuestByToken(String token) throws SQLException {
+		return communicationService.findGuestByToken(token);
+	}
 
 	public Email findEmailByEvent(Event event) throws SQLException {
 		return communicationService.findEmailByEvent(event);

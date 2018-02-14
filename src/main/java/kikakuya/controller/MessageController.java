@@ -48,11 +48,12 @@ public class MessageController {
 				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
 			}
 			else if(email.getStatus().equals("absent")){
-				statusId = 0;
+				statusId = 2;
 				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
 			}
 			else if(email.getStatus().equals("noReply")){
-				guestList = messageDelegate.findGuestNoReply(event.getEventId());
+				statusId = 0;
+				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
 			}
 			else{
 				for(int i=0; i<email.getRecipients().length; i++){
