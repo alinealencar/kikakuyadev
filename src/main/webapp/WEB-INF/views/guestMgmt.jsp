@@ -8,28 +8,65 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
-<div class="table">
-	<div class="row">
-		<div class="cell">Select</div>
-		<div class="cell">First Name</div>
-		<div class="cell">Last Name</div>
-		<div class="cell">Plus Ones - Adults</div>
-		<div class="cell">Plus Ones - Kids</div>
-		<div class="cell">Status</div>
+<table id="guests">
+	<tr>
+		<th>Select</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Plus Ones - Adults</th>
+		<th>Plus Ones - Kids</th>
+		<th>Status</th>
 		<!-- Load all guests for the selected event -->
-	</div>
+	</tr>
 	<c:forEach items="${guests}" var="guest" >
-		<a class="row" href="#">
-			<div class="cell">rd</div>
-			<div class="cell">${guest.firstName}</div>
-			<div class="cell">${guest.lastName}</div>
-			<div class="cell">${guest.adultsWith}</div>
-			<div class="cell">${guest.kidsWith}</div>
-			<div class="cell">${guest.isPresent}</div>
-		</a>
+		<tr>
+			<td>rd</td>
+			<td>${guest.firstName}</td>
+			<td>${guest.lastName}</td>
+			<td>${guest.adultsWith}</td>
+			<td>${guest.kidsWith}</td>
+			<td>${guest.isPresent}
+				<form class="showGuestForm" action="showGuest" method="post">
+					<input name="selectedGuest" type="hidden" value="${guest.guestId}"/>
+				</form>
+			</td>
+		</tr>
 	</c:forEach>
-	
-</div>
+</table>
+<h2>Guest Details</h2>
+<span>First Name: ${selectedGuest.firstName}</span>
+<span>Last Name: ${selectedGuest.lastName}</span>
+<span>Email: ${selectedGuest.email}</span>
+<span>Maximum No. of Adults: ${selectedGuest.adultsMax}</span>
+<span>Maximum No. of Kids: ${selectedGuest.kidsMax}</span>
+<span>Group: ${selectedGuest.company}</span>
+<span>Notes: add note column to the db</span>
+<span><i>RSVP</i></span>
+<span>RSVP Status: ${selectedGuest.isPresent}</span>
+<span>Kids With: ${selectedGuest.kidsWith}&nbsp;&nbsp;Adults With: ${selectedGuest.adultsWith}</span>
+
+<span></span>
+<script>
+function addRowHandlers() {
+    var table = document.getElementById("guests");
+    var rows = table.getElementsByTagName("tr");
+    for (i = 0; i < rows.length; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = 
+            function(row) 
+            {
+                 return function() { 
+                                   		var formNode = row.getElementsByClassName("showGuestForm");
+                                   		console.log(formNode);
+                                   		formNode[0].submit();
+                                 }; 
+            };
+
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+}
+window.onload = addRowHandlers();
+</script>
 <br>
 <form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
 	<span>First Name: </span>
