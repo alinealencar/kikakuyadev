@@ -140,17 +140,17 @@
 					</div>
 					<div id="guestDropdown" class="form-group" style="display:none;">
 					    <label for="guestSelection" class="sr-only">Guest Selection</label>
-					    <select class="form-control" id="guestSelection" multiple>
+					    <form:select class="form-control" id="guestSelection" multiple="true" path="recipients">
 					      <c:forEach items="${guests}" var="guest" varStatus="loop">
-					      	<option value="${guest.firstName} ${guest.lastName}">${guest.firstName} ${guest.lastName}</option>
+					      	<option value="${guest.guestId}">${guest.firstName} ${guest.lastName}</option>
 					      </c:forEach>
-					    </select>
+					    </form:select>
 					</div>
 					
 				</div>
 				<div id="guestTextarea" class="col-sm-4" style="display:none;">
 					<label for="selectedGuests">Selected guests:</label>
-    				<form:textarea class="form-control" id="selectedGuests" rows="5" readonly="true" path="recipients"></form:textarea>
+    				<textarea class="form-control" id="selectedGuests" rows="5" readonly></textarea>
 				</div>
   			</div>
   			
@@ -230,42 +230,32 @@ function selectedGuestList(){
 function getSelectedOptions(sel, fn) {
     var opts = [], opt;
     
-    // loop through options in select list
     for (var i=0, len=sel.options.length; i<len; i++) {
         opt = sel.options[i];
         
-        // check if selected
         if ( opt.selected ) {
-            // add to array of option elements to return from this function
             opts.push(opt);
             
-            // invoke optional callback function if provided
             if (fn) {
                 fn(opt);
             }
         }
     }
     
-    // return array containing references to selected option elements
     return opts;
 }
 
-//example callback function (selected options passed one by one)
 function callback(opt) {
-    // display in textarea for this example
     var display = document.getElementById('selectedGuests');
-    display.innerHTML += opt.value + ' \n';
+    display.innerHTML += opt.innerHTML + ' \n';
 }
 
 document.getElementById('guestSelection').onchange = function(e) {
-    // get reference to display textarea
     var display = document.getElementById('selectedGuests');
     display.innerHTML = ''; // reset
-    
-    // callback fn handles selected options
+  
     getSelectedOptions(this, callback);
     
-    // remove ', ' at end of string
     var str = display.innerHTML.slice(0, -2);
     display.innerHTML = str;
 };

@@ -56,6 +56,8 @@ public class MessageController {
 				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
 			}
 			else{
+				//String[] names;
+				//Guest guest = new Guest();
 				for(int i=0; i<email.getRecipients().length; i++){
 					Guest guest = new Guest();
 					guest = messageDelegate.findGuestById(email.getRecipients()[i]);
