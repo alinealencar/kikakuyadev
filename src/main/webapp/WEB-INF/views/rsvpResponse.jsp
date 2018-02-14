@@ -34,7 +34,7 @@
 			</div>
 	   		<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
 	   		<div class="col-sm-2">
-		    	<form:select class="form-control" id="adult" path="adultsWith">
+		    	<form:select class="form-control" id="adult" path="adultsWith" onChange="show(this)">
 		    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
 		       		<option value="${loop.index}">${loop.index}</option>
 		       	</c:forEach>
@@ -87,7 +87,7 @@
     			
     		<!-- meal choice for +1 -->
     		<!--<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">-->
-    		<div class="row" id="adult1" style="display:none;">
+    		<div class="row" id="adult1">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[0].fullName"/>
@@ -133,12 +133,19 @@
 		</div>
 	</form:form>
  <script type="text/javascript">
- function showAdultGroup() {
-	    var rsvp = document.getElementById("adult");
-	    if (adult.style.display === "none") {
-	        adult.style.display = "block";
+ function show(obj) {
+	  //var rsvp = document.getElementById("adult");
+	  var value = obj.options[obj.selectedIndex].value;
+	  var count = obj.options.length;
+	    for(i=1;i<count;i++){
+	    	document.getElementById('myDiv'+i).style.display = 'none';
+	    
+	   		//if (document.getElementById('adult'+i).style.display === "none") {
+	   			if(no>0){
+	    		document.getElementById('adult'+no).style.display = 'block';
 	    }
-	}
+	    }
+ }
  </script>
 
 </div><!-- body contents end -->
