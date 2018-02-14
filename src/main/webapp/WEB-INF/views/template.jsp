@@ -6,7 +6,7 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
-<div class="container" style="margin-top: 50px;">
+<div id="contents" class="container" style="margin-top: 50px;">
 	<!-- body contents start -->
 		  <h1>NEW PAGE</h1>
 		  <p>This is some text.</p> 
