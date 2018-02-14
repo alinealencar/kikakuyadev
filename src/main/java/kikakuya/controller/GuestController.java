@@ -1,6 +1,10 @@
 package kikakuya.controller;
 
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,8 +32,18 @@ public class GuestController {
 	
 	//Show guest management
 	@RequestMapping(value = "/guestMgmt", method = RequestMethod.GET)
-	public String viewGuest(Model model){
+	public String viewGuest(HttpServletRequest request, Model model){
+		HttpSession session = request.getSession();
 		// TODO Send all guests related to the event that is currently selected
+		int eventId = 1;
+		//Get a list of all guests
+		try {
+			List<Guest> allGuests = guestDelegate.getAllGuests(eventId);
+			session.setAttribute("guests", allGuests);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		//Send the list of all guests to the session scope
 		model.addAttribute("guest", new Guest());
 		return "guestMgmt";
 	}
@@ -53,7 +67,7 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
-		return "guests";
+		return "guestMgmt";
 	}
 	
 	//Edit guest

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <!-- Change feature variable -->
 <%! String feature = "Guests" ;%>
 
@@ -7,7 +8,29 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
-
+<table>
+	<tr>
+		<th>Select</th>
+		<th>First Name</th>
+		<th>Last Name</th>
+		<th>Plus Ones - Adults</th>
+		<th>Plus Ones - Kids
+		<th>Status</th>
+		<!-- Load all guests for the selected event -->
+	</tr>
+	<c:forEach items="${guests}" var="guest" >
+		<tr>
+			<td>rd</td>
+			<td>${guest.firstName}</td>
+			<td>${guest.lastName}</td>
+			<td>${guest.adultsWith}</td>
+			<td>${guest.kidsWith}</td>
+			<td>${guest.isPresent}</td>
+		</tr>
+	</c:forEach>
+	
+</table>
+<br>
 <form:form id="guestForm" method="post" modelAttribute="guest">
 	<span>First Name: </span>
 	<form:input path="firstName"/>

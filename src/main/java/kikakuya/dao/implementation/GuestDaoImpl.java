@@ -24,9 +24,10 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests(Event event) throws SQLException {
-		String query = "SELECT * FROM guest INNER JOIN guest_event "
-				+ "ON guest.guestId = guest_event.GuestguestId "
-				+ "WHERE guest_event.EventeventId=" + event.getEventId();
+//		String query = "SELECT * FROM guest INNER JOIN guest_event "
+//				+ "ON guest.guestId = guest_event.GuestguestId "
+//				+ "WHERE guest_event.EventeventId=" + event.getEventId();
+		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
 		ResultSet rs = pstmt.executeQuery(query);
