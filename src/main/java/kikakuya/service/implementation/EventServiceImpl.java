@@ -54,7 +54,6 @@ public class EventServiceImpl implements EventService{
 	}
 
 	public boolean updateEvent(int eventId) throws SQLException {
-		// TODO Auto-generated method stub
 		return false;
 	}
 	

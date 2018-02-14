@@ -24,6 +24,12 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests(Event event) throws SQLException {
+<<<<<<< HEAD
+=======
+//		String query = "SELECT * FROM guest INNER JOIN guest_event "
+//				+ "ON guest.guestId = guest_event.GuestguestId "
+//				+ "WHERE guest_event.EventeventId=" + event.getEventId();
+>>>>>>> 00cdb465f93a443bcacec9182d61c66652d9e74f
 		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
@@ -48,7 +54,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsWith, adultsWith, specialRequests) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId) VALUES (?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, guest.getFirstName());
@@ -56,9 +62,10 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setString(3, guest.getEmail());
 		pstmt.setInt(4, guest.getIsPresent());
 		pstmt.setString(5, guest.getCompany());
-		pstmt.setInt(6, guest.getKidsWith());
-		pstmt.setInt(7, guest.getAdultsWith());
+		pstmt.setInt(6, guest.getKidsMax());
+		pstmt.setInt(7, guest.getAdultsMax());
 		pstmt.setString(8, guest.getSpecialRequests());
+		pstmt.setInt(9, guest.getEventId());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
