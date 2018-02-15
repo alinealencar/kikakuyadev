@@ -167,4 +167,20 @@ public class GuestDaoImpl implements GuestDao {
 		return guest;
 	}
 
+	@Override
+	public boolean updateGuestInfo(Guest guest) throws SQLException {
+		String query = "update guest set firstName = '" + guest.getFirstName() + 
+				"', lastName = '" + guest.getLastName() + 
+				"', email = '" + guest.getEmail() + 
+				"', adultsMax = '" + guest.getAdultsMax() + 
+				"', kidsMax = '" + guest.getKidsMax() +
+				"', company = '" + guest.getCompany() +
+				"', notes = '" + guest.getNotes() +
+				"' where token = '" + guest.getToken() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
+
 }

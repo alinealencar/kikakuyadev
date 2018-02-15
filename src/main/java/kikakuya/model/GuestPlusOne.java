@@ -1,12 +1,20 @@
 package kikakuya.model;
 
 public class GuestPlusOne {
-
+	private int guestPlusOneId;
 	private String fullName, mealChoice;
 	private int guestGuestId;
 	
 	public GuestPlusOne() {
 		super();
+	}
+	
+	public int getGuestPlusOneId() {
+		return guestPlusOneId;
+	}
+
+	public void setGuestPlusOneId(int guestPlusOneId) {
+		this.guestPlusOneId = guestPlusOneId;
 	}
 
 	public String getMealChoice() {
