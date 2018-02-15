@@ -45,6 +45,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
+			guest.setNotes(rs.getString(13));
 			
 			guests.add(guest);
 		}
@@ -52,7 +53,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token) VALUES (?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes) VALUES (?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, guest.getFirstName());
@@ -65,13 +66,14 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setString(8, guest.getSpecialRequests());
 		pstmt.setInt(9, guest.getEventId());
 		pstmt.setString(10, guest.getToken());
+		pstmt.setString(11, guest.getNotes());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
 	}
 
-	public boolean updateGuest(Guest guest) throws SQLException {
+	public boolean updateGuestRsvpInfo(Guest guest) throws SQLException {
 		String query = "update guest set isPresent = '" + guest.getIsPresent() + 
 				"', kidsWith = '" + guest.getKidsWith() + 
 				"', adultsWith = '" + guest.getAdultsWith() + 
@@ -111,6 +113,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
+			guest.setNotes(rs.getString(13));
 		}
 		return guest;
 	}
@@ -134,6 +137,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
+			guest.setNotes(rs.getString(13));
 			
 			guests.add(guest);
 		}
@@ -158,6 +162,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
+			guest.setNotes(rs.getString(13));
 		}
 		return guest;
 	}

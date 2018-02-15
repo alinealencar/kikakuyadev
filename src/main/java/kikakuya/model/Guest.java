@@ -18,6 +18,7 @@ public class Guest {
 	private String mealChoice;
 	private int eventId;
 	private String token;
+	private String notes;
 	private List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 	
 	public Guest() {
@@ -113,5 +114,10 @@ public class Guest {
 	public void setToken(String token) {
 		this.token = token;
 	}
-	
+	public String getNotes() {
+		return notes;
+	}
+	public void setNotes(String notes) {
+		this.notes = notes;
+	}
 }
