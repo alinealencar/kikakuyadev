@@ -37,7 +37,7 @@ public class RememberMeFilter implements Filter {
 		try{
 			// Check if user has the RememberMe cookies (uuid and user) or if the user is currently logged in
 			if(AuthenticationUtilities.isRememberMe(request, dataSource) || AuthenticationUtilities.isLoggedIn(request.getSession())){
-				response.sendRedirect("home.jsp");
+				response.sendRedirect("default.jsp");
 			}
 			else
 				chain.doFilter(request, response);

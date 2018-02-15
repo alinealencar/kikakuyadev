@@ -98,6 +98,7 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
+		viewGuest(request, model);
 		return "guestMgmt";
 	}
 	
@@ -110,7 +111,6 @@ public class GuestController {
 			try {
 				guestDelegate.editPlusOne(plusOne);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

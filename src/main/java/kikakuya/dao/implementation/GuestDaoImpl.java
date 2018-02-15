@@ -194,7 +194,8 @@ public class GuestDaoImpl implements GuestDao {
 				"', kidsMax = '" + guest.getKidsMax() +
 				"', company = '" + guest.getCompany() +
 				"', notes = '" + guest.getNotes() +
-				"' where token = '" + guest.getToken() + "'";
+				"', isPresent = " + guest.getIsPresent() +
+				" where token = '" + guest.getToken() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		

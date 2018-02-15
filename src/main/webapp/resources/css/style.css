@@ -76,7 +76,33 @@ Search result
 	background-color: #F1E9DA;
 	color: #D90368;
 }
-/***** form validation *****/
+
+/*********************************
+Guest Management
+**********************************/
+.noReply {
+	color: #00A1E4;
+}
+.present {
+	color: green;
+}
+.absent{
+	color: red;
+}
+tbody tr {
+	cursor: pointer;
+}
+.hideSection {
+	display:none;
+}
+.showSection {
+	display:inline-block;
+}
+/*********************************
+Form validation
+**********************************/
+
 .formError {
 	color: red;
 }
+
