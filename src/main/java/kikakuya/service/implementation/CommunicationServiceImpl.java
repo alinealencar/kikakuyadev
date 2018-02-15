@@ -80,6 +80,10 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return guestPlusOneDao.insertPlusOne(plusOne, guest);
 	}
 	
+	public boolean isTokenFound(String token) throws SQLException{
+		return guestDao.isTokenFound(token);
+	}
+	
 	public Email findEmailByEvent(Event event) throws SQLException {
 		return emailDao.findEmailByEvent(event);
 	}
@@ -90,6 +94,10 @@ public class CommunicationServiceImpl implements CommunicationService{
 	
 	public boolean updateGuest(Guest guest) throws SQLException {
 		return guestDao.updateGuestRsvpInfo(guest);
+	}
+	
+	public boolean deleteGuestToken(Guest guest) throws SQLException{
+		return guestDao.deleteGuestToken(guest);
 	}
 
 	public Properties setProperties(){

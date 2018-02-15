@@ -74,18 +74,24 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean updateGuestRsvpInfo(Guest guest) throws SQLException {
-		String query = "update guest set isPresent = '" + guest.getIsPresent() + 
+		String query = "UPDATE guest SET isPresent = '" + guest.getIsPresent() + 
 				"', kidsWith = '" + guest.getKidsWith() + 
 				"', adultsWith = '" + guest.getAdultsWith() + 
 				"', specialRequests = '" + guest.getSpecialRequests() + 
 				"', mealChoice = '" + guest.getMealChoice() + 
-				"' where guestId = '" + guest.getGuestId() + "'";
+				"' WHERE guestId = '" + guest.getGuestId() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return(rowsAffected > 0);
+	}
+	
+	public boolean deleteGuestToken(Guest guest) throws SQLException {
+		String query = "UPDATE guest SET token ='' where guestId = '" + guest.getGuestId() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
 		
-		
+		return(rowsAffected > 0);
 	}
 
 	public boolean deleteGuest(int guestId) throws SQLException {
@@ -165,6 +171,18 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setNotes(rs.getString(13));
 		}
 		return guest;
+	}
+	
+	public boolean isTokenFound(String token) throws SQLException{
+		String query = "SELECT COUNT(*) FROM guest WHERE token='" + token + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		if(rs.next())
+			rs.getInt(1);
+		if(rs.getInt(1) > 0)
+			return true;
+		else
+			return false;
 	}
 
 }

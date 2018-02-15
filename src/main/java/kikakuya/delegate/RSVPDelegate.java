@@ -57,7 +57,16 @@ public class RSVPDelegate {
 
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
 		return communicationService.insertPlusOne(plusOne, guest);
+	}
+
+	public boolean isTokenFound(String token) throws SQLException{
+		return communicationService.isTokenFound(token);
+	}
+	
+	public boolean deleteGuestToken(Guest guest) throws SQLException {
+		return communicationService.deleteGuestToken(guest);
 	}	
+	
 	
 	
 }
