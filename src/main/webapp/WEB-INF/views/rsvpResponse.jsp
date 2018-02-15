@@ -92,7 +92,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[0].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[0].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -115,10 +115,10 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[0].isAdult">
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[0].isAdult" disabled="true">
       					<option value=1 selected>Adult</option>
-      					<option value=0 selected>Kid</option>
+      					<option value=0>Kid</option>
       				</form:select>
       			</div>
     		</div>
@@ -129,7 +129,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[1].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[1].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -152,10 +152,10 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[1].isAdult">
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[1].isAdult" disabled="true">
       					<option value=1 selected>Adult</option>
-      					<option value=0 selected>Kid</option>
+      					<option value=0>Kid</option>
       				</form:select>
       			</div>
     		</div>
@@ -166,7 +166,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[2].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[2].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -189,10 +189,10 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[2].isAdult">
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[2].isAdult" disabled="true">
       					<option value=1 selected>Adult</option>
-      					<option value=0 selected>Kid</option>
+      					<option value=0>Kid</option>
       				</form:select>
       			</div>
     		</div>
@@ -203,7 +203,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[3].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[3].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -226,10 +226,10 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[3].isAdult">
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[3].isAdult" disabled="true">
       					<option value=1 selected>Adult</option>
-      					<option value=0 selected>Kid</option>
+      					<option value=0>Kid</option>
       				</form:select>
       			</div>
     		</div>
@@ -240,7 +240,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[4].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[4].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -263,9 +263,9 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[4].isAdult">
-      					<option value=1 selected>Adult</option>
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[4].isAdult" disabled="true">
+      					<option value=1>Adult</option>
       					<option value=0 selected>Kid</option>
       				</form:select>
       			</div>
@@ -277,7 +277,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[5].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[5].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -300,9 +300,9 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[5].isAdult">
-      					<option value=1 selected>Adult</option>
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[5].isAdult" disabled="true">
+      					<option value=1>Adult</option>
       					<option value=0 selected>Kid</option>
       				</form:select>
       			</div>
@@ -314,8 +314,8 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[6].fullName"/>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[6].mealChoice">
+      			<div class="col-sm-4">
+      				<form:select class="custom-select" id="category" path="plusOneList[6].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -337,9 +337,9 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[6].isAdult">
-      					<option value=1 selected>Adult</option>
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[6].isAdult" disabled="true">
+      					<option value=1>Adult</option>
       					<option value=0 selected>Kid</option>
       				</form:select>
       			</div>
@@ -351,7 +351,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="+1" class="form-control" path="plusOneList[7].fullName"/>
       			</div>
-      			<div class="col-sm-6">
+      			<div class="col-sm-4">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[7].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
@@ -374,9 +374,9 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-6">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[7].isAdult">
-      					<option value=1 selected>Adult</option>
+      			<div class="col-sm-2">
+      				<form:select class="custom-select" id="category" path="plusOneList[7].isAdult" disabled="true">
+      					<option value=1>Adult</option>
       					<option value=0 selected>Kid</option>
       				</form:select>
       			</div>
