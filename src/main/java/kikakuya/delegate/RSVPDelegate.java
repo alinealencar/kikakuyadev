@@ -22,10 +22,6 @@ public class RSVPDelegate {
 		this.communicationService = communicationService;
 	}
 	
-	/*public void sendRSVP(Guest guest, Email email, User user){
-		communicationService.sendRSVP(guest, email, user);
-	}*/
-	
 	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList){
 		communicationService.sendRSVP(email, user, event, guestList);
 	}

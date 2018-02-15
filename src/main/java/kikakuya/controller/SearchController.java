@@ -56,7 +56,6 @@ public class SearchController {
 		//get values from form
 		String category = request.getParameter("category");
 		String location = request.getParameter("location");
-		//String formattedLoc=  location.substring(0, 1).toUpperCase() + location.substring(1);
 		String capitalizedLoc = HelperUtilities.capitalize(location);
 		ArrayList<Vendor> vendors = new ArrayList<Vendor>();
 		
@@ -73,10 +72,8 @@ public class SearchController {
 			redirectTo = "searchResult";	
 		} catch (JSONException e) {
 			request.setAttribute("searchError", "No results found.");
-			//e.printStackTrace();
 		} catch (IOException e) {
 			request.setAttribute("searchError", "No results found.");
-			//e.printStackTrace();
 		}	
 
 		return redirectTo;

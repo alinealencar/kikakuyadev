@@ -115,7 +115,7 @@
 						</label>
 					</div>
 					<div class="form-check">
-					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="1" path="status" onclick="hideSelectGuests()" />
+					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="attending" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="attending">
 					    	Attending guests
 					  	</label>

@@ -105,8 +105,9 @@ public class RSVPController {
 		try {
 			Guest guest = rsvpDelegate.findGuestByToken(token);
 			Email email = rsvpDelegate.findEmailByEvent(event);
+			
 			model.addAttribute("guest", guest);
-			//Email email = rsvpDelegate.findEmailById(1);
+		
 			request.setAttribute("guest", guest);
 			request.setAttribute("email", email);
 			request.setAttribute("token", token);
@@ -122,7 +123,6 @@ public class RSVPController {
 		String redirectTo = "rsvpConfirmation";
 		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 		plusOneList = guest.getPlusOneList();
-		System.out.println(guest.getGuestId());
 		try {
 			for(int i=0; i<plusOneList.size(); i++){
 				if(plusOneList.get(i).getFullName() != null && !plusOneList.get(i).getMealChoice().equals(""))
