@@ -119,8 +119,6 @@ public class RSVPController {
 				redirectTo = "rsvpConfirmation";
 			}
 		} catch (SQLException e) {
-			//request.setAttribute("respondRSVPError", "You have already replied to the RSVP.");
-			//redirectTo = "rsvpConfirmation";
 			e.printStackTrace();
 		}
 		return redirectTo;

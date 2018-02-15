@@ -3,7 +3,7 @@ package kikakuya.model;
 public class GuestPlusOne {
 
 	private String fullName, mealChoice;
-	private int guestGuestId;
+	private int guestGuestId, isAdult;
 	
 	public GuestPlusOne() {
 		super();
@@ -31,6 +31,14 @@ public class GuestPlusOne {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public int getIsAdult() {
+		return isAdult;
+	}
+
+	public void setIsAdult(int isAdult) {
+		this.isAdult = isAdult;
 	}
 	 
 	

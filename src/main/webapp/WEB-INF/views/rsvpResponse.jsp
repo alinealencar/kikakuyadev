@@ -115,6 +115,12 @@
     					</c:if>
   					</form:select>
       			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[0].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
+      			</div>
     		</div>
 			
 			<!-- meal choice for Adult +2 -->
@@ -145,6 +151,12 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+      			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[1].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
       			</div>
     		</div>
     		
@@ -177,6 +189,12 @@
     					</c:if>
   					</form:select>
       			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[2].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
+      			</div>
     		</div>
     		
     		<!-- meal choice for Adult +4 -->
@@ -207,6 +225,12 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+      			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[3].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
       			</div>
     		</div>
     		
@@ -239,6 +263,12 @@
     					</c:if>
   					</form:select>
       			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[4].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
+      			</div>
     		</div>
     		
     		<!-- meal choice for Kid +2 -->
@@ -269,6 +299,12 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+      			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[5].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
       			</div>
     		</div>
     		
@@ -301,6 +337,12 @@
     					</c:if>
   					</form:select>
       			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[6].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
+      			</div>
     		</div>
     		
     		<!-- meal choice for Kid +4 -->
@@ -331,6 +373,12 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+      			</div>
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[7].isAdult">
+      					<option value=1 selected>Adult</option>
+      					<option value=0 selected>Kid</option>
+      				</form:select>
       			</div>
     		</div><br>
     		
