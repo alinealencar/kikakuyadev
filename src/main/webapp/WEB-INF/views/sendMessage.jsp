@@ -115,7 +115,7 @@
 						</label>
 					</div>
 					<div class="form-check">
-					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="1" path="status" onclick="hideSelectGuests()" />
+					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="attending" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="attending">
 					    	Attending guests
 					  	</label>
@@ -169,7 +169,7 @@
 	     			 <button type="submit" class="btn btn-success col-6">Send</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-	     			 <button type="button" class="btn btn-outline-secondary col-6">Clear</button>
+	     			 <button type="reset" class="btn btn-outline-secondary col-6">Clear</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
 					 <button type="button" class="btn btn-danger col-6">Cancel</button><br>

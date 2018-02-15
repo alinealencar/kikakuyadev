@@ -102,38 +102,63 @@ public class RSVPController {
 		event.setLocation("ACC"); 
 		event.setEventDate("2018-05-29");
 		event.setEventName("Chace's Birthday");
+		
+		String redirectTo = "rsvpResponse";
 		try {
-			Guest guest = rsvpDelegate.findGuestByToken(token);
-			Email email = rsvpDelegate.findEmailByEvent(event);
-			model.addAttribute("guest", guest);
-			//Email email = rsvpDelegate.findEmailById(1);
-			request.setAttribute("guest", guest);
-			request.setAttribute("email", email);
-			request.setAttribute("token", token);
+			if(rsvpDelegate.isTokenFound(token)){
+				Guest guest = rsvpDelegate.findGuestByToken(token);
+				Email email = rsvpDelegate.findEmailByEvent(event);
+				
+				model.addAttribute("guest", guest);
+				request.setAttribute("guest", guest);
+				request.setAttribute("email", email);
+				request.setAttribute("token", token);
+			}
+			else{
+				request.setAttribute("respondRSVPError", "You have already replied to the RSVP.");
+				redirectTo = "rsvpConfirmation";
+			}
 		} catch (SQLException e) {
+			//request.setAttribute("respondRSVPError", "You have already replied to the RSVP.");
+			//redirectTo = "rsvpConfirmation";
 			e.printStackTrace();
 		}
-		return "rsvpResponse";
+		return redirectTo;
 	}
 	
 	@RequestMapping(value="/sendRsvpResponse", method = RequestMethod.POST)
 	public String processSendRSVPResponse(HttpServletRequest request, 
-			@ModelAttribute("guest") Guest guest, Model model){
+			@ModelAttribute("guest") Guest guest){
 		String redirectTo = "rsvpConfirmation";
 		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 		plusOneList = guest.getPlusOneList();
-		System.out.println(guest.getGuestId());
+		
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+		event.setLocation("ACC"); 
+		event.setEventDate("2018-05-29");
+		event.setEventName("Chace's Birthday");
+				
 		try {
+			Email email = rsvpDelegate.findEmailByEvent(event);
+			
 			for(int i=0; i<plusOneList.size(); i++){
 				if(plusOneList.get(i).getFullName() != null && !plusOneList.get(i).getMealChoice().equals(""))
 					rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
 				else
 					continue;
 			}
-			if(rsvpDelegate.updateGuest(guest))
-				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
-			else
+			if(rsvpDelegate.updateGuest(guest)){
+				if(rsvpDelegate.deleteGuestToken(guest))
+					request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
+			}
+			else{
+				request.setAttribute("guest", guest);
+				request.setAttribute("email", email);
+				request.setAttribute("token", guest.getToken());
 				request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("respondRSVPError", "Error!");

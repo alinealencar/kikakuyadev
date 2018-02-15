@@ -22,10 +22,6 @@ public class RSVPDelegate {
 		this.communicationService = communicationService;
 	}
 	
-	/*public void sendRSVP(Guest guest, Email email, User user){
-		communicationService.sendRSVP(guest, email, user);
-	}*/
-	
 	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList){
 		communicationService.sendRSVP(email, user, event, guestList);
 	}
@@ -61,7 +57,16 @@ public class RSVPDelegate {
 
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
 		return communicationService.insertPlusOne(plusOne, guest);
+	}
+
+	public boolean isTokenFound(String token) throws SQLException{
+		return communicationService.isTokenFound(token);
+	}
+	
+	public boolean deleteGuestToken(Guest guest) throws SQLException {
+		return communicationService.deleteGuestToken(guest);
 	}	
+	
 	
 	
 }

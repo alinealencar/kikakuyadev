@@ -32,14 +32,17 @@ public class MessageController {
 		
 		String redirectTo = "sendMessage";
 		List<Guest> guestList = new ArrayList<Guest>();
+		
 		int statusId;
 		
 		//for testing
 		Event event = new Event(); 
 		event.setEventId(1);
 				
-		//guestList = messageDelegate.findGuestByStatus(, eventId)
 		try {
+			List<Guest> allGuests = new ArrayList<Guest>();
+			allGuests = messageDelegate.findGuests(event);
+					
 			if(email.getStatus().equals("all")){
 				guestList = messageDelegate.findGuests(event);
 			}
@@ -63,6 +66,7 @@ public class MessageController {
 				}
 			}
 			messageDelegate.sendBroadcast(email, guestList);
+			request.setAttribute("guests", allGuests);
 			request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
 		} catch (Exception e) {
 				e.printStackTrace();

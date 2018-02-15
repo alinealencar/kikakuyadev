@@ -13,8 +13,9 @@ public interface GuestDao {
 	public boolean updateGuestInfo(Guest guest) throws SQLException;
 	public boolean deleteGuest(int guestId) throws SQLException;
 	public Guest findGuestById(int guestId) throws SQLException;
-	//public Guest findGuestByToken(String token) throws SQLException;
 	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException;
 	public Guest findGuestByToken(String token) throws SQLException;
+	public boolean deleteGuestToken(Guest guest) throws SQLException;
+	public boolean isTokenFound(String token) throws SQLException;
 	
 }

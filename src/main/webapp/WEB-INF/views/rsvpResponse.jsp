@@ -10,6 +10,10 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 
 <div class="container"><!-- body contents start -->
+	<div>
+		<div class="${(sendRSVPError != null) ? 'alert alert-danger':''}" role="alert">${sendRSVPError}</div>
+	</div>
+	
 	<h4 class="text-center">The favor of reply is required by <b>${email.replyDue}</b></h4>
 	<h1 class="text-center">${guest.firstName} ${guest.lastName}</h1>
 	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest">
@@ -328,7 +332,7 @@
     					</c:if>
   					</form:select>
       			</div>
-    		</div>
+    		</div><br>
     		
 		<div class="form-group">
 			<h5><label for="specialRequirements">Special Requirements (Optional)</label></h5>
@@ -342,6 +346,7 @@
 			
 		<div class="text-center">
 			<button type="submit" class="btn btn-success col-4 mb-2">Send</button>
+		</div>
 		</div>
 	</form:form>
  <script type="text/javascript">
