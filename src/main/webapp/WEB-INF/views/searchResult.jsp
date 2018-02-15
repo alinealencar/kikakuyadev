@@ -13,13 +13,13 @@
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input name="category" placeholder="Category" class="col-12">
+					<input name="category" placeholder="Category" value="${category}" class="col-12">
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input name="location" placeholder="Location" class="col-12">
+					<input name="location" placeholder="Location" value="${location}" class="col-12">
 					<br><br>
 				</div>
 			</div>
@@ -31,12 +31,13 @@
 		</div>
 	</form>
 	<div class="${(searchError != null) ? 'alert alert-danger':''}" role="alert">${searchError}</div>
-
+	<div class="${(searchError == null) ? '':''}">Showing results for <b>${category}</b> in <b>${location}</b></div><br>
+	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
 			<li class="row">
 				<div class="col-md-3">
-					<img src="${vendor.imageURL}" alt="Vendor product" height="150px" width="150px">
+					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
 					<button id="btnAddVendor" type="button" class="btn btn-link float-right d-block d-md-none" name="addVendor">
       					<span class="material-icons" style="font-size: 300%;">add_circle</span>
    					</button>
