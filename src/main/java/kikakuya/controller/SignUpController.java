@@ -72,13 +72,13 @@ public class SignUpController {
 		}
 		
 		//For testing purposes:
-		System.out.println("SIGNUP");
-		System.out.println("name: " + user.getUserName());
-		System.out.println("email: " + user.getEmail());
-		System.out.println("password: " + user.getUserPassword());
+//		System.out.println("SIGNUP");
+//		System.out.println("name: " + user.getUserName());
+//		System.out.println("email: " + user.getEmail());
+//		System.out.println("password: " + user.getUserPassword());
 		
 		model.addAttribute("event", new Event());
-		System.out.println("");
+//		System.out.println("");
 		return redirectTo;
 
 	}
