@@ -20,7 +20,7 @@
 	  	<form:hidden value="${token}" path="token" />
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">
-		  		<h4><form:radiobutton name="attendance" value="1" path="isPresent" />Happily attend!</h4>
+		  		<h4><form:radiobutton name="attendance" value="1" path="isPresent" required="true" checked="true"/>Happily attend!</h4>
 		  	</label>
 		  	<label class="radio-inline text-center col-sm-6">
 		  		<h4><form:radiobutton name="attendance" value="2" path="isPresent" />Sadly decline...</h4>
@@ -58,7 +58,7 @@
 			<div class="row">
 				<div class="col-sm-6">
     				<label for="guestName" class="sr-only">Guest Name</label>
-    				<form:input type="text" id="guestName" class="form-control" placeholder="${guest.firstName} ${guest.lastName}" path="${firstName}"/>
+    				<form:input type="text" id="guestName" class="form-control" placeholder="${guest.firstName} ${guest.lastName}" path="${firstName}" required="true"/>
     			</div>
     			<div class="col-sm-6">
     				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="mealChoice">

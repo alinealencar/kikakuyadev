@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.SearchDelegate;
 import kikakuya.model.Vendor;
+import kikakuya.utilities.HelperUtilities;
 
 @Controller
 @RequestMapping(value="/search")
@@ -55,7 +56,8 @@ public class SearchController {
 		//get values from form
 		String category = request.getParameter("category");
 		String location = request.getParameter("location");
-		
+		//String formattedLoc=  location.substring(0, 1).toUpperCase() + location.substring(1);
+		String capitalizedLoc = HelperUtilities.capitalize(location);
 		ArrayList<Vendor> vendors = new ArrayList<Vendor>();
 		
 		String redirectTo = "searchResult";
@@ -63,7 +65,10 @@ public class SearchController {
 		try {
 			//populate vendors list
 			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
+			
 			request.setAttribute("vendors", vendors);
+			request.setAttribute("category", category);
+			request.setAttribute("location", capitalizedLoc);
 			
 			redirectTo = "searchResult";	
 		} catch (JSONException e) {

@@ -21,7 +21,7 @@
 		  	<h5>1. Select type of the message</h5>
 		</div>
 		<label class="radio-inline text-sm-center col-sm-4" onclick="showRSVP()">
-			<input id="rbRsvp" type="radio" name="messageType" value="RSVP">RSVP
+			<input id="rbRsvp" type="radio" name="messageType" value="RSVP" required>RSVP
 		</label>
 		<label class="radio-inline text-sm-center col-sm-4" onclick="showBroadcast()">
 			<input id="rbBroadcast" type="radio" name="messageType" value="broadcast">Broadcast Message
@@ -38,7 +38,7 @@
 				</div>		
   				<label for="replyDue" class="sr-only col-2 col-form-label">Reply Due</label>
   				<div class="col-sm-8">
-    				<form:input class="form-control" type="date"  id="replyDue" path="replyDue"/>
+    				<form:input class="form-control" type="date"  id="replyDue" path="replyDue" required="true"/>
   				</div>
      		</div>
      		
@@ -99,7 +99,7 @@
 				</div>
   				<label for="subject" class="sr-only col-2 col-form-label">Subject</label>
   				<div class="col-sm-8">
-    				<form:input class="form-control" type="text" id="subject" path="title"/>
+    				<form:input class="form-control" type="text" id="subject" path="title" required="true"/>
   				</div>
 			</div>
     
@@ -109,7 +109,7 @@
 				</div>
 				<div class="col-sm-4">
 					<div class="form-check">
-						<form:radiobutton class="form-check-input" name="recipients" id="all" value="all" path="status" onclick="hideSelectGuests()" />
+						<form:radiobutton class="form-check-input" name="recipients" id="all" value="all" path="status" onclick="hideSelectGuests()" checked="true"/>
 						<label class="form-check-label" for="all">
 							 All
 						</label>
@@ -160,7 +160,7 @@
 				</div>
 				<div class="col-sm-8">
 					<h5><label for="message" class="sr-only">Compose message</label></h5>				
-    				<form:textarea class="form-control" id="message" rows="3" path="message"></form:textarea>
+    				<form:textarea class="form-control" id="message" rows="3" path="message" required="true"></form:textarea>
     			</div>
   			</div>
   			

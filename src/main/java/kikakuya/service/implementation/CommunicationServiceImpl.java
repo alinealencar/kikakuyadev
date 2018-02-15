@@ -138,13 +138,14 @@ public class CommunicationServiceImpl implements CommunicationService{
 			    	+ "<div style=\"background-color: #541388; padding: 15px;\">"
 			   		+ "<img src=\"cid:logo.png\"></img></div>"
 			   		+ "<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\">"
-			   		+ "<h4>Hello " + guestList.get(i).getFirstName() + ",</h4>"
-			   		+ "<h3>You are invited to " + event.getEventName() +"!</h3>"
-			   		+ "<h4>Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</h4>"
-			   		+ "<p>Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
+			   		+ "<h3>Hello " + guestList.get(i).getFirstName() + ",</h3>"
+			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">You are invited to " + event.getEventName() +"!</p>"
+			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</p>"
+			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		//message += "<form action = \"http://localhost:8080/dev/rsvpResponse?guestId="+guestList.get(i).getGuestId()+"\"><input type = \"submit\" value = \"Click here to RSVP\" /></form><br><br>";
-			   		+ "<a href=\"http://localhost:8080/dev/rsvpResponse?token=\""+guestList.get(i).getToken()+"\"\">Click here to RSVP</a>"
-			   		+ "<p>Sincerely,<br>" + user.getUserName() +"</p></div>"
+			   		//+ "<a href=\"http://localhost:8080/dev/rsvpResponse?token=\""+guestList.get(i).getToken()+"\"\">Click here to RSVP</a>"
+			   		+"<a style=\"display: block; width: 130px; height: 20px; font-size: 110%; background: #eff2f7; padding: 10px; text-align: center; border-radius: 5px; color: #2E294E; text-decoration: none;\" href=\"http://localhost:8080/dev/rsvpResponse?token="+guestList.get(i).getToken()+"\">Click here to RSVP</a>"
+			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
 				    + "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a></h4></div></div>";
@@ -209,6 +210,3 @@ public class CommunicationServiceImpl implements CommunicationService{
 		}
 	}
 }
-	
-	
-

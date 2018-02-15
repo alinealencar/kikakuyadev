@@ -67,6 +67,7 @@ public class RSVPController {
 		event.setEventId(1); 
 		event.setLocation("ACC"); 
 		event.setEventDate("2018-05-29");
+		event.setEventName("Chace's Birthday");
 		
 		List<Guest> guestList;
 		
@@ -75,8 +76,6 @@ public class RSVPController {
 				guestList = rsvpDelegate.findGuests(event);
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
-					//for(int i=0; i<guestList.size(); i++)
-						//rsvpDelegate.updateEmailIdGuest(guestList.get(i));
 						rsvpDelegate.sendRSVP(email, user, event, guestList);
 						request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
 						redirectTo = "sendMessage";
