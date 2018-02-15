@@ -49,7 +49,6 @@ CREATE TABLE Guest (
   adultsMax int(3),
   specialRequests varchar(255),
   mealChoice varchar(50),
-  notes varchar(50),
   EventeventId int(10) NOT NULL,
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (
@@ -57,7 +56,7 @@ CREATE TABLE GuestPlusOne (
 	fullName varchar(50) NOT NULL,
 	mealChoice varchar(50),
 	GuestguestId int(10) NOT NULL,
-    isAdult int(1) NOT NULL,
+    category varchar(10) NOT NULL,
 	PRIMARY KEY(guestPlusOneId));
 CREATE TABLE Item (
   itemId     int(10) NOT NULL AUTO_INCREMENT, 
