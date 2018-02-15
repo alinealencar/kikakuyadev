@@ -25,12 +25,12 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 	}
 	
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
-		String query = "Insert into guestplusone (fullName, mealChoice, GuestguestId, isAdult) values (?,?,?,?)";
+		String query = "Insert into guestplusone (fullName, mealChoice, GuestguestId, Category) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, plusOne.getFullName());
 		pstmt.setString(2, plusOne.getMealChoice());
 		pstmt.setInt(3, guest.getGuestId());
-		pstmt.setInt(4, plusOne.getIsAdult());
+		pstmt.setString(4, plusOne.getCategory());
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
