@@ -122,9 +122,13 @@ public class RSVPController {
 		String redirectTo = "rsvpConfirmation";
 		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 		plusOneList = guest.getPlusOneList();
+		System.out.println(guest.getGuestId());
 		try {
 			for(int i=0; i<plusOneList.size(); i++){
-				rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
+				if(plusOneList.get(i).getFullName() != null && !plusOneList.get(i).getMealChoice().equals(""))
+					rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
+				else
+					continue;
 			}
 			if(rsvpDelegate.updateGuest(guest))
 				request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");

@@ -218,14 +218,14 @@ function hideSelectGuests(){
 }
 	   
 /********************* need to modify**************************/
-function selectedGuestList(){
+/*function selectedGuestList(){
 	var guestTextarea = document.getElementById('guestTextarea');
-    var guestDropdown = document.getElementById('guestDropdown');
+  	 var guestDropdown = document.getElementById('guestDropdown');
     guestDropdown.onchange = function(){
     	guestTextarea.text = guestTextarea.text  + this.text; //to appened
          //mytextbox.innerHTML = this.value;
     }
-}
+}*/
 
 function getSelectedOptions(sel, fn) {
     var opts = [], opt;
