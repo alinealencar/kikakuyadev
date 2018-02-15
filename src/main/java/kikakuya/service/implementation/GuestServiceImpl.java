@@ -28,7 +28,7 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	public boolean editGuest(Guest guest) throws SQLException {
-		return guestDao.updateGuest(guest);
+		return guestDao.updateGuestRsvpInfo(guest);
 	}
 
 	public List<Guest> getAllGuests(Event event) throws SQLException {

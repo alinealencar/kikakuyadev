@@ -89,7 +89,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 	}
 	
 	public boolean updateGuest(Guest guest) throws SQLException {
-		return guestDao.updateGuest(guest);
+		return guestDao.updateGuestRsvpInfo(guest);
 	}
 	
 	/*public boolean updateEmailIdGuest(Guest guest) throws SQLException {
