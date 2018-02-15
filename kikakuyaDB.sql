@@ -49,6 +49,7 @@ CREATE TABLE Guest (
   adultsMax int(3),
   specialRequests varchar(255),
   mealChoice varchar(50),
+  notes varchar(50),
   EventeventId int(10) NOT NULL,
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (

@@ -4,12 +4,15 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kikakuya.dao.GuestDao;
+import kikakuya.dao.GuestPlusOneDao;
 import kikakuya.model.Event;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.service.GuestService;
 
 public class GuestServiceImpl implements GuestService {
 	private GuestDao guestDao;
+	private GuestPlusOneDao plusOneDao;
 
 	public GuestDao getGuestDao() {
 		return guestDao;
@@ -17,6 +20,14 @@ public class GuestServiceImpl implements GuestService {
 
 	public void setGuestDao(GuestDao guestDao) {
 		this.guestDao = guestDao;
+	}
+	
+	public GuestPlusOneDao getPlusOneDao() {
+		return plusOneDao;
+	}
+
+	public void setPlusOneDao(GuestPlusOneDao plusOneDao) {
+		this.plusOneDao = plusOneDao;
 	}
 
 	public boolean addGuest(Guest guest) throws SQLException {
@@ -27,7 +38,7 @@ public class GuestServiceImpl implements GuestService {
 		return guestDao.deleteGuest(guestId);
 	}
 
-	public boolean editGuest(Guest guest) throws SQLException {
+	public boolean editGuestRsvpInfo(Guest guest) throws SQLException {
 		return guestDao.updateGuestRsvpInfo(guest);
 	}
 
@@ -37,5 +48,20 @@ public class GuestServiceImpl implements GuestService {
 	
 	public Guest getGuestById(int guestId) throws SQLException {
 		return guestDao.findGuestById(guestId);
+	}
+
+	@Override
+	public boolean editGuest(Guest guest) throws SQLException {
+		return guestDao.updateGuestInfo(guest);
+	}
+
+	@Override
+	public boolean editPlusOneInfo(GuestPlusOne plusOne) throws SQLException {
+		return plusOneDao.updatePlusOne(plusOne);
+	}
+
+	@Override
+	public List<GuestPlusOne> gelAllPlusOnes(Guest guest) throws SQLException {
+		return plusOneDao.findPlusOne(guest);
 	}
 }

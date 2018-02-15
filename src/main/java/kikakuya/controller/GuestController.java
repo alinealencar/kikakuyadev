@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
+import kikakuya.model.GuestPlusOneForm;
 import kikakuya.utilities.HelperUtilities;
 
 @Controller
@@ -28,6 +30,7 @@ public class GuestController {
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
 	public String viewGuestDashboard(Model model){
 		model.addAttribute("guest", new Guest());
+		model.addAttribute("plusOnes", new GuestPlusOneForm());
 		return "guests";
 	}
 	
@@ -80,17 +83,36 @@ public class GuestController {
 	@RequestMapping(value = "/editGuest", method = RequestMethod.POST)
 	public String processEditGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
-			boolean editSuccessful = guestDelegate.editGuest(guest);
-			if(editSuccessful){
+			boolean editGuestSuccessful = guestDelegate.editGuest(guest);
+			System.out.println("guest id: " + guest.getGuestId());
+			if(editGuestSuccessful){
 				System.out.println("Edit guest successful");
 				request.setAttribute("editGuestSuccess", "edit sucessful");
 			}
 			else {
+				System.out.println("Edit guest failed");
 				request.setAttribute("editGuestError", "Error in the edit guest");
 			}
 				
 		} catch(Exception e){
 			e.printStackTrace();
+		}
+		
+		return "guestMgmt";
+	}
+	
+	//Edit plus ones
+	@RequestMapping(value="/editPlusOnes", method = RequestMethod.POST)
+	public String processEditPlusOnes(HttpServletRequest request, @ModelAttribute("guest") Guest guest, @ModelAttribute("plusOnesForm") GuestPlusOneForm plusOnesList, Model model) {
+		List<GuestPlusOne> plusOnes = plusOnesList.getPlusOnes();
+		
+		for(GuestPlusOne plusOne : plusOnes){
+			try {
+				guestDelegate.editPlusOne(plusOne);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		return "guestMgmt";
@@ -124,10 +146,15 @@ public class GuestController {
 			int guestId = Integer.valueOf(request.getParameter("selectedGuest"));
 			
 			//get guest object by guest id
-			Guest selectedGuest = guestDelegate.getSelectedGuest(guestId);
+			Guest selectedGuest = guestDelegate.getSelectedGuest(guestId); 
+			
+			//get plus ones
+			GuestPlusOneForm plusOnesList = new GuestPlusOneForm();
+			plusOnesList.setPlusOnes(guestDelegate.getAllPlusOnes(selectedGuest));
 			
 			//add the selected guest to the request scope
 			request.setAttribute("selectedGuest", selectedGuest);
+			request.setAttribute("plusOnesList", plusOnesList);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
