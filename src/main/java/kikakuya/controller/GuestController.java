@@ -98,6 +98,7 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
+		viewGuest(request, model);
 		return "guestMgmt";
 	}
 	
@@ -110,7 +111,6 @@ public class GuestController {
 			try {
 				guestDelegate.editPlusOne(plusOne);
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -119,9 +119,10 @@ public class GuestController {
 	}
 	
 	//Remove guest
-	@RequestMapping(value = "/removeGuest", method = RequestMethod.POST)
-	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute("guest") int guestId, Model model){
+	@RequestMapping(value = "/deleteGuest", method = RequestMethod.POST)
+	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute Guest guest, Model model){
 		try {
+			int guestId = Integer.parseInt((request.getParameter("token")));
 			boolean deleteSuccessful = guestDelegate.removeGuest(guestId);
 			if(deleteSuccessful){
 				System.out.println("Remove guest successful");
@@ -135,6 +136,7 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
+		viewGuest(request, model);
 		return "guestMgmt";
 	}
 	

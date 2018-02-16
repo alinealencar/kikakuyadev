@@ -25,6 +25,7 @@
 							</div>
 						</div>
 					</div>
+					<span>${loginError}</span>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>
 			</div>
@@ -43,7 +44,7 @@
 						<h1 style="margin-top: 10px;">Sign Up</h1>
 						<form:form action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
 							<label for="userName" class="sr-only">Name: </label>
-							<form:input path="userName" class="signUpName form-control" oninput="validateName('signUpName')" placeholder="Name"/>
+							<form:input path="userName" class="signUpName form-control" oninput="validateName('signUpName')" placeholder="User Name"/>
 							<span id="nameError" class="formError"></span>
 							<br>
 							<label for="userEmail" class="sr-only">Email: </label>

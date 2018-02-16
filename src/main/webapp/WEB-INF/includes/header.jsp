@@ -16,7 +16,7 @@
 					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
 			</div>
@@ -39,7 +39,7 @@
 					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				 </div>
 			</div>

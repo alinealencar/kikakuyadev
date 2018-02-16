@@ -47,7 +47,6 @@ public class SignUpController {
 	public String processSignUp(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user, Model model){
 		String redirectTo = "index";
 
-		System.out.println("NAME: " + user.getUserName());
 		try {
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){

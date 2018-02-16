@@ -83,8 +83,9 @@
 					<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
 				</div>
 				<div class="col-md-3">
-					<button id="btnAddVendor" type="button" class="btn btn-link d-none d-md-block" name="addVendor">
-      					<span class="material-icons" style="font-size: 300%;">add_circle</span>
+					<button id="btnAddVendor" type="submit" class="btn btn-primary d-none d-md-block" name="addVendor" style="background-color: #D90368;
+	color: #F1E9DA; border-color: #D90368;">
+      					Add to Budget
    					</button>
 				</div>
 		</li>
