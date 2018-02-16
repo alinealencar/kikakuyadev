@@ -45,7 +45,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
-			guest.setNotes(rs.getString(13));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 			
 			guests.add(guest);
 		}
@@ -119,7 +120,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
-			guest.setNotes(rs.getString(13));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 		}
 		return guest;
 	}
@@ -143,7 +145,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
-			guest.setNotes(rs.getString(13));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 			
 			guests.add(guest);
 		}
@@ -168,7 +171,8 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setKidsMax(rs.getInt(10));
 			guest.setAdultsMax(rs.getInt(11));
 			guest.setSpecialRequests(rs.getString(12));
-			guest.setNotes(rs.getString(13));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 		}
 		return guest;
 	}

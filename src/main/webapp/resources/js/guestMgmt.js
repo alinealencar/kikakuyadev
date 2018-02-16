@@ -19,6 +19,19 @@ function addRowHandlers() {
 window.onload = addRowHandlers();
 
 function addGuest(){
-	console.log("add guest");
 	document.getElementById('addGuestSection').style.display = 'inline-block';
+	document.getElementById('showGuestSection').style.display = 'none';
+	document.getElementById('editGuestSection').style.display = 'none';
+}
+
+function editGuest(){
+	document.getElementById('addGuestSection').style.display = 'none';
+	document.getElementById('showGuestSection').style.display = 'none';
+	document.getElementById('editGuestSection').style.display = 'inline-block';
+}
+
+function closeAll(){
+	document.getElementById('addGuestSection').style.display = 'none';
+	document.getElementById('showGuestSection').style.display = 'none';
+	document.getElementById('editGuestSection').style.display = 'none';
 }
