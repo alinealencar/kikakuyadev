@@ -89,10 +89,10 @@
     		<div class="row" id="adult1" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[0].fullName"/>
+     				<form:input type="text" id="adultName1" class="form-control" placeholder="Enter Adult 1" path="plusOneList[0].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[0].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal1" path="plusOneList[0].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -114,19 +114,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input class="form-control" id="category" value="Adult" path="plusOneList[0].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[0].category" />
     		</div>
 			
 			<!-- meal choice for Adult +2 -->
     		<div class="row" id="adult2" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[1].fullName"/>
+     				<form:input type="text" id="adultName2" class="form-control" placeholder = "Enter Adult 2" path="plusOneList[1].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[1].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal2" path="plusOneList[1].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -148,19 +146,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[1].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[1].category" />
     		</div>
     		
     		<!-- meal choice for Adult +3 -->
     		<div class="row" id="adult3" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[2].fullName"/>
+     				<form:input type="text" id="adultName3" class="form-control" placeholder="Enter Adult 3" path="plusOneList[2].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[2].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal3" path="plusOneList[2].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -182,19 +178,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[2].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[2].category" />
     		</div>
     		
     		<!-- meal choice for Adult +4 -->
     		<div class="row" id="adult4" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[3].fullName"/>
+     				<form:input type="text" id="adultName4" class="form-control" placeholder="Enter Adult 4" path="plusOneList[3].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[3].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal4" path="plusOneList[3].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -216,19 +210,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[3].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[3].category" />
     		</div>
     		
     		<!-- meal choice for Kid +1 -->
     		<div class="row" id="kid1" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[4].fullName"/>
+     				<form:input type="text" id="kidName1" class="form-control" placeholder="Enter Kid 1" path="plusOneList[4].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[4].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal1" path="plusOneList[4].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -250,19 +242,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[4].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[4].category" />
     		</div>
     		
     		<!-- meal choice for Kid +2 -->
     		<div class="row" id="kid2" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[5].fullName"/>
+     				<form:input type="text" id="kidName2" class="form-control" placeholder="Enter Kid 2" path="plusOneList[5].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[5].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal2" path="plusOneList[5].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -284,19 +274,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[5].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[5].category" />
     		</div>
     		
     		<!-- meal choice for Kid +3 -->
     		<div class="row" id="kid3" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[6].fullName"/>
+     				<form:input type="text" id="kidName3" class="form-control" placeholder="Enter Kid 3" path="plusOneList[6].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select" id="category" path="plusOneList[6].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal3" path="plusOneList[6].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -318,19 +306,17 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[6].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[6].category" />
     		</div>
     		
     		<!-- meal choice for Kid +4 -->
     		<div class="row" id="kid4" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
-     				<form:input type="text" id="+1" class="form-control" path="plusOneList[7].fullName"/>
+     				<form:input type="text" id="kidName4" class="form-control" placeholder="Enter Kid 4" path="plusOneList[7].fullName"/>
       			</div>
-      			<div class="col-sm-4">
-      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="inlineFormCustomSelect" path="plusOneList[7].mealChoice">
+      			<div class="col-sm-6">
+      				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal4" path="plusOneList[7].mealChoice">
     					<option value="" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
@@ -352,9 +338,7 @@
     					</c:if>
   					</form:select>
       			</div>
-      			<div class="col-sm-2">
-      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[7].category" readonly="true"/>
-      			</div>
+      			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[7].category" />
     		</div><br>
     		
 		<div class="form-group">
@@ -454,6 +438,22 @@
 	    $('#absent').click(function() {
 	    	$('#adult').prop('disabled', true);
 	    	$('#kid').prop('disabled', true);
+	    	$('#adultName1').prop('disabled', true);
+	    	$('#adultMeal1').prop('disabled', true);
+	    	$('#adultName2').prop('disabled', true);
+	    	$('#adultMeal2').prop('disabled', true);
+	    	$('#adultName3').prop('disabled', true);
+	    	$('#adultMeal3').prop('disabled', true);
+	    	$('#adultName4').prop('disabled', true);
+	    	$('#adultMeal4').prop('disabled', true);
+	    	$('#kidName1').prop('disabled', true);
+	    	$('#kidMeal1').prop('disabled', true);
+	    	$('#kidName2').prop('disabled', true);
+	    	$('#kidMeal2').prop('disabled', true);
+	    	$('#kidName3').prop('disabled', true);
+	    	$('#kidMeal3').prop('disabled', true);
+	    	$('#kidName4').prop('disabled', true);
+	    	$('#kidMeal4').prop('disabled', true);
 	    	$('#guestName').prop('disabled', true);
 	    	$('#guestMeal').prop('disabled', true);
 	    	$('#specialRequirements').prop('disabled', true);
@@ -466,6 +466,22 @@ $(function() {
 		 $('#attend').click(function() {
 			 $('#adult').prop('disabled', false);
 	    	 $('#kid').prop('disabled', false);
+	    	 $('#adultName1').prop('disabled', true);
+		    	$('#adultMeal1').prop('disabled', false);
+		    	$('#adultName2').prop('disabled', false);
+		    	$('#adultMeal2').prop('disabled', false);
+		    	$('#adultName3').prop('disabled', false);
+		    	$('#adultMeal3').prop('disabled', false);
+		    	$('#adultName4').prop('disabled', false);
+		    	$('#adultMeal4').prop('disabled', false);
+		    	$('#kidName1').prop('disabled', false);
+		    	$('#kidMeal1').prop('disabled', false);
+		    	$('#kidName2').prop('disabled', false);
+		    	$('#kidMeal2').prop('disabled', false);
+		    	$('#kidName3').prop('disabled', false);
+		    	$('#kidMeal3').prop('disabled', false);
+		    	$('#kidName4').prop('disabled', false);
+		    	$('#kidMeal4').prop('disabled', false);
 	    	 $('#guestName').prop('disabled', false);
 	    	 $('#guestMeal').prop('disabled', false);
 	    	 $('#specialRequirements').prop('disabled', false);

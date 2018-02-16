@@ -79,10 +79,10 @@
 	     			 <button type="submit" class="btn btn-success col-6">Send</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-	     			 <button type="button" class="btn btn-outline-secondary col-6">Clear</button>
+	     			 <button type="reset" class="btn btn-outline-secondary col-6">Clear</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-					 <button type="button" class="btn btn-danger col-6">Cancel</button>
+					 <button type="button" class="btn btn-danger col-6" oncLick="cancel()">Cancel</button>
 				</div>
      		</div>
      		
@@ -169,10 +169,10 @@
 	     			 <button type="submit" class="btn btn-success col-6">Send</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-	     			 <button type="reset" class="btn btn-outline-secondary col-6">Clear</button>
+	     			 <button type="reset" id="clear" class="btn btn-outline-secondary col-6">Clear</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-					 <button type="button" class="btn btn-danger col-6">Cancel</button><br>
+					 <button type="reset" class="btn btn-danger col-6" onclick="cancel()">Cancel</button><br>
 				</div>
      		</div>
   			
@@ -216,16 +216,40 @@ function hideSelectGuests(){
 		guestTextarea.style.display = "none";
 	}
 }
-	   
-/********************* need to modify**************************/
-/*function selectedGuestList(){
-	var guestTextarea = document.getElementById('guestTextarea');
-  	 var guestDropdown = document.getElementById('guestDropdown');
-    guestDropdown.onchange = function(){
-    	guestTextarea.text = guestTextarea.text  + this.text; //to appened
-         //mytextbox.innerHTML = this.value;
-    }
+
+/*function clear(){
+	var gDropdown = document.getElementById("guestDropdown"); 
+	var gSelected = document.getElementById("guestTextArea");
+	var textArea = document.getElementById("selectedGuests");
+	textArea.value = "";
+	gDropwdown.style.display = "none";
+	gSelected.style.display = "none";
+	textArea.style.display = "none"
 }*/
+
+$(function() {
+    $('#clear').click(function() {
+    	document.getElementById('selectedGuests').innerHTML = "";
+		$('#guestSelection').hide();
+		$('#selectedGuests').hide();
+    });
+});
+
+$(function() {
+    $('#select').click(function() {
+		$('#guestSelection').show();
+		$('#selectedGuests').show();
+    });
+});
+
+function cancel(){
+	var rsvp = document.getElementById("rsvpForm");
+    var broadcast = document.getElementById("broadcastForm");
+    document.getElementById("rbRsvp").checked = false;
+    document.getElementById("rbBroadcast").checked = false;
+    rsvp.style.display = "none";
+    broadcast.style.display = "none";
+}
 
 function getSelectedOptions(sel, fn) {
     var opts = [], opt;
