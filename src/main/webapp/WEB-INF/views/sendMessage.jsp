@@ -11,7 +11,7 @@
 <div id="contents" class="container">
 	<!-- body contents start -->
 	<h2>Send Messages</h2>
-	<div>
+	<div id="alertMessage">
 		<div class="${(sendRSVPSuccess != null) ? 'alert alert-success':''}" role="alert">${sendRSVPSuccess}</div>
 		<div class="${(sendRSVPError != null) ? 'alert alert-danger':''}" role="alert">${sendRSVPError}</div>
 		<div class="${(sendBroadcastSuccess != null) ? 'alert alert-success':''}" role="alert">${sendBroadcastSuccess}</div>
@@ -184,18 +184,22 @@
 function showRSVP() {
     var rsvp = document.getElementById("rsvpForm");
     var broadcast = document.getElementById("broadcastForm");
+    var alertMsg = document.getElementById("alertMessage");
     if (rsvp.style.display === "none") {
         rsvp.style.display = "block";
         broadcast.style.display = "none";
+        alertMsg.style.display = "none";
     }
 }
 
 function showBroadcast() {
     var rsvp = document.getElementById("rsvpForm");
     var broadcast = document.getElementById("broadcastForm");
+    var alertMsg = document.getElementById("alertMessage");
     if (broadcast.style.display === "none") {
         broadcast.style.display = "block";
         rsvp.style.display = "none";
+        alertMsg.style.display = "none";
     }
 }
 function showSelectGuests(){
