@@ -49,7 +49,7 @@
 				<div class="col-sm-8">		
  					<div class="form-check form-check-inline">
   						<form:checkbox class="form-check-input" id="beef" value="Beef" path="mealChoiceBeef" />
-  						<label class="form-check-label" for="beaf">Beef</label>
+  						<label class="form-check-label" for="beef">Beef</label>
 					</div>
 					<div class="form-check form-check-inline">
 					  <form:checkbox class="form-check-input" id="pork" value="Pork" path="mealChoicePork" />
