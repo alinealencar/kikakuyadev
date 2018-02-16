@@ -71,9 +71,10 @@ public class RSVPController {
 		
 		List<Guest> guestList;
 		
+		
 		try {
+			guestList = rsvpDelegate.findGuests(event);
 			if(!rsvpDelegate.countEmailByEvent(event)){
-				guestList = rsvpDelegate.findGuests(event);
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
 						rsvpDelegate.sendRSVP(email, user, event, guestList);
@@ -82,14 +83,15 @@ public class RSVPController {
 					}
 				}
 			}
-			else
+			else{
 				request.setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
+				request.setAttribute("guests", guestList);
+			}
 		
 		} catch (Exception e) {
 			e.printStackTrace();
 			request.setAttribute("sendRSVPError", "Error! Message sending failed.");
 		}
-		
 		return redirectTo;	
 	}
 	

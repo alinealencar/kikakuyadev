@@ -38,7 +38,7 @@
 				</div>		
   				<label for="replyDue" class="sr-only col-2 col-form-label">Reply Due</label>
   				<div class="col-sm-8">
-    				<form:input class="form-control" type="date"  id="replyDue" path="replyDue" required="true"/>
+    				<form:input class="form-control" type="date" id="replyDue" path="replyDue" required="true"/>
   				</div>
      		</div>
      		
