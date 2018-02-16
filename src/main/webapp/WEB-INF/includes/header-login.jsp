@@ -25,6 +25,7 @@
 							</div>
 						</div>
 					</div>
+					<span>${loginError}</span>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>
 			</div>
