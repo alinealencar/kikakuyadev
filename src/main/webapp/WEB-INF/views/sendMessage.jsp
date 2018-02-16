@@ -217,16 +217,6 @@ function hideSelectGuests(){
 	}
 }
 
-/*function clear(){
-	var gDropdown = document.getElementById("guestDropdown"); 
-	var gSelected = document.getElementById("guestTextArea");
-	var textArea = document.getElementById("selectedGuests");
-	textArea.value = "";
-	gDropwdown.style.display = "none";
-	gSelected.style.display = "none";
-	textArea.style.display = "none"
-}*/
-
 $(function() {
     $('#clear').click(function() {
     	document.getElementById('selectedGuests').innerHTML = "";

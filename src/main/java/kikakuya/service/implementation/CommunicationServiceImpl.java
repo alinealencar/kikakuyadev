@@ -146,7 +146,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">You are invited to " + event.getEventName() +"!</p>"
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</p>"
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
-			   		+"<a style=\"display: block; width: 130px; height: 20px; font-size: 110%; background: #eff2f7; padding: 10px; text-align: center; border-radius: 5px; color: #2E294E; text-decoration: none;\" href=\"http://localhost:8080/dev/rsvpResponse?token="+guestList.get(i).getToken()+"\">Click here to RSVP</a>"
+			   		+"<a style=\"display: block; width: 130px; height: 20px; background: #D90368; color:#F1E9DA; padding: 10px; text-align: center; border-radius: 5px; text-decoration: none;\" href=\"http://localhost:8080/dev/rsvpResponse?token="+guestList.get(i).getToken()+"\">Click here to RSVP</a>"
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
