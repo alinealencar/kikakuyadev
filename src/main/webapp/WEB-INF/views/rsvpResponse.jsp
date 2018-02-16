@@ -464,27 +464,27 @@
 	    	
 $(function() {
 		 $('#attend').click(function() {
-			 $('#adult').prop('disabled', false);
-	    	 $('#kid').prop('disabled', false);
-	    	 $('#adultName1').prop('disabled', true);
-		    	$('#adultMeal1').prop('disabled', false);
-		    	$('#adultName2').prop('disabled', false);
-		    	$('#adultMeal2').prop('disabled', false);
-		    	$('#adultName3').prop('disabled', false);
-		    	$('#adultMeal3').prop('disabled', false);
-		    	$('#adultName4').prop('disabled', false);
-		    	$('#adultMeal4').prop('disabled', false);
-		    	$('#kidName1').prop('disabled', false);
-		    	$('#kidMeal1').prop('disabled', false);
-		    	$('#kidName2').prop('disabled', false);
-		    	$('#kidMeal2').prop('disabled', false);
-		    	$('#kidName3').prop('disabled', false);
-		    	$('#kidMeal3').prop('disabled', false);
-		    	$('#kidName4').prop('disabled', false);
-		    	$('#kidMeal4').prop('disabled', false);
-	    	 $('#guestName').prop('disabled', false);
-	    	 $('#guestMeal').prop('disabled', false);
-	    	 $('#specialRequirements').prop('disabled', false);
+			$('#adult').prop('disabled', false);
+	    	$('#kid').prop('disabled', false);
+	    	$('#adultName1').prop('disabled', false);
+		    $('#adultMeal1').prop('disabled', false);
+		    $('#adultName2').prop('disabled', false);
+		    $('#adultMeal2').prop('disabled', false);
+		    $('#adultName3').prop('disabled', false);
+		    $('#adultMeal3').prop('disabled', false);
+		    $('#adultName4').prop('disabled', false);
+		    $('#adultMeal4').prop('disabled', false);
+		    $('#kidName1').prop('disabled', false);
+		    $('#kidMeal1').prop('disabled', false);
+		    $('#kidName2').prop('disabled', false);
+		    $('#kidMeal2').prop('disabled', false);
+		    $('#kidName3').prop('disabled', false);
+		    $('#kidMeal3').prop('disabled', false);
+		    $('#kidName4').prop('disabled', false);
+		    $('#kidMeal4').prop('disabled', false);
+	    	$('#guestName').prop('disabled', false);
+	    	$('#guestMeal').prop('disabled', false);
+	     	$('#specialRequirements').prop('disabled', false);
 		    		
 		   });		
 });
