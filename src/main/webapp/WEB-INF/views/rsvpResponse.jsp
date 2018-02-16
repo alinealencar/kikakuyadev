@@ -1,4 +1,3 @@
-
 <!-- Change feature variable -->
 <%! String feature = "RSVP Response" ;%>
 
@@ -116,10 +115,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[0].isAdult" disabled="true">
-      					<option value=1 selected>Adult</option>
-      					<option value=0>Kid</option>
-      				</form:select>
+      				<form:input class="form-control" id="category" value="Adult" path="plusOneList[0].category" readonly="true"/>
       			</div>
     		</div>
 			
@@ -153,10 +149,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[1].isAdult" disabled="true">
-      					<option value=1 selected>Adult</option>
-      					<option value=0>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[1].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -190,10 +183,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[2].isAdult" disabled="true">
-      					<option value=1 selected>Adult</option>
-      					<option value=0>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[2].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -227,10 +217,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[3].isAdult" disabled="true">
-      					<option value=1 selected>Adult</option>
-      					<option value=0>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Adult" path="plusOneList[3].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -264,10 +251,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[4].isAdult" disabled="true">
-      					<option value=1>Adult</option>
-      					<option value=0 selected>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[4].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -301,10 +285,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[5].isAdult" disabled="true">
-      					<option value=1>Adult</option>
-      					<option value=0 selected>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[5].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -338,10 +319,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[6].isAdult" disabled="true">
-      					<option value=1>Adult</option>
-      					<option value=0 selected>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[6].category" readonly="true"/>
       			</div>
     		</div>
     		
@@ -375,10 +353,7 @@
   					</form:select>
       			</div>
       			<div class="col-sm-2">
-      				<form:select class="custom-select" id="category" path="plusOneList[7].isAdult" disabled="true">
-      					<option value=1>Adult</option>
-      					<option value=0 selected>Kid</option>
-      				</form:select>
+      				<form:input id="category" class="form-control" value="Kid" path="plusOneList[7].category" readonly="true"/>
       			</div>
     		</div><br>
     		
@@ -475,7 +450,6 @@
 	        }
 	    });
 });
-
  $(function() {
 	    $('#absent').click(function() {
 	    	$('#adult').prop('disabled', true);
