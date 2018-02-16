@@ -6,10 +6,15 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <div class="container">
-	<!-- body contents start -->
-		  <h1>NEW PAGE</h1>
-		  <p>This is some text.</p> 
-		  <img  src="resources/images/guests/message_circle_line.png" alt="message" class="img-fluid">
-  	<!-- body contents end -->
+<!-- body contents start -->
+	<div class="row">
+		<div class="col-sm-8">
+			<!-- budget form here -->
+		</div>
+		<div class="col-sm-4">
+			<!-- budget form add here -->
+		</div>
+	</div>
+<!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
