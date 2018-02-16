@@ -73,8 +73,12 @@ Search result
 **********************************/
 /***** add vendor button *****/
 #btnAddVendor{
+	background-color: #D90368;
+	color: #F1E9DA;
+	/*
 	background-color: #F1E9DA;
 	color: #D90368;
+	*/
 }
 
 /*********************************
