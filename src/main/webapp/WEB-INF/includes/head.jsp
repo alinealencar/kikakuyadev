@@ -15,6 +15,7 @@
 
 <!-- link css -->
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
+<link rel="stylesheet" type="text/css" href="resources/css/editable-select.css">
 <link rel="stylesheet" type="text/css" href="resources/css/medium.css" media="only screen and (min-width: 0px) and (max-width: 767px)">
 <!-- link js -->
 <script src="resources/js/validateForm.js"></script>
