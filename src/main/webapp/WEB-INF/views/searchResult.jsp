@@ -13,13 +13,13 @@
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input name="category" placeholder="Category" value="${category}" class="col-12">
+					<input type="text" class="form-control" name="category" placeholder="Category" value="${category}" class="col-12">
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input name="location" placeholder="Location" value="${location}" class="col-12">
+					<input type="text" class="form-control" name="location" placeholder="Location" value="${location}" class="col-12">
 					<br><br>
 				</div>
 			</div>
@@ -31,7 +31,7 @@
 		</div>
 	</form>
 	<div class="${(searchError != null) ? 'alert alert-danger':''}" role="alert">${searchError}</div>
-	<div class="${(searchError == null) ? '':''}">Showing results for <b>${category}</b> in <b>${location}</b></div><br>
+	<div class="${(searchError == null) ? '':''}"><h4>Showing results for <b>${category}</b> in <b>${location}</b></h4></div><br>
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
@@ -94,4 +94,5 @@
 	</ul>
 <!-- body contents end -->
 </div>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
