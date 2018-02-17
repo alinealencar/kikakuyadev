@@ -39,19 +39,22 @@
    				</fieldset>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Items</legend>
-	   				<div class="row">
-	   					<div class="col-6">
-	   						<input type="text" class="form-control" id="item" placeholder="Item">
-	   					</div>
-	   					<div class="col-6">
-	   						<input type="text" class="form-control" id="item" placeholder="Price">
-	   					</div>
-	   				</div>
+   				<div id="item-price">
+	   				<div id="itemTextBoxGroup" class="row">
+		   					<div id="txtItem" class="col-6">
+		   						<input type="text" class="form-control" id="item1" placeholder="Item" style="margin-bottom: 5px;">
+		   					</div>
+		   					<div id="txtPrice" class="col-6">
+		   						<input type="text" class="form-control" id="price1" placeholder="Price" style="margin-bottom: 5px;">
+		   					</div>
+
+		   			</div>
 	   				<div class="text-center">
-						<button type="button" class="btn btn-link" style="margin: 10px;">
-      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px">Add</span>
+						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px">Add Item</span>
       					</button>
       				</div>
+      			</div>
    				</fieldset>
    				<div class="text-center">
 					<button type="button" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
@@ -65,13 +68,8 @@
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<script>
-$('select').editableSelect({
-	  warpClass: 'ui-select-wrap',
-	  editable: true
-});
+<script src="resources/js/budget.js"></script>
 
-</script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
 
