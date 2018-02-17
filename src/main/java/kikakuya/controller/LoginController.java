@@ -66,6 +66,8 @@ public class LoginController {
 				session.setAttribute("userId", LoginUser.getUserId());
 				session.setAttribute("userEmail", LoginUser.getEmail());
 				
+				session.setAttribute("listEvent", loginDelegate.getEventsByUser(LoginUser));
+				
 				if(request.getParameter("isRememberMe") != null){
 					String token = HelperUtilities.newUUID();
 					String series = HelperUtilities.newUUID();

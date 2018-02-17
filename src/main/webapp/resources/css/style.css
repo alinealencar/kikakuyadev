@@ -64,7 +64,8 @@ footer {
 	height: 50px;
     padding: 15px;
     color: #F1E9DA;
-	background-color: #541388;	
+	background-color: #541388;
+	margin-top: 15px;	
 }
 
 
@@ -75,10 +76,6 @@ Search result
 #btnAddVendor{
 	background-color: #D90368;
 	color: #F1E9DA;
-	/*
-	background-color: #F1E9DA;
-	color: #D90368;
-	*/
 }
 
 /*********************************
@@ -109,4 +106,12 @@ Form validation
 .formError {
 	color: red;
 }
+
+<<<<<<< HEAD
+
+=======
+/*********************************
+Budget
+**********************************/
+>>>>>>> 691d04133af90d1f44b7cafa66b9ddea094eadde
 

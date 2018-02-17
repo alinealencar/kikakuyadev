@@ -49,7 +49,7 @@
 				<div class="col-sm-8">		
  					<div class="form-check form-check-inline">
   						<form:checkbox class="form-check-input" id="beef" value="Beef" path="mealChoiceBeef" />
-  						<label class="form-check-label" for="beaf">Beef</label>
+  						<label class="form-check-label" for="beef">Beef</label>
 					</div>
 					<div class="form-check form-check-inline">
 					  <form:checkbox class="form-check-input" id="pork" value="Pork" path="mealChoicePork" />
@@ -169,7 +169,11 @@
 	     			 <button type="submit" class="btn btn-success col-6">Send</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
+<<<<<<< HEAD
+	     			 <button type="reset" class="btn btn-outline-secondary col-6">Clear</button>
+=======
 	     			 <button type="reset" id="clear" class="btn btn-outline-secondary col-6">Clear</button>
+>>>>>>> 691d04133af90d1f44b7cafa66b9ddea094eadde
 	     		</div>
 	     		<div class="col-sm-4 text-center">
 					 <button type="reset" class="btn btn-danger col-6" onclick="cancel()">Cancel</button><br>

@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 
 import kikakuya.dao.EventDao;
 import kikakuya.model.Event;
+import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 public class EventDaoImpl implements EventDao {
@@ -25,7 +26,6 @@ public class EventDaoImpl implements EventDao {
 		this.dataSource = dataSource;
 	}
 	
-	//is this even right? :P
 	public List<Event> listEventsByUser(User user) throws SQLException  {
 		String query = "Select * from event WHERE UseruserId = " + user.getUserId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
@@ -39,14 +39,14 @@ public class EventDaoImpl implements EventDao {
 			event.setLocation(rs.getString(5));
 			
 			events.add(event);
+			System.out.println("EVENT: " + event.getEventName());
 		}
+		
 		return events;
 	}
 	
 	
 	public boolean insertEvent(Event event, User user) throws SQLException {
-		//Event event = new Event();
-		
 		String query = "Insert into event (eventName, eventDate, location, UseruserId) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, event.getEventName());
@@ -59,13 +59,11 @@ public class EventDaoImpl implements EventDao {
 	}
 	
 	public boolean updateEvent(Event event)throws SQLException {
-		String query = "UPDATE event SET eventName = ?, eventDate = ?, location = ? WHERE eventId = ?";
+		String query = "UPDATE event set eventName = '" + event.getEventName() + 
+				"', eventDate = '" + event.getEventDate() + 
+				"', location = '" + event.getLocation() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
-		pstmt.setString(1, event.getEventName());
-		pstmt.setString(2, event.getEventDate());
-		pstmt.setString(3, event.getLocation());
 		int rowsAffected = pstmt.executeUpdate();
-		
 		
 		return(rowsAffected > 0);
 	}
@@ -79,15 +77,15 @@ public class EventDaoImpl implements EventDao {
 	}
 	
 	public Event findEventById(int eventId) throws SQLException {
-		Event event = new Event();
-		String query = "SELECT eventName, eventDate, location FROM event WHERE eventId ="+eventId+"";
+		String query = "SELECT * FROM event WHERE eventId="+eventId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
-		pstmt.setInt(0, eventId);
-		ResultSet resultSet = pstmt.executeQuery();
-		if(resultSet.next()){
-			event.setEventName(resultSet.getString(1));
-			event.setEventDate(resultSet.getString(2));
-			event.setLocation(resultSet.getString(3));
+		ResultSet rs = pstmt.executeQuery(query);
+		Event event = new Event();
+		while(rs.next()){
+			event.setEventId(rs.getInt(1));
+			event.setEventName(rs.getString(2));
+			event.setEventDate(rs.getString(3));
+			event.setLocation(rs.getString(4));
 		}
 		return event;
 	}
