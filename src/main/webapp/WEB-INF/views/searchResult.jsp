@@ -13,13 +13,13 @@
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input name="category" placeholder="Category" class="col-12">
+					<input type="text" class="form-control" name="category" placeholder="Category" value="${category}" class="col-12">
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input name="location" placeholder="Location" class="col-12">
+					<input type="text" class="form-control" name="location" placeholder="Location" value="${location}" class="col-12">
 					<br><br>
 				</div>
 			</div>
@@ -31,12 +31,13 @@
 		</div>
 	</form>
 	<div class="${(searchError != null) ? 'alert alert-danger':''}" role="alert">${searchError}</div>
-
+	<div class="${(searchError == null) ? '':''}"><h4>Showing results for <b>${category}</b> in <b>${location}</b></h4></div><br>
+	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
 			<li class="row">
 				<div class="col-md-3">
-					<img src="${vendor.imageURL}" alt="Vendor product" height="150px" width="150px">
+					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
 					<button id="btnAddVendor" type="button" class="btn btn-link float-right d-block d-md-none" name="addVendor">
       					<span class="material-icons" style="font-size: 300%;">add_circle</span>
    					</button>
@@ -82,8 +83,9 @@
 					<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
 				</div>
 				<div class="col-md-3">
-					<button id="btnAddVendor" type="button" class="btn btn-link d-none d-md-block" name="addVendor">
-      					<span class="material-icons" style="font-size: 300%;">add_circle</span>
+					<button id="btnAddVendor" type="submit" class="btn btn-primary d-none d-md-block" name="addVendor" style="background-color: #D90368;
+	color: #F1E9DA; border-color: #D90368;">
+      					Add to Budget
    					</button>
 				</div>
 		</li>
@@ -92,4 +94,5 @@
 	</ul>
 <!-- body contents end -->
 </div>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

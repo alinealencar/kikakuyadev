@@ -53,7 +53,7 @@ public class LoginController {
 	public String processLogin(HttpServletRequest request, HttpServletResponse response, 
 			@ModelAttribute("user") User user, Model model){
 
-		String redirectTo = "/";
+		String redirectTo = "index";
 		HttpSession session = request.getSession();
 		try {
 			User LoginUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
@@ -92,7 +92,14 @@ public class LoginController {
 				request.setAttribute("loginError", "Email and/ or password is wrong.");
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//Handle exception raised if the user is not on the database
+			if ((e.toString()).equals("java.lang.NullPointerException")){
+				System.out.println("Login unsuccessful: user is not registered in the database");
+				request.setAttribute("loginError", "Email and/ or password is wrong.");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		
 		//For testing purposes:

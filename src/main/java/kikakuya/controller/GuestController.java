@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
+import kikakuya.model.GuestPlusOneForm;
+import kikakuya.utilities.HelperUtilities;
 
 @Controller
 public class GuestController {
@@ -26,7 +29,8 @@ public class GuestController {
 	//Show guest dashboard
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
 	public String viewGuestDashboard(Model model){
-		//model.addAttribute("guest", new Guest());
+		model.addAttribute("guest", new Guest());
+		model.addAttribute("plusOnes", new GuestPlusOneForm());
 		return "guests";
 	}
 	
@@ -52,12 +56,17 @@ public class GuestController {
 	@RequestMapping(value = "/addGuest", method = RequestMethod.POST)
 	public String processAddGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
+			guest.setToken(HelperUtilities.newUUID());
 			boolean addSuccessful = guestDelegate.addGuest(guest);
 			if(addSuccessful){
 				System.out.println("Add guest successful");
 				
 				//Add success message to the request scope
 				request.setAttribute("addGuestSuccess", "add sucessful");
+				//Update guest list
+				int eventId = 1;
+				List<Guest> allGuests = guestDelegate.getAllGuests(eventId);
+				request.getSession().setAttribute("guests", allGuests);
 			}
 			else {
 				request.setAttribute("addGuestError", "Error in the add guest");
@@ -74,12 +83,14 @@ public class GuestController {
 	@RequestMapping(value = "/editGuest", method = RequestMethod.POST)
 	public String processEditGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
-			boolean editSuccessful = guestDelegate.editGuest(guest);
-			if(editSuccessful){
+			boolean editGuestSuccessful = guestDelegate.editGuest(guest);
+			System.out.println("guest id: " + guest.getGuestId());
+			if(editGuestSuccessful){
 				System.out.println("Edit guest successful");
 				request.setAttribute("editGuestSuccess", "edit sucessful");
 			}
 			else {
+				System.out.println("Edit guest failed");
 				request.setAttribute("editGuestError", "Error in the edit guest");
 			}
 				
@@ -87,13 +98,31 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
-		return "guests";
+		viewGuest(request, model);
+		return "guestMgmt";
+	}
+	
+	//Edit plus ones
+	@RequestMapping(value="/editPlusOnes", method = RequestMethod.POST)
+	public String processEditPlusOnes(HttpServletRequest request, @ModelAttribute("guest") Guest guest, @ModelAttribute("plusOnesForm") GuestPlusOneForm plusOnesList, Model model) {
+		List<GuestPlusOne> plusOnes = plusOnesList.getPlusOnes();
+		
+		for(GuestPlusOne plusOne : plusOnes){
+			try {
+				guestDelegate.editPlusOne(plusOne);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return "guestMgmt";
 	}
 	
 	//Remove guest
-	@RequestMapping(value = "/removeGuest", method = RequestMethod.POST)
-	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute("guest") int guestId, Model model){
+	@RequestMapping(value = "/deleteGuest", method = RequestMethod.POST)
+	public String processRemoveGuest(HttpServletRequest request, @ModelAttribute Guest guest, Model model){
 		try {
+			int guestId = Integer.parseInt((request.getParameter("token")));
 			boolean deleteSuccessful = guestDelegate.removeGuest(guestId);
 			if(deleteSuccessful){
 				System.out.println("Remove guest successful");
@@ -107,6 +136,31 @@ public class GuestController {
 			e.printStackTrace();
 		}
 		
-		return "guests";
+		viewGuest(request, model);
+		return "guestMgmt";
+	}
+	
+	//Show guest details
+	@RequestMapping(value = "/showGuest", method = RequestMethod.POST)
+	public String showGuestDetails(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model) {
+		try {
+			//get guestId from the form
+			int guestId = Integer.valueOf(request.getParameter("selectedGuest"));
+			
+			//get guest object by guest id
+			Guest selectedGuest = guestDelegate.getSelectedGuest(guestId); 
+			
+			//get plus ones
+			GuestPlusOneForm plusOnesList = new GuestPlusOneForm();
+			plusOnesList.setPlusOnes(guestDelegate.getAllPlusOnes(selectedGuest));
+			
+			//add the selected guest to the request scope
+			request.setAttribute("selectedGuest", selectedGuest);
+			request.setAttribute("plusOnesList", plusOnesList);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		return "guestMgmt";
 	}
 }

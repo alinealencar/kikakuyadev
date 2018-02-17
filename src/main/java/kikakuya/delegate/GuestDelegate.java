@@ -5,6 +5,7 @@ import java.util.List;
 
 import kikakuya.model.Event;
 import kikakuya.model.Guest;
+import kikakuya.model.GuestPlusOne;
 import kikakuya.service.GuestService;
 
 public class GuestDelegate {
@@ -22,8 +23,8 @@ public class GuestDelegate {
 		return guestService.addGuest(guest);
 	}
 	
-	public boolean editGuest(Guest guest) throws SQLException {
-		return guestService.editGuest(guest);
+	public boolean editGuestRsvpInfo(Guest guest) throws SQLException {
+		return guestService.editGuestRsvpInfo(guest);
 	}
 	
 	public boolean removeGuest(int guestId) throws SQLException {
@@ -34,5 +35,21 @@ public class GuestDelegate {
 		Event event = new Event();
 		event.setEventId(eventId);
 		return guestService.getAllGuests(event);
+	}
+	
+	public Guest getSelectedGuest(int guestId) throws SQLException {
+		return guestService.getGuestById(guestId);
+	}
+	
+	public boolean editGuest(Guest guest) throws SQLException {
+		return guestService.editGuest(guest);
+	}
+	
+	public boolean editPlusOne(GuestPlusOne plusOne) throws SQLException {
+		return guestService.editPlusOneInfo(plusOne);
+	}
+	
+	public List<GuestPlusOne> getAllPlusOnes(Guest guest) throws SQLException {
+		return guestService.gelAllPlusOnes(guest);
 	}
 }

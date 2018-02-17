@@ -34,16 +34,19 @@ public class GuestDaoImpl implements GuestDao {
 		while(rs.next()){
 			Guest guest = new Guest();
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 			
 			guests.add(guest);
 		}
@@ -51,7 +54,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId) VALUES (?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, guest.getFirstName());
@@ -63,25 +66,33 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setInt(7, guest.getAdultsMax());
 		pstmt.setString(8, guest.getSpecialRequests());
 		pstmt.setInt(9, guest.getEventId());
+		pstmt.setString(10, guest.getToken());
+		pstmt.setString(11, guest.getNotes());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
 	}
 
-	public boolean updateGuest(Guest guest) throws SQLException {
-		String query = "update guest set isPresent = '" + guest.getIsPresent() + 
+	public boolean updateGuestRsvpInfo(Guest guest) throws SQLException {
+		String query = "UPDATE guest SET isPresent = '" + guest.getIsPresent() + 
 				"', kidsWith = '" + guest.getKidsWith() + 
 				"', adultsWith = '" + guest.getAdultsWith() + 
 				"', specialRequests = '" + guest.getSpecialRequests() + 
 				"', mealChoice = '" + guest.getMealChoice() + 
-				"' where guestId = '" + guest.getGuestId() + "'";
+				"' WHERE guestId = '" + guest.getGuestId() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return(rowsAffected > 0);
+	}
+	
+	public boolean deleteGuestToken(Guest guest) throws SQLException {
+		String query = "UPDATE guest SET token ='' where guestId = '" + guest.getGuestId() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
 		
-		
+		return(rowsAffected > 0);
 	}
 
 	public boolean deleteGuest(int guestId) throws SQLException {
@@ -98,18 +109,101 @@ public class GuestDaoImpl implements GuestDao {
 		Guest guest = new Guest();
 		while(rs.next()){
 			guest.setGuestId(rs.getInt(1));
-			guest.setFirstName(rs.getString(2));
-			guest.setLastName(rs.getString(3));
-			guest.setEmail(rs.getString(4));
-			guest.setIsPresent(rs.getInt(5));
-			guest.setCompany(rs.getString(6));
-			guest.setKidsWith(rs.getInt(7));
-			guest.setAdultsWith(rs.getInt(8));
-			guest.setKidsMax(rs.getInt(9));
-			guest.setAdultsMax(rs.getInt(10));
-			guest.setSpecialRequests(rs.getString(11));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
 		}
 		return guest;
+	}
+	
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		String query = "SELECT * FROM guest WHERE isPresent=" + status + " AND EventeventID=" + eventId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		List<Guest> guests = new ArrayList<Guest>();
+		while(rs.next()){
+			Guest guest = new Guest();
+			guest.setGuestId(rs.getInt(1));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
+			
+			guests.add(guest);
+		}
+		return guests;
+	}
+	
+	public Guest findGuestByToken(String token) throws SQLException{
+		String query = "SELECT * FROM guest WHERE token='"+token+"'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		Guest guest = new Guest();
+		while(rs.next()){
+			guest.setGuestId(rs.getInt(1));
+			guest.setToken(rs.getString(2));
+			guest.setFirstName(rs.getString(3));
+			guest.setLastName(rs.getString(4));
+			guest.setEmail(rs.getString(5));
+			guest.setIsPresent(rs.getInt(6));
+			guest.setCompany(rs.getString(7));
+			guest.setKidsWith(rs.getInt(8));
+			guest.setAdultsWith(rs.getInt(9));
+			guest.setKidsMax(rs.getInt(10));
+			guest.setAdultsMax(rs.getInt(11));
+			guest.setSpecialRequests(rs.getString(12));
+			guest.setMealChoice(rs.getString(13));
+			guest.setNotes(rs.getString(14));
+		}
+		return guest;
+	}
+	
+	public boolean isTokenFound(String token) throws SQLException{
+		String query = "SELECT COUNT(*) FROM guest WHERE token='" + token + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		if(rs.next())
+			rs.getInt(1);
+		if(rs.getInt(1) > 0)
+			return true;
+		else
+			return false;
+	}
+
+	@Override
+	public boolean updateGuestInfo(Guest guest) throws SQLException {
+		String query = "update guest set firstName = '" + guest.getFirstName() + 
+				"', lastName = '" + guest.getLastName() + 
+				"', email = '" + guest.getEmail() + 
+				"', adultsMax = '" + guest.getAdultsMax() + 
+				"', kidsMax = '" + guest.getKidsMax() +
+				"', company = '" + guest.getCompany() +
+				"', notes = '" + guest.getNotes() +
+				"', isPresent = " + guest.getIsPresent() +
+				" where token = '" + guest.getToken() + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
 	}
 
 }

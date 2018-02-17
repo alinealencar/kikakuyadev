@@ -36,7 +36,8 @@ CREATE TABLE Good (
   VendorvendorId int(10) NOT NULL, 
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (
-  guestId   int(10) NOT NULL AUTO_INCREMENT, 
+  guestId   int(10) NOT NULL AUTO_INCREMENT,
+  token varchar(255) NOT NULL UNIQUE,
   firstName varchar(50) NOT NULL, 
   lastName  varchar(50) NOT NULL, 
   email     varchar(50) NOT NULL,
@@ -48,14 +49,15 @@ CREATE TABLE Guest (
   adultsMax int(3),
   specialRequests varchar(255),
   mealChoice varchar(50),
+  notes varchar(255),
   EventeventId int(10) NOT NULL,
-  /*EmailemailId int(10),*/
   PRIMARY KEY (guestId));
 CREATE TABLE GuestPlusOne (
 	guestPlusOneId int(10) NOT NULL AUTO_INCREMENT,
 	fullName varchar(50) NOT NULL,
 	mealChoice varchar(50),
 	GuestguestId int(10) NOT NULL,
+    category varchar(10) NOT NULL,
 	PRIMARY KEY(guestPlusOneId));
 CREATE TABLE Item (
   itemId     int(10) NOT NULL AUTO_INCREMENT, 

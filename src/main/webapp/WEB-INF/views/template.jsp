@@ -6,9 +6,9 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
-<div class="container" style="margin-top: 50px;">
+<div id="contents" class="container" style="margin-top: 50px;">
 	<!-- body contents start -->
-		  <h1>NEW PAGE</h1>
+		  <h2>NEW PAGE</h2>
 		  <p>This is some text.</p> 
 		  <img  src="resources/images/guests/message_circle_line.png" alt="message" class="img-fluid">
   	<!-- body contents end -->

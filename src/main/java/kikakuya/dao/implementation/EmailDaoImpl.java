@@ -23,7 +23,7 @@ public class EmailDaoImpl implements EmailDao{
 		this.dataSource = dataSource;
 	}
 
-	public Email findEmailById(Event event) throws SQLException {
+	public Email findEmailByEvent(Event event) throws SQLException {
 		String query = "SELECT * FROM email WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
@@ -40,7 +40,7 @@ public class EmailDaoImpl implements EmailDao{
 		return email;
 	}
 	
-	public boolean findEmailByEvent(Event event) throws SQLException {
+	public boolean countEmailByEvent(Event event) throws SQLException {
 		String query = "SELECT COUNT(*) FROM email WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

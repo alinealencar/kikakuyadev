@@ -5,7 +5,6 @@ common components
 **********************************/
 /****** common *****/
 body div#container{
-	
 	color: #2E294E;
 	background-color: #F1E9DA;
 	font-family: 'Quicksand', sans-serif;
@@ -57,13 +56,16 @@ nav ul:after{
 nav li{
 	display: inline-block;
 }
+
+
 /****** footer ******/
+
 footer {
 	height: 50px;
     padding: 15px;
     color: #F1E9DA;
 	background-color: #541388;
-	
+	margin-top: 15px;	
 }
 
 
@@ -72,13 +74,44 @@ Search result
 **********************************/
 /***** add vendor button *****/
 #btnAddVendor{
-	background-color: #F1E9DA;
-	color: #D90368;
+	background-color: #D90368;
+	color: #F1E9DA;
 }
-/***** form validation *****/
+
+/*********************************
+Guest Management
+**********************************/
+.noReply {
+	color: #00A1E4;
+}
+.present {
+	color: green;
+}
+.absent{
+	color: red;
+}
+tbody tr {
+	cursor: pointer;
+}
+.hideSection {
+	display:none;
+}
+.showSection {
+	display:inline-block;
+}
+/*********************************
+Form validation
+**********************************/
+
 .formError {
 	color: red;
 }
 
+<<<<<<< HEAD
 
+=======
+/*********************************
+Budget
+**********************************/
+>>>>>>> 691d04133af90d1f44b7cafa66b9ddea094eadde
 

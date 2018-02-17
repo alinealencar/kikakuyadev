@@ -11,12 +11,12 @@
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${userName}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
 			</div>
@@ -34,28 +34,28 @@
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${userName}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
 			</div>
 			<div id="lg-account" class="col-sm-1 d-none d-md-block">	 
 				<div class="dropdown float-right">
-		     		<button id="btn-account" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">${userName}
+		     		<button id="btn-account" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">${User.userName}
 				    	<span class="caret"></span>
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${userName}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
 					    <div class="dropdown-divider"></div>
 					    <a class="dropdown-item linked" href="#">Events</a>
-					    <a class="dropdown-item linked" href="#">Logout</a>
+					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				 </div>
 			</div>

@@ -1,12 +1,20 @@
 package kikakuya.model;
 
 public class GuestPlusOne {
-
-	private String fullName, mealChoice;
+	private int guestPlusOneId;
+	private String fullName, mealChoice, category;
 	private int guestGuestId;
 	
 	public GuestPlusOne() {
 		super();
+	}
+	
+	public int getGuestPlusOneId() {
+		return guestPlusOneId;
+	}
+
+	public void setGuestPlusOneId(int guestPlusOneId) {
+		this.guestPlusOneId = guestPlusOneId;
 	}
 
 	public String getMealChoice() {
@@ -31,6 +39,14 @@ public class GuestPlusOne {
 
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 	 
 	
