@@ -49,14 +49,12 @@ public class EventServiceImpl implements EventService{
 		
 	}
 
-	public Event findEventById(int eventId) throws SQLException {
-		return eventDao.findEventById(eventId);
-	}
-
 	public boolean updateEvent(int eventId) throws SQLException {
 		return false;
 	}
 	
-	
+	public Event findEventById(int eventId) throws SQLException {
+		return eventDao.findEventById(eventId);
+	}
 
 }

@@ -9,6 +9,7 @@
    
    	<bean id="loginDelegate" class="kikakuya.delegate.LoginDelegate">
 		<property name="userService" ref="userService"></property>
+		<property name="eventService" ref="eventService"></property>
 	</bean>
 
 	<bean id="signUpDelegate" class="kikakuya.delegate.SignUpDelegate">
@@ -18,7 +19,7 @@
 	<bean id="userService" class="kikakuya.service.implementation.UserServiceImpl">
 		<property name="userDao" ref="userDao"></property>
 	</bean>
-
+	
 	<bean name="userDao" class="kikakuya.dao.implementation.UserDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
