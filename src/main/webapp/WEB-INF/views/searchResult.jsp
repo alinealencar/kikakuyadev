@@ -5,6 +5,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page isELIgnored="false" %>
 <div class="container">
 <!-- body contents start -->
@@ -35,6 +36,7 @@
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
+			<form:form action="" method="post" modelAttribute="vendor">
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
@@ -43,7 +45,7 @@
    					</button>
 				</div>
 				<div class="col-md-6">
-					<h3>${vendor.name}</h3>
+					<h3><form:label path="name" value="${vendor.name}">${vendor.name}</form:label></h3>
 					<div>
 						<c:choose>
 			  				<c:when test="${vendor.rating == 0}">
@@ -78,9 +80,10 @@
 			  				</c:when>
 			  			</c:choose><br>
 		  			</div>
-					${vendor.address}<br>
-					${vendor.phoneNo}<br>
+					<form:label path="address" value="${vendor.address}">${vendor.address}</form:label><br>
+					<form:label path="address" value="${vendor.address}">${vendor.phoneNo}</form:label><br>
 					<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
+					<form:hidden path="website" value="${vendor.website}" />
 				</div>
 				<div class="col-md-3">
 					<button id="btnAddVendor" type="submit" class="btn btn-primary d-none d-md-block" name="addVendor" style="background-color: #D90368;
@@ -90,6 +93,7 @@
 				</div>
 		</li>
 		<hr>
+		</form:form>
 		</c:forEach>
 	</ul>
 <!-- body contents end -->
