@@ -54,20 +54,18 @@ public class SearchController {
 	public String processSearch(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("vendor") Vendor vendor, BindingResult bindingResult, Model model){
 		
 		//get values from form
-		String category = request.getParameter("category");
-		String location = request.getParameter("location");
-		String capitalizedLoc = HelperUtilities.capitalize(location);
+		String capitalizedLoc = HelperUtilities.capitalize(vendor.getLocation());
 		ArrayList<Vendor> vendors = new ArrayList<Vendor>();
 		
 		String redirectTo = "searchResult";
 		
 		try {
 			//populate vendors list
-			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
+			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(vendor.getCategory(), vendor.getLocation()));
 			
 			model.addAttribute("vendor", new Vendor());
 			request.setAttribute("vendors", vendors);
-			request.setAttribute("category", category);
+			request.setAttribute("category", vendor.getCategory());
 			request.setAttribute("location", capitalizedLoc);
 			
 			redirectTo = "searchResult";	
