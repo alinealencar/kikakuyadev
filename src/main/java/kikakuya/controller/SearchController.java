@@ -65,6 +65,7 @@ public class SearchController {
 			//populate vendors list
 			vendors = searchDelegate.createVendorObjects(searchDelegate.searchForVendors(category, location));
 			
+			model.addAttribute("vendor", new Vendor());
 			request.setAttribute("vendors", vendors);
 			request.setAttribute("category", category);
 			request.setAttribute("location", capitalizedLoc);

@@ -36,7 +36,7 @@
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
-			<form:form action="" method="post" modelAttribute="vendor">
+			<form:form action="addVendor" method="post" modelAttribute="vendor">
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
@@ -45,7 +45,8 @@
    					</button>
 				</div>
 				<div class="col-md-6">
-					<h3><form:label path="name" value="${vendor.name}">${vendor.name}</form:label></h3>
+					<h3>${vendor.name}</h3>
+					<form:hidden path="name" value="${vendor.name}" />
 					<div>
 						<c:choose>
 			  				<c:when test="${vendor.rating == 0}">
@@ -80,8 +81,10 @@
 			  				</c:when>
 			  			</c:choose><br>
 		  			</div>
-					<form:label path="address" value="${vendor.address}">${vendor.address}</form:label><br>
-					<form:label path="address" value="${vendor.address}">${vendor.phoneNo}</form:label><br>
+		  			${vendor.address}<br>
+					${vendor.phoneNo}<br>
+					<form:hidden path="address" value="${vendor.address}"/>
+					<form:hidden path="phoneNo" value="${vendor.phoneNo}"/>
 					<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
 					<form:hidden path="website" value="${vendor.website}" />
 				</div>

@@ -24,10 +24,6 @@ public class MessageDelegate {
 		this.communicationService = communicationService;
 	}
 	
-	/*public void sendBroadcast(Guest guest, Email email, User user){
-		communicationService.sendBroadcast(guest, email, user);
-	}*/
-	
 	public void sendBroadcast(Email email, List<Guest> guestList){
 		communicationService.sendBroadcast(email, guestList);
 	}
@@ -43,11 +39,5 @@ public class MessageDelegate {
 	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
 		return communicationService.findGuestByStatus(status, eventId);
 	}
-
-	/*public List<Guest> findGuestNoReply(int eventId) throws SQLException {
-		return communicationService.findGuestNoReply(eventId);
-	}*/
-	
-	
 	
 }

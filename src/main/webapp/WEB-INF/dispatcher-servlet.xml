@@ -28,6 +28,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 	<import resource="beans/guestBeans.xml"/>
 	<import resource="beans/eventBeans.xml"/>
 	<import resource="beans/communicationBeans.xml"/>
+	<import resource="beans/vendorBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
