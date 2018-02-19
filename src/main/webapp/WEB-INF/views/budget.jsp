@@ -38,7 +38,7 @@
       				<form:select id="ventor" class="form-control" path="name">
 	        			<option>--- Select Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
-	       					<option value="${vendor.name}" selected>${vendor.name}</option>
+	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
       				<div class="text-center">- or -</div>
