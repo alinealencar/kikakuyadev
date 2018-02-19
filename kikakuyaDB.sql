@@ -90,9 +90,9 @@ CREATE TABLE `User` (
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
   vendorName     varchar(60) NOT NULL, 
-  vendorAddress varchar(255), 
-  vendorWebsite varchar(50),
-  vendorPhone varchar(50), 
+  website varchar(50),
+  phone varchar(50),
+  address varchar(255),
   PRIMARY KEY (vendorId));
 ALTER TABLE Good ADD INDEX FKGoodVendorEvent (VendorEventvendorEventId), ADD CONSTRAINT FKGoodVendorEvent FOREIGN KEY (VendorEventvendorEventId) REFERENCES VendorEvent (vendorEventId);
 ALTER TABLE VendorEvent ADD INDEX FKVendorVendorEvent (VendorvendorId), ADD CONSTRAINT FKVendorVendorEvent FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId);
