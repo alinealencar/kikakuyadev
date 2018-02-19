@@ -10,7 +10,8 @@
 	<div class="row">
 		<div class="col-sm-8">
 			<!-- budget form here -->
-			<h3>Budget:</h3>
+			<h3>Budget: ${event.totalBudget}</h3>
+			
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->

@@ -97,6 +97,7 @@
 				</div>
 			<br>
 			<div id="editGuestSection" style="display:none">
+				<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
 				<h2>Edit Guest Information</h2>
 				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest">
@@ -168,6 +169,7 @@
 				</form:form>
 			</div>
 			<div id="addGuestSection" style="display:none;">
+			<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
