@@ -12,28 +12,35 @@ CREATE TABLE Appointment (
   color varchar(6) NOT NULL,
   PRIMARY KEY (apptId));
 CREATE TABLE Email (
-	emailId int(10) NOT NULL AUTO_INCREMENT, 
-	replyDue varchar(255) NOT NULL, 
-  	mealChoiceBeef varchar(20),
-    mealChoicePork varchar(20),
-    mealChoiceChicken varchar(20),
-    mealChoiceVeg varchar(20),
-    mealChoiceFish varchar(20),
-    mealChoiceKids varchar(20),
-    EventeventId int(10) NOT NULL,
-  	PRIMARY KEY (emailId));
+	emailId            int(10) NOT NULL AUTO_INCREMENT, 
+	replyDue           varchar(255) NOT NULL, 
+  mealChoiceBeef     varchar(20),
+  mealChoicePork     varchar(20),
+  mealChoiceChicken  varchar(20),
+  mealChoiceVeg      varchar(20),
+  mealChoiceFish     varchar(20),
+  mealChoiceKids     varchar(20),
+  EventeventId       int(10) NOT NULL,
+  PRIMARY KEY (emailId));
 CREATE TABLE Event (
-  eventId    int(10) NOT NULL AUTO_INCREMENT, 
-  eventName  varchar(255) NOT NULL, 
-  eventDate  varchar(255), 
-  UseruserId int(10),
-  location varchar(255) NOT NULL, 
+  eventId     int(10) NOT NULL AUTO_INCREMENT, 
+  eventName   varchar(255) NOT NULL, 
+  eventDate   varchar(255), 
+  UseruserId  int(10),
+  location    varchar(255) NOT NULL,
+  totalBudget decimal(8,2), 
   PRIMARY KEY (eventId));
+CREATE TABLE VendorEvent (
+  vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
+  EventeventId    int(10) NOT NULL,
+  VendorvendorId  int(10) NOT NULL,
+  vendorCategory  varchar(100),
+  PRIMARY KEY (vendorEventId));
 CREATE TABLE Good (
   goodId         int(10) NOT NULL AUTO_INCREMENT, 
   goodName       varchar(255) NOT NULL, 
   goodPrice      decimal(2, 0) DEFAULT 0, 
-  VendorvendorId int(10) NOT NULL, 
+  VendorEventvendorEventId int(10) NOT NULL, 
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (
   guestId   int(10) NOT NULL AUTO_INCREMENT,
@@ -83,11 +90,12 @@ CREATE TABLE `User` (
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
   vendorName     varchar(60) NOT NULL, 
-  vendorCategory varchar(50), 
-  EventeventId   int(10) NOT NULL, 
+  vendorWebsite varchar(50),
+  vendorPhone varchar(50), 
   PRIMARY KEY (vendorId));
-ALTER TABLE Good ADD INDEX FKGoodVendor (VendorvendorId), ADD CONSTRAINT FKGoodVendor FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId);
-ALTER TABLE Vendor ADD INDEX FKVendorEvent (EventeventId), ADD CONSTRAINT FKVendorEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
+ALTER TABLE Good ADD INDEX FKGoodVendorEvent (VendorEventvendorEventId), ADD CONSTRAINT FKGoodVendorEvent FOREIGN KEY (VendorEventvendorEventId) REFERENCES VendorEvent (vendorEventId);
+ALTER TABLE VendorEvent ADD INDEX FKVendorVendorEvent (VendorvendorId), ADD CONSTRAINT FKVendorVendorEvent FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId);
+ALTER TABLE VendorEvent ADD INDEX FKEventVendorEvent (EventeventId), ADD CONSTRAINT FKEventVendorEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE Item ADD INDEX FKItemList (ListlistId), ADD CONSTRAINT FKItemList FOREIGN KEY (ListlistId) REFERENCES List (listId);
 ALTER TABLE List ADD INDEX FKListEvent (EventeventId), ADD CONSTRAINT FKListEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT FKGuestPlusOne FOREIGN KEY (GuestguestId) REFERENCES Guest(guestId);
