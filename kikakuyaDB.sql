@@ -90,6 +90,7 @@ CREATE TABLE `User` (
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
   vendorName     varchar(60) NOT NULL, 
+  vendorAddress varchar(255), 
   vendorWebsite varchar(50),
   vendorPhone varchar(50), 
   PRIMARY KEY (vendorId));

@@ -5,6 +5,9 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ page isELIgnored="false" %>
 <div class="container">
 <!-- body contents start -->
 	<div class="row">
@@ -14,22 +17,30 @@
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
-			<form >	
+			<form:form action="" method="post" modelAttribute="vendor">	
 				<div class="form-group">
-      				<select id="category" class="form-control ui-select">
+      				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
+	       				<option>Balloon Services</option>
+	       				<option>Cake</option>
+	       				<option>Cards & Stationery</option>
+	       				<option>Decorations</option>
 	       				<option>Entertainment</option>
+	       				<option>Floral Design</option>
 	       				<option>Music</option>
+	       				<option>Party Equipment Rental</option>
+	       				<option>Photographer</option>
 	       				<option>Venue</option>
-      				</select>
+      				</form:select>
    				</div>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<select id="ventor" class="form-control">
-	        			<option selected>--- Select Vendor ---</option>
-	       				<option>The Best Catering</option>
-	       				<option>Caterz Inc.</option>
-      				</select>
+      				<form:select id="ventor" class="form-control" path="name">
+	        			<option>--- Select Vendor ---</option>
+	       				<c:forEach items="${vendors}" var="vendor">
+	       					<option value="${vendor.name}" selected>${vendor.name}</option>
+	       				</c:forEach>
+      				</form:select>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
       				<button type="button" class="btn btn-info">
@@ -62,7 +73,7 @@
 	      			</button>
       			</div>
       			
-			</form>
+			</form:form>
 		</div>
 	</div>
 <!-- body contents end -->
