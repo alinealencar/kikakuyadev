@@ -1,15 +1,19 @@
 package kikakuya.delegate;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
+import kikakuya.model.Email;
 import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
+import kikakuya.service.CommunicationService;
 import kikakuya.service.GuestService;
 
 public class GuestDelegate {
 	private GuestService guestService;
+	private CommunicationService commService;
 
 	public GuestService getGuestService() {
 		return guestService;
@@ -19,6 +23,14 @@ public class GuestDelegate {
 		this.guestService = guestService;
 	}
 	
+	public CommunicationService getCommService() {
+		return commService;
+	}
+
+	public void setCommService(CommunicationService commService) {
+		this.commService = commService;
+	}
+
 	public boolean addGuest(Guest guest) throws SQLException {
 		return guestService.addGuest(guest);
 	}
@@ -51,5 +63,27 @@ public class GuestDelegate {
 	
 	public List<GuestPlusOne> getAllPlusOnes(Guest guest) throws SQLException {
 		return guestService.gelAllPlusOnes(guest);
+	}
+	
+	public List<String> getMealOptions(int eventId) throws SQLException {
+		Event event = new Event();
+		event.setEventId(eventId);
+		Email email = commService.findEmailByEvent(event);
+		
+		List<String> meals = new ArrayList();
+		if(email.getMealChoiceBeef() != null)
+			meals.add("Beef");
+		if(email.getMealChoiceChicken() != null)
+			meals.add("Chicken");
+		if(email.getMealChoiceFish() != null)
+			meals.add("Fish");
+		if(email.getMealChoiceKids() != null)
+			meals.add("Kids");
+		if(email.getMealChoicePork() != null)
+			meals.add("Pork");
+		if(email.getMealChoiceVeg() != null)
+			meals.add("Vegetarian");
+		
+		return meals;
 	}
 }

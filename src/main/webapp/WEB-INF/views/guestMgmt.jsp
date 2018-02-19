@@ -16,7 +16,7 @@
 					<h2>Guest List</h2>
 				</div>
 				<div class="col-2">
-					<button id="btnAddVendor" type="button" class="btn btn-link d-none d-md-block" name="addVendor" onclick="addGuest()">
+					<button type="button" class="btn btn-link d-none d-md-block" onclick="addGuest()">
       					<span class="material-icons" style="font-size: 300%;">add_circle</span>
    					</button>
    				</div>
@@ -74,13 +74,23 @@
 						<div>Special Requests: ${selectedGuest.specialRequests}</div>
 						<br>
 						<h5><i>Plus Ones</i></h5>
+						<div>Adults: </div>
 						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-							<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+							${person.fullName}
+							<c:if test="${person.category == 'Adult'}">
+								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+							</c:if>
+						</c:forEach>
+						<div>Kids: </div>
+						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
+							<c:if test="${person.category == 'Kid'}">
+								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+							</c:if>
 						</c:forEach>
 						<br>
 						<form:form action="deleteGuest" method="post">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
-							<input class="btn btn-danger" type="submit" value="Uninvite ${selectedGuest.firstName} ${selectedGuest.lastName}"/>
+							<input class="btn btn-danger" type="submit" value="Remove guest"/>
 						</form:form>
 					</div>
 					<br>
@@ -147,7 +157,11 @@
 						<label>Name: </label>
 						<input name="plusOnes[${status.index}].fullName" value="${person.fullName}"/>
 						<label>Meal Choice: </label>
-						<input name="plusOnes[${status.index}].mealChoice" value="${person.mealChoice}"/>
+						<select name="plusOnes[${status.index}].mealChoice">
+							<c:forEach items="${meals}" var="meal">
+								<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
+							</c:forEach>	
+						</select>
 						<br>
 					</c:forEach>
 					<span><input type="submit" value="Save"/></span>
