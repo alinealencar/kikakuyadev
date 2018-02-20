@@ -1,20 +1,28 @@
 package kikakuya.service.implementation;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kikakuya.dao.GoodDao;
 import kikakuya.dao.VendorDao;
 import kikakuya.model.Good;
 import kikakuya.model.Vendor;
-import kikakuya.service.VendorService;
+import kikakuya.service.BudgetService;
 
-public class VendorServiceImpl implements VendorService{
+public class BudgetServiceImpl implements BudgetService{
 
 	private VendorDao vendorDao;
-	
+	private GoodDao goodDao;
+
+	public GoodDao getGoodDao() {
+		return goodDao;
+	}
+
+	public void setGoodDao(GoodDao goodDao) {
+		this.goodDao = goodDao;
+	}
+
 	public VendorDao getVendorDao() {
 		return vendorDao;
 	}
@@ -26,10 +34,17 @@ public class VendorServiceImpl implements VendorService{
 	public boolean addVendor(Vendor vendor) throws SQLException {
 		return vendorDao.insertVendor(vendor);
 	}
+	
+	public List<Vendor> getVendors() throws SQLException {
+		return vendorDao.findVendors();
+	}
 
+	public boolean addGood(Good good, int vendorEventId) throws SQLException {
+		return goodDao.insertGood(good, vendorEventId);
+	}
+	
 	@Override
 	public Map<String, Map<Vendor, List<Good>>> getBudgetInfo(int eventId) throws SQLException {
 		return vendorDao.findBudget(eventId);
 	}
-
 }

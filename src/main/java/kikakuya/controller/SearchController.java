@@ -1,16 +1,11 @@
 package kikakuya.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.JSONException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -69,11 +64,11 @@ public class SearchController {
 			request.setAttribute("location", capitalizedLoc);
 			
 			redirectTo = "searchResult";	
-		} catch (JSONException e) {
-			request.setAttribute("searchError", "No results found.");
-		} catch (IOException e) {
-			request.setAttribute("searchError", "No results found.");
-		}	
+		} catch (Exception e) {
+			request.setAttribute("category", vendor.getCategory());
+			request.setAttribute("location", capitalizedLoc);
+			request.setAttribute("searchError", "No results found ");
+		} 	
 
 		return redirectTo;
 

@@ -34,12 +34,5 @@ public class Good {
 	public void setVendorEventId(int vendorEventId) {
 		this.vendorEventId = vendorEventId;
 	}
-
-	@Override
-	public String toString() {
-		return "Good [goodId=" + goodId + ", goodName=" + goodName + ", goodPrice=" + goodPrice + ", vendorEventId="
-				+ vendorEventId + "]";
-	}
-	
 	
 }

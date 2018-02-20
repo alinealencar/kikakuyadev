@@ -7,7 +7,10 @@ import java.util.Map;
 import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 
-public interface VendorService {
+public interface BudgetService {
+	
 	public boolean addVendor(Vendor vendor) throws SQLException;
+	public List<Vendor> getVendors() throws SQLException;
+	public boolean addGood(Good good, int vendorEventId) throws SQLException;
 	public Map<String, Map<Vendor, List<Good>>> getBudgetInfo(int eventId) throws SQLException;
 }

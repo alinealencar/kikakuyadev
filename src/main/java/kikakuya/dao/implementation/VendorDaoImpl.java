@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 
 import kikakuya.dao.VendorDao;
 import kikakuya.model.Good;
+import kikakuya.model.Guest;
 import kikakuya.model.Vendor;
 
 public class VendorDaoImpl implements VendorDao{
@@ -26,13 +27,31 @@ public class VendorDaoImpl implements VendorDao{
 		this.dataSource = dataSource;
 	}
 	
+	public List<Vendor> findVendors() throws SQLException {
+		String query = "SELECT * FROM vendor";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		List<Vendor> vendors = new ArrayList<Vendor>();
+		ResultSet rs = pstmt.executeQuery(query);
+		while(rs.next()){
+			Vendor vendor = new Vendor();
+			vendor.setVendorId(rs.getInt(1));
+			vendor.setName(rs.getString(2));
+			vendor.setAddress(rs.getString(3));
+			vendor.setWebsite(rs.getString(4));
+			vendor.setPhoneNo(rs.getString(5));
+			
+			vendors.add(vendor);
+		}
+		return vendors;	
+	}
+	
 	public boolean insertVendor(Vendor vendor) throws SQLException {
-		String query = "Insert into vendor (vendorName, address, website, phone) values (?,?,?,?)";
+		String query = "Insert into vendor (vendorName, website, phone, address) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, vendor.getName());
-		pstmt.setString(2, vendor.getAddress());
-		pstmt.setString(3, vendor.getWebsite());
-		pstmt.setString(4, vendor.getPhoneNo());
+		pstmt.setString(2, vendor.getWebsite());
+		pstmt.setString(3, vendor.getPhoneNo());
+		pstmt.setString(4, vendor.getAddress());
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return rowsAffected > 0;
