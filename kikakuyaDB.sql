@@ -39,7 +39,7 @@ CREATE TABLE VendorEvent (
 CREATE TABLE Good (
   goodId         int(10) NOT NULL AUTO_INCREMENT, 
   goodName       varchar(255) NOT NULL, 
-  goodPrice      decimal(2, 0) DEFAULT 0, 
+  goodPrice      decimal(6, 2) DEFAULT 0, 
   VendorEventvendorEventId int(10) NOT NULL, 
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (
@@ -90,7 +90,7 @@ CREATE TABLE `User` (
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
   vendorName     varchar(60) NOT NULL, 
-  website varchar(50),
+  website varchar(255),
   phone varchar(50),
   address varchar(255),
   PRIMARY KEY (vendorId));

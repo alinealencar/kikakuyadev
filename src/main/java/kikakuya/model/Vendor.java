@@ -84,6 +84,13 @@ public class Vendor {
 		this.location = location;
 	}
 
+	@Override
+	public String toString() {
+		return "Vendor [name=" + name + ", address=" + address + ", website=" + website + ", phoneNo=" + phoneNo
+				+ ", imageURL=" + imageURL + ", category=" + category + ", location=" + location + ", rating=" + rating
+				+ "]";
+	}
+
 	
 
 }

@@ -1,7 +1,10 @@
 package kikakuya.delegate;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
+import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 import kikakuya.service.VendorService;
 
@@ -21,5 +24,7 @@ public class VendorDelegate {
 		return vendorService.addVendor(vendor);
 	}
 	
-	
+	public Map<String, Map<Vendor, List<Good>>> showBudget(int eventId) throws SQLException {
+		return vendorService.getBudgetInfo(eventId);
+	}
 }
