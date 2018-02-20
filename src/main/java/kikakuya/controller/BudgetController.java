@@ -54,4 +54,11 @@ public class BudgetController {
 		}
 		return redirectTo;
 	}
+	
+	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
+	public String processEditBudget(HttpServletRequest request){
+		String redirectTo = "budget";
+
+		return redirectTo;
+	}
 }
