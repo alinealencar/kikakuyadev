@@ -33,8 +33,11 @@
 					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-	   					<h3>${category.key}</h3><br>
+							<!-- Delete category -->
+	   						<form:form action="deleteCategory" method="post"><i class="fas fa-minus-circle"></i></form:form>
+	   						<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
+	   						<!-- Delete vendor -->
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
 	   							<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
