@@ -2,11 +2,11 @@ package kikakuya.model;
 
 import java.util.List;
 
-public class GoodsListForm {
+public class BudgetForm {
 	private double totalBudget;
 	private List<Good> goodsList;
 
-	public GoodsListForm() {
+	public BudgetForm() {
 		super();
 	}
 
@@ -25,7 +25,4 @@ public class GoodsListForm {
 	public void setTotalBudget(double totalBudget) {
 		this.totalBudget = totalBudget;
 	}
-	
-	
-
 }

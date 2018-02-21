@@ -16,7 +16,7 @@ import kikakuya.delegate.BudgetDelegate;
 
 import kikakuya.model.Event;
 import kikakuya.model.Good;
-import kikakuya.model.GoodsListForm;
+import kikakuya.model.BudgetForm;
 import kikakuya.model.Vendor;
 
 @Controller
@@ -40,7 +40,7 @@ public class BudgetController {
 		request.setAttribute("budgetInfo", budgetInfo);
 		
 		//Get list of all goods
-		GoodsListForm goodsListForm = new GoodsListForm();
+		BudgetForm goodsListForm = new BudgetForm();
 		request.setAttribute("goodsListForm", goodsListForm);
 		return "budget";
 	}
@@ -87,10 +87,10 @@ public class BudgetController {
 		return redirectTo;
 	}
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
-	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute GoodsListForm goodsListForm){
+	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
 		String redirectTo = "budget";
-		double newTotalBudget = goodsListForm.getTotalBudget();
-		List<Good> goodsList = goodsListForm.getGoodsList();
+		double newTotalBudget = budgetForm.getTotalBudget();
+		List<Good> goodsList = budgetForm.getGoodsList();
 		
 		try {
 			//Update goods
