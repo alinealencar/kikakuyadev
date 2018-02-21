@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kikakuya.model.Event;
+import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 public interface EventDao {

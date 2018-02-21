@@ -28,7 +28,8 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public List<Vendor> findVendors() throws SQLException {
-		String query = "SELECT * FROM vendor";
+		String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
+				+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -124,6 +125,17 @@ public class VendorDaoImpl implements VendorDao{
 		}
 
 		return result;
+	}
+	
+	public int findLastInserted() throws SQLException {
+		String query = "SELECT vendorId from vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		int vendorId=0;
+		while(rs.next()){
+			vendorId = rs.getInt(1);
+		}
+		return vendorId;
 	}
 
 	@Override

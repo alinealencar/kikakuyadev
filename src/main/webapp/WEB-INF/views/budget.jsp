@@ -56,24 +56,24 @@
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
-	       				<option>Balloon Services</option>
-	       				<option>Cake</option>
-	       				<option>Cards & Stationery</option>
-	       				<option>Decorations</option>
-	       				<option>Entertainment</option>
-	       				<option>Floral Design</option>
-	       				<option>Music</option>
-	       				<option>Party Equipment Rental</option>
-	       				<option>Photographer</option>
-	       				<option>Venue</option>
+	       				<option value="Balloon Services" ${category eq 'Balloon Services' ? 'selected': ''}>Balloon Services</option>
+	       				<option value="Cake" ${category eq 'Cake' ? 'selected': ''}>Cake</option>
+	       				<option value="Cards & Stationery" ${category eq 'Cards & Stationery' ? 'selected': ''}>Cards & Stationery</option>
+	       				<option value="Decorations" ${category eq 'Decorations' ? 'selected': ''}>Decorations</option>
+	       				<option value="Entertainment" ${category eq 'Entertainment' ? 'selected': ''}>Entertainment</option>
+	       				<option value="Floral Design" ${category eq 'Floral Design' ? 'selected': ''}>Floral Design</option>
+	       				<option value="Music" ${category eq 'Music' ? 'selected': ''}>Music</option>
+	       				<option value="Party Equipment Rental" ${category eq 'Party Equipment Rental' ? 'selected': ''}>Party Equipment Rental</option>
+	       				<option value="Photography" ${category eq 'Photography' ? 'selected': ''}>Photography</option>
+	       				<option value="Venue" ${category eq 'Venue' ? 'selected': ''}>Venue</option>
       				</form:select>
    				</div>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
       				<form:select id="ventor" class="form-control" path="vendorId">
-	        			<option>--- Select Vendor ---</option>
+	        			<option ${vendorId eq '' ? 'selected': ''}>--- Select Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
-	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
+	       					<option value="${vendor.vendorId} ${vendor.vendorId eq vendor.vendorId ? 'selected': ''}">${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
       				<div class="text-center">- or -</div>

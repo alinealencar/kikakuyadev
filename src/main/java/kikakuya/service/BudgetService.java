@@ -16,5 +16,6 @@ public interface BudgetService {
 	public boolean addVendorEvent(Vendor vendor, Event event) throws SQLException;
 	public int getVendorEventId(Vendor vendor) throws SQLException;
 	public Map<String, Map<Vendor, List<Good>>> getBudgetInfo(int eventId) throws SQLException;
+	public int getLastInserted() throws SQLException;
 	public boolean editGood(Good good) throws SQLException;
 }

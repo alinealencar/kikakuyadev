@@ -40,5 +40,3 @@ function stickyFooter(){
 
 
 </script>
-</body>
-</html>

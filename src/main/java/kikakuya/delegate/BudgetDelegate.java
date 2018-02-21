@@ -55,6 +55,10 @@ public class BudgetDelegate {
 		return budgetService.getBudgetInfo(eventId);
 	}
 	
+	public int findLastInserted() throws SQLException {
+		return budgetService.getLastInserted();
+	}
+
 	public boolean editGood(Good good) throws SQLException {
 		return budgetService.editGood(good);
 	}
