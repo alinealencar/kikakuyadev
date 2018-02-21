@@ -1,6 +1,7 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
+import kikakuya.model.Email;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.GuestPlusOneForm;
@@ -154,9 +156,13 @@ public class GuestController {
 			GuestPlusOneForm plusOnesList = new GuestPlusOneForm();
 			plusOnesList.setPlusOnes(guestDelegate.getAllPlusOnes(selectedGuest));
 			
+			//get email with meal choices
+			List<String> meals = guestDelegate.getMealOptions(selectedGuest.getEventId());
+			
 			//add the selected guest to the request scope
 			request.setAttribute("selectedGuest", selectedGuest);
 			request.setAttribute("plusOnesList", plusOnesList);
+			request.setAttribute("meals", meals);
 		} catch(Exception e){
 			e.printStackTrace();
 		}

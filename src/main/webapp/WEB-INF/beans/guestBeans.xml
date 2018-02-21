@@ -9,6 +9,7 @@
    
    	<bean id="guestDelegate" class="kikakuya.delegate.GuestDelegate">
 		<property name="guestService" ref="guestService"></property>
+		<property name="commService" ref="communicationService"></property>
 	</bean>
 	
 	<bean id="guestService" class="kikakuya.service.implementation.GuestServiceImpl">

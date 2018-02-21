@@ -11,7 +11,13 @@ public interface EventService {
 	public boolean insertEvent(Event event, User user) throws SQLException;
 	public boolean updateEvent(Event event) throws SQLException;
 	public boolean deleteEvent(int eventId) throws SQLException;
+<<<<<<< HEAD
 	//public Event findEventById(int eventId) throws SQLException;
 	public Event getEventById(int eventId) throws SQLException;
 	
+=======
+	public Event findEventById(int eventId) throws SQLException;
+	//public boolean updateEvent(Event event);
+	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException;
+>>>>>>> c31186b4dc0703d017253f42b2ab33fe9801ce4c
 }

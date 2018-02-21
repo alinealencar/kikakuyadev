@@ -31,8 +31,12 @@
 			</div>				
 		</div>
 	</form>
-	<div class="${(searchError != null) ? 'alert alert-danger':''}" role="alert">${searchError}</div>
-	<div class="${(searchError == null) ? '':''}"><h4>Showing results for <b>${category}</b> in <b>${location}</b></h4></div><br>
+	<c:if test = "${not empty searchError}">
+		<div><h4>${searchError} for <b>${category}</b> in <b>${location}</b></h4></div>
+	</c:if>
+	<c:if test = "${empty searchError}">
+		<div><h4>Showing results for <b>${category}</b> in <b>${location}</b></h4></div><br>
+	</c:if>
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >

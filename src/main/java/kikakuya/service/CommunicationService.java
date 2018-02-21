@@ -8,6 +8,7 @@ import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
+import kikakuya.model.Vendor;
 
 public interface CommunicationService {
 	public void sendBroadcast(Email email, List<Guest> guestList);

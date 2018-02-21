@@ -47,6 +47,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(12));
 			guest.setMealChoice(rs.getString(13));
 			guest.setNotes(rs.getString(14));
+			guest.setEventId(rs.getInt(15));
 			
 			guests.add(guest);
 		}
@@ -122,6 +123,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(12));
 			guest.setMealChoice(rs.getString(13));
 			guest.setNotes(rs.getString(14));
+			guest.setEventId(rs.getInt(15));
 		}
 		return guest;
 	}
@@ -147,6 +149,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(12));
 			guest.setMealChoice(rs.getString(13));
 			guest.setNotes(rs.getString(14));
+			guest.setEventId(rs.getInt(15));
 			
 			guests.add(guest);
 		}
@@ -173,6 +176,7 @@ public class GuestDaoImpl implements GuestDao {
 			guest.setSpecialRequests(rs.getString(12));
 			guest.setMealChoice(rs.getString(13));
 			guest.setNotes(rs.getString(14));
+			guest.setEventId(rs.getInt(15));
 		}
 		return guest;
 	}

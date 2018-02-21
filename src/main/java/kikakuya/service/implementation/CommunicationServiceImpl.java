@@ -24,6 +24,7 @@ import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
+import kikakuya.model.Vendor;
 import kikakuya.service.CommunicationService;
 
 public class CommunicationServiceImpl implements CommunicationService{

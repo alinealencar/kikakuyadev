@@ -33,13 +33,13 @@ CREATE TABLE Event (
 CREATE TABLE VendorEvent (
   vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
   EventeventId    int(10) NOT NULL,
-  VendorvendorId  int(10) NOT NULL,
+  VendorvendorId  int(10) NOT NULL UNIQUE,
   vendorCategory  varchar(100),
   PRIMARY KEY (vendorEventId));
 CREATE TABLE Good (
   goodId         int(10) NOT NULL AUTO_INCREMENT, 
   goodName       varchar(255) NOT NULL, 
-  goodPrice      decimal(2, 0) DEFAULT 0, 
+  goodPrice      decimal(10, 2) DEFAULT 0, 
   VendorEventvendorEventId int(10) NOT NULL, 
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (
@@ -89,9 +89,10 @@ CREATE TABLE `User` (
   PRIMARY KEY (userId));
 CREATE TABLE Vendor (
   vendorId       int(10) NOT NULL AUTO_INCREMENT, 
-  vendorName     varchar(60) NOT NULL, 
-  vendorWebsite varchar(50),
-  vendorPhone varchar(50), 
+  vendorName     varchar(60) NOT NULL UNIQUE, 
+  website varchar(255),
+  phone varchar(50),
+  address varchar(255),
   PRIMARY KEY (vendorId));
 ALTER TABLE Good ADD INDEX FKGoodVendorEvent (VendorEventvendorEventId), ADD CONSTRAINT FKGoodVendorEvent FOREIGN KEY (VendorEventvendorEventId) REFERENCES VendorEvent (vendorEventId);
 ALTER TABLE VendorEvent ADD INDEX FKVendorVendorEvent (VendorvendorId), ADD CONSTRAINT FKVendorVendorEvent FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId);

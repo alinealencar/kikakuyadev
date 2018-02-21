@@ -58,6 +58,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 			plusOne.setGuestPlusOneId(rs.getInt(1));
 			plusOne.setFullName(rs.getString(2));
 			plusOne.setMealChoice(rs.getString(3));
+			plusOne.setCategory(rs.getString(5));
 			plusOnes.add(plusOne);
 		}
 		

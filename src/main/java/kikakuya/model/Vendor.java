@@ -1,15 +1,19 @@
 package kikakuya.model;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Vendor {
 	
 	private String name, address, website, phoneNo, imageURL, category, location;
 	private double rating;
+	private int vendorId;
+	private List<Good> goodsList = new ArrayList<Good>();
 	
 	public Vendor () {
 		
 	}
-	
+
 	public Vendor(String name, String address, String website, String phoneNo, String imageURL, String category, double rating) {
 		this.name = name;
 		this.address = address;
@@ -82,6 +86,23 @@ public class Vendor {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+
+	public int getVendorId() {
+		return vendorId;
+	}
+
+	public void setVendorId(int vendorId) {
+		this.vendorId = vendorId;
+	}
+
+	public List<Good> getGoodsList() {
+		return goodsList;
+	}
+
+	public void setGoodsList(List<Good> goodsList) {
+		this.goodsList = goodsList;
 	}
 
 	

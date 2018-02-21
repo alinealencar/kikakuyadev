@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+   http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+   
+   <bean id="BudgetDelegate" class="kikakuya.delegate.BudgetDelegate">
+		<property name="budgetService" ref="budgetService"></property>
+		<property name="eventService" ref="eventService"></property>
+	</bean>
+	
+	<bean id="budgetService" class="kikakuya.service.implementation.BudgetServiceImpl">
+		<property name="vendorDao" ref="vendorDao"></property>
+		<property name="vendorEventDao" ref="vendorEventDao"></property>
+		<property name="goodDao" ref="goodDao"></property>
+	</bean>
+		
+	<bean name="vendorDao" class="kikakuya.dao.implementation.VendorDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="vendorEventDao" class="kikakuya.dao.implementation.VendorEventDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="goodDao" class="kikakuya.dao.implementation.GoodDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+</beans>
