@@ -66,4 +66,10 @@ public class BudgetServiceImpl implements BudgetService{
 	public Map<String, Map<Vendor, List<Good>>> getBudgetInfo(int eventId) throws SQLException {
 		return vendorDao.findBudget(eventId);
 	}
+
+	@Override
+	public int getLastInserted() throws SQLException {
+		return vendorDao.findLastInserted();
+	}
+	
 }

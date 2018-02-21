@@ -44,5 +44,9 @@ public class BudgetDelegate {
 	public Map<String, Map<Vendor, List<Good>>> showBudget(int eventId) throws SQLException {
 		return budgetService.getBudgetInfo(eventId);
 	}
+	
+	public int findLastInserted() throws SQLException {
+		return budgetService.getLastInserted();
+	}
 }
 
