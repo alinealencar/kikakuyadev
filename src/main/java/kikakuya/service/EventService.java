@@ -14,5 +14,5 @@ public interface EventService {
 	public boolean deleteEvent(int eventId) throws SQLException;
 	public Event findEventById(int eventId) throws SQLException;
 	//public boolean updateEvent(Event event);
-	
+	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException;
 }

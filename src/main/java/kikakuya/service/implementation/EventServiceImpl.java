@@ -57,4 +57,9 @@ public class EventServiceImpl implements EventService{
 		return eventDao.findEventById(eventId);
 	}
 
+	@Override
+	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {
+		return eventDao.updateTotalBudget(eventId, totalBudget);
+	}
+
 }

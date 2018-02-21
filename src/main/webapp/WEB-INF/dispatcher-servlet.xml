@@ -26,9 +26,9 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 	<import resource="beans/userBeans.xml"/>
 	<import resource="beans/searchBeans.xml"/>
 	<import resource="beans/guestBeans.xml"/>
-	<import resource="beans/eventBeans.xml"/>
 	<import resource="beans/communicationBeans.xml"/>
 	<import resource="beans/budgetBeans.xml"/>
+	<import resource="beans/eventBeans.xml"/>
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

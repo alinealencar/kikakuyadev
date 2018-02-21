@@ -11,4 +11,5 @@ public interface VendorDao {
 	public boolean insertVendor(Vendor vendor) throws SQLException;
 	public Map<String, Map<Vendor, List<Good>>> findBudget(int eventId) throws SQLException;
 	public List<Vendor> findVendors() throws SQLException;
+	public boolean updateGood(Good good) throws SQLException;
 }

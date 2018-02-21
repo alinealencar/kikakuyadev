@@ -28,7 +28,22 @@
 				<h3>Total: </h3>
 			</div>
 			<div id="editBudget">
-			
+				<form:form action="editBudget" method="post" modelAttribute="goodsListForm">
+					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
+					<c:set var="count" value="0" scope="page" />
+					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
+	   					<h3>${category.key}</h3><br>
+	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
+	   						<h4>${vendor.key.name} - Price</h4><br>
+	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
+	   							<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
+	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
+								<c:set var="count" value="${count + 1}" scope="page"/>
+							</c:forEach>
+						</c:forEach>
+					</c:forEach>
+				<span><input type="submit" value="Save"/></span>
+				</form:form>
 			</div>
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">

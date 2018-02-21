@@ -13,5 +13,5 @@ public interface EventDao {
 	public boolean updateEvent(Event event) throws SQLException;
 	public boolean deleteEvent(int eventId) throws SQLException;
 	public Event findEventById(int eventId) throws SQLException;
-
+	public boolean updateTotalBudget(int eventId, double totalBudget) throws SQLException;
 }

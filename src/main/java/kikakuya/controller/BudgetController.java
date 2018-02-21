@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import kikakuya.delegate.BudgetDelegate;
 import kikakuya.model.Good;
+import kikakuya.model.GoodsListForm;
 import kikakuya.model.Vendor;
 
 @Controller
@@ -35,6 +36,10 @@ public class BudgetController {
 		//Show budget
 		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
 		request.setAttribute("budgetInfo", budgetInfo);
+		
+		//Get list of all goods
+		GoodsListForm goodsListForm = new GoodsListForm();
+		request.setAttribute("goodsListForm", goodsListForm);
 		return "budget";
 	}
 	
@@ -56,9 +61,26 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
-	public String processEditBudget(HttpServletRequest request){
+	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute GoodsListForm goodsListForm){
 		String redirectTo = "budget";
-
+		double newTotalBudget = goodsListForm.getTotalBudget();
+		List<Good> goodsList = goodsListForm.getGoodsList();
+		
+		try {
+			//Update goods
+			for(int i = 0; i < goodsList.size(); i++){
+				budgetDelegate.editGood(goodsList.get(i));
+			}
+			
+			//Update total budget
+				budgetDelegate.editTotalBudget(1, newTotalBudget);
+			
+			//Refresh budget info
+			viewBudget(model, request);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		return redirectTo;
 	}
 }

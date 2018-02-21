@@ -89,4 +89,14 @@ public class EventDaoImpl implements EventDao {
 		}
 		return event;
 	}
+
+	@Override
+	public boolean updateTotalBudget(int eventId, double totalBudget) throws SQLException {
+		String query = "update event set totalBudget=" + totalBudget + " where eventId=" + eventId;
+		
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
 }
