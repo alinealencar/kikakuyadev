@@ -6,6 +6,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page isELIgnored="false" %>
 <div class="container">
@@ -18,7 +19,7 @@
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
-			<form:form action="" method="post" modelAttribute="vendor">	
+			<form:form action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
@@ -36,7 +37,7 @@
    				</div>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="ventor" class="form-control" path="name">
+      				<form:select id="ventor" class="form-control" path="vendorId">
 	        			<option>--- Select Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
@@ -44,23 +45,25 @@
       				</form:select>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info">
-      					<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
+      				<button input type="button"  onclick="location.href='/dev/search'">
+      						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
       				</button>
       				</div>
    				</fieldset>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Items</legend>
    				<div id="item-price">
+   				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem" class="col-6">
-		   						<input type="text" class="form-control" id="item1" placeholder="Item" style="margin-bottom: 5px;">
+		   						<form:input type="text" class="form-control" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
-		   						<input type="text" class="form-control" id="price1" placeholder="Price" style="margin-bottom: 5px;">
+		   						<form:input type="text" class="form-control" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
 		   					</div>
 
 		   			</div>
+		   			</c:forEach>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px">Add Item</span>
@@ -69,7 +72,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="button" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="submit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -80,7 +83,18 @@
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<script src="resources/js/budget.js"></script>
+<!-- <script src="resources/js/budget.js"></script> -->
+<script type="text/javascript">
+$(document).ready(function(){
+	var counter = 1;
+	$("#btnAddItemPrice").click(function () {
+		$('#txtItem').append('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
+		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
+		counter++;
+	});
+	
+});
+</script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 

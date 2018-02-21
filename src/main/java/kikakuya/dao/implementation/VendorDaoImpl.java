@@ -9,7 +9,6 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import kikakuya.dao.VendorDao;
-import kikakuya.model.Guest;
 import kikakuya.model.Vendor;
 
 public class VendorDaoImpl implements VendorDao{
@@ -43,7 +42,10 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public boolean insertVendor(Vendor vendor) throws SQLException {
-		String query = "Insert into vendor (vendorName, website, phone, address) values (?,?,?,?)";
+		/*String query = "INSERT INTO vendor (vendorName, website, phone, address) SELECT ?,?,?,? FROM vendor "
+				+ "WHERE NOT EXISTS(SELECT * FROM vendor WHERE vendorName='"+ vendor.getName() + "'";*/
+		String query = "INSERT INTO vendor (vendorName, website, phone, address) VALUES(?,?,?,?) "
+				+ "ON DUPLICATE KEY UPDATE vendorName=VALUES(vendorName), website=VALUES(website), phone=VALUES(phone), address=VALUES(address)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, vendor.getName());
 		pstmt.setString(2, vendor.getWebsite());

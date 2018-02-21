@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.BudgetDelegate;
+import kikakuya.model.Event;
 import kikakuya.model.Vendor;
 
 @Controller
@@ -22,7 +23,7 @@ public class BudgetController {
 	private BudgetDelegate budgetDelegate;
 	
 	@RequestMapping(value="/budget", method = RequestMethod.GET)
-	public String viewAddEvent(Model model, HttpServletRequest request) throws SQLException{
+	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		try{
 			List vendorList = budgetDelegate.getVendors();
@@ -35,7 +36,7 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processSearch(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		String redirectTo = "budget";
 		
@@ -46,6 +47,31 @@ public class BudgetController {
 			request.setAttribute("vendors", vendorList);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
+			e.printStackTrace();
+		}
+		return redirectTo;
+	}
+	
+	@RequestMapping(value="/addToBudget", method = RequestMethod.POST)
+	public String processAddToBudget(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+		
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+				
+		String redirectTo = "budget";
+		
+		try {
+			if(budgetDelegate.addVendorEvent(vendor, event)){
+				for(int i=0; i<vendor.getGoodsList().size(); i++){
+					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+				}
+				redirectTo = "budget";
+				List vendorList = budgetDelegate.getVendors();
+				request.setAttribute("vendors", vendorList);
+			}
+		} catch (SQLException e) {
+			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
 			e.printStackTrace();
 		}
 		return redirectTo;

@@ -16,8 +16,8 @@ $(document).ready(function(){
 	var newPriceTextBoxDiv = $(document.createElement('div'))
 		.attr("id", 'priceTextBoxDiv' + counter).attr("class", 'col-6');
 
-	newItemTextBoxDiv.after().html('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;">');
-	newPriceTextBoxDiv.after().html('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;">');
+	newItemTextBoxDiv.after().html('<input type="text" class="form-control" name="goodsList[' + counter + '].goodName" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;">');
+	newPriceTextBoxDiv.after().html('<input type="text" class="form-control" name="goodsList[' + counter + '].goodPrice" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;">');
 
 	newItemTextBoxDiv.appendTo("#itemTextBoxGroup");
 	newPriceTextBoxDiv.appendTo("#itemTextBoxGroup");
@@ -47,4 +47,4 @@ $(document).ready(function(){
     	  alert(msg);
      });
  */
-  });
+ });
