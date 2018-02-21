@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import kikakuya.delegate.BudgetDelegate;
+
+import kikakuya.model.Event;
 import kikakuya.model.Good;
 import kikakuya.model.GoodsListForm;
 import kikakuya.model.Vendor;
@@ -44,7 +46,7 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processSearch(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		String redirectTo = "budget";
 		
@@ -60,6 +62,30 @@ public class BudgetController {
 		return redirectTo;
 	}
 	
+	@RequestMapping(value="/addToBudget", method = RequestMethod.POST)
+	public String processAddToBudget(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+		
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+				
+		String redirectTo = "budget";
+		
+		try {
+			if(budgetDelegate.addVendorEvent(vendor, event)){
+				for(int i=0; i<vendor.getGoodsList().size(); i++){
+					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+				}
+				redirectTo = "budget";
+				List vendorList = budgetDelegate.getVendors();
+				request.setAttribute("vendors", vendorList);
+			}
+		} catch (SQLException e) {
+			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
+			e.printStackTrace();
+		}
+		return redirectTo;
+	}
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
 	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute GoodsListForm goodsListForm){
 		String redirectTo = "budget";
@@ -84,3 +110,4 @@ public class BudgetController {
 		return redirectTo;
 	}
 }
+

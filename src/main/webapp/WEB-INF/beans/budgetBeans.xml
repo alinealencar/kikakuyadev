@@ -14,9 +14,19 @@
 	
 	<bean id="budgetService" class="kikakuya.service.implementation.BudgetServiceImpl">
 		<property name="vendorDao" ref="vendorDao"></property>
+		<property name="vendorEventDao" ref="vendorEventDao"></property>
+		<property name="goodDao" ref="goodDao"></property>
 	</bean>
 		
 	<bean name="vendorDao" class="kikakuya.dao.implementation.VendorDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="vendorEventDao" class="kikakuya.dao.implementation.VendorEventDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="goodDao" class="kikakuya.dao.implementation.GoodDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 </beans>
