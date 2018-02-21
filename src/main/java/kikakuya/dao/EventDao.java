@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import kikakuya.model.Event;
+import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 public interface EventDao {
@@ -13,5 +14,4 @@ public interface EventDao {
 	public boolean updateEvent(Event event) throws SQLException;
 	public boolean deleteEvent(int eventId) throws SQLException;
 	public Event findEventById(int eventId) throws SQLException;
-
 }

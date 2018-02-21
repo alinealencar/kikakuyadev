@@ -1,9 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
+<footer id="footer" class="container-fluid text-center" style="margin-top: 15px;">
+		<div>&copy; KIKAKUYA - 2018 All Rights Reserved</div>
+</footer>
+	
 <!-- Events -->
 <link rel="stylesheet" type="text/css" href="resources/css/eventPage.css">
+
+<script>
+function stickyFooter(){
+		
+	}
+
+	$(document).ready(function(){
+		if($("#container").height() < $(window).height()){
+	   		$("#container").css('min-height', $(window).height());	    
+	    	$("footer").offset({top:  $(window).height() - 50, left: 0});
+	    }
+});
+
+	$(window).resize(function(){
+	    $("#container").css('min-height', $(window).height());
+
+	});	
+
+
+</script>
