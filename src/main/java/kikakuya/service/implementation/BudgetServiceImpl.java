@@ -2,6 +2,7 @@ package kikakuya.service.implementation;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import kikakuya.dao.GoodDao;
 import kikakuya.dao.VendorDao;
@@ -59,5 +60,10 @@ public class BudgetServiceImpl implements BudgetService{
 	
 	public int getVendorEventId(Vendor vendor) throws SQLException {
 		return vendorEventDao.findVendorEventId(vendor);
+	}
+	
+	@Override
+	public Map<String, Map<Vendor, List<Good>>> getBudgetInfo(int eventId) throws SQLException {
+		return vendorDao.findBudget(eventId);
 	}
 }

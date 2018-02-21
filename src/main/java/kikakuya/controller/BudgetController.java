@@ -2,6 +2,7 @@ package kikakuya.controller;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,14 +12,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import kikakuya.delegate.BudgetDelegate;
+
 import kikakuya.model.Event;
+import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 
 @Controller
 public class BudgetController {
-	
 	@Autowired
 	private BudgetDelegate budgetDelegate;
 	
@@ -32,6 +33,10 @@ public class BudgetController {
 		catch(SQLException e){
 			e.printStackTrace();
 		}
+		
+		//Show budget
+		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
+		request.setAttribute("budgetInfo", budgetInfo);
 		return "budget";
 	}
 	
@@ -76,4 +81,11 @@ public class BudgetController {
 		}
 		return redirectTo;
 	}
+	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
+	public String processEditBudget(HttpServletRequest request){
+		String redirectTo = "budget";
+
+		return redirectTo;
+	}
 }
+

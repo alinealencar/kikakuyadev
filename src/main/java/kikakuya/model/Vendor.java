@@ -88,6 +88,7 @@ public class Vendor {
 		this.location = location;
 	}
 
+
 	public int getVendorId() {
 		return vendorId;
 	}

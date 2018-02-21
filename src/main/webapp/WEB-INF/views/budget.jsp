@@ -13,9 +13,24 @@
 <!-- body contents start -->
 	<div class="row">
 		<div class="col-sm-8">
-			<!-- budget form here -->
-			<h3>Budget: ${event.totalBudget}</h3>
+			<div id="showBudget">
+				<!-- show budget -->
+				<h3>Budget: ${event.totalBudget}</h3>
+				<c:forEach var="category" items="${budgetInfo}">
+	   				<h3>${category.key}</h3>
+	   				<c:forEach var="vendor" items="${category.value}">
+	   					<h4>${vendor.key.name} - Price</h4>
+	   					<c:forEach var="good" items="${vendor.value}">
+	   						<h5>${good.goodName} - ${good.goodPrice}</h5>
+						</c:forEach>
+					</c:forEach>
+					<h4>Subtotal: </h4>
+				</c:forEach>
+				<h3>Total: </h3>
+			</div>
+			<div id="editBudget">
 			
+			</div>
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
