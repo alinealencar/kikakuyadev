@@ -137,4 +137,16 @@ public class VendorDaoImpl implements VendorDao{
 		}
 		return vendorId;
 	}
+
+	@Override
+	public boolean updateGood(Good good) throws SQLException {
+		String query = "update good set " +
+	"goodName='" + good.getGoodName() + "', " +
+	"goodPrice=" + good.getGoodPrice() + " " +
+	"where goodId=" + good.getGoodId();
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
 }

@@ -33,8 +33,11 @@ public class EventDelegate {
 		return eventService.deleteEvent(eventId);
 	}
 	
-	public Event findEventById(int eventId){
-		return null;
-	}
+//	public boolean findEventById(int eventId) throws SQLException{
+//		return eventService.findEventById(eventId);
+//	}
 	
+	public Event getSelectedEvent(int eventId) throws SQLException{
+		return eventService.getEventById(eventId);
+	}
 }

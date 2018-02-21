@@ -72,4 +72,7 @@ public class BudgetServiceImpl implements BudgetService{
 		return vendorDao.findLastInserted();
 	}
 	
+	public boolean editGood(Good good) throws SQLException {
+		return vendorDao.updateGood(good);
+	}
 }

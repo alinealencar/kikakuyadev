@@ -8,10 +8,12 @@ import kikakuya.model.Event;
 import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 import kikakuya.service.BudgetService;
+import kikakuya.service.EventService;
 
 public class BudgetDelegate {
 
 	BudgetService budgetService;
+	EventService eventService;
 	
 	public BudgetService getBudgetService() {
 		return budgetService;
@@ -19,6 +21,14 @@ public class BudgetDelegate {
 
 	public void setBudgetService(BudgetService budgetService) {
 		this.budgetService = budgetService;
+	}
+
+	public EventService getEventService() {
+		return eventService;
+	}
+
+	public void setEventService(EventService eventService) {
+		this.eventService = eventService;
 	}
 
 	public List<Vendor> getVendors() throws SQLException {
@@ -47,6 +57,14 @@ public class BudgetDelegate {
 	
 	public int findLastInserted() throws SQLException {
 		return budgetService.getLastInserted();
+	}
+
+	public boolean editGood(Good good) throws SQLException {
+		return budgetService.editGood(good);
+	}
+	
+	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {
+		return eventService.editTotalBudget(eventId, totalBudget);
 	}
 }
 

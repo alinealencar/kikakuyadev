@@ -9,6 +9,7 @@
    
    <bean id="BudgetDelegate" class="kikakuya.delegate.BudgetDelegate">
 		<property name="budgetService" ref="budgetService"></property>
+		<property name="eventService" ref="eventService"></property>
 	</bean>
 	
 	<bean id="budgetService" class="kikakuya.service.implementation.BudgetServiceImpl">
