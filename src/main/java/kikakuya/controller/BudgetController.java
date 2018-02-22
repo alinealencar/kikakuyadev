@@ -47,8 +47,8 @@ public class BudgetController {
 		return "budget";
 	}
 	
-	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
+	public String processAddSearchVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		//for testing
 		Event event = new Event(); 
@@ -64,12 +64,35 @@ public class BudgetController {
 			}
 			List vendorList = budgetDelegate.getVendors();
 			request.setAttribute("vendors", vendorList);
-			String category = request.getParameter("category");
-			session.setAttribute("category", category);
+			//String category = request.getParameter("category");
+			//session.setAttribute("category", category);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
 			e.printStackTrace();
 		}
+		return redirectTo;
+	}
+	
+	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
+	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+		
+		String redirectTo = "budget";
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1);
+		
+		try {
+			if(budgetDelegate.addVendor(vendor)){
+				vendor.setVendorId(budgetDelegate.findLastInserted());
+				if(budgetDelegate.addVendorEvent(vendor, event))
+					redirectTo = "budget";	
+			} 
+			List vendorList = budgetDelegate.getVendors();
+			request.setAttribute("vendors", vendorList);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
 		return redirectTo;
 	}
 	

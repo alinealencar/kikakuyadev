@@ -40,7 +40,7 @@
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
-			<form:form action="addVendor" method="post" modelAttribute="vendor">
+			<form:form action="addSearchVendor" method="post" modelAttribute="vendor">
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">

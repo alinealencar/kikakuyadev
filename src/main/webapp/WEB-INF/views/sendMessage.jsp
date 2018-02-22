@@ -169,11 +169,7 @@
 	     			 <button type="submit" class="btn btn-success col-6">Send</button>
 	     		</div>
 	     		<div class="col-sm-4 text-center">
-<<<<<<< HEAD
-	     			 <button type="reset" class="btn btn-outline-secondary col-6">Clear</button>
-=======
 	     			 <button type="reset" id="clear" class="btn btn-outline-secondary col-6">Clear</button>
->>>>>>> 691d04133af90d1f44b7cafa66b9ddea094eadde
 	     		</div>
 	     		<div class="col-sm-4 text-center">
 					 <button type="reset" class="btn btn-danger col-6" onclick="cancel()">Cancel</button><br>
