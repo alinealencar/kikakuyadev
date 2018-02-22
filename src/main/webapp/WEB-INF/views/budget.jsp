@@ -65,6 +65,7 @@
 	       				<option>Photography</option>
 	       				<option>Transportation</option>
 	       				<option>Venue</option>
+	       				<option>Other</option>
       				</form:select>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
@@ -144,7 +145,7 @@
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<script src="resources/js/budget.js"></script>
+<!-- <script src="resources/js/budget.js"></script> -->
 <script type="text/javascript">
 $(document).ready(function(){
 	var counter = 1;
