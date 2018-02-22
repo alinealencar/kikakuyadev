@@ -82,9 +82,9 @@ public class VendorDaoImpl implements VendorDao{
 		
 		while(rs.next()){
 			//Different vendor
-			if(!curVendor.equals(rs.getString(2))){
+			if(curVendor != null || !curVendor.equals(rs.getString(2))){
 				//Skip very first case
-				if(!curVendor.equals("")) {
+				if(curVendor == null || !curVendor.equals("")) {
 					vendorMap.put(aVendor, goodsList);
 				}
 					
@@ -99,7 +99,7 @@ public class VendorDaoImpl implements VendorDao{
 				//Empty list out
 				goodsList = new ArrayList<Good>();
 					
-				if(!curCategory.equals(rs.getString(1))){
+				if(curCategory != null || !curCategory.equals(rs.getString(1))){
 					//Skip very first case
 					if(!curCategory.equals("")) {
 						result.put(curCategory, vendorMap);
@@ -119,7 +119,7 @@ public class VendorDaoImpl implements VendorDao{
 		
 		}
 		//Handle last entities after loop
-		if(!curCategory.equals("")){
+		if(curCategory == null || !curCategory.equals("")){
 			vendorMap.put(aVendor, goodsList);
 			result.put(curCategory, vendorMap);
 		}
