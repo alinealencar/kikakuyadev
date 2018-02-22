@@ -1,6 +1,7 @@
 package kikakuya.dao.implementation;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -51,4 +52,16 @@ public class GoodDaoImpl implements GoodDao{
 		return(rowsAffected > 0);
 	}
 
+	@Override
+	public int goodsByVendor(int vendorId) throws SQLException {
+		String query = "select count(*) as numOfGoods from good where vendoreventvendoreventId in "
+				+ "(select vendoreventId from vendorevent where vendorvendorId=" + vendorId + ")";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		if(rs.first())
+			return (rs.getInt(1));
+		else
+			return 0;
+	}
+	
 }

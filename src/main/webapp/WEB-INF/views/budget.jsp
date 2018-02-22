@@ -15,7 +15,7 @@
 		<div class="col-sm-8">
 			<div id="showBudget">
 				<!-- show budget -->
-				<h3>Budget: ${event.totalBudget}</h3>
+				<h3>Budget: $${event.totalBudget}</h3>
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
@@ -30,7 +30,7 @@
 			</div>
 			<div id="editBudget">
 				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
-					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
+					Budget: $<input name="totalBudget" value="${event.totalBudget}"/><br>
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
 							<!-- Delete category -->
@@ -38,7 +38,11 @@
 	   						<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
 	   						<!-- Delete vendor -->
-	   						<form:form action="deleteVendor" method="post"><i class="fas fa-minus-circle"></i></form:form>
+	   						<form:form action="deleteVendor" method="post" modelAttribute="budgetForm">
+	   							<i class="fas fa-minus-circle"></i>
+	   							<button type="submit"><i class="fas fa-minus-circle"></i></button>
+	   							<form:hidden path="vendorId" value="${vendor.key.vendorId}"/>
+	   						</form:form>
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
 	   							<!-- Delete good -->
@@ -48,7 +52,7 @@
 	   								<form:hidden path="goodId" value="${good.goodId}"/>
 	   							</form:form>
 	   							<%-- <input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/> --%>
-	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
+	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - $<input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>
 						</c:forEach>

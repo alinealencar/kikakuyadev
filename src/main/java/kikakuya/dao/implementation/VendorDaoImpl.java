@@ -74,8 +74,6 @@ public class VendorDaoImpl implements VendorDao{
 				"and e.eventId = " + eventId +
 				" order by ev.vendorcategory, v.vendorName";
 		
-		System.out.println(query);
-		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);

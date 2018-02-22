@@ -78,5 +78,9 @@ public class BudgetDelegate {
 	public boolean deleteVendor(int vendorId) throws SQLException {
 		return budgetService.deleteVendor(vendorId);
 	}
+	
+	public boolean isZeroGoods(int vendorId) throws SQLException {
+		return budgetService.isZeroGoods(vendorId);
+	}
 }
 

@@ -89,4 +89,11 @@ public class BudgetServiceImpl implements BudgetService{
 	public boolean deleteVendor(int vendorId) throws SQLException {
 		return vendorDao.deleteVendor(vendorId);
 	}
+
+	@Override
+	public boolean isZeroGoods(int vendorId) throws SQLException {
+		return (goodDao.goodsByVendor(vendorId) == 0);
+	}
+
+	
 }

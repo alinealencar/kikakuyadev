@@ -133,20 +133,27 @@ public class BudgetController {
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
 		
+		
 		try {
 			//Update goods
-			for(int i = 0; i < goodsList.size(); i++){
-				budgetDelegate.editGood(goodsList.get(i));
+			if(goodsList != null && goodsList.size() > 0) {
+				for(int i = 0; i < goodsList.size(); i++){
+					budgetDelegate.editGood(goodsList.get(i));
+				}
 			}
-			
+				
 			//Update total budget
-				budgetDelegate.editTotalBudget(1, newTotalBudget);
+			budgetDelegate.editTotalBudget(1, newTotalBudget);
 			
-			//Refresh budget info
+			//Update event object in the session scope
+			Event event = (Event) request.getSession().getAttribute("event");
+			event.setTotalBudget(newTotalBudget);
+			request.getSession().setAttribute("event", event);
 			viewBudget(model, request);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
+		
 		
 		return redirectTo;
 	}
@@ -157,20 +164,13 @@ public class BudgetController {
 			//delete good
 			budgetDelegate.deleteGood(budgetForm.getGoodId());
 			
-			//try to delete vendorEvent for the last good
-			budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
-
-			//try to delete vendor for the last good 
-			budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			//if there's no goods anymore for this vendor, delete it
+			if(budgetDelegate.isZeroGoods(budgetForm.getVendorId())){
+				budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
+				budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			}
 		} catch (SQLException e) {
-			if(e.getMessage().indexOf("a foreign key constraint fails (`kikakuyadev`.`good`, "
-					+ "CONSTRAINT `FKGoodVendorEvent` FOREIGN KEY (`VendorEventvendorEventId`) "
-					+ "REFERENCES `VendorEvent` (`vendorEventId`))") != -1){
-				request.setAttribute("deleteError", "This good cannot be deleted.");
-			}
-			else {
 				e.printStackTrace();
-			}
 		}
 		
 		try {
@@ -179,6 +179,22 @@ public class BudgetController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "budget";
+	}
+	
+	@RequestMapping(value="/deleteVendor", method = RequestMethod.POST)
+	public String deleteVendor(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
+		try {
+			//budgetDelegate.deleteGoodsByVendor(budgetForm.getVendorId());
+			budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
+			budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return "budget";
 	}
 }
