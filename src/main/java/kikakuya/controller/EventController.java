@@ -10,12 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
-import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 @Controller
@@ -45,7 +43,7 @@ public class EventController {
 		return "event";
 	}
 	
-	//Add event
+	//Add an event
 	@RequestMapping(value="/add", method=RequestMethod.POST)
 	public String add(@ModelAttribute("event") Event event, Model model, 
 					HttpServletRequest request){ 
@@ -96,7 +94,7 @@ public class EventController {
 		return "event";
 	}
 	
-	
+	//Delete an event
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String deleteEvent(@ModelAttribute Event event, Model model,HttpServletRequest request) throws SQLException{
 		
