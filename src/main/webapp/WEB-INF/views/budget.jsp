@@ -33,11 +33,20 @@
 					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-	   					<h3>${category.key}</h3><br>
+							<!-- Delete category -->
+	   						<form:form action="deleteCategory" method="post"><i class="fas fa-minus-circle"></i></form:form>
+	   						<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
+	   						<!-- Delete vendor -->
+	   						<form:form action="deleteVendor" method="post"><i class="fas fa-minus-circle"></i></form:form>
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
-	   							<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
+	   							<!-- Delete good -->
+	   							<form:form action="deleteGood" method="post" modelAttribute="good">
+	   								<button type="submit"><i class="fas fa-minus-circle"></i></button>
+	   								<form:hidden path="goodId" value="${good.goodId}"/>
+	   							</form:form>
+	   							<%-- <input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/> --%>
 	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>

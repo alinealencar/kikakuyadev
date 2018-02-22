@@ -28,6 +28,7 @@ public class BudgetController {
 	@RequestMapping(value="/budget", method = RequestMethod.GET)
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
+		model.addAttribute("good", new Good());
 		try{
 			List vendorList = budgetDelegate.getVendors();
 			request.setAttribute("vendors", vendorList);
@@ -120,6 +121,7 @@ public class BudgetController {
 		}
 		return redirectTo;
 	}
+	
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
 	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
 		String redirectTo = "budget";
@@ -142,6 +144,19 @@ public class BudgetController {
 		}
 		
 		return redirectTo;
+	}
+	
+	@RequestMapping(value="/deleteGood", method = RequestMethod.POST)
+	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute Good good){
+		System.out.println("entrou no delete good");
+		
+		try {
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "budget";
 	}
 }
 
