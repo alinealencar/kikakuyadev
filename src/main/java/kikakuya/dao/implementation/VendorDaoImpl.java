@@ -62,13 +62,17 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public Map<String, Map<Vendor, List<Good>>> findBudget(int eventId) throws SQLException {
-		String query = "select ev.vendorcategory, v.vendorName, v.website, v.address, v.phone, " +
-	"g.goodId, g.goodName, g.goodPrice from event e, vendorevent ev, vendor v, good g " +
-	"where ev.eventEventId = e.eventId " +
-	"and ev.vendorVendorId = v.vendorId " +
-	"and ev.vendorEventId = g.vendorEventVendorEventId " +
-	"and e.eventId = " + eventId +
-	" order by ev.vendorcategory, v.vendorName";
+		String query = "select ev.vendorcategory, ev.vendoreventId," + 
+				" v.vendorId, v.vendorName, v.website, v.address, v.phone, " +
+				"g.goodId, g.goodName, g.goodPrice from event e, vendorevent ev, vendor v, good g " +
+				"where ev.eventEventId = e.eventId " +
+				"and ev.vendorVendorId = v.vendorId " +
+				"and ev.vendorEventId = g.vendorEventVendorEventId " +
+				"and e.eventId = " + eventId +
+				" order by ev.vendorcategory, v.vendorName";
+		
+		System.out.println(query);
+		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -82,7 +86,7 @@ public class VendorDaoImpl implements VendorDao{
 		
 		while(rs.next()){
 			//Different vendor
-			if(curVendor != null || !curVendor.equals(rs.getString(2))){
+			if(curVendor != null || !curVendor.equals(rs.getString(4))){
 				//Skip very first case
 				if(curVendor == null || !curVendor.equals("")) {
 					vendorMap.put(aVendor, goodsList);
@@ -90,11 +94,12 @@ public class VendorDaoImpl implements VendorDao{
 					
 				//Create vendor object
 				aVendor = new Vendor();
-				aVendor.setName(rs.getString(2));
-				aVendor.setWebsite(rs.getString(3));
-				aVendor.setAddress(rs.getString(4));
-				aVendor.setPhoneNo(rs.getString(5));
-				curVendor = rs.getString(2);
+				aVendor.setVendorId(rs.getInt(3));
+				aVendor.setName(rs.getString(4));
+				aVendor.setWebsite(rs.getString(5));
+				aVendor.setAddress(rs.getString(6));
+				aVendor.setPhoneNo(rs.getString(7));
+				curVendor = rs.getString(4);
 					
 				//Empty list out
 				goodsList = new ArrayList<Good>();
@@ -111,9 +116,9 @@ public class VendorDaoImpl implements VendorDao{
 				
 			//Create list of all goods for a certain vendor
 			aGood = new Good();
-			aGood.setGoodId(rs.getInt(6));
-			aGood.setGoodName(rs.getString(7));
-			aGood.setGoodPrice(rs.getDouble(8));
+			aGood.setGoodId(rs.getInt(8));
+			aGood.setGoodName(rs.getString(9));
+			aGood.setGoodPrice(rs.getDouble(10));
 			//Add good object to goodsList
 			goodsList.add(aGood);
 		
@@ -139,14 +144,10 @@ public class VendorDaoImpl implements VendorDao{
 	}
 
 	@Override
-	public boolean updateGood(Good good) throws SQLException {
-		String query = "update good set " +
-	"goodName='" + good.getGoodName() + "', " +
-	"goodPrice=" + good.getGoodPrice() + " " +
-	"where goodId=" + good.getGoodId();
+	public boolean deleteVendor(int vendorId) throws SQLException {
+		String query = "delete from vendor where vendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
-		
-		return(rowsAffected > 0);
+		return rowsAffected > 0;
 	}
 }

@@ -29,7 +29,7 @@
 				<h3>Total: </h3>
 			</div>
 			<div id="editBudget">
-				<form:form action="editBudget" method="post" modelAttribute="goodsListForm">
+				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
 					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
@@ -42,7 +42,7 @@
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
 	   							<!-- Delete good -->
-	   							<form:form action="deleteGood" method="post" modelAttribute="good">
+	   							<form:form action="deleteGood" method="post" modelAttribute="budgetForm">
 	   								<button type="submit"><i class="fas fa-minus-circle"></i></button>
 	   								<form:hidden path="goodId" value="${good.goodId}"/>
 	   							</form:form>

@@ -27,8 +27,8 @@ public class EventController {
 	//List all the event by user
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewAddEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
-		
-		User user = (User) request.getSession().getAttribute("user");
+		//TODO Get user from cookie instead of session (in case the session is over, but the remember me is activated)
+		User user = (User) request.getSession(false).getAttribute("user");
 		try {
 			List<Event> event = eventDelegate.listEventsByUser(user);
 			if (event.size() > 0){

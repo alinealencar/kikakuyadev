@@ -43,8 +43,8 @@ public class BudgetController {
 		request.setAttribute("budgetInfo", budgetInfo);
 		
 		//Get list of all goods
-		BudgetForm goodsListForm = new BudgetForm();
-		request.setAttribute("goodsListForm", goodsListForm);
+		BudgetForm budgetForm = new BudgetForm();
+		request.setAttribute("budgetForm", budgetForm);
 		return "budget";
 	}
 	
@@ -147,10 +147,17 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/deleteGood", method = RequestMethod.POST)
-	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute Good good){
-		System.out.println("entrou no delete good");
-		
+	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
 		try {
+			//delete good
+			budgetDelegate.deleteGood(budgetForm.getGoodId());
+			
+			//try to delete vendorEvent
+			//If the vendorEventId is a FK for another good, it means this is not the last good
+			//budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			//try to delete vendor
+			//If the vendorId is a FK in the vendorEvent table, it means this vendor cannot be deleted
+			
 			viewBudget(model, request);
 		} catch (SQLException e) {
 			e.printStackTrace();

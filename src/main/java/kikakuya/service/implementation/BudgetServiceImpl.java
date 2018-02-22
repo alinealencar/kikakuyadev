@@ -73,6 +73,20 @@ public class BudgetServiceImpl implements BudgetService{
 	}
 	
 	public boolean editGood(Good good) throws SQLException {
-		return vendorDao.updateGood(good);
+		return goodDao.updateGood(good);
+	}
+
+	@Override
+	public boolean deleteGood(int goodId) throws SQLException {
+		return goodDao.deleteGood(goodId);
+	}
+
+	@Override
+	public boolean deleteVendorEvent(int vendorEventId) throws SQLException {
+		return vendorEventDao.deleteVendorEvent(vendorEventId);
+	}
+	
+	public boolean deleteVendor(int vendorId) throws SQLException {
+		return vendorDao.deleteVendor(vendorId);
 	}
 }

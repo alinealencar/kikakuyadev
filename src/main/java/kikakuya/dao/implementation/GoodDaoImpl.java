@@ -31,4 +31,24 @@ public class GoodDaoImpl implements GoodDao{
 		return rowsAffected > 0;
 	}
 
+	@Override
+	public boolean deleteGood(int goodId) throws SQLException {
+		String query = "delete from good where goodId=" + goodId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
+	}
+	
+	@Override
+	public boolean updateGood(Good good) throws SQLException {
+		String query = "update good set " +
+	"goodName='" + good.getGoodName() + "', " +
+	"goodPrice=" + good.getGoodPrice() + " " +
+	"where goodId=" + good.getGoodId();
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
+
 }
