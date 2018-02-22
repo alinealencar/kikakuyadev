@@ -16,7 +16,7 @@
 					<h2>Guest List</h2>
 				</div>
 				<div class="col-6 text-right">
-					<button id="showRight"  type="button" class="btn btn-link img-fluid">
+					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>  					
    				</div>
@@ -208,6 +208,8 @@
 					<span><input type="submit" value="Save"/></span>
 				</form:form>
 			</div>
+			
+			
 			<div id="addGuestSection" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right cbp-spmenu-open" >
 			<span id="closeAddGuest" onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
@@ -269,22 +271,23 @@
 	</div>
 </div>
 
+
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
 <script>
-var menuRight = document.getElementById( 'addGuestSection' ),
+var addGuest = document.getElementById( 'addGuestSection' ),
 body = document.body;
 
-(showRight.onclick) = function() {
+(showAddGuest.onclick) = function() {
 classie.toggle( this, 'active' );
-classie.toggle( menuRight, 'cbp-spmenu-open' );
-disableOther( 'showRight' );
+classie.toggle( addGuest, 'cbp-spmenu-open' );
+disableOther( 'showAddGuest' );
 };
 
 (closeAddGuest.onclick) = function() {
 	classie.toggle( this, 'active' );
-	classie.toggle( menuRight, 'cbp-spmenu-open' );
-	disableOther( 'showRight' );
+	classie.toggle( addGuest, 'cbp-spmenu-open' );
+	disableOther( 'showAddGuest' );
 	};
 /*
 function disableOther( button ) {
