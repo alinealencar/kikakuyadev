@@ -26,7 +26,6 @@ import kikakuya.model.User;
 import kikakuya.model.Vendor;
 
 @Controller
-//@RequestMapping(value="/sendMessage")
 public class RSVPController {
 	
 	@Autowired
@@ -82,6 +81,8 @@ public class RSVPController {
 						redirectTo = "sendMessage";
 					}
 				}
+				else
+					request.setAttribute("sendRSVPError", "Error! No guests found.");
 			}
 			else{
 				request.setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
@@ -94,6 +95,31 @@ public class RSVPController {
 		}
 		return redirectTo;	
 	}
+	
+	/*@RequestMapping(value="/resendRsvp", method = RequestMethod.POST)
+	public String processResendRSVP(HttpServletRequest request, HttpServletResponse response, 
+			@ModelAttribute("email") Email email){
+		
+		String redirectTo = "sendMessage";
+		User user = (User) request.getSession().getAttribute("user");
+		
+		//for testing
+		Event event = new Event(); 
+		event.setEventId(1); 
+		event.setLocation("ACC"); 
+		event.setEventDate("2018-05-29");
+		event.setEventName("Chace's Birthday");
+		
+		try {
+			rsvpDelegate.sendRSVP(email, user, event, guest);
+			request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
+			redirectTo = "sendMessage";
+		
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return redirectTo;
+	}*/
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
 	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
