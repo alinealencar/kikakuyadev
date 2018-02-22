@@ -5,6 +5,7 @@ $('select').editableSelect({
 });
 
 
+
 //add new item and price
 /*$(document).ready(function(){
 
@@ -47,4 +48,4 @@ $('select').editableSelect({
     	  alert(msg);
      });
  */
-// });
+//});

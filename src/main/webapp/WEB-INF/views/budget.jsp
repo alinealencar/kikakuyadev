@@ -56,21 +56,23 @@
 	       				<option>Balloon Services</option>
 	       				<option>Cake</option>
 	       				<option>Cards & Stationery</option>
+	       				<option>Caterer</option>
 	       				<option>Decorations</option>
 	       				<option>Entertainment</option>
 	       				<option>Floral Design</option>
 	       				<option>Music</option>
 	       				<option>Party Equipment Rental</option>
 	       				<option>Photography</option>
+	       				<option>Transportation</option>
 	       				<option>Venue</option>
       				</form:select>
    				</div>
    				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="ventor" class="form-control" path="vendorId">
-	        			<option ${vendorId eq '' ? 'selected': ''}>--- Select Vendor ---</option>
+      				<form:select id="vendor" class="form-control" path="vendorId">
+	        			<option selected>--- Select Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
-	       					<option value="${vendor.vendorId}" ${vendor.vendorId eq vendor.vendorId ? 'selected': ''}>${vendor.name}</option>
+	       					<option value="${vendor.vendorId}">${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
       				<div class="text-center">- or -</div>
@@ -96,7 +98,10 @@
 		   			</c:forEach>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
-      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px">Add Item</span>
+      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
+      					</button>
+      					<button id="btnRemoveItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">remove_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
       					</button>
       				</div>
       			</div>
@@ -123,6 +128,19 @@ $(document).ready(function(){
 		counter++;
 	});
 	
+});
+
+$(document).ready(function(){
+	$('#btnRemoveItemPrice').click(function(){
+		if($('#txtItem').children().length > 1)
+			$('#txtItem :last-child').remove();
+		if($('#txtPrice').children().length > 1)
+			$('#txtPrice :last-child').remove();
+	});
+});
+
+$(document).on("keypress", ":input:not(select)", function(event) {
+    return event.keyCode != 13;
 });
 </script>
 
