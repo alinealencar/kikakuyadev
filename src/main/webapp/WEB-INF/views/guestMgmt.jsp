@@ -17,7 +17,7 @@
 				</div>
 				<div class="col-2">
 					<button type="button" class="btn btn-link d-none d-md-block" onclick="addGuest()">
-      					<span class="material-icons" style="font-size: 300%;">add_circle</span>
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>
    				</div>
    			</div>
@@ -25,10 +25,34 @@
 				<table id="guests" class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col">First Name</th>
-							<th scope="col">Last Name</th>
+							<th scope="col">
+								First Name
+								<button id="btnAscFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascFirstName()">
+									<i class="fas fa-sort-alpha-down"></i>
+								</button>
+								<button id="btnDescFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descFirstName()">
+									<i class="fas fa-sort-alpha-up"></i>
+								</button>
+							</th>
+							<th scope="col">
+								Last Name
+								<button id="btnAscLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascLastName()">
+									<i class="fas fa-sort-alpha-down"></i>
+								</button>
+								<button id="btnDescLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descLastName()">
+									<i class="fas fa-sort-alpha-up"></i>
+								</button>
+							</th>
 							<th scope="col">Plus Ones</th>
-							<th scope="col">RSVP Status</th>
+							<th scope="col">
+								RSVP Status
+								<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascStatus()">
+									<i class="fas fa-sort-up"></i>
+								</button>
+								<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descStatus()">
+									<i class="fas fa-sort-down"></i>
+								</button>
+							</th>
 							<!-- Load all guests for the selected event -->
 						</tr>
 					</thead>
@@ -230,4 +254,5 @@
 </div>
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

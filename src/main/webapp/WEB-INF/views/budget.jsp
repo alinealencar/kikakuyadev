@@ -49,7 +49,7 @@
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
-			<form:form action="addToBudget" method="post" modelAttribute="vendor" id="addBudgetForm">	
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
@@ -154,6 +154,13 @@ $(document).ready(function(){
 		counter++;
 	});
 	
+	$("#formAddToBudget").keypress(function(e) {
+		  //Enter key
+		  if (e.which == 13) {
+		    return false;
+		  }
+		});
+	
 });
 
 $(document).ready(function(){
@@ -167,14 +174,14 @@ $(document).ready(function(){
 
 $(document).ready(function(){
 	$('.btnAddVendor').click(function(){
-		$('#addBudgetForm').hide();
+		$('#formAddToBudget').hide();
 		$('#enterVendor').show();
 	});
 });
 
 $(document).ready(function(){
 	$('#btnCancelAddVendor').click(function(){
-		$('#addBudgetForm').show();
+		$('#formAddToBudget').show();
 		$('#enterVendor').hide();
 	});
 });
