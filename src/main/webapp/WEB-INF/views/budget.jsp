@@ -49,7 +49,7 @@
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
-			<form:form action="addToBudget" method="post" modelAttribute="vendor">	
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
@@ -122,6 +122,13 @@ $(document).ready(function(){
 		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
 		counter++;
 	});
+	
+	$("#formAddToBudget").keypress(function(e) {
+		  //Enter key
+		  if (e.which == 13) {
+		    return false;
+		  }
+		});
 	
 });
 </script>
