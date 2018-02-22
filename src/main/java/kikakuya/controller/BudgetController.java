@@ -29,7 +29,9 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
-		Event event = (Event) request.getSession().getAttribute("event");
+		//Event event = (Event) request.getSession().getAttribute("event");
+		Event event = new Event();
+		event.setEventId(1);
 		try{
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
