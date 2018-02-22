@@ -17,7 +17,7 @@
 				</div>
 				<div class="col-2">
 					<button type="button" class="btn btn-link d-none d-md-block" onclick="addGuest()">
-      					<span class="material-icons" style="font-size: 300%;">add_circle</span>
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>
    				</div>
    			</div>
@@ -25,10 +25,34 @@
 				<table id="guests" class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col">First Name</th>
-							<th scope="col">Last Name</th>
+							<th scope="col">
+								First Name
+								<button id="btnAscFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascFirstName()">
+									<i class="fas fa-sort-alpha-down"></i>
+								</button>
+								<button id="btnDescFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descFirstName()">
+									<i class="fas fa-sort-alpha-up"></i>
+								</button>
+							</th>
+							<th scope="col">
+								Last Name
+								<button id="btnAscLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascLastName()">
+									<i class="fas fa-sort-alpha-down"></i>
+								</button>
+								<button id="btnDescLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descLastName()">
+									<i class="fas fa-sort-alpha-up"></i>
+								</button>
+							</th>
 							<th scope="col">Plus Ones</th>
-							<th scope="col">RSVP Status</th>
+							<th scope="col">
+								RSVP Status
+								<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascStatus()">
+									<i class="fas fa-sort-up"></i>
+								</button>
+								<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descStatus()">
+									<i class="fas fa-sort-down"></i>
+								</button>
+							</th>
 							<!-- Load all guests for the selected event -->
 						</tr>
 					</thead>
@@ -230,4 +254,195 @@
 </div>
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
+
+<script>
+function ascFirstName() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[0];
+      		y = rows[i + 1].getElementsByTagName("TD")[0];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+
+
+function descFirstName() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[0];
+      		y = rows[i + 1].getElementsByTagName("TD")[0];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+
+
+function ascLastName() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[1];
+      		y = rows[i + 1].getElementsByTagName("TD")[1];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+
+function descLastName() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[1];
+      		y = rows[i + 1].getElementsByTagName("TD")[1];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+
+function ascStatus() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[3];
+      		y = rows[i + 1].getElementsByTagName("TD")[3];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+
+function descStatus() {
+	var table, rows, switching, i, x, y, shouldSwitch;
+  	table = document.getElementById("guests");
+  	switching = true;
+  	/*Make a loop that will continue until no switching has been done:*/
+  	while (switching) {
+    	//start by saying: no switching is done:
+    	switching = false;
+   		rows = table.getElementsByTagName("TR");
+    	/*Loop through all table rows (except the first, which contains table headers):*/
+    	for (i = 1; i < (rows.length - 1); i++) {
+      		//start by saying there should be no switching:
+      		shouldSwitch = false;
+      		/*Get the two elements you want to compare, one from current row and one from the next:*/
+      		x = rows[i].getElementsByTagName("TD")[3];
+      		y = rows[i + 1].getElementsByTagName("TD")[3];
+      		//check if the two rows should switch place:
+      		if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        		//if so, mark as a switch and break the loop:
+        		shouldSwitch= true;
+        		break;
+      		}
+    	}
+    	if (shouldSwitch) {
+     		 /*If a switch has been marked, make the switch and mark that a switch has been done:*/
+      		rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+      		switching = true;
+    	}
+  	}
+}
+</script>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
