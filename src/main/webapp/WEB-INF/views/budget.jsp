@@ -77,7 +77,7 @@
       				</form:select>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button input type="button"  onclick="location.href='/dev/search'">
+      				<button input type="button" class="btn btn-info" onclick="location.href='/dev/search'">
       						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
       				</button>
       				</div>
