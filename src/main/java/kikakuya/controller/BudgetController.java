@@ -29,7 +29,7 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
-		Event event = (Event) request.getSession().getAttribute("event");
+		Event event = (Event) request.getSession(false).getAttribute("event");
 		try{
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
@@ -157,18 +157,28 @@ public class BudgetController {
 			//delete good
 			budgetDelegate.deleteGood(budgetForm.getGoodId());
 			
-			//try to delete vendorEvent
-			//If the vendorEventId is a FK for another good, it means this is not the last good
+			//try to delete vendorEvent for the last good
 			budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
-			System.out.println("VendorId" + budgetForm.getVendorId());
-			//try to delete vendor
-			//If the vendorId is a FK in the vendorEvent table, it means this vendor cannot be deleted
-			
-			viewBudget(model, request);
+
+			//try to delete vendor for the last good 
+			budgetDelegate.deleteVendor(budgetForm.getVendorId());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			if(e.getMessage().indexOf("a foreign key constraint fails (`kikakuyadev`.`good`, "
+					+ "CONSTRAINT `FKGoodVendorEvent` FOREIGN KEY (`VendorEventvendorEventId`) "
+					+ "REFERENCES `VendorEvent` (`vendorEventId`))") != -1){
+				request.setAttribute("deleteError", "This good cannot be deleted.");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		
+		try {
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "budget";
 	}
 }
