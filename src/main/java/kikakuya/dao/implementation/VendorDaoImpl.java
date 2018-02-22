@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import kikakuya.dao.VendorDao;
-
+import kikakuya.model.Event;
 import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 
@@ -27,8 +27,12 @@ public class VendorDaoImpl implements VendorDao{
 		this.dataSource = dataSource;
 	}
 	
-	public List<Vendor> findVendors() throws SQLException {
-		String query = "SELECT * FROM vendor";
+	public List<Vendor> findVendors(Event event) throws SQLException {
+		//String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
+		//		+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
+		String query = "SELECT * FROM vendor INNER JOIN vendorevent "
+				+ "ON vendor.vendorId = vendorevent.VendorvendorId "
+				+ "WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -81,9 +85,9 @@ public class VendorDaoImpl implements VendorDao{
 		
 		while(rs.next()){
 			//Different vendor
-			if(!curVendor.equals(rs.getString(2))){
+			if(curVendor != null || !curVendor.equals(rs.getString(2))){
 				//Skip very first case
-				if(!curVendor.equals("")) {
+				if(curVendor == null || !curVendor.equals("")) {
 					vendorMap.put(aVendor, goodsList);
 				}
 					
@@ -98,7 +102,7 @@ public class VendorDaoImpl implements VendorDao{
 				//Empty list out
 				goodsList = new ArrayList<Good>();
 					
-				if(!curCategory.equals(rs.getString(1))){
+				if(curCategory != null || !curCategory.equals(rs.getString(1))){
 					//Skip very first case
 					if(!curCategory.equals("")) {
 						result.put(curCategory, vendorMap);
@@ -118,12 +122,23 @@ public class VendorDaoImpl implements VendorDao{
 		
 		}
 		//Handle last entities after loop
-		if(!curCategory.equals("")){
+		if(curCategory == null || !curCategory.equals("")){
 			vendorMap.put(aVendor, goodsList);
 			result.put(curCategory, vendorMap);
 		}
 
 		return result;
+	}
+	
+	public int findLastInserted() throws SQLException {
+		String query = "SELECT vendorId from vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		int vendorId=0;
+		while(rs.next()){
+			vendorId = rs.getInt(1);
+		}
+		return vendorId;
 	}
 
 	@Override

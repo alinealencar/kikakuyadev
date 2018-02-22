@@ -45,11 +45,18 @@ public class EventServiceImpl implements EventService{
 	public Event findEventById(int eventId) throws SQLException {
 		return eventDao.findEventById(eventId);
 	}
+<<<<<<< HEAD
 	
 	public Event getEventById(int eventId) throws SQLException{
 		return eventDao.findEventById(eventId);
 	}
 
+=======
+
+	public Event getEventById(int eventId) throws SQLException{
+		return eventDao.findEventById(eventId);
+	}
+>>>>>>> f192d4839712f206b108092dc0ab9ee83e7ec515
 
 	@Override
 	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {

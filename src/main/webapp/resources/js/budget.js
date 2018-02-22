@@ -5,8 +5,9 @@ $('select').editableSelect({
 });
 
 
+
 //add new item and price
-$(document).ready(function(){
+/*$(document).ready(function(){
 
     var counter = 2;
     $("#btnAddItemPrice").click(function () {
@@ -47,4 +48,4 @@ $(document).ready(function(){
     	  alert(msg);
      });
  */
- });
+//});

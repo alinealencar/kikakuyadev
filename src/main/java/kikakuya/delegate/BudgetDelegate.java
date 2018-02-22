@@ -31,8 +31,8 @@ public class BudgetDelegate {
 		this.eventService = eventService;
 	}
 
-	public List<Vendor> getVendors() throws SQLException {
-		return budgetService.getVendors();
+	public List<Vendor> getVendors(Event event) throws SQLException {
+		return budgetService.getVendors(event);
 	}
 	
 	public boolean addVendor(Vendor vendor) throws SQLException {
@@ -55,6 +55,10 @@ public class BudgetDelegate {
 		return budgetService.getBudgetInfo(eventId);
 	}
 	
+	public int findLastInserted() throws SQLException {
+		return budgetService.getLastInserted();
+	}
+
 	public boolean editGood(Good good) throws SQLException {
 		return budgetService.editGood(good);
 	}

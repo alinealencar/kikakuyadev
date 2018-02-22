@@ -46,8 +46,8 @@ public class BudgetServiceImpl implements BudgetService{
 		return vendorDao.insertVendor(vendor);
 	}
 	
-	public List<Vendor> getVendors() throws SQLException {
-		return vendorDao.findVendors();
+	public List<Vendor> getVendors(Event event) throws SQLException {
+		return vendorDao.findVendors(event);
 	}
 
 	public boolean addGood(Good good, int vendorEventId) throws SQLException {
@@ -68,6 +68,10 @@ public class BudgetServiceImpl implements BudgetService{
 	}
 
 	@Override
+	public int getLastInserted() throws SQLException {
+		return vendorDao.findLastInserted();
+	}
+	
 	public boolean editGood(Good good) throws SQLException {
 		return vendorDao.updateGood(good);
 	}

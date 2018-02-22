@@ -108,5 +108,61 @@ Form validation
 }
 
 /*********************************
-Budget
+slide in form
 **********************************/
+/*General styles for all slide in form*/
+.cbp-spmenu {
+	position: fixed;
+	background-color: #F1E9DA;
+	padding: 25px;
+	border: 1px solid #cccccc;
+}
+.cbp-spmenu h3 {
+color: #afdefa;
+font-size: 1.9em;
+padding: 20px;
+margin: 0;
+font-weight: 300;
+background: #0d77b6;
+}
+.cbp-spmenu a {
+display: block;
+color: #fff;
+font-size: 1.1em;
+font-weight: 300;
+}
+.cbp-spmenu a:hover {
+background: #258ecd;
+}
+.cbp-spmenu a:active {
+background: #afdefa;
+color: #47a3da;
+}
+
+/*Orientation-dependent styles for the content of the slide in form*/
+.cbp-spmenu-vertical {
+width: 360px;
+height: 100%;
+top: 0;
+z-index: 1000;
+overflow: auto;
+}
+.cbp-spmenu-vertical a {
+border-bottom: 1px solid #258ecd;
+padding: 1em;
+}
+
+/*Vertical form that slides from the left*/
+.cbp-spmenu-right {
+right: 0px;
+}
+.cbp-spmenu-right.cbp-spmenu-open {
+right: -360px;
+}
+
+/*Transitions*/
+.cbp-spmenu, .cbp-spmenu-push {
+-webkit-transition: all 0.3s ease;
+-moz-transition: all 0.3s ease;
+transition: all 0.3s ease;
+}

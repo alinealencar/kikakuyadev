@@ -28,6 +28,9 @@ public class UserDaoImpl implements UserDao {
 		pstmt.setString(2, user.getEmail());
 		pstmt.setString(3, HelperUtilities.toMd5(user.getUserPassword()));
 		
+		System.out.println("password encrypted: " + HelperUtilities.toMd5(user.getUserPassword()));
+		System.out.println("add user query: " + query);
+		
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return(rowsAffected > 0);
@@ -55,7 +58,7 @@ public class UserDaoImpl implements UserDao {
 
 	public boolean updateUser(User user) throws SQLException {
 		String query = "update user set userName = '" + user.getUserName() + 
-				"', userPassword = '" + user.getUserPassword() + 
+				"', userPassword = '" + HelperUtilities.toMd5(user.getUserPassword()) + 
 				"', token = '" + user.getToken() + 
 				"', series = '" + user.getSeries() + 
 				"' where email = '" + user.getEmail() + "'";

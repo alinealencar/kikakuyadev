@@ -12,13 +12,13 @@
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input type="text" class="form-control" name="category" placeholder="Category" class="col-12">
+					<input type="text" class="form-control" name="category" placeholder="Category" class="col-12" required>
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input type="text" class="form-control" name="location" placeholder="Location" class="col-12">
+					<input type="text" class="form-control" name="location" placeholder="Location" class="col-12" required>
 					<br><br>
 				</div>
 			</div>

@@ -28,7 +28,7 @@ CREATE TABLE Event (
   eventDate   varchar(255), 
   UseruserId  int(10),
   location    varchar(255) NOT NULL,
-  totalBudget decimal(8,2), 
+  totalBudget decimal(8,2) DEFAULT 0.0, 
   PRIMARY KEY (eventId));
 CREATE TABLE VendorEvent (
   vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
@@ -39,7 +39,7 @@ CREATE TABLE VendorEvent (
 CREATE TABLE Good (
   goodId         int(10) NOT NULL AUTO_INCREMENT, 
   goodName       varchar(255) NOT NULL, 
-  goodPrice      decimal(10, 2) DEFAULT 0, 
+  goodPrice      decimal(10, 2), 
   VendorEventvendorEventId int(10) NOT NULL, 
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,9 +28,12 @@ public class BudgetController {
 	@RequestMapping(value="/budget", method = RequestMethod.GET)
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
+		model.addAttribute("good", new Good());
+		Event event = (Event) request.getSession().getAttribute("event");
 		try{
-			List vendorList = budgetDelegate.getVendors();
+			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
+			
 		}
 		catch(SQLException e){
 			e.printStackTrace();
@@ -45,16 +49,25 @@ public class BudgetController {
 		return "budget";
 	}
 	
-	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
+	public String processAddSearchVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+		
+		//for testing
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		Event event = (Event) request.getSession().getAttribute("event");
 		
 		String redirectTo = "budget";
-		
 		try {
-			if(budgetDelegate.addVendor(vendor))
-				redirectTo = "budget";	
-			List vendorList = budgetDelegate.getVendors();
+			if(budgetDelegate.addVendor(vendor)){
+				vendor.setVendorId(budgetDelegate.findLastInserted());
+				if(budgetDelegate.addVendorEvent(vendor, event))
+					redirectTo = "budget";	
+			}
+			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
+			//String category = request.getParameter("category");
+			//session.setAttribute("category", category);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
 			e.printStackTrace();
@@ -62,23 +75,50 @@ public class BudgetController {
 		return redirectTo;
 	}
 	
-	@RequestMapping(value="/addToBudget", method = RequestMethod.POST)
-	public String processAddToBudget(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
+	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
+		String redirectTo = "budget";
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
+		//Event event = new Event(); 
+		//event.setEventId(1);
+		
+		Event event = (Event) request.getSession().getAttribute("event");
+		
+		try {
+			if(budgetDelegate.addVendor(vendor)){
+				vendor.setVendorId(budgetDelegate.findLastInserted());
+				if(budgetDelegate.addVendorEvent(vendor, event))
+					redirectTo = "budget";	
+			} 
+			List vendorList = budgetDelegate.getVendors(event);
+			request.setAttribute("vendors", vendorList);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return redirectTo;
+	}
+	
+	@RequestMapping(value="/addToBudget", method = RequestMethod.POST)
+	public String processAddToBudget(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 				
 		String redirectTo = "budget";
+		//for testing
+		//Event event = new Event(); 
+		//event.setEventId(1);
 		
+		Event event = (Event) request.getSession().getAttribute("event");
+				
 		try {
 			if(budgetDelegate.addVendorEvent(vendor, event)){
 				for(int i=0; i<vendor.getGoodsList().size(); i++){
 					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
 				}
 				redirectTo = "budget";
-				List vendorList = budgetDelegate.getVendors();
+				List vendorList = budgetDelegate.getVendors(event);
 				request.setAttribute("vendors", vendorList);
+				viewBudget(model,request);
 			}
 		} catch (SQLException e) {
 			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
@@ -86,6 +126,7 @@ public class BudgetController {
 		}
 		return redirectTo;
 	}
+	
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
 	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
 		String redirectTo = "budget";
@@ -108,6 +149,19 @@ public class BudgetController {
 		}
 		
 		return redirectTo;
+	}
+	
+	@RequestMapping(value="/deleteGood", method = RequestMethod.POST)
+	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute Good good){
+		System.out.println("entrou no delete good");
+		
+		try {
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "budget";
 	}
 }
 

@@ -14,13 +14,13 @@
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input type="text" class="form-control" name="category" placeholder="Category" value="${category}" class="col-12">
+					<input type="text" class="form-control" name="category" placeholder="Category" value="${category}" class="col-12" required>
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input type="text" class="form-control" name="location" placeholder="Location" value="${location}" class="col-12">
+					<input type="text" class="form-control" name="location" placeholder="Location" value="${location}" class="col-12" required>
 					<br><br>
 				</div>
 			</div>
@@ -40,7 +40,7 @@
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
-			<form:form action="addVendor" method="post" modelAttribute="vendor">
+			<form:form action="addSearchVendor" method="post" modelAttribute="vendor">
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
