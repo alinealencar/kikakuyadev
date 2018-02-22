@@ -10,25 +10,64 @@
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <div class="container">
 	<div class="row">
-		<div class="col-8">
+		<div class="col-md-12">
 			<div class="row">
-				<div class="col-10">
+				<div class="col-6">
 					<h2>Guest List</h2>
 				</div>
-				<div class="col-2">
-					<button type="button" class="btn btn-link d-none d-md-block" onclick="addGuest()">
-      					<span class="material-icons" style="font-size: 300%;">add_circle</span>
-   					</button>
+				<div class="col-6 text-right">
+					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid">
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   					</button>  					
    				</div>
    			</div>
-   			<div class="row">
+			<div class="row col-12">
 				<table id="guests" class="table table-hover">
 					<thead>
 						<tr>
-							<th scope="col">First Name</th>
-							<th scope="col">Last Name</th>
-							<th scope="col">Plus Ones</th>
-							<th scope="col">RSVP Status</th>
+							<th scope="col">
+								<div class="col-md-6">
+									First Name
+								</div>
+								<div class="col-md-6">
+									<button id="btnAscFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascFirstName()">
+										<i class="fas fa-sort-alpha-down"></i>
+									</button>
+									<button id="btnDescFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descFirstName()">
+										<i class="fas fa-sort-alpha-up"></i>
+									</button>
+								</div>
+							</th>
+							<th scope="col">
+								<div class="col-md-6">
+									Last Name
+								</div>
+								<div class="col-md-6">
+									<button id="btnAscLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascLastName()">
+										<i class="fas fa-sort-alpha-down"></i>
+									</button>
+									<button id="btnDescLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descLastName()">
+										<i class="fas fa-sort-alpha-up"></i>
+									</button>
+								</div>
+							</th>
+							<th scope="col" class="align-middle">
+								Plus Ones
+
+							</th>
+							<th scope="col">
+								<div class="col-md-6">
+									RSVP Status
+								</div>
+								<div class="col-md-6">
+									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascStatus()">
+										<i class="fas fa-sort-up"></i>
+									</button>
+									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descStatus()">
+										<i class="fas fa-sort-down"></i>
+									</button>
+								</div>
+							</th>
 							<!-- Load all guests for the selected event -->
 						</tr>
 					</thead>
@@ -54,7 +93,8 @@
 			</div>
 			<br>
 			</div>
-			<div class="col-4">
+
+			<div class="col-md-4">
 				<div id="showGuestSection" style="display:${selectedGuest == null? 'none':'inline-block'}">
 					<!-- Show guest -->
 					<div id="guestDetails">
@@ -168,66 +208,94 @@
 					<span><input type="submit" value="Save"/></span>
 				</form:form>
 			</div>
-			<div id="addGuestSection" style="display:none;">
-			<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+			
+			
+			<div id="addGuestSection" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right cbp-spmenu-open" >
+			<span id="closeAddGuest" onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
-				<span>First Name: </span>
-				<form:input path="firstName"/>
-			
-				<br>
-				
-				<span>Last Name: </span>
-				<form:input path="lastName"/>
-				
-				<br>
-				<span>Email: </span>
-				<form:input path="email"/>
-				
-				<br>
-				
-				<span>Plus ones (Maximum): </span> <br/>
-					<span>Adults:</span>
-			        	<form:select path="adultsMax">
-			        		<form:option value="0" label="0" selected="selected"/>
-			        		<form:option value="1" label="1"/>
-			        		<form:option value="2" label="2"/>
-			        		<form:option value="3" label="3"/>
-			        		<form:option value="4" label="4"/>
+				<label>First Name: </label>
+				<form:input path="firstName" class="form-control" style="margin-bottom:10px;"/>				
+				<label>Last Name: </label>
+				<form:input path="lastName" class="form-control" style="margin-bottom:10px;"/>
+				<label>Email: </label>
+				<form:input path="email" class="form-control" style="margin-bottom:10px;"/>
+				<label>Plus ones (Maximum): </label>
+				<div class="form-group row">
+					<div class="col-6">
+						<div class="form-group row">
+							<label class="col-6 col-form-label">Adults:</label>
+					        	<form:select path="adultsMax" class="form-control col-6">
+					        		<form:option value="0" label="0" selected="selected"/>
+					        		<form:option value="1" label="1"/>
+					        		<form:option value="2" label="2"/>
+					        		<form:option value="3" label="3"/>
+					        		<form:option value="4" label="4"/>
+								</form:select>
+						</div>
+					</div>
+					<div class="col-6">
+						<div class="form-group row">
+					        <label class="col-6 col-form-label">Kids:</label>
+					        	<form:select path="kidsMax" class="form-control col-6">
+					        		<form:option value="0" label="0" selected="selected"/>
+					        		<form:option value="1" label="1"/>
+					        		<form:option value="2" label="2"/>
+					        		<form:option value="3" label="3"/>
+					        		<form:option value="4" label="4"/>
+								</form:select>
+							</div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<label class="col-6">RSVP Status: </label>
+						<form:select path="isPresent" class="form-control col-6">
+							<option value="0">No Reply</option>
+				  			<option value="1">Present</option>
+				  			<option value="2">Absent</option>
 						</form:select>
-			        <span>Kids:</span>
-			        	<form:select path="kidsMax">
-			        		<form:option value="0" label="0" selected="selected"/>
-			        		<form:option value="1" label="1"/>
-			        		<form:option value="2" label="2"/>
-			        		<form:option value="3" label="3"/>
-			        		<form:option value="4" label="4"/>
-						</form:select>
-				<br>
-				<span>RSVP Status: </span>
-					<form:select path="isPresent">
-						<option value="0">No Reply</option>
-			  			<option value="1">Present</option>
-			  			<option value="2">Absent</option>
-					</form:select>
-				<br>
-				
-				<span>Group: </span>
-				<form:input path="company" value=""/>
-				
-				<br>
-				<span>Notes: </span>
-				<form:input path="notes" value=""/>
-				<br/>
+				</div>
+				<label>Group: </label>
+				<form:input path="company" class="form-control" style="margin-bottom:10px;"/>
+				<label>Notes: </label>
+				<form:input path="notes" value="" class="form-control" style="margin-bottom:10px;"/>
+
 				<!-- TODO: Set value attr to eventId that's in the session scope -->
 				<form:hidden path="eventId" value="1"/>
-				<span><input type="submit" value="Done"/></span>
+				<button type="submit" class="btn btn-info">Done</button>
 			</form:form>
+			
 			</div>
 		</div>
 	</div>
 </div>
+
+
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
+<script>
+var addGuest = document.getElementById( 'addGuestSection' ),
+body = document.body;
+
+(showAddGuest.onclick) = function() {
+classie.toggle( this, 'active' );
+classie.toggle( addGuest, 'cbp-spmenu-open' );
+disableOther( 'showAddGuest' );
+};
+
+(closeAddGuest.onclick) = function() {
+	classie.toggle( this, 'active' );
+	classie.toggle( addGuest, 'cbp-spmenu-open' );
+	disableOther( 'showAddGuest' );
+	};
+/*
+function disableOther( button ) {
+if( button !== 'showRight' ) {
+classie.toggle( showRight, 'disabled' );
+}
+}
+*/
+</script>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

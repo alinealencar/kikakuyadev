@@ -7,6 +7,7 @@ public class Event {
 	private String eventDate;
 	private String location;
 	private int userUserId;
+	private double totalBudget;
 	
 	public Event(int eventId, String eventName, String eventDate, String location, int userUserId) {
 		super();
@@ -63,6 +64,14 @@ public class Event {
 
 	public void setUserUserId(int userUserId) {
 		this.userUserId = userUserId;
+	}
+
+	public double getTotalBudget() {
+		return totalBudget;
+	}
+
+	public void setTotalBudget(double totalBudget) {
+		this.totalBudget = totalBudget;
 	}
 
 	@Override

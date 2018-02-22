@@ -58,38 +58,48 @@
 		</div>
 		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
 			<!-- budget form add here -->
-			<form:form action="addToBudget" method="post" modelAttribute="vendor">	
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
 	        			<option selected>--- Select Category ---</option>
-	       				<option value="Balloon Services" ${category eq 'Balloon Services' ? 'selected': ''}>Balloon Services</option>
-	       				<option value="Cake" ${category eq 'Cake' ? 'selected': ''}>Cake</option>
-	       				<option value="Cards & Stationery" ${category eq 'Cards & Stationery' ? 'selected': ''}>Cards & Stationery</option>
-	       				<option value="Decorations" ${category eq 'Decorations' ? 'selected': ''}>Decorations</option>
-	       				<option value="Entertainment" ${category eq 'Entertainment' ? 'selected': ''}>Entertainment</option>
-	       				<option value="Floral Design" ${category eq 'Floral Design' ? 'selected': ''}>Floral Design</option>
-	       				<option value="Music" ${category eq 'Music' ? 'selected': ''}>Music</option>
-	       				<option value="Party Equipment Rental" ${category eq 'Party Equipment Rental' ? 'selected': ''}>Party Equipment Rental</option>
-	       				<option value="Photography" ${category eq 'Photography' ? 'selected': ''}>Photography</option>
-	       				<option value="Venue" ${category eq 'Venue' ? 'selected': ''}>Venue</option>
+	       				<option>Balloon Services</option>
+	       				<option>Cake</option>
+	       				<option>Cards & Stationery</option>
+	       				<option>Caterer</option>
+	       				<option>Decorations</option>
+	       				<option>Entertainment</option>
+	       				<option>Floral Design</option>
+	       				<option>Music</option>
+	       				<option>Party Equipment Rental</option>
+	       				<option>Photography</option>
+	       				<option>Transportation</option>
+	       				<option>Venue</option>
       				</form:select>
    				</div>
-   				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+   				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="ventor" class="form-control" path="vendorId">
-	        			<option ${vendorId eq '' ? 'selected': ''}>--- Select Vendor ---</option>
+      				<label>Select Vendor:</label>
+      				<form:select id="vendor" class="form-control" path="vendorId">
+	        			<option>--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
-	       					<option value="${vendor.vendorId} ${vendor.vendorId eq vendor.vendorId ? 'selected': ''}">${vendor.name}</option>
+	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button input type="button"  onclick="location.href='/dev/search'">
+      				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
       						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
       				</button>
       				</div>
+      				<div class="text-center">- or -</div>
+      				<div class="text-center">
+      				<button type="button" class="btn btn-info btnAddVendor">
+      						<span class="material-icons align-bottom" style="font-size: 150%;">create</span><span class="align-text-bottom">Add Vendor</span>
+      				</button>
+      				</div>
+      				
    				</fieldset>
-   				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+   				<fieldset id="goodFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Items</legend>
    				<div id="item-price">
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
@@ -105,7 +115,10 @@
 		   			</c:forEach>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
-      						<span class="material-icons" style="font-size: 150%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px">Add Item</span>
+      						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
+      					</button>
+      					<button id="btnRemoveItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">remove_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
       					</button>
       				</div>
       			</div>
@@ -117,12 +130,30 @@
       			</div>
       			
 			</form:form>
+			
+			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
+				<form:form action="addVendor" method="post" modelAttribute="vendor">
+      				<div class="text-center" id="enterVendor">
+      					<form:input type="text" class="form-control" placeholder="Vendor Name" path="name" />
+      					<form:input type="text" class="form-control" placeholder="Address" path="address" />
+      					<form:input type="text" class="form-control" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" class="form-control" placeholder="Website" path="website" />
+      				</div><br>
+      				<div class="text-center">
+      					<button type="submit" class="btn btn-success">Submit</button>
+      				</div><br>
+      				<div class="text-center">
+      					<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      				</div>
+      			</form:form><br>
+      		</div>
 		</div>
 	</div>
+		
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<!-- <script src="resources/js/budget.js"></script> -->
+<script src="resources/js/budget.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	var counter = 1;
@@ -132,6 +163,40 @@ $(document).ready(function(){
 		counter++;
 	});
 	
+	$("#formAddToBudget").keypress(function(e) {
+		  //Enter key
+		  if (e.which == 13) {
+		    return false;
+		  }
+		});
+	
+});
+
+$(document).ready(function(){
+	$('#btnRemoveItemPrice').click(function(){
+		if($('#txtItem').children().length > 1)
+			$('#txtItem :last-child').remove();
+		if($('#txtPrice').children().length > 1)
+			$('#txtPrice :last-child').remove();
+	});
+});
+
+$(document).ready(function(){
+	$('.btnAddVendor').click(function(){
+		$('#formAddToBudget').hide();
+		$('#enterVendor').show();
+	});
+});
+
+$(document).ready(function(){
+	$('#btnCancelAddVendor').click(function(){
+		$('#formAddToBudget').show();
+		$('#enterVendor').hide();
+	});
+});
+
+$(document).on("keypress", ":input:not(select)", function(event) {
+    return event.keyCode != 13;
 });
 </script>
 
