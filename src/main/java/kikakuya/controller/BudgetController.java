@@ -29,8 +29,9 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
+		Event event = (Event) request.getSession().getAttribute("event");
 		try{
-			List vendorList = budgetDelegate.getVendors();
+			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
 			
 		}
@@ -52,18 +53,18 @@ public class BudgetController {
 	public String processAddSearchVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
-				
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		Event event = (Event) request.getSession().getAttribute("event");
+		
 		String redirectTo = "budget";
-		HttpSession session = request.getSession();
 		try {
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
 					redirectTo = "budget";	
 			}
-			List vendorList = budgetDelegate.getVendors();
+			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
 			//String category = request.getParameter("category");
 			//session.setAttribute("category", category);
@@ -79,8 +80,10 @@ public class BudgetController {
 		
 		String redirectTo = "budget";
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1);
+		//Event event = new Event(); 
+		//event.setEventId(1);
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 		
 		try {
 			if(budgetDelegate.addVendor(vendor)){
@@ -88,7 +91,7 @@ public class BudgetController {
 				if(budgetDelegate.addVendorEvent(vendor, event))
 					redirectTo = "budget";	
 			} 
-			List vendorList = budgetDelegate.getVendors();
+			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -102,8 +105,10 @@ public class BudgetController {
 				
 		String redirectTo = "budget";
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1);
+		//Event event = new Event(); 
+		//event.setEventId(1);
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
 			if(budgetDelegate.addVendorEvent(vendor, event)){
@@ -111,7 +116,7 @@ public class BudgetController {
 					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
 				}
 				redirectTo = "budget";
-				List vendorList = budgetDelegate.getVendors();
+				List vendorList = budgetDelegate.getVendors(event);
 				request.setAttribute("vendors", vendorList);
 				viewBudget(model,request);
 			}

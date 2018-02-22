@@ -36,8 +36,10 @@ public class MessageController {
 		int statusId;
 		
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1);
+		//Event event = new Event(); 
+		//event.setEventId(1);
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
 			List<Guest> allGuests = new ArrayList<Guest>();

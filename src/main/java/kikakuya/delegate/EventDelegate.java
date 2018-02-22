@@ -29,8 +29,8 @@ public class EventDelegate {
 		return eventService.updateEvent(event);
 	}
 	
-	public boolean deleteEvent(int eventId)throws SQLException{
-		return eventService.deleteEvent(eventId);
+	public boolean deleteEvent(Event event)throws SQLException{
+		return eventService.deleteEvent(event);
 	}
 	
 //	public boolean findEventById(int eventId) throws SQLException{

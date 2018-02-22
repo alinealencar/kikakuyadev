@@ -37,19 +37,19 @@ public class EventServiceImpl implements EventService{
 		return eventDao.updateEvent(event);
 	}
 
-	public boolean deleteEvent(int eventId) throws SQLException {
-		return eventDao.deleteEvent(eventId);
+	public boolean deleteEvent(Event event) throws SQLException {
+		return eventDao.deleteEvent(event);
 		
 	}
 	
 	public Event findEventById(int eventId) throws SQLException {
 		return eventDao.findEventById(eventId);
 	}
-
+	
 	public Event getEventById(int eventId) throws SQLException{
 		return eventDao.findEventById(eventId);
 	}
-
+	
 	@Override
 	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {
 		return eventDao.updateTotalBudget(eventId, totalBudget);
