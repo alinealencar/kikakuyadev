@@ -40,8 +40,10 @@ public class RSVPController {
 	@RequestMapping(value="/sendMessage", method = RequestMethod.GET)
 	public String viewSendMessage(Model model, HttpServletRequest request){
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 				
 		model.addAttribute("email", new Email());
 		List<Guest> guestList = new ArrayList<Guest>();
@@ -62,11 +64,13 @@ public class RSVPController {
 		User user = (User) request.getSession().getAttribute("user");
 		
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
-		event.setLocation("ACC"); 
-		event.setEventDate("2018-05-29");
-		event.setEventName("Chace's Birthday");
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		//event.setLocation("ACC"); 
+		//event.setEventDate("2018-05-29");
+		//event.setEventName("Chace's Birthday");
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 		
 		List<Guest> guestList;
 		
@@ -125,11 +129,13 @@ public class RSVPController {
 	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
 	
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
-		event.setLocation("ACC"); 
-		event.setEventDate("2018-05-29");
-		event.setEventName("Chace's Birthday");
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		//event.setLocation("ACC"); 
+		//event.setEventDate("2018-05-29");
+		//event.setEventName("Chace's Birthday");
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 		
 		String redirectTo = "rsvpResponse";
 		try {
@@ -160,11 +166,13 @@ public class RSVPController {
 		plusOneList = guest.getPlusOneList();
 		
 		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
-		event.setLocation("ACC"); 
-		event.setEventDate("2018-05-29");
-		event.setEventName("Chace's Birthday");
+		//Event event = new Event(); 
+		//event.setEventId(1); 
+		//event.setLocation("ACC"); 
+		//event.setEventDate("2018-05-29");
+		//event.setEventName("Chace's Birthday");
+		
+		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
 			Email email = rsvpDelegate.findEmailByEvent(event);

@@ -11,7 +11,7 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import kikakuya.dao.VendorDao;
-
+import kikakuya.model.Event;
 import kikakuya.model.Good;
 import kikakuya.model.Vendor;
 
@@ -27,9 +27,12 @@ public class VendorDaoImpl implements VendorDao{
 		this.dataSource = dataSource;
 	}
 	
-	public List<Vendor> findVendors() throws SQLException {
-		String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
-				+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
+	public List<Vendor> findVendors(Event event) throws SQLException {
+		//String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
+		//		+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
+		String query = "SELECT * FROM vendor INNER JOIN vendorevent "
+				+ "ON vendor.vendorId = vendorevent.VendorvendorId "
+				+ "WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
