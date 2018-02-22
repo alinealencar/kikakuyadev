@@ -26,14 +26,12 @@ public class EventController {
 	
 	//List all the event by user
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public String viewAddEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
+	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		
 		User user = (User) request.getSession().getAttribute("user");
 		try {
 			List<Event> event = eventDelegate.listEventsByUser(user);
 			if (event.size() > 0){
-//				//Send the event to the session scope
-//				session.setAttribute("event", event);
 				request.setAttribute("listEvent", event);
 			}
 			else{
@@ -75,74 +73,48 @@ public class EventController {
 		return "redirect:/list";
 	}
 	
-//	//work on this one
-//	@RequestMapping(value="/update/{eventId}", method=RequestMethod.GET)
-////	public String update(@PathVariable("eventId") @ModelAttribute("event") Event event)throws SQLException{
-//	public String update(@PathVariable("eventId") int eventId, @ModelAttribute("event") Event event, HttpServletRequest session,
-//			HttpServletRequest request, Model model)throws SQLException{
-//		
-//		User user = (User) request.getSession().getAttribute("user");
-//		model.addAttribute("event", new Event());
-//		try {
-//			boolean isUpdateEvent = eventDelegate.updateEvent(event);
-//			if(isUpdateEvent){
-//				List <Event> list = eventDelegate.listEventsByUser(user);
-//				session.setAttribute("listEvent", list);
-////				session.setAttribute("eventName", event.getEventName());
-////				session.setAttribute("eventDate", event.getEventDate());
-////				session.setAttribute("location", event.getLocation());
-//				System.out.println("Update successful");
-//		}
-//				else {
-//				System.out.println("Update unsuccessful");
-//			}
-//		}
-//		catch(Exception e) {
-//				e.printStackTrace();
-//			}
-//		
-//		return "event";
-//	}
-	
 	//Update an event
-	@RequestMapping(value="/update/{eventId}", method=RequestMethod.GET)
-	
-	public String update(@PathVariable("eventId") int eventId, Event event, 
-			Model model, HttpServletRequest request) throws SQLException{
+	@RequestMapping(value="/update", method = RequestMethod.POST)
+	public String updateEvent(@ModelAttribute("event") Event event, Model model,
+			HttpServletRequest request) throws SQLException{
 		
-		try {
+		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
-			System.out.println("Event id: " + event.getEventId());
+			System.out.println("event id: " + event.getEventId());
 			if(isUpdateEvent){
-				System.out.println("Edit guest successful");
+				System.out.println("Update successful");
 			}
-			else {
-				System.out.println("Edit guest failed");
+			else{
+				System.out.println("Update not successful");
 			}
-				
-		} catch(Exception e){
+		}
+		catch(Exception e){
 			e.printStackTrace();
 		}
 		
-		viewAddEvent(request, model);
-		return "redirect:/list";
+		viewEvent(request, model);
+		return "event";
 	}
 	
-	//Delete event
-	@RequestMapping(value="/delete/{eventId}", method=RequestMethod.GET)
-	public String delete(@PathVariable("eventId")int eventId) throws SQLException{
-		try {
-			boolean isDeleteEvent = eventDelegate.deleteEvent(eventId);
+	
+	@RequestMapping(value="/delete", method=RequestMethod.GET)
+	public String deleteEvent(@ModelAttribute Event event, Model model,HttpServletRequest request) throws SQLException{
+		
+		try{
+			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
+			System.out.println("event id: " + event.getEventId());
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
-			} 
-			else {
-					System.out.println("Delete unsuccessful");
+		} 
+		else {
+			System.out.println("Delete unsuccessful");
 			}
 		}
 		catch(Exception e) {
-				e.printStackTrace();
-			}
+			e.printStackTrace();
+		}
+		
+		viewEvent (request, model);
 		return "redirect:/list";
 	}
 	

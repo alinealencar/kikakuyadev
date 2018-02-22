@@ -1,28 +1,25 @@
-function showList() {
-	var list = document.getElementById("showEventList");
-	var addFrom = document.getElementById("showAddForm");
-	var editForm = document.getElementById("editEvents");
-	if (list.style.display === "none") {
-		list.style.display = "block";
-	    addFrom.style.display = "none";
-	    editFrom.style.display = "none";
-	}
+//flags to check if each value is valid
+	var validEventName = false;
+	var validLocation = false; 
+	
+
+
+	
+function showList(){
+	document.getElementById("showEventList").style.display = 'inline-block';
+	document.getElementById("showAddForm").style.display = 'none';
+	document.getElementById("editEvent").style.display = 'none';
 }
 
 function showForm(){
-	var list = document.getElementById("showEventList");
-	var addFrom = document.getElementById("showAddForm");
-	if (addFrom.style.display === "none"){
-		addFrom.style.display = "block";
-		list.style.display = "none";
-	}
+	document.getElementById("showEventList").style.display = 'none';
+	document.getElementById("showAddForm").style.display = 'inline-block';
+	document.getElementById("editEvent").style.display = 'none';
 }
 
 function editEvent(){
-	var list = document.getElementById("showEventList");
-	var editForm = document.getElementById("editEvents");
-	if (editForm.style.display === "none"){
-		editForm.style.display = "block";
-		list.style.display = "none";
-	}
+	document.getElementById("showEventList").style.display = 'none';
+	document.getElementById("showAddForm").style.display = 'none';
+	document.getElementById("editEvent").style.display = 'inline-block';
 }
+	

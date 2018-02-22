@@ -68,8 +68,8 @@ public class EventDaoImpl implements EventDao {
 		return(rowsAffected > 0);
 	}
 	
-	public boolean deleteEvent(int eventId) throws SQLException{
-		String query = "DELETE FROM event WHERE eventId="+eventId;
+	public boolean deleteEvent(Event event) throws SQLException{
+		String query = "DELETE FROM event WHERE eventId="+ event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		//pstmt.setInt(0, eventId);
 		int rowsAffected = pstmt.executeUpdate();

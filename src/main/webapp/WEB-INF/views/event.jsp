@@ -2,6 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<jsp:include page="/WEB-INF/includes/head.jsp" />
+<jsp:include page="/WEB-INF/includes/header.jsp"/>
 
 <div class="container">
 <!--button class="w3-button w3-xlarge w3-circle w3-pink" oncLick="showForm()">+</button -->
@@ -22,23 +24,28 @@
 			<div class="eventTile">${event.eventName}
 			
 			<div class="deleteButton">
-			<form:form modelAttribute="event" method="GET" action="delete?eventId=${event.eventId}" >
-				<a type="button" href="delete/${event.eventId}" style="text-decoration:none">Delete</a>
-			</form:form>
+			
+			<form:form action="delete" method="get">
+							<input name="eventId" type="hidden" value="${event.eventId}"/>
+							<input class="btn btn-danger" type="submit" value="Remove event"/>
+						</form:form>
 			</div>	
 			<div class="updateButton">
 				<!-- a type="button" href="update/${event.eventId}" oncLick="editEvent()" style="text-decoration:none">Update</a-->
-				<button id="edit" oncLick="editEvent()" style="text-decoration:none">Update</button> 
+				
+				<button type="button" onclick="editEvent()">Update</button>
 			</div>
-			
-		<!--form:form modelAttribute="event" method="GET" action="event?eventId=${event.eventId}" -->
+		
 		<form:form modelAttribute="event" method="GET" action="showEvent">
 		<form:hidden path="eventId" value="${event.eventId}"/>
-			<a class="tile-title" href="event/${event.eventId}" style="text-decoration:none">
-				Location: ${event.location} <br/>
-				Event Date: ${event.eventDate}<br/>
-			</a>
-			<input type="submit" value="Select"/>
+			
+			<!--input type="submit" value="Location: ${event.location} 
+										Event Date: ${event.eventDate}"/-->
+			<div class="tile-title">
+				<button type="submit">Location: ${event.location} <br/>
+										Event Date: ${event.eventDate}</button>
+			</div>							
+			
 		</form:form>
 		
 			</div>
@@ -72,10 +79,10 @@
 </div>
 
 <!-- EDIT EVENTS FORM-->
-<div id="editEvents" style="display:none;">
-	<h5>Edit events</h5>
-	<form:form modelAttribute="event" method="GET" action="update/${event.eventId}">
-	<form:hidden path="eventId"/>
+<div id="editEvent" style="display:none;">
+	<h5>Edit Event Information</h5>
+	<form:form modelAttribute="event" method="POST" action="update">
+	<form:hidden path="eventId" value="${event.eventId}"/>
 <table>
 	<tr>
 		<td>Event Name:</td>
@@ -91,7 +98,7 @@
 	</tr>
 	<tr>
 		<td></td>
-		<td><button type="submit" onclick="showList()">Done</button>
+		<td><input type="submit" onclick="showList()" value="Done"/>
 	</tr>
 </table>
 </form:form>
