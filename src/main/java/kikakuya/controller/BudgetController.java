@@ -29,9 +29,7 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
-		//Event event = (Event) request.getSession().getAttribute("event");
-		Event event = new Event();
-		event.setEventId(1);
+		Event event = (Event) request.getSession().getAttribute("event");
 		try{
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
@@ -161,7 +159,8 @@ public class BudgetController {
 			
 			//try to delete vendorEvent
 			//If the vendorEventId is a FK for another good, it means this is not the last good
-			//budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
+			System.out.println("VendorId" + budgetForm.getVendorId());
 			//try to delete vendor
 			//If the vendorId is a FK in the vendorEvent table, it means this vendor cannot be deleted
 			

@@ -82,8 +82,8 @@ public class BudgetServiceImpl implements BudgetService{
 	}
 
 	@Override
-	public boolean deleteVendorEvent(int vendorEventId) throws SQLException {
-		return vendorEventDao.deleteVendorEvent(vendorEventId);
+	public boolean deleteVendorEvent(int vendorId) throws SQLException {
+		return vendorEventDao.deleteVendorEvent(vendorId);
 	}
 	
 	public boolean deleteVendor(int vendorId) throws SQLException {

@@ -71,8 +71,8 @@ public class BudgetDelegate {
 		return budgetService.deleteGood(goodId);
 	}
 	
-	public boolean deleteVendorEvent(int vendorEventId) throws SQLException {
-		return budgetService.deleteVendorEvent(vendorEventId);
+	public boolean deleteVendorEvent(int vendorId) throws SQLException {
+		return budgetService.deleteVendorEvent(vendorId);
 	}
 	
 	public boolean deleteVendor(int vendorId) throws SQLException {

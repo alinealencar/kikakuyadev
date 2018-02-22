@@ -47,8 +47,8 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 
 	@Override
-	public boolean deleteVendorEvent(int vendorEventId) throws SQLException {
-		String query = "delete from vendorevent where vendorEventId=" + vendorEventId;
+	public boolean deleteVendorEvent(int vendorId) throws SQLException {
+		String query = "delete from vendorevent where VendorvendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;

@@ -44,6 +44,7 @@
 	   							<!-- Delete good -->
 	   							<form:form action="deleteGood" method="post" modelAttribute="budgetForm">
 	   								<button type="submit"><i class="fas fa-minus-circle"></i></button>
+	   								<form:hidden path="vendorId" value="${vendor.key.vendorId}"/>
 	   								<form:hidden path="goodId" value="${good.goodId}"/>
 	   							</form:form>
 	   							<%-- <input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/> --%>

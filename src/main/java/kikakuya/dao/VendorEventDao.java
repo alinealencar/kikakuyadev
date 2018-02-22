@@ -9,5 +9,5 @@ public interface VendorEventDao {
 
 	public boolean insertVendorEvent(Vendor vendor, Event event) throws SQLException;
 	public int findVendorEventId(Vendor vendor) throws SQLException;
-	public boolean deleteVendorEvent(int vendorEventId) throws SQLException;
+	public boolean deleteVendorEvent(int vendorId) throws SQLException;
 }

@@ -18,6 +18,6 @@ public interface BudgetService {
 	public int getLastInserted() throws SQLException;
 	public boolean editGood(Good good) throws SQLException;
 	public boolean deleteGood(int goodId) throws SQLException;
-	public boolean deleteVendorEvent(int vendorEventId) throws SQLException;
+	public boolean deleteVendorEvent(int vendorId) throws SQLException;
 	public boolean deleteVendor(int vendorId) throws SQLException;
 }
