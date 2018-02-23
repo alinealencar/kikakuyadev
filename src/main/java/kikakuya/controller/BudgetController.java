@@ -50,7 +50,7 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
-	public String processAddSearchVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddSearchVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		//for testing
 		//Event event = new Event(); 
@@ -68,6 +68,7 @@ public class BudgetController {
 			request.setAttribute("vendors", vendorList);
 			//String category = request.getParameter("category");
 			//session.setAttribute("category", category);
+			viewBudget(model,request);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
 			e.printStackTrace();
@@ -176,7 +177,6 @@ public class BudgetController {
 		try {
 			viewBudget(model, request);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "budget";
@@ -191,10 +191,25 @@ public class BudgetController {
 			
 			viewBudget(model, request);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
+		return "budget";
+	}
+	
+	@RequestMapping(value="/deleteCategory", method = RequestMethod.POST)
+	public String deleteCategory(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
+		String category = budgetForm.getCategory();
+		Event event = (Event) request.getSession().getAttribute("event");
+		System.out.println("in the delete category");
+		try {
+			//delete vendor associated to a certain category? Now you can't add one vendor in 2 different categories,
+			//so it makes sense to delete the vendor too. Bug or feature?
+			budgetDelegate.deleteCategory(event.getEventId(), category);
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "budget";
 	}
 }

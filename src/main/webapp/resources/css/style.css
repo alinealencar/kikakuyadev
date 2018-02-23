@@ -68,6 +68,13 @@ footer {
 	margin-top: 15px;	
 }
 
+/****** icon ******/
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+  color: red;
+}
 
 /*********************************
 Search result

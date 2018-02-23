@@ -8,10 +8,21 @@ public class BudgetForm {
 	private int goodId;
 	private int vendorId;
 	private int vendorEventId;
+	private String category;
 
 	public BudgetForm() {
 		super();
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 
 	public int getGoodId() {
 		return goodId;

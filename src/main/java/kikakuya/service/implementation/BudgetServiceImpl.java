@@ -95,5 +95,10 @@ public class BudgetServiceImpl implements BudgetService{
 		return (goodDao.goodsByVendor(vendorId) == 0);
 	}
 
+	@Override
+	public boolean deleteCategory(int eventId, String category) throws SQLException {
+		return vendorEventDao.deleteCategory(eventId, category);
+	}
+
 	
 }

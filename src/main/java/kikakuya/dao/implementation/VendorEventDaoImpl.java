@@ -54,4 +54,14 @@ public class VendorEventDaoImpl implements VendorEventDao{
 		return rowsAffected > 0;
 	}
 
+	@Override
+	public boolean deleteCategory(int eventId, String category) throws SQLException {
+		String query = "delete from vendorevent where EventeventId=" + eventId + 
+				" and vendorCategory='" + category + "'";
+		System.out.println(query);
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
+	}
+
 }
