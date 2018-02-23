@@ -51,19 +51,22 @@
 									</button>
 								</div>
 							</th>
-							<th scope="col" class="align-middle">
-								Plus Ones
-
+							<th scope="col" class="align-baseline">
+								<div class="col-md-6">
+									Plus Ones
+								</div>
+								<div class="col-md-6">
+								</div>
 							</th>
 							<th scope="col">
 								<div class="col-md-6">
 									RSVP Status
 								</div>
 								<div class="col-md-6">
-									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascStatus()">
+									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px;" onclick="ascStatus()">
 										<i class="fas fa-sort-up"></i>
 									</button>
-									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descStatus()">
+									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px" onclick="descStatus()">
 										<i class="fas fa-sort-down"></i>
 									</button>
 								</div>
