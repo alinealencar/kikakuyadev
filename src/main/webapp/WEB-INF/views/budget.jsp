@@ -154,11 +154,13 @@
       					<form:input type="text" class="form-control" placeholder="Phone Number" path="phoneNo" />
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
-      				<div class="text-center">
-      					<button type="submit" class="btn btn-success">Submit</button>
-      				</div><br>
-      				<div class="text-center">
-      					<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      				<div  class="form-group row">
+      					<div class="col-sm-6 text-center">
+      						<button type="submit" class="btn btn-success">Submit</button>
+      					</div><br>
+      					<div class="col-sm-6 text-center">
+      						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      					</div>
       				</div>
       			</form:form><br>
       		</div>

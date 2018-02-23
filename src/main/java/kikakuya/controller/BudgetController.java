@@ -105,22 +105,21 @@ public class BudgetController {
 	public String processAddToBudget(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 				
 		String redirectTo = "budget";
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1);
-		
 		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
-			if(budgetDelegate.addVendorEvent(vendor, event)){
+			if(!budgetDelegate.isVendorFound(vendor)){
+				vendor.setVendorId(budgetDelegate.findLastInserted());
+				budgetDelegate.addVendorEvent(vendor, event);
+			}
+				budgetDelegate.editCategory(vendor);
 				for(int i=0; i<vendor.getGoodsList().size(); i++){
 					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
 				}
-				redirectTo = "budget";
-				List vendorList = budgetDelegate.getVendors(event);
-				request.setAttribute("vendors", vendorList);
-				viewBudget(model,request);
-			}
+					redirectTo = "budget";
+					List vendorList = budgetDelegate.getVendors(event);
+					request.setAttribute("vendors", vendorList);
+					viewBudget(model,request);
 		} catch (SQLException e) {
 			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
 			e.printStackTrace();

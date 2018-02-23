@@ -22,4 +22,6 @@ public interface BudgetService {
 	public boolean deleteVendor(int vendorId) throws SQLException;
 	public boolean isZeroGoods(int vendorId) throws SQLException;
 	public boolean deleteCategory(int eventId, String category) throws SQLException;
+	public boolean editCategory(Vendor vendor) throws SQLException;
+	public boolean isVendorFound(Vendor vendor) throws SQLException;
 }
