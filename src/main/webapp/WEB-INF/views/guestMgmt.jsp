@@ -22,77 +22,79 @@
    				</div>
    			</div>
 			<div class="row col-12">
-				<table id="guests" class="table table-hover">
-					<thead>
-						<tr>
-							<th scope="col">
-								<div class="col-md-6">
-									First Name
-								</div>
-								<div class="col-md-6">
-									<button id="btnAscFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascFirstName()">
-										<i class="fas fa-sort-alpha-down"></i>
-									</button>
-									<button id="btnDescFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descFirstName()">
-										<i class="fas fa-sort-alpha-up"></i>
-									</button>
-								</div>
-							</th>
-							<th scope="col">
-								<div class="col-md-6">
-									Last Name
-								</div>
-								<div class="col-md-6">
-									<button id="btnAscLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascLastName()">
-										<i class="fas fa-sort-alpha-down"></i>
-									</button>
-									<button id="btnDescLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descLastName()">
-										<i class="fas fa-sort-alpha-up"></i>
-									</button>
-								</div>
-							</th>
-							<th scope="col" class="align-baseline">
-								<div class="col-md-6">
-									Plus Ones
-								</div>
-								<div class="col-md-6">
-								</div>
-							</th>
-							<th scope="col">
-								<div class="col-md-6">
-									RSVP Status
-								</div>
-								<div class="col-md-6">
-									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px;" onclick="ascStatus()">
-										<i class="fas fa-sort-up"></i>
-									</button>
-									<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px" onclick="descStatus()">
-										<i class="fas fa-sort-down"></i>
-									</button>
-								</div>
-							</th>
-							<!-- Load all guests for the selected event -->
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${guests}" var="guest" >
-							<tr class="selectGuest">
-								<td scope="row">${guest.firstName}</td>
-								<td>${guest.lastName}</td>
-								<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
-								<td><c:choose>
-					  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
-					  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
-					  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
-									</c:choose>
-									<form class="showGuestForm" action="showGuest" method="post">
-										<input name="selectedGuest" type="hidden" value="${guest.guestId}"/>
-									</form>
-								</td>
+				<div class="table-responsive">
+					<table id="guests" class="table table-hover">
+						<thead>
+							<tr>
+								<th scope="col">
+									<div class="col-md-6">
+										First Name
+									</div>
+									<div class="col-md-6">
+										<button id="btnAscFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascFirstName()">
+											<i class="fas fa-sort-alpha-down"></i>
+										</button>
+										<button id="btnDescFName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descFirstName()">
+											<i class="fas fa-sort-alpha-up"></i>
+										</button>
+									</div>
+								</th>
+								<th scope="col">
+									<div class="col-md-6">
+										Last Name
+									</div>
+									<div class="col-md-6">
+										<button id="btnAscLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="ascLastName()">
+											<i class="fas fa-sort-alpha-down"></i>
+										</button>
+										<button id="btnDescLName" type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368;" onclick="descLastName()">
+											<i class="fas fa-sort-alpha-up"></i>
+										</button>
+									</div>
+								</th>
+								<th scope="col" class="align-baseline">
+									<div class="col-md-6">
+										Plus Ones
+									</div>
+									<div class="col-md-6">
+									</div>
+								</th>
+								<th scope="col">
+									<div class="col-md-6">
+										RSVP Status
+									</div>
+									<div class="col-md-6">
+										<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px;" onclick="ascStatus()">
+											<i class="fas fa-sort-up"></i>
+										</button>
+										<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px" onclick="descStatus()">
+											<i class="fas fa-sort-down"></i>
+										</button>
+									</div>
+								</th>
+								<!-- Load all guests for the selected event -->
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+						</thead>
+						<tbody>
+							<c:forEach items="${guests}" var="guest" >
+								<tr class="selectGuest">
+									<td scope="row">${guest.firstName}</td>
+									<td>${guest.lastName}</td>
+									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
+									<td><c:choose>
+						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
+						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
+										</c:choose>
+										<form class="showGuestForm" action="showGuest" method="post">
+											<input name="selectedGuest" type="hidden" value="${guest.guestId}"/>
+										</form>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
 			</div>
 			<br>
 			</div>
