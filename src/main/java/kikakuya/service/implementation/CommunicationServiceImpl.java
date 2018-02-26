@@ -85,8 +85,8 @@ public class CommunicationServiceImpl implements CommunicationService{
 		return guestDao.isTokenFound(token);
 	}
 	
-	public Email findEmailByEvent(Event event) throws SQLException {
-		return emailDao.findEmailByEvent(event);
+	public Email findEmailByEvent(Guest guest) throws SQLException {
+		return emailDao.findEmailByEvent(guest);
 	}
 	
 	public boolean countEmailByEvent(Event event) throws SQLException {

@@ -23,8 +23,8 @@ public class EmailDaoImpl implements EmailDao{
 		this.dataSource = dataSource;
 	}
 
-	public Email findEmailByEvent(Event event) throws SQLException {
-		String query = "SELECT * FROM email WHERE EventeventId=" + event.getEventId();
+	public Email findEmailByEvent(Guest guest) throws SQLException {
+		String query = "SELECT * FROM email WHERE EventeventId=" + guest.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Email email = new Email();
