@@ -65,8 +65,9 @@
 				</form:form>
 			</div>
 		</div>
-		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; height: 580px">
+		<div class="col-sm-4">
 			<!-- budget form add here -->
+			<div  style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display:inline-block;">
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select" path="category">
@@ -162,6 +163,7 @@
       				</div>
       			</form:form><br>
       		</div>
+		</div>
 		</div>
 	</div>
 		
