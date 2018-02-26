@@ -351,9 +351,16 @@ function closeAddGuest() {
     document.getElementById("addGuestSection").style.width = "0";
 }
 
+
 function closeShowGuest() {
     document.getElementById("showGuestSection").style.width = "0";
 }
+
+//show help bubbles
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();   
+});
+
 </script>
 <script>
 // Add guest slider
@@ -371,11 +378,9 @@ disableOther( 'showAddGuest' );
 	classie.toggle( this, 'active' );
 	classie.toggle( addGuest, 'cbp-spmenu-open' );
 	disableOther( 'showAddGuest' );
-	};
+	};*/
 
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();   
-});*/
+
 /*
 function disableOther( button ) {
 if( button !== 'showRight' ) {

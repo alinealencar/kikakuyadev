@@ -42,8 +42,8 @@ public class RSVPDelegate {
 		return communicationService.findGuestByToken(token);
 	}
 
-	public Email findEmailByEvent(Event event) throws SQLException {
-		return communicationService.findEmailByEvent(event);
+	public Email findEmailByEvent(Guest guest) throws SQLException {
+		return communicationService.findEmailByEvent(guest);
 	}
 
 	

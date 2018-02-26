@@ -66,9 +66,9 @@ public class GuestDelegate {
 	}
 	
 	public List<String> getMealOptions(int eventId) throws SQLException {
-		Event event = new Event();
-		event.setEventId(eventId);
-		Email email = commService.findEmailByEvent(event);
+		Guest guest = new Guest();
+		guest.setEventId(eventId);
+		Email email = commService.findEmailByEvent(guest);
 		
 		List<String> meals = new ArrayList();
 		if(email.getMealChoiceBeef() != null)

@@ -127,21 +127,13 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
 	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
-	
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
-		//event.setLocation("ACC"); 
-		//event.setEventDate("2018-05-29");
-		//event.setEventName("Chace's Birthday");
 		
-		Event event = (Event) request.getSession().getAttribute("event");
 		
 		String redirectTo = "rsvpResponse";
 		try {
 			if(rsvpDelegate.isTokenFound(token)){
 				Guest guest = rsvpDelegate.findGuestByToken(token);
-				Email email = rsvpDelegate.findEmailByEvent(event);
+				Email email = rsvpDelegate.findEmailByEvent(guest);
 				
 				model.addAttribute("guest", guest);
 				request.setAttribute("guest", guest);
@@ -149,7 +141,7 @@ public class RSVPController {
 				request.setAttribute("token", token);
 			}
 			else{
-				request.setAttribute("respondRSVPError", "You have already replied to the RSVP.");
+				request.setAttribute("respondRSVPError", "You already replied to the RSVP.");
 				redirectTo = "rsvpConfirmation";
 			}
 		} catch (SQLException e) {
@@ -165,17 +157,10 @@ public class RSVPController {
 		List<GuestPlusOne> plusOneList = new ArrayList<GuestPlusOne>();
 		plusOneList = guest.getPlusOneList();
 		
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
-		//event.setLocation("ACC"); 
-		//event.setEventDate("2018-05-29");
-		//event.setEventName("Chace's Birthday");
-		
 		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
-			Email email = rsvpDelegate.findEmailByEvent(event);
+			Email email = rsvpDelegate.findEmailByEvent(guest);
 			
 			for(int i=0; i<plusOneList.size(); i++){
 				if(plusOneList.get(i).getFullName() != null && !plusOneList.get(i).getMealChoice().equals(""))
@@ -185,7 +170,7 @@ public class RSVPController {
 			}
 			if(rsvpDelegate.updateGuest(guest)){
 				if(rsvpDelegate.deleteGuestToken(guest))
-					request.setAttribute("respondRSVPSuccess", "Success! You have successfully responded to the RSVP.");
+					request.setAttribute("respondRSVPSuccess", "Your RSVP response was successfully sent.");
 			}
 			else{
 				request.setAttribute("guest", guest);
