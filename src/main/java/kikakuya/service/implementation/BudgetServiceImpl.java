@@ -100,5 +100,15 @@ public class BudgetServiceImpl implements BudgetService{
 		return vendorEventDao.deleteCategory(eventId, category);
 	}
 
+	@Override
+	public boolean editCategory(Vendor vendor) throws SQLException {
+		return vendorEventDao.updateCategory(vendor);
+	}
+
+	@Override
+	public boolean isVendorFound(Vendor vendor) throws SQLException {
+		return vendorEventDao.isVendorFound(vendor);
+	}
+
 	
 }

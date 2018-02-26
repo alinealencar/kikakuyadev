@@ -86,5 +86,15 @@ public class BudgetDelegate {
 	public boolean deleteCategory(int eventId, String category) throws SQLException {
 		return budgetService.deleteCategory(eventId, category);
 	}
+	
+	public boolean editCategory(Vendor vendor) throws SQLException {
+		return budgetService.editCategory(vendor);
+	}
+
+	public boolean isVendorFound(Vendor vendor) throws SQLException {
+		return budgetService.isVendorFound(vendor);
+	}
+	
+	
 }
 

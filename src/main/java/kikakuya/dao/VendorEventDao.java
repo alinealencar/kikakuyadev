@@ -10,4 +10,6 @@ public interface VendorEventDao {
 	public int findVendorEventId(Vendor vendor) throws SQLException;
 	public boolean deleteVendorEvent(int vendorId) throws SQLException;
 	public boolean deleteCategory(int eventId, String category) throws SQLException;
+	public boolean updateCategory(Vendor vendor) throws SQLException;
+	public boolean isVendorFound(Vendor vendor) throws SQLException;
 }
