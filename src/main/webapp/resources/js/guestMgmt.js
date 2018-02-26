@@ -14,6 +14,7 @@ function addRowHandlers() {
 			};
 					
 		currentRow.onclick = createClickHandler(currentRow);
+		
 	}
 }
 window.onload = addRowHandlers();

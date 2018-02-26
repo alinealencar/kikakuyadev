@@ -14,7 +14,7 @@
 		<div class="col-md-12">
 			<div class="row">
 				<div class="col-6">
-					<h2>Guest List</h2>
+					<h2   onclick="openShowGuest()">Guest List</h2>
 				</div>
 				<div class="col-6 text-right">
 					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
@@ -86,7 +86,7 @@
 								<!-- Load all guests for the selected event -->
 							</tr>
 						</thead>
-						<tbody>
+						<tbody  onclick="openShowGuest()">
 							<c:forEach items="${guests}" var="guest" >
 								<tr class="selectGuest">
 									<td scope="row">${guest.firstName}</td>
@@ -110,16 +110,21 @@
 			<br>
 			</div>
 
+
+
 			<div class="col-md-4">
-				<div id="showGuestSection" style="display:${selectedGuest == null? 'none':'inline-block'}">
+				<!--  <div id="showGuestSection" style="display:${selectedGuest == null? 'none':'inline-block'}">-->
+				<div id="showGuestSection" class="sidenav"  style="width:${selectedGuest == null? '0':'360px'}">
+				<div class="guestFormPad">
 					<!-- Show guest -->
 					<div id="guestDetails">
 						<span onclick="editGuest(); return false"><i class="fas fa-edit"></i></span>
-						<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+						<span onclick="closeShowGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 						<h2>${selectedGuest.firstName} ${selectedGuest.lastName}</h2>
 						<div>Email: ${selectedGuest.email}</div>
-						<div>Maximum No. of Adults: ${selectedGuest.adultsMax}</div>
-						<div>Maximum No. of Kids: ${selectedGuest.kidsMax}</div>
+						<div>plus One (Maximum):</div>
+						<div>Adults: ${selectedGuest.adultsMax}</div>
+						<div>Kids: ${selectedGuest.kidsMax}</div>				
 						<div>Group: ${selectedGuest.company}</div>
 						<div>Notes: ${selectedGuest.notes}</div>
 						<br>
@@ -154,7 +159,11 @@
 					</div>
 					<br>
 				</div>
+				</div>
 			<br>
+			
+			
+			
 			<div id="editGuestSection" style="display:none">
 				<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
@@ -244,7 +253,15 @@
 				<form:input path="lastName" class="form-control" style="margin-bottom:10px;"/>
 				<label>Email: </label>
 				<form:input path="email" class="form-control" style="margin-bottom:10px;"/>
-				<label>Plus ones (Maximum):</label>
+				<label>
+					Plus ones
+					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+						<span class="info">
+							<i class="fas fa-info-circle"></i>
+						</span>
+					</a>
+					(Maximum):
+				</label>
 				<div class="form-group row">
 					<div class="col-6">
 						<div class="form-group row">
@@ -312,6 +329,7 @@
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
 <script>
+//open side form
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
 }
@@ -320,12 +338,21 @@ function openAddGuest() {
     document.getElementById("addGuestSection").style.width = "360px";
 }
 
+function openShowGuest() {
+    document.getElementById("showGuestSection").style.width = "360px";
+}
+
+//close side form
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0";
 }
 
 function closeAddGuest() {
     document.getElementById("addGuestSection").style.width = "0";
+}
+
+function closeShowGuest() {
+    document.getElementById("showGuestSection").style.width = "0";
 }
 </script>
 <script>
