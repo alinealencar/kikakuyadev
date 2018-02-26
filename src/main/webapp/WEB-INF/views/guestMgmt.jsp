@@ -21,6 +21,13 @@
    					</button>  					
    				</div>
    			</div>
+   			<div class="row">
+   				<div class="col-10 text-right">
+					<span class="present"><i class="fas fa-check-circle"></i></span>&nbsp;Accepted&emsp;
+					<span class="absent"><i class="fas fa-times-circle"></i></span>&nbsp;Declined&emsp;
+					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
+				</div>
+   			</div><br>
 			<div class="row col-12">
 				<div class="table-responsive">
 					<table id="guests" class="table table-hover">
