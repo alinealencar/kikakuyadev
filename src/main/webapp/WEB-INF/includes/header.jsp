@@ -11,11 +11,11 @@
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
+					    <a class="dropdown-item disabled" href="#">${user.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item linked" href="#">Events</a>
+					    <a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
@@ -23,7 +23,7 @@
 			<div class="col-sm-10">
 				<table>
 					<tr>
-					<td class="align-middle text-center"><h3 class="font-weight-light"> ${eventName}  in  <b>${remainDays}  days</b></h3></td>
+					<td class="align-middle text-center"><h3 class="font-weight-light"> ${event.eventName}  in  <b>${remainingDays}  days</b></h3></td>
 					</tr>
 				</table>
 			</div>
@@ -34,31 +34,30 @@
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
+					    <a class="dropdown-item disabled" href="#">${user.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item linked" href="event">Events</a>
+					    <a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
 			</div>
 			<div id="lg-account" class="col-sm-1 d-none d-md-block">	 
 				<div class="dropdown float-right">
-		     		<button id="btn-account" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">${User.userName}
+		     		<button id="btn-account" class="btn btn-link dropdown-toggle" type="button" data-toggle="dropdown">${user.userName}
 				    	<span class="caret"></span>
 				    </button>
 					<div class="dropdown-menu dropdown-menu-right">
 						<h6 class="dropdown-header">Name:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userName}</a>
+					    <a class="dropdown-item disabled" href="#">${user.userName}</a>
 					    <h6 class="dropdown-header">Email:</h6>
-					    <a class="dropdown-item disabled" href="#">${User.userEmail}</a>
+					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item linked" href="#">Events</a>
+					    <a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				 </div>
 			</div>
 		</div><!-- .row -->
-		<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 	</header>

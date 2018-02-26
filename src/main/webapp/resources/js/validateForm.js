@@ -30,7 +30,7 @@ function validateName(name) {
 		validName = false;
 	}
 	else {
-		document.getElementById("nameError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("nameError").innerHTML = "<span style='color:#86f442'><i class='fas fa-check'></i></span>";
 		validName = true;
 	}
 }
@@ -50,7 +50,7 @@ function validateEmail(email, id) {
 		validEmail = false;
 	}
 	else {
-		document.getElementById(id).innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById(id).innerHTML = "<span style='color:#86f442'><i class='fas fa-check'></i></span>";
 		validEmail = true;
 	}
 }
@@ -70,7 +70,7 @@ function validatePassword() {
 		validPassword = false;
 	}
 	else {
-		document.getElementById("passwordSignUpError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("passwordSignUpError").innerHTML = "<span style='color:#86f442'><i class='fas fa-check'></i></span>";
 		validPassword = true;
 	}
 
@@ -84,7 +84,7 @@ function validatePassword() {
 		validConfirmPassword = false;
 	} 
 	else {
-		document.getElementById("confirmPasswordSignUpError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("confirmPasswordSignUpError").innerHTML = "<span style='color:#86f442'><i class='fas fa-check'></i></span>";
 		validConfirmPassword = true;
 	}
 }

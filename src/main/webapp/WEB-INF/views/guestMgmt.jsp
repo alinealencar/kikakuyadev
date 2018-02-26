@@ -8,6 +8,7 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
@@ -21,6 +22,13 @@
    					</button>  					
    				</div>
    			</div>
+   			<div class="row">
+   				<div class="col-10 text-right">
+					<span class="present"><i class="fas fa-check-circle"></i></span>&nbsp;Accepted&emsp;
+					<span class="absent"><i class="fas fa-times-circle"></i></span>&nbsp;Declined&emsp;
+					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
+				</div>
+   			</div><br>
 			<div class="row col-12">
 				<div class="table-responsive">
 					<table id="guests" class="table table-hover">
@@ -54,7 +62,10 @@
 								</th>
 								<th scope="col" class="align-baseline">
 									<div class="col-md-6">
-										Plus Ones
+										Plus Ones&nbsp;
+										<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+											<span class="info"><i class="fas fa-info-circle"></i></span>
+										</a>
 									</div>
 									<div class="col-md-6">
 									</div>
@@ -118,7 +129,10 @@
 						<div>Kids With: ${selectedGuest.kidsWith}&nbsp;&nbsp;Adults With: ${selectedGuest.adultsWith}</div>
 						<div>Special Requests: ${selectedGuest.specialRequests}</div>
 						<br>
-						<h5><i>Plus Ones</i></h5>
+						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+							<span class="info"><i class="fas fa-info-circle"></i></span>
+						</a></i></h5>
+						
 						<div>Adults: </div>
 						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
 							${person.fullName}
@@ -166,7 +180,10 @@
 				  		<form:option value="2" label="Absent" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
 					</form:select>
 					<br>
-					<span>Plus ones (Maximum): </span> <br/>
+					<span>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+						<span class="info"><i class="fas fa-info-circle"></i></span>
+					</a>(Maximum):</span>
+					<br/>
 						<span>Adults:</span>
 				        	<form:select path="adultsMax">
 				        		<form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
@@ -226,7 +243,7 @@
 				<form:input path="lastName" class="form-control" style="margin-bottom:10px;"/>
 				<label>Email: </label>
 				<form:input path="email" class="form-control" style="margin-bottom:10px;"/>
-				<label>Plus ones (Maximum): </label>
+				<label>Plus ones (Maximum):</label>
 				<div class="form-group row">
 					<div class="col-6">
 						<div class="form-group row">
@@ -295,6 +312,10 @@ disableOther( 'showAddGuest' );
 	classie.toggle( addGuest, 'cbp-spmenu-open' );
 	disableOther( 'showAddGuest' );
 	};
+
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();   
+});
 /*
 function disableOther( button ) {
 if( button !== 'showRight' ) {

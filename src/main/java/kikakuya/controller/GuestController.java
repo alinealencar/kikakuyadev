@@ -75,7 +75,12 @@ public class GuestController {
 			}
 				
 		} catch(Exception e){
-			e.printStackTrace();
+			if(e.getMessage().indexOf("for key 'email'") != -1){
+				request.setAttribute("addGuestError", "This guest is already registered.");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		
 		return "guestMgmt";
