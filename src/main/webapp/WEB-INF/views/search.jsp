@@ -5,6 +5,7 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <div class="container">
 <!-- body contents start -->
 	<h2 style="margin-top: 50px;">Search Vendors</h2>
