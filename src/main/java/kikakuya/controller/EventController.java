@@ -16,6 +16,10 @@ import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.User;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 @Controller
 public class EventController {
 
@@ -123,10 +127,20 @@ public class EventController {
 			HttpSession session = request.getSession();
 			try{			
 				Event eventName = eventDelegate.getSelectedEvent(event.getEventId());
-				System.out.println(event.getEventId());
+				//System.out.println(event.getEventId());
 				
 				//Send the event to the session scope
 				session.setAttribute("event", eventName);
+				
+				//Calculate remaining days
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+				LocalDate eventsDate = LocalDate.parse(eventName.getEventDate(), formatter);
+				LocalDate today = LocalDate.now();
+				
+				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
+				System.out.println("in days: " + daysBetween);
+				session.setAttribute("remainingDays", daysBetween);
+				
 			}
 			catch (Exception e){
 				e.printStackTrace();
