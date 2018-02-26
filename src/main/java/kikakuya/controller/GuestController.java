@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.GuestPlusOneForm;
@@ -30,9 +31,31 @@ public class GuestController {
 	
 	//Show guest dashboard
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
-	public String viewGuestDashboard(Model model){
+	public String viewGuestDashboard(Model model, HttpServletRequest request){
+		int present = 1; 
+		int absent = 2; 
+		int noReply = 0;
+		
+		Event event = (Event) request.getSession().getAttribute("event");
+		
 		model.addAttribute("guest", new Guest());
 		model.addAttribute("plusOnes", new GuestPlusOneForm());
+		
+		try {
+			//get total guest count
+			int guestCount = guestDelegate.countGuests(event);
+			//get guest count by rsvp status
+			int presentCount = guestDelegate.countGuestsByStatus(event,present);
+			int absentCount = guestDelegate.countGuestsByStatus(event,absent);
+			int noReplyCount = guestDelegate.countGuestsByStatus(event,noReply);
+			
+			request.setAttribute("totalGuests", guestCount);
+			request.setAttribute("presentGuests", presentCount);
+			request.setAttribute("absentGuests", absentCount);
+			request.setAttribute("noReplyGuests", noReplyCount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "guests";
 	}
 	
