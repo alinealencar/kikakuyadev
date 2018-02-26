@@ -86,4 +86,14 @@ public class GuestDelegate {
 		
 		return meals;
 	}
+	
+	public int countGuestsByStatus(Event event, int status) throws SQLException{
+		return guestService.countGuestsByStatus(event, status);
+	}
+	
+	public int countGuests(Event event) throws SQLException{
+		return guestService.countGuests(event);
+	}
+	
+	
 }

@@ -16,4 +16,6 @@ public interface GuestService {
 	public List<Guest> getAllGuests(Event event) throws SQLException;
 	public Guest getGuestById(int guestId) throws SQLException;
 	public List<GuestPlusOne> gelAllPlusOnes(Guest guest) throws SQLException;
+	public int countGuests(Event event) throws SQLException;
+	public int countGuestsByStatus(Event event, int status) throws SQLException;
 }

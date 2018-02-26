@@ -24,8 +24,6 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 	
 	public boolean insertVendorEvent(Vendor vendor, Event event) throws SQLException {
-		//String query = "INSERT INTO vendorEvent (EventeventId, VendorvendorId, vendorCategory) VALUES(?,?,?) "
-		//		+ "ON DUPLICATE KEY UPDATE EventeventId=VALUES(EventeventId), VendorvendorId=VALUES(VendorvendorId), vendorCategory=VALUES(vendorCategory)";
 		String query = "INSERT INTO vendorEvent (EventeventId, VendorvendorId, vendorCategory) VALUES(?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setInt(1, event.getEventId());
