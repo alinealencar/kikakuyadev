@@ -104,6 +104,9 @@ Guest Management
 .absent{
 	color: red;
 }
+.info{
+	color:blue;
+}
 tbody tr {
 	cursor: pointer;
 }
@@ -120,6 +123,7 @@ table.table > thead > tr > th{
 table.table > tbody > tr > td{
     border-bottom:1px solid #999999;
 }
+
 /*********************************
 Form validation
 **********************************/
