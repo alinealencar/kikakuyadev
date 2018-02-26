@@ -268,7 +268,7 @@
 
 				<!-- TODO: Set value attr to eventId that's in the session scope -->
 				<form:hidden path="eventId" value="1"/>
-				<button type="submit" class="btn btn-info">Done</button>
+				<button id="btnAddGuestDone" type="submit" class="btn btn-info">Done</button>
 			</form:form>
 			
 			</div>
@@ -280,6 +280,7 @@
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
 <script>
+// Add guest slider
 var addGuest = document.getElementById( 'addGuestSection' ),
 body = document.body;
 
@@ -301,6 +302,15 @@ classie.toggle( showRight, 'disabled' );
 }
 }
 */
+
+
+//add guest clear form when it is submited
+
+$("#showAddGuest").click(function() {
+	$("input[type=text], textarea").val("");
+	$("select").val("0");
+});
+
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
