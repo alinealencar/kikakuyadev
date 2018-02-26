@@ -5,13 +5,18 @@
     z-index: 1;
     top: 0;
     right: 0;
-    background-color: #111;
+    background-color: #F1E9DA;
+    color: #2E294E;
     overflow-x: hidden;
     transition: 0.5s;
-    padding-top: 60px;
+    padding: 25px 0;
+    border: 1px solid #cccccc;
 }
-
-.sidenav a {
+.guestFormPad{
+	padding: 0px 25px 0px 25px;	
+}
+/*
+.sidenav a  {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -23,12 +28,12 @@
 .sidenav a:hover {
     color: #f1f1f1;
 }
-
+*/
 .sidenav .closebtn {
     position: absolute;
-    top: 0;
+    /*top: 0;*/
     right: 25px;
-    font-size: 36px;
+    /*font-size: 36px*/
     margin-left: 50px;
 }
 

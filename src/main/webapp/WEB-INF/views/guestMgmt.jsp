@@ -17,7 +17,7 @@
 					<h2>Guest List</h2>
 				</div>
 				<div class="col-6 text-right">
-					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid">
+					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>  					
    				</div>
@@ -232,8 +232,9 @@
 			</div>
 			
 			
-			<div id="addGuestSection" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right cbp-spmenu-open" >
-			<span id="closeAddGuest" onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+			<div id="addGuestSection" class="sidenav" >
+			<div class="guestFormPad">
+			<span id="closeAddGuest" class="closebtn" onclick="closeAddGuest()"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
@@ -290,14 +291,46 @@
 			
 			</div>
 		</div>
+		</div>
 	</div>
+
+
+<!-- test
+	<div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+	  <a href="#">About</a>
+	  <a href="#">Services</a>
+	  <a href="#">Clients</a>
+	  <a href="#">Contact</a>
+	</div>
+	
+	<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span><br>
+ -->		
 </div>
 
 
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
 <script>
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+}
+
+function openAddGuest() {
+    document.getElementById("addGuestSection").style.width = "360px";
+}
+
+function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+}
+
+function closeAddGuest() {
+    document.getElementById("addGuestSection").style.width = "0";
+}
+</script>
+<script>
 // Add guest slider
+/*
 var addGuest = document.getElementById( 'addGuestSection' ),
 body = document.body;
 
@@ -315,7 +348,7 @@ disableOther( 'showAddGuest' );
 
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();   
-});
+});*/
 /*
 function disableOther( button ) {
 if( button !== 'showRight' ) {
@@ -326,12 +359,12 @@ classie.toggle( showRight, 'disabled' );
 
 
 //add guest clear form when it is submited
-
+/*
 $("#showAddGuest").click(function() {
 	$("input[type=text], textarea").val("");
 	$("select").val("0");
 });
-
+*/
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
