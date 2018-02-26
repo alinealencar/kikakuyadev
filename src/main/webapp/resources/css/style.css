@@ -67,6 +67,12 @@ footer {
 	background-color: #541388;
 	margin-top: 15px;	
 }
+.above-footer{
+    min-height: calc(100vh - 50px); /* hoge = stickyFooter height */
+}
+.sticky-footer{
+    /*height: 50px;                   /* hoge = stickyFooter height */
+}
 
 /****** icon ******/
 .fabutton {
