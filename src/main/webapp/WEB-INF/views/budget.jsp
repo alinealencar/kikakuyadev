@@ -60,10 +60,10 @@
 			<div  style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display:inline-block;">
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
-      				<form:select id="category" class="form-control ui-select" path="category">
+      				<form:select id="category" class="form-control ui-select category" path="category">
 	        			<option selected>--- Select Category ---</option>
 	        			<option>Accommodation</option>
-	        			<option>Alcohol</option>
+	        			<option value="Alcohol">Alcohol</option>
 	       				<option>Balloon Services</option>
 	       				<option>Beauty</option>
 	       				<option>Cake</option>
@@ -165,6 +165,13 @@
 <script src="resources/js/budget.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	$('.category').change(function(){
+		localStorage.setItem("selectedCategory",this.val);
+		//jQuery("#category option[value='"+ localStorage.getItem("selectedCategory") +"']").attr('selected', 'selected');
+	});
+});
+
+$(document).ready(function(){
 	var counter = 1;
 	$("#btnAddItemPrice").click(function () {
 		$('#txtItem').append('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
@@ -172,12 +179,12 @@ $(document).ready(function(){
 		counter++;
 	});
 	
-	$("#formAddToBudget").keypress(function(e) {
+	/*$("#formAddToBudget").keypress(function(e) {
 		  //Enter key
 		  if (e.which == 13) {
 		    return false;
 		  }
-		});
+		});*/
 	
 });
 
@@ -204,9 +211,6 @@ $(document).ready(function(){
 	});
 });
 
-$(document).on("keypress", ":input:not(select)", function(event) {
-    return event.keyCode != 13;
-});
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
