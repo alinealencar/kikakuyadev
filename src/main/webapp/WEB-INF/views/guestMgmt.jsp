@@ -93,8 +93,8 @@
 									<td>${guest.lastName}</td>
 									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
-						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
-						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
 						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
 										</c:choose>
 										<form class="showGuestForm" action="showGuest" method="post">
@@ -175,8 +175,8 @@
 					<br>
 					<span>RSVP Status: </span>
 					<form:select path="isPresent">
-						<form:option value="0" label="No Reply" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
-				  		<form:option value="1" label="Present" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+						<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+				  		<form:option value="0" label="Present" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
 				  		<form:option value="2" label="Absent" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
 					</form:select>
 					<br>
@@ -273,8 +273,8 @@
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
 						<form:select path="isPresent" class="form-control col-6">
-							<option value="0">No Reply</option>
-				  			<option value="1">Present</option>
+							<option value="1">No Reply</option>
+				  			<option value="0">Present</option>
 				  			<option value="2">Absent</option>
 						</form:select>
 				</div>
