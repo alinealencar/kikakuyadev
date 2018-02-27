@@ -100,8 +100,8 @@
 									<td>${guest.lastName}</td>
 									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
-						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
-						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
 						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
 										</c:choose>
 										<form class="showGuestForm" action="showGuest" method="post">
@@ -253,8 +253,8 @@
 						</div>
 						<div class="col-6">
 							<form:select path="isPresent" class="form-control" style="margin-bottom:10px;">
-								<form:option value="0" label="No Reply" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
-						  		<form:option value="1" label="Accepted" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+								<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+						  		<form:option value="0" label="Accepted" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
 						  		<form:option value="2" label="Declined" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
 							</form:select>
 						</div>
@@ -375,9 +375,9 @@
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
 						<form:select path="isPresent" class="form-control col-6">
-							<option value="0">No Reply</option>
-				  			<option value="1">Accepted</option>
-				  			<option value="2">Declined</option>
+							<option value="1">No Reply</option>
+				  			<option value="0">Present</option>
+				  			<option value="2">Absent</option>
 						</form:select>
 				</div>
 				<label>Group: </label>
