@@ -64,4 +64,14 @@ public class GuestServiceImpl implements GuestService {
 	public List<GuestPlusOne> gelAllPlusOnes(Guest guest) throws SQLException {
 		return plusOneDao.findPlusOne(guest);
 	}
+
+	@Override
+	public int countGuestsByStatus(Event event, int status) throws SQLException {
+		return guestDao.countGuestsByStatus(event, status);
+	}
+
+	@Override
+	public int countGuests(Event event) throws SQLException {
+		return guestDao.countGuests(event);
+	}
 }

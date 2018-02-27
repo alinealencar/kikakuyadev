@@ -19,7 +19,7 @@ public interface CommunicationService {
 	public Guest findGuestById(int guestId) throws SQLException;
 	public Guest findGuestByToken(String token) throws SQLException;
 	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException;
-	public Email findEmailByEvent(Event event) throws SQLException;
+	public Email findEmailByEvent(Guest guest) throws SQLException;
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException;
 	public boolean countEmailByEvent(Event event) throws SQLException;
 	public boolean deleteGuestToken(Guest guest) throws SQLException;

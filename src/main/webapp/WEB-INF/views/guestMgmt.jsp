@@ -12,23 +12,30 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
-			<div class="row">
-				<div class="col-6">
-					<h2>Guest List</h2>
+		
+			<div class="row" style="margin-top: 50px;">
+				<div class="col-sm-3">
+					<span style="width: 150px; margin:0; font-size:200%;">Guest List</span>
+					<div class="text-right  float-right  d-block d-sm-none">
+						<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+	   					</button>  					
+   					</div>
 				</div>
-				<div class="col-6 text-right">
-					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid">
-      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
-   					</button>  					
-   				</div>
-   			</div>
-   			<div class="row">
-   				<div class="col-10 text-right">
+				
+				<div class="col-sm-8 text-right">
+					<br>
 					<span class="present"><i class="fas fa-check-circle"></i></span>&nbsp;Accepted&emsp;
 					<span class="absent"><i class="fas fa-times-circle"></i></span>&nbsp;Declined&emsp;
 					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
 				</div>
-   			</div><br>
+				<div class="col-sm-1 d-none d-sm-block">
+					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   					</button>  					
+   				</div>
+   			</div>
+
 			<div class="row col-12">
 				<div class="table-responsive">
 					<table id="guests" class="table table-hover">
@@ -86,7 +93,7 @@
 								<!-- Load all guests for the selected event -->
 							</tr>
 						</thead>
-						<tbody>
+						<tbody  onclick="openShowGuest()">
 							<c:forEach items="${guests}" var="guest" >
 								<tr class="selectGuest">
 									<td scope="row">${guest.firstName}</td>
@@ -110,130 +117,217 @@
 			<br>
 			</div>
 
+
+
 			<div class="col-md-4">
-				<div id="showGuestSection" style="display:${selectedGuest == null? 'none':'inline-block'}">
+				<!--  <div id="showGuestSection" style="display:${selectedGuest == null? 'none':'inline-block'}">-->
+				<div id="showGuestSection" class="sidenav"  style="width:${selectedGuest == null? '0':'360px'}">
+				<div class="guestFormPad">
 					<!-- Show guest -->
 					<div id="guestDetails">
-						<span onclick="editGuest(); return false"><i class="fas fa-edit"></i></span>
-						<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+						<span onclick="openEditGuest()"><i class="fas fa-edit"></i></span>
+						<span onclick="closeShowGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 						<h2>${selectedGuest.firstName} ${selectedGuest.lastName}</h2>
-						<div>Email: ${selectedGuest.email}</div>
-						<div>Maximum No. of Adults: ${selectedGuest.adultsMax}</div>
-						<div>Maximum No. of Kids: ${selectedGuest.kidsMax}</div>
-						<div>Group: ${selectedGuest.company}</div>
-						<div>Notes: ${selectedGuest.notes}</div>
-						<br>
+						<label>Email:</label>
+						<input type="text" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"disabled>
+						<label>Plus One (Maximum):</label>
+						<div class="row">
+							<div class="col-3">
+								<label>Adults:</label> 
+							</div>
+							<div class="col-3">	
+								${selectedGuest.adultsMax}
+							</div>
+							<div class="col-3">
+								<label>Kids:</label> 
+							</div>
+							<div class="col-3">
+								${selectedGuest.kidsMax}
+							</div>
+						</div>				
+						<label>Group:</label>
+						<input type="text" value="${selectedGuest.company}" class="form-control" style="margin-bottom:10px;"disabled>
+						<label>Notes:</label>
+						<textarea class="form-control" rows="5" disabled>${selectedGuest.notes}</textarea>
+						<hr>
 						<h5><i>RSVP</i></h5>
-						<div>RSVP Status: ${selectedGuest.isPresent}</div>
-						<div>Meal Choice: ${selectedGuest.mealChoice}</div>
-						<div>Kids With: ${selectedGuest.kidsWith}&nbsp;&nbsp;Adults With: ${selectedGuest.adultsWith}</div>
-						<div>Special Requests: ${selectedGuest.specialRequests}</div>
-						<br>
+						<div class="row">
+							<div class="col-6">
+								<label>RSVP Status:</label>
+							</div>
+							<div class="col-6">
+								<!-- TODO: Check selectedGuest.isPresent value -->
+								<c:choose>
+						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">No Reply</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">Accepted</c:when>
+						  			<c:otherwise>Declined</c:otherwise>
+								</c:choose>
+						 		${selectedGuest.isPresent}
+						 	</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<label>Meal Choice:</label>
+							</div>
+							<div class="col-6">
+							 	${selectedGuest.mealChoice}
+							</div>
+						</div>
+						<label>Plus Ones:</label>
+						<div class="row">
+							<div class="col-3">
+								<label>Kids: </label>
+							</div>
+							<div class="col-3">
+								${selectedGuest.kidsWith}
+							</div>
+							<div class="col-3">
+								<label>Adults: </label>
+							</div>
+							<div class="col-3">
+								${selectedGuest.adultsWith}
+							</div>
+						</div>
+						<label>Special Requests:</label>
+						<div> ${selectedGuest.specialRequests}</div>
+						<hr>
 						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
 							<span class="info"><i class="fas fa-info-circle"></i></span>
 						</a></i></h5>
-						
-						<div>Adults: </div>
-						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-							${person.fullName}
-							<c:if test="${person.category == 'Adult'}">
-								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
-							</c:if>
-						</c:forEach>
-						<div>Kids: </div>
-						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-							<c:if test="${person.category == 'Kid'}">
-								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
-							</c:if>
-						</c:forEach>
-						<br>
-						<form:form action="deleteGuest" method="post">
+						<div class="row">
+							<div class="col-3">
+								<label>Adults: </label>
+							</div>	
+							<div class="col-9">
+								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
+									${person.fullName}
+									<c:if test="${person.category == 'Adult'}">
+										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-3">
+								<label>Kids: </label>
+							</div>
+							<div class="col-9">
+								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
+									<c:if test="${person.category == 'Kid'}">
+										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+						<hr>
+						<form:form action="deleteGuest" method="post" class="text-center">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
-							<input class="btn btn-danger" type="submit" value="Remove guest"/>
+							<button type="submit" class="btn btn-info" style="background-color: #D90368; color: #F1E9DA; border: none;">
+      							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guests</span>
+   							</button>
 						</form:form>
 					</div>
 					<br>
 				</div>
+				</div>
 			<br>
-			<div id="editGuestSection" style="display:none">
-				<span onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+			
+			
+			
+			<div id="editGuestSection" class="sidenav" style="display:none; width:360px">
+			<div class="guestFormPad">
+				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
-				<h2>Edit Guest Information</h2>
+				<h2>Edit Guest</h2>
 				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest">
 					<form:hidden path="token" value="${selectedGuest.token}"/>
-					<span>First Name:</span>
-					<form:input path="firstName" value="${selectedGuest.firstName}"/>
-					
-					<br>
-					<span>Last Name: </span>
-					<form:input path="lastName" value="${selectedGuest.lastName}"/>
-					
-					<br>
-					<span>Email: </span>
-					<form:input path="email" value="${selectedGuest.email}"/>
-					
-					<br>
-					<span>RSVP Status: </span>
-					<form:select path="isPresent">
-						<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
-				  		<form:option value="0" label="Present" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
-				  		<form:option value="2" label="Absent" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
-					</form:select>
-					<br>
-					<span>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+					<label>First Name:</label>
+					<form:input path="firstName" value="${selectedGuest.firstName}"  class="form-control" style="margin-bottom:10px;"/>
+					<label>Last Name: </label>
+					<form:input path="lastName" value="${selectedGuest.lastName}" class="form-control" style="margin-bottom:10px;"/>
+					<label>Email: </label>
+					<form:input path="email" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"/>
+					<div class="form-group row">
+						<div class="col-6">
+							<label>RSVP Status: </label>
+						</div>
+						<div class="col-6">
+							<form:select path="isPresent" class="form-control" style="margin-bottom:10px;">
+								<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+						  		<form:option value="0" label="Accepted" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
+						  		<form:option value="2" label="Declined" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
+							</form:select>
+						</div>
+					</div>
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
 						<span class="info"><i class="fas fa-info-circle"></i></span>
-					</a>(Maximum):</span>
-					<br/>
-						<span>Adults:</span>
-				        	<form:select path="adultsMax">
-				        		<form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
-				        		<form:option value="1" label="1" selected="${(selectedGuest.adultsMax eq 1) ? 'selected' : ''}"/>
-				        		<form:option value="2" label="2" selected="${(selectedGuest.adultsMax eq 2) ? 'selected' : ''}"/>
-				        		<form:option value="3" label="3" selected="${(selectedGuest.adultsMax eq 3) ? 'selected' : ''}"/>
-				        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/>
-							</form:select>
-				        <span>Kids:</span>
-				        	<form:select path="kidsMax">
-				        		<form:option value="0" label="0" selected="${(selectedGuest.kidsMax eq 0) ? 'selected' : ''}"/>
-				        		<form:option value="1" label="1" selected="${(selectedGuest.kidsMax eq 1) ? 'selected' : ''}" />
-				        		<form:option value="2" label="2" selected="${(selectedGuest.kidsMax eq 2) ? 'selected' : ''}"/>
-				        		<form:option value="3" label="3" selected="${(selectedGuest.kidsMax eq 3) ? 'selected' : ''}" />
-				        		<form:option value="4" label="4" selected="${(selectedGuest.kidsMax eq 4) ? 'selected' : ''}"/>
-							</form:select>
-					<br>
-					
-					<span>Group: </span>
-					<form:input path="company" value="${selectedGuest.company}"/>
-					
-					<br>
-					<span>Notes: </span>
-					<form:input path="notes" value="${selectedGuest.notes}"/>
-					<br>
-					<span><input type="submit" value="Save"/></span>
+					</a>(Maximum):</label>
+					<div class="form-group row">
+						<div class="col-6">
+							<div class="form-group row">
+								<label class="col-6 col-form-label">Adults:</label>					
+						       	<form:select path="adultsMax" class="form-control col-6">
+						       		<form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
+						       		<form:option value="1" label="1" selected="${(selectedGuest.adultsMax eq 1) ? 'selected' : ''}"/>
+						       		<form:option value="2" label="2" selected="${(selectedGuest.adultsMax eq 2) ? 'selected' : ''}"/>
+					        		<form:option value="3" label="3" selected="${(selectedGuest.adultsMax eq 3) ? 'selected' : ''}"/>
+					        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/>
+								</form:select>
+							</div>
+						</div>
+						<div class="col-6">	
+							<div class="form-group row">
+						        <label class="col-6 col-form-label">Kids:</label>
+					        	<form:select path="kidsMax"  class="form-control col-6">
+					        		<form:option value="0" label="0" selected="${(selectedGuest.kidsMax eq 0) ? 'selected' : ''}"/>
+					        		<form:option value="1" label="1" selected="${(selectedGuest.kidsMax eq 1) ? 'selected' : ''}" />
+					        		<form:option value="2" label="2" selected="${(selectedGuest.kidsMax eq 2) ? 'selected' : ''}"/>
+					        		<form:option value="3" label="3" selected="${(selectedGuest.kidsMax eq 3) ? 'selected' : ''}" />
+					        		<form:option value="4" label="4" selected="${(selectedGuest.kidsMax eq 4) ? 'selected' : ''}"/>
+								</form:select>
+							</div>
+						</div>
+					</div>
+					<label>Group: </label>
+					<form:input path="company" value="${selectedGuest.company}" class="form-control" style="margin-bottom:10px;"/>
+					<label>Notes: </label>
+					<form:textarea path="notes" col="5" value="${selectedGuest.notes}" class="form-control" style="margin-bottom:10px;"/>
+					<div class="text-right">
+						<button type="submit" class="btn btn-info">
+	      					Save
+	   					</button>
+   					</div>
+   					<hr>
 				</form:form>
 				<br>
 				<!-- Edit Plus Ones -->
-				<h2>Edit Plus Ones Information</h2>
+				<h2>Edit Plus Ones</h2>
 				<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm">
 					<c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
 						<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
 						<label>Name: </label>
-						<input name="plusOnes[${status.index}].fullName" value="${person.fullName}"/>
+						<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
 						<label>Meal Choice: </label>
-						<select name="plusOnes[${status.index}].mealChoice">
+						<select name="plusOnes[${status.index}].mealChoice" class="form-control" style="margin-bottom:10px;">
 							<c:forEach items="${meals}" var="meal">
 								<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
 							</c:forEach>	
 						</select>
 						<br>
 					</c:forEach>
-					<span><input type="submit" value="Save"/></span>
+					<div class="text-right">
+						<button type="submit" class="btn btn-info">
+	      					Save
+	   					</button>
+   					</div>
 				</form:form>
+			</div>
 			</div>
 			
 			
-			<div id="addGuestSection" class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-right cbp-spmenu-open" >
-			<span id="closeAddGuest" onclick="closeAll(); return false"><i class="fas fa-times"></i></span>
+			<div id="addGuestSection" class="sidenav" >
+			<div class="guestFormPad">
+			<span id="closeAddGuest" class="closebtn" onclick="closeAddGuest()"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
@@ -243,7 +337,15 @@
 				<form:input path="lastName" class="form-control" style="margin-bottom:10px;"/>
 				<label>Email: </label>
 				<form:input path="email" class="form-control" style="margin-bottom:10px;"/>
-				<label>Plus ones (Maximum):</label>
+				<label>
+					Plus ones
+					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+						<span class="info">
+							<i class="fas fa-info-circle"></i>
+						</span>
+					</a>
+					(Maximum):
+				</label>
 				<div class="form-group row">
 					<div class="col-6">
 						<div class="form-group row">
@@ -281,14 +383,15 @@
 				<label>Group: </label>
 				<form:input path="company" class="form-control" style="margin-bottom:10px;"/>
 				<label>Notes: </label>
-				<form:input path="notes" value="" class="form-control" style="margin-bottom:10px;"/>
+				<form:textarea path="notes" row="5" value="" class="form-control" style="margin-bottom:10px;"/>
 
 				<!-- TODO: Set value attr to eventId that's in the session scope -->
 				<form:hidden path="eventId" value="1"/>
-				<button type="submit" class="btn btn-info">Done</button>
+				<button id="btnAddGuestDone" type="submit" class="btn btn-info">Done</button>
 			</form:form>
 			
 			</div>
+		</div>
 		</div>
 	</div>
 </div>
@@ -297,31 +400,38 @@
 <!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
 <script>
-var addGuest = document.getElementById( 'addGuestSection' ),
-body = document.body;
+//open side form
+function openAddGuest() {
+    document.getElementById("addGuestSection").style.width = "360px";
+}
 
-(showAddGuest.onclick) = function() {
-classie.toggle( this, 'active' );
-classie.toggle( addGuest, 'cbp-spmenu-open' );
-disableOther( 'showAddGuest' );
-};
+function openShowGuest() {
+    document.getElementById("showGuestSection").style.width = "360px";
+}
 
-(closeAddGuest.onclick) = function() {
-	classie.toggle( this, 'active' );
-	classie.toggle( addGuest, 'cbp-spmenu-open' );
-	disableOther( 'showAddGuest' );
-	};
+function openEditGuest() {
+    document.getElementById("editGuestSection").style.width = "360px";
+    document.getElementById("editGuestSection").style.display = "block";
+}
 
+//close side form
+function closeAddGuest() {
+    document.getElementById("addGuestSection").style.width = "0";
+}
+
+function closeShowGuest() {
+    document.getElementById("showGuestSection").style.width = "0";
+}
+
+function closeEditGuest() {
+    document.getElementById("editGuestSection").style.display = "none";
+}
+
+//show help bubbles
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();   
 });
-/*
-function disableOther( button ) {
-if( button !== 'showRight' ) {
-classie.toggle( showRight, 'disabled' );
-}
-}
-*/
+
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
