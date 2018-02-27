@@ -29,22 +29,30 @@ public class EventController {
 	//List all the event by user
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
-		
-		User user = (User) request.getSession(false).getAttribute("user");
+		String redirectTo = "event";
+		User user = (User) request.getSession().getAttribute("user");
+		System.out.println(user == null);
 		try {
-			List<Event> event = eventDelegate.listEventsByUser(user);
-			if (event.size() > 0){
-				request.setAttribute("listEvent", event);
+			if(user != null) {
+				List<Event> event = eventDelegate.listEventsByUser(user);
+				if (event.size() > 0){
+					request.setAttribute("listEvent", event);
+				}
+				else{
+					request.setAttribute("noEvents", "No events created yet! Create one!");
+				}
 			}
-			else{
-				request.setAttribute("noEvents", "No events created yet! Create one!");
+			else {
+				//if user not found in session, redirect them to the login page
+				model.addAttribute("user", new User());
+				redirectTo = "index";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		//Send the list of all events to the session scope
 		model.addAttribute("event", new Event());
-		return "event";
+		return redirectTo;
 	}
 	
 	//Add an event
