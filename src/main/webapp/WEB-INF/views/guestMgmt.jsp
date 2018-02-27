@@ -12,23 +12,30 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-12">
+		
 			<div class="row" style="margin-top: 50px;">
-				<div class="col-6">
-					<h2 onclick="openShowGuest()">Guest List</h2>
+				<div class="col-sm-3">
+					<span style="width: 150px; margin:0; font-size:200%;">Guest List</span>
+					<div class="text-right  float-right  d-block d-sm-none">
+						<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+	   					</button>  					
+   					</div>
 				</div>
-				<div class="col-6 text-right">
+				
+				<div class="col-sm-8 text-right">
+					<br>
+					<span class="present"><i class="fas fa-check-circle"></i></span>&nbsp;Accepted&emsp;
+					<span class="absent"><i class="fas fa-times-circle"></i></span>&nbsp;Declined&emsp;
+					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
+				</div>
+				<div class="col-sm-1 d-none d-sm-block">
 					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>  					
    				</div>
    			</div>
-   			<div class="row">
-   				<div class="col-10 text-right">
-					<span class="present"><i class="fas fa-check-circle"></i></span>&nbsp;Accepted&emsp;
-					<span class="absent"><i class="fas fa-times-circle"></i></span>&nbsp;Declined&emsp;
-					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
-				</div>
-   			</div><br>
+
 			<div class="row col-12">
 				<div class="table-responsive">
 					<table id="guests" class="table table-hover">
