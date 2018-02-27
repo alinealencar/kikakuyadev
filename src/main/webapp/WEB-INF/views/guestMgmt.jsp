@@ -121,40 +121,103 @@
 						<span onclick="editGuest(); return false"><i class="fas fa-edit"></i></span>
 						<span onclick="closeShowGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 						<h2>${selectedGuest.firstName} ${selectedGuest.lastName}</h2>
-						<div>Email: ${selectedGuest.email}</div>
-						<div>plus One (Maximum):</div>
-						<div>Adults: ${selectedGuest.adultsMax}</div>
-						<div>Kids: ${selectedGuest.kidsMax}</div>				
-						<div>Group: ${selectedGuest.company}</div>
-						<div>Notes: ${selectedGuest.notes}</div>
-						<br>
+						<label>Email:</label>
+						<input type="text" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"disabled>
+						<label>Plus One (Maximum):</label>
+						<div class="row">
+							<div class="col-3">
+								<label>Adults:</label> 
+							</div>
+							<div class="col-3">	
+								${selectedGuest.adultsMax}
+							</div>
+							<div class="col-3">
+								<label>Kids:</label> 
+							</div>
+							<div class="col-3">
+								${selectedGuest.kidsMax}
+							</div>
+						</div>				
+						<label>Group:</label>
+						<input type="text" value="${selectedGuest.company}" class="form-control" style="margin-bottom:10px;"disabled>
+						<label>Notes:</label>
+						<textarea class="form-control" rows="5" disabled>${selectedGuest.notes}</textarea>
+						<hr>
 						<h5><i>RSVP</i></h5>
-						<div>RSVP Status: ${selectedGuest.isPresent}</div>
-						<div>Meal Choice: ${selectedGuest.mealChoice}</div>
-						<div>Kids With: ${selectedGuest.kidsWith}&nbsp;&nbsp;Adults With: ${selectedGuest.adultsWith}</div>
-						<div>Special Requests: ${selectedGuest.specialRequests}</div>
-						<br>
+						<div class="row">
+							<div class="col-6">
+								<label>RSVP Status:</label>
+							</div>
+							<div class="col-6">
+								<!-- TODO: Check selectedGuest.isPresent value -->
+								<c:choose>
+						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">No Reply</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">Accepted</c:when>
+						  			<c:otherwise>Accepted</c:otherwise>
+								</c:choose>
+						 		${selectedGuest.isPresent}
+						 	</div>
+						</div>
+						<div class="row">
+							<div class="col-6">
+								<label>Meal Choice:</label>
+							</div>
+							<div class="col-6">
+							 	${selectedGuest.mealChoice}
+							</div>
+						</div>
+						<label>Plus Ones:</label>
+						<div class="row">
+							<div class="col-3">
+								<label>Kids: </label>
+							</div>
+							<div class="col-3">
+								${selectedGuest.kidsWith}
+							</div>
+							<div class="col-3">
+								<label>Adults: </label>
+							</div>
+							<div class="col-3">
+								${selectedGuest.adultsWith}
+							</div>
+						</div>
+						<label>Special Requests:</label>
+						<div> ${selectedGuest.specialRequests}</div>
+						<hr>
 						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
 							<span class="info"><i class="fas fa-info-circle"></i></span>
 						</a></i></h5>
-						
-						<div>Adults: </div>
-						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-							${person.fullName}
-							<c:if test="${person.category == 'Adult'}">
-								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
-							</c:if>
-						</c:forEach>
-						<div>Kids: </div>
-						<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-							<c:if test="${person.category == 'Kid'}">
-								<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
-							</c:if>
-						</c:forEach>
-						<br>
-						<form:form action="deleteGuest" method="post">
+						<div class="row">
+							<div class="col-3">
+								<label>Adults: </label>
+							</div>	
+							<div class="col-9">
+								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
+									${person.fullName}
+									<c:if test="${person.category == 'Adult'}">
+										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-3">
+								<label>Kids: </label>
+							</div>
+							<div class="col-9">
+								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
+									<c:if test="${person.category == 'Kid'}">
+										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+						<hr>
+						<form:form action="deleteGuest" method="post" class="text-center">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
-							<input class="btn btn-danger" type="submit" value="Remove guest"/>
+							<button type="submit" class="btn btn-info" style="background-color: #D90368; color: #F1E9DA; border: none;">
+      							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guests</span>
+   							</button>
 						</form:form>
 					</div>
 					<br>
