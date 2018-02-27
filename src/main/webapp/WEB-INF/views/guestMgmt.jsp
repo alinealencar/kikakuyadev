@@ -362,7 +362,7 @@
 				<label>Group: </label>
 				<form:input path="company" class="form-control" style="margin-bottom:10px;"/>
 				<label>Notes: </label>
-				<form:input path="notes" value="" class="form-control" style="margin-bottom:10px;"/>
+				<form:textarea path="notes" row="5" value="" class="form-control" style="margin-bottom:10px;"/>
 
 				<!-- TODO: Set value attr to eventId that's in the session scope -->
 				<form:hidden path="eventId" value="1"/>
