@@ -30,9 +30,10 @@ public class VendorDaoImpl implements VendorDao{
 	public List<Vendor> findVendors(Event event) throws SQLException {
 		//String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
 		//		+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
-		String query = "SELECT * FROM vendor INNER JOIN vendorevent "
+		String query = "SELECT DISTINCT vendor.vendorId, vendor.vendorName FROM vendor INNER JOIN vendorevent "
 				+ "ON vendor.vendorId = vendorevent.VendorvendorId "
-				+ "WHERE EventeventId=" + event.getEventId();
+				+ "WHERE vendorevent.EventeventId=" + event.getEventId();
+				//+ " ORDER BY vendor.vendorId ASC";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -40,9 +41,9 @@ public class VendorDaoImpl implements VendorDao{
 			Vendor vendor = new Vendor();
 			vendor.setVendorId(rs.getInt(1));
 			vendor.setName(rs.getString(2));
-			vendor.setAddress(rs.getString(3));
-			vendor.setWebsite(rs.getString(4));
-			vendor.setPhoneNo(rs.getString(5));
+			//vendor.setAddress(rs.getString(3));
+			//vendor.setWebsite(rs.getString(4));
+			//vendor.setPhoneNo(rs.getString(5));
 			
 			vendors.add(vendor);
 		}

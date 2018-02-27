@@ -52,13 +52,11 @@ public class BudgetController {
 	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
 	public String processAddSearchVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		String redirectTo = "budget";
 		try {
+			//add new vendor from search
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
@@ -66,8 +64,7 @@ public class BudgetController {
 			}
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
-			//String category = request.getParameter("category");
-			//session.setAttribute("category", category);
+			
 			viewBudget(model,request);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
@@ -80,13 +77,11 @@ public class BudgetController {
 	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		String redirectTo = "budget";
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1);
 		
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		try {
+			//add new vendor
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
@@ -108,11 +103,14 @@ public class BudgetController {
 		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
+			//add new vendorvent
 			if(!budgetDelegate.isVendorFound(vendor)){
-				vendor.setVendorId(budgetDelegate.findLastInserted());
+				//vendor.setVendorId(budgetDelegate.findLastInserted());
 				budgetDelegate.addVendorEvent(vendor, event);
 			}
+				//update category column
 				budgetDelegate.editCategory(vendor);
+				//insert goods
 				for(int i=0; i<vendor.getGoodsList().size(); i++){
 					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
 				}
