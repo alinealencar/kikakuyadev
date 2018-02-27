@@ -1,10 +1,32 @@
-//for editable dropdown list
-$('select').editableSelect({
-	  warpClass: 'ui-select-wrap',
-	  editable: true
-});
+//Delete operations
+function deleteGood(vendorId, goodId) {
+	$('#vendorId').val(vendorId);
+	$('#goodId').val(goodId);
+	
+	$("#budgetForm").attr("action", "deleteGood");
+}
+
+function deleteVendor(vendorId) {
+	$('#vendorId').val(vendorId);
+	
+	$("#budgetForm").attr("action", "deleteVendor");
+}
+
+function deleteCategory(category) {
+	$('#category').val(category);
+	
+	$("#budgetForm").attr("action", "deleteCategory");
+}
 
 
+
+///for editable dropdown list
+//$('select').editableSelect({
+//	  warpClass: 'ui-select-wrap',
+//	  editable: true
+//});
+//
+//
 
 //add new item and price
 /*$(document).ready(function(){
