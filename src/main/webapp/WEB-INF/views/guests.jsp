@@ -31,10 +31,9 @@
 	<br>
 	<h3>${presentGuests} guests of ${totalGuests}</h3>
 	<div class="progress" style="margin-bottom: 50px;">
-  		<div class="progress-bar bg-success" role="progressbar" style="width: ${(presentGuests/totalGuests)*100}%" aria-valuenow="${(presentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${presentGuests}</div>
-  		<div class="progress-bar bg-danger" role="progressbar" style="width: ${(absentGuests/totalGuests)*100}%" aria-valuenow="${(absentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${absentGuests}</div>
-  		<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>
-	</div>
+		<div class="progress-bar bg-danger" role="progressbar" style="width: ${(absentGuests/totalGuests)*100}%" aria-valuenow="${(absentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${absentGuests}</div>
+	  	<div class="progress-bar bg-success" role="progressbar" style="width: ${(presentGuests/totalGuests)*100}%" aria-valuenow="${(presentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${presentGuests}</div>
+	  	<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>	</div>
 <!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

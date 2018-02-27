@@ -32,9 +32,9 @@ public class GuestController {
 	//Show guest dashboard
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
 	public String viewGuestDashboard(Model model, HttpServletRequest request){
-		int present = 1; 
+		int present = 0; 
 		int absent = 2; 
-		int noReply = 0;
+		int noReply = 1;
 		
 		Event event = (Event) request.getSession().getAttribute("event");
 		

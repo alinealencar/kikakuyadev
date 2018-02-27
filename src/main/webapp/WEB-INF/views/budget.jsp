@@ -17,6 +17,7 @@
 			<div id="showBudget">
 				<!-- show budget -->
 				<h3>Budget: $${event.totalBudget}</h3>
+				
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
@@ -31,33 +32,22 @@
 			</div>
 			<div id="editBudget">
 				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
-					<!-- Dummy form. Do not delete. -->
-					<form></form>
-					
-					Budget: $<input name="totalBudget" value="${event.totalBudget}"/><br>
+					<!-- Fields for the delete operation -->
+					<form:hidden path="category" value=""/>
+					<form:hidden path="vendorId" value=""/>
+	   				<form:hidden path="goodId" value=""/>
+	   				
+					Budget: $<input type="number" name="totalBudget" value="${event.totalBudget}"/><br>
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-							<!-- Delete category -->
-	   						<form:form action="deleteCategory" method="post" modelAttribute="budgetForm">
-	   							<button type="submit" class="fabutton"><i class="fas fa-minus-circle"></i></button>
-	   							<form:hidden path="category" value="${category.key}"/>
-	   						</form:form>
-	   						<h3>${category.key}</h3><br>
+						<button onclick="deleteCategory('${category.key}');" class="fabutton"><i class="fas fa-minus-circle"></i></button>
+	   					<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
-	   						<!-- Delete vendor -->
-	   						<form:form action="deleteVendor" method="post" modelAttribute="budgetForm">
-	   							<button type="submit" class="fabutton"><i class="fas fa-minus-circle"></i></button>
-	   							<form:hidden path="vendorId" value="${vendor.key.vendorId}"/>
-	   						</form:form>
+	   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
-	   							<!-- Delete good -->
-	   							<form:form action="deleteGood" method="post" modelAttribute="budgetForm">
-	   								<button type="submit" class="fabutton"><i class="fas fa-minus-circle"></i></button>
-	   								<form:hidden path="vendorId" value="${vendor.key.vendorId}"/>
-	   								<form:hidden path="goodId" value="${good.goodId}"/>
-	   							</form:form>
-	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - $<input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
+	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
+	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - $<input type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>
 						</c:forEach>
@@ -173,7 +163,7 @@
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<!-- <script src="resources/js/budget.js"></script> -->
+<script src="resources/js/budget.js"></script>
 <script type="text/javascript">
 /*** Sticky form ***/
 $(document).ready(function(){
