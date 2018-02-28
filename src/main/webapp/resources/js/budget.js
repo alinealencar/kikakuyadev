@@ -18,7 +18,15 @@ function deleteCategory(category) {
 	$("#budgetForm").attr("action", "deleteCategory");
 }
 
-
+//Calculate subtotals
+function calculateSubtotal(category){
+	var subtotal = +0;
+	$("." + category).each(function() {
+	    subtotal += +$(this)[0].innerHTML;
+	});
+	
+	return subtotal;
+}
 
 ///for editable dropdown list
 //$('select').editableSelect({

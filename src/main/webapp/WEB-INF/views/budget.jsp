@@ -10,6 +10,7 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page isELIgnored="false" %>
+<script src="resources/js/budget.js"></script>
 <div class="container">
 <!-- body contents start -->
 	<div class="row">
@@ -17,16 +18,18 @@
 			<div id="showBudget">
 				<!-- show budget -->
 				<h3>Budget: $${event.totalBudget}</h3>
-				
+				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
 	   					<h4>${vendor.key.name} - Price</h4>
 	   					<c:forEach var="good" items="${vendor.value}">
-	   						<h5>${good.goodName} - ${good.goodPrice}</h5>
+	   						<h5>${good.goodName} - <span class="category${cat}">${good.goodPrice}</span></h5>
 						</c:forEach>
 					</c:forEach>
-					<h4>Subtotal: </h4>
+					<h4>Subtotal: <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
+					
+					<c:set var="cat" value="${cat + 1}" scope="page"/>
 				</c:forEach>
 				<h3>Total: </h3>
 			</div>
@@ -163,7 +166,6 @@
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<script src="resources/js/budget.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.category').change(function(){
