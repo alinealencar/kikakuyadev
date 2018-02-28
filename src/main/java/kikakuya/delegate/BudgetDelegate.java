@@ -95,6 +95,9 @@ public class BudgetDelegate {
 		return budgetService.isVendorFound(vendor);
 	}
 	
+	public Vendor getVendor(int vendorId) throws SQLException {
+		return budgetService.findVendor(vendorId);
+	}
 	
 }
 

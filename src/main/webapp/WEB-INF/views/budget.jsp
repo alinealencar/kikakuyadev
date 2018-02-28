@@ -25,7 +25,14 @@
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
-	   					<h4>${vendor.key.name} - Price</h4><i class="fas fa-address-card"></i>
+	   					<h4>${vendor.key.name} - Price</h4>
+	   					<!-- Get details of the vendor -->
+	   					<form action="showVendor" method="post">
+	   						<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
+	   						<button type="submit" class="fabutton">
+	   							<i class="fas fa-address-card"></i>
+	   						</button>
+	   					</form>
 	   					<c:forEach var="good" items="${vendor.value}">
 	   						<h5>${good.goodName} - <span class="category${cat}">${good.goodPrice}</span></h5>
 						</c:forEach>
@@ -52,13 +59,13 @@
 					<c:set var="catEdit" value="1" scope="page" />
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-						<button onclick="deleteCategory('${category.key}');" class="fabutton"><i class="fas fa-minus-circle"></i></button>
+						<button onclick="deleteCategory('${category.key}');" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   					<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
-	   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
+	   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
-	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
+	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/></span><br>
 								<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 								<c:set var="count" value="${count + 1}" scope="page"/>
@@ -73,8 +80,17 @@
 			</div>
 		</div>
 		<div class="col-sm-4">
+			<!-- vendor details  -->
+			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
+				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
+				${selectedVendor.name} <br>
+				${selectedVendor.phoneNo != "" ? 'Phone: ' : ''} ${selectedVendor.phoneNo} <br>
+				${selectedVendor.address != "" ? 'Address: ' : ''} ${selectedVendor.address} <br> 
+				${selectedVendor.website != "" ? 'Website: ' : ''} <a href="${selectedVendor.website}">Yelp</a>
+			</div>
+			
 			<!-- budget form add here -->
-			<div  style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display:inline-block;">
+			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select category" path="category">

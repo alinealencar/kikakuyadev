@@ -9,6 +9,11 @@ function openShowBudget() {
 	$('#showBudget').show();
 }
 
+function openAddVendor() {
+	$('#addVendor').show();
+	$('#vendorsInfo').hide();
+}
+
 // Delete operations
 function deleteGood(vendorId, goodId) {
 	$('#vendorId').val(vendorId);

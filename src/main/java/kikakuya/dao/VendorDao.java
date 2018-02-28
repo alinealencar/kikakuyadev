@@ -14,4 +14,5 @@ public interface VendorDao {
 	public List<Vendor> findVendors(Event event) throws SQLException;
 	public int findLastInserted() throws SQLException;
 	public boolean deleteVendor(int vendorId) throws SQLException;
+	public Vendor findVendor(int vendorId) throws SQLException;
 }

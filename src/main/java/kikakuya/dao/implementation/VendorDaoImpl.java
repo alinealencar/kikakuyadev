@@ -75,8 +75,6 @@ public class VendorDaoImpl implements VendorDao{
 				"and e.eventId = " + eventId +
 				" order by ev.vendorcategory, v.vendorName";
 		
-		System.out.println(query);
-		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -156,5 +154,20 @@ public class VendorDaoImpl implements VendorDao{
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
+	}
+
+	@Override
+	public Vendor findVendor(int vendorId) throws SQLException {
+		String query = "select * from vendor where vendorId=" + vendorId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		Vendor aVendor = new Vendor();
+		if(rs.next()){
+			aVendor.setName(rs.getString(2));
+			aVendor.setWebsite(rs.getString(3));
+			aVendor.setPhoneNo(rs.getString(4));
+			aVendor.setAddress(rs.getString(5));
+		}
+		return aVendor;
 	}
 }

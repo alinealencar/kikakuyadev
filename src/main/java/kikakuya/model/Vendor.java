@@ -105,6 +105,13 @@ public class Vendor {
 		this.goodsList = goodsList;
 	}
 
+	@Override
+	public String toString() {
+		return "Vendor [name=" + name + ", address=" + address + ", website=" + website + ", phoneNo=" + phoneNo
+				+ ", imageURL=" + imageURL + ", category=" + category + ", location=" + location + ", rating=" + rating
+				+ ", vendorId=" + vendorId + ", goodsList=" + goodsList + "]";
+	}
+
 	
 
 }

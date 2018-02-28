@@ -110,5 +110,10 @@ public class BudgetServiceImpl implements BudgetService{
 		return vendorEventDao.isVendorFound(vendor);
 	}
 
+	@Override
+	public Vendor findVendor(int vendorId) throws SQLException {
+		return vendorDao.findVendor(vendorId);
+	}
+
 	
 }

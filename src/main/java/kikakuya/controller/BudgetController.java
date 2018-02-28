@@ -44,10 +44,6 @@ public class BudgetController {
 		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
 		request.setAttribute("budgetInfo", budgetInfo);
 		
-		//Print the map
-		System.out.println("categories: " + budgetInfo.keySet());
-		System.out.println(budgetInfo.values());
-		
 		//Get list of all goods
 		BudgetForm budgetForm = new BudgetForm();
 		request.setAttribute("budgetForm", budgetForm);
@@ -212,6 +208,22 @@ public class BudgetController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return "budget";
+	}
+	
+	@RequestMapping(value="/showVendor", method = RequestMethod.POST)
+	public String viewVendor(Model model, HttpServletRequest request) {
+		int vendorId = Integer.parseInt(request.getParameter("vendorId"));
+		System.out.println("vendor id: " + vendorId);
+		try {
+			Vendor vendor = budgetDelegate.getVendor(vendorId);
+			request.setAttribute("selectedVendor", vendor);
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
 		return "budget";
 	}
 }

@@ -80,7 +80,10 @@ footer {
   background: none;
   padding: 0px;
   border: none;
-  color: red;
+}
+
+.fas {
+	cursor: pointer;
 }
 
 /*********************************
