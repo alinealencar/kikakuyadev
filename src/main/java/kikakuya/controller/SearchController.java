@@ -33,7 +33,6 @@ public class SearchController {
 	@RequestMapping(method = RequestMethod.GET)
 	public String viewSearch(Model model){
 		model.addAttribute("vendor", new Vendor());
-		System.out.println("search controller");
 		return "search";
 	}
 	

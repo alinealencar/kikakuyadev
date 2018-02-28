@@ -31,7 +31,6 @@ public class EventController {
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		String redirectTo = "event";
 		User user = (User) request.getSession().getAttribute("user");
-		System.out.println(user == null);
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
@@ -90,7 +89,6 @@ public class EventController {
 		
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
-			System.out.println("event id: " + event.getEventId());
 			if(isUpdateEvent){
 				System.out.println("Update successful");
 			}
@@ -112,7 +110,6 @@ public class EventController {
 		
 		try{
 			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
-			System.out.println("event id: " + event.getEventId());
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
 		} 
@@ -146,7 +143,6 @@ public class EventController {
 				LocalDate today = LocalDate.now();
 				
 				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
-				System.out.println("in days: " + daysBetween);
 				session.setAttribute("remainingDays", daysBetween);
 				
 			}

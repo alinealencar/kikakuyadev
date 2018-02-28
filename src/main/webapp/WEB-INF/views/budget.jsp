@@ -25,7 +25,7 @@
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
-	   					<h4>${vendor.key.name} - Price</h4>
+	   					<h4>${vendor.key.name} - Price</h4><i class="fas fa-address-card"></i>
 	   					<c:forEach var="good" items="${vendor.value}">
 	   						<h5>${good.goodName} - <span class="category${cat}">${good.goodPrice}</span></h5>
 						</c:forEach>

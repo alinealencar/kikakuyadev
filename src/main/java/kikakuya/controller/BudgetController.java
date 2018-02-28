@@ -44,6 +44,10 @@ public class BudgetController {
 		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
 		request.setAttribute("budgetInfo", budgetInfo);
 		
+		//Print the map
+		System.out.println("categories: " + budgetInfo.keySet());
+		System.out.println(budgetInfo.values());
+		
 		//Get list of all goods
 		BudgetForm budgetForm = new BudgetForm();
 		request.setAttribute("budgetForm", budgetForm);
@@ -135,7 +139,6 @@ public class BudgetController {
 		String redirectTo = "budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
-		System.out.println("edit budget");
 		try {
 			//Update goods
 			if(goodsList != null && goodsList.size() > 0) {
