@@ -66,24 +66,24 @@
 				<div class="form-group">
       				<form:select id="category" class="form-control ui-select category" path="category">
 	        			<option selected>--- Select Category ---</option>
-	        			<option>Accommodation</option>
+	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
-	       				<option>Balloon Services</option>
-	       				<option>Beauty</option>
-	       				<option>Cake</option>
-	       				<option>Cards & Stationery</option>
-	       				<option>Caterer</option>
-	       				<option>Decorations</option>
-	       				<option>Entertainment</option>
-	       				<option>Floral Design</option>
-	       				<option>Music</option>
-	       				<option>Party Equipment Rental</option>
-	       				<option>Party Favors</option>
-	       				<option>Photography</option>
-	       				<option>Staff</option>
-	       				<option>Transportation</option>
-	       				<option>Venue</option>
-	       				<option>Other</option>
+	       				<option value="Balloon Services">Balloon Services</option>
+	       				<option value="Beauty">Beauty</option>
+	       				<option value="Cake">Cake</option>
+	       				<option value="Cards & Stationery">Cards & Stationery</option>
+	       				<option value="Caterer">Caterer</option>
+	       				<option value="Decorations">Decorations</option>
+	       				<option value="Entertainment">Entertainment</option>
+	       				<option value="Floral Design">Floral Design</option>
+	       				<option value="Music">Music</option>
+	       				<option value="Party Equipment Rental">Party Equipment Rental</option>
+	       				<option value="Party Favors">Party Favors</option>
+	       				<option value="Photography">Photography</option>
+	       				<option value="Staff">Staff</option>
+	       				<option value="Transportation">Transportation</option>
+	       				<option value="Venue">Venue</option>
+	       				<option value="Other">Other</option>
       				</form:select>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
@@ -167,10 +167,17 @@
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
 <script type="text/javascript">
+/*** Sticky form ***/
 $(document).ready(function(){
+	//show selected value
+	var valueFromLS = sessionStorage.getItem("selectedCategory");
+	$(".category option[value='" + valueFromLS + "']").prop("selected",true);
+});
+$(document).ready(function(){
+	//get selected value from dropdown
 	$('.category').change(function(){
-		localStorage.setItem("selectedCategory",this.val);
-		//jQuery("#category option[value='"+ localStorage.getItem("selectedCategory") +"']").attr('selected', 'selected');
+		var selectedCategory = $('.category').val();
+		sessionStorage.setItem("selectedCategory",selectedCategory);
 	});
 });
 
@@ -181,14 +188,6 @@ $(document).ready(function(){
 		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
 		counter++;
 	});
-	
-	/*$("#formAddToBudget").keypress(function(e) {
-		  //Enter key
-		  if (e.which == 13) {
-		    return false;
-		  }
-		});*/
-	
 });
 
 $(document).ready(function(){
