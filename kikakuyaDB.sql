@@ -33,7 +33,7 @@ CREATE TABLE Event (
 CREATE TABLE VendorEvent (
   vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
   EventeventId    int(10) NOT NULL,
-  VendorvendorId  int(10) NOT NULL UNIQUE,
+  VendorvendorId  int(10) NOT NULL,
   vendorCategory  varchar(100),
   PRIMARY KEY (vendorEventId));
 CREATE TABLE Good (
@@ -47,7 +47,7 @@ CREATE TABLE Guest (
   token varchar(255) NOT NULL UNIQUE,
   firstName varchar(50) NOT NULL, 
   lastName  varchar(50) NOT NULL, 
-  email     varchar(50) NOT NULL UNIQUE,
+  email     varchar(50) NOT NULL,
   isPresent   int(1),
   company varchar(50),
   kidsWith int(3),
