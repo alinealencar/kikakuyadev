@@ -31,7 +31,8 @@
 					
 					<c:set var="cat" value="${cat + 1}" scope="page"/>
 				</c:forEach>
-				<h3>Total: $<span id="totalBudget"><script>document.write(calculateTotal());</script></span></h3>
+				<h3>Grand Total: $<span id="totalBudget"><script>document.write(calculateTotal());</script></span></h3>
+				<h3>Amount Remaining: $<span id="amountRemaining"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
 			</div>
 			<div id="editBudget">
 				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
@@ -51,15 +52,16 @@
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
 	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
-	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${catEdit}')"/></span><br>
+	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/></span><br>
 								<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>
 						</c:forEach>
-						<h4>Subtotal: $ <span id="subtotal${catEdit}" class="subtotalEdit"><script>calculateSubtotalLive('${catEdit}');</script></span></h4>
+						<h4>Subtotal: $ <span id="subtotal${catEdit}" class="subtotalEdit"><script>calculateSubtotalLive('${event.totalBudget}', '${catEdit}');</script></span></h4>
 						<c:set var="catEdit" value="${catEdit + 1}" scope="page"/>
 					</c:forEach>
-					<h3>Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit();</script></span></h3>
+					<h3>Grand Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit('${event.totalBudget}');</script></span></h3>
+					<h3>Amount Remaining: $<span id="amountRemainingEdit"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
  				<span><input type="submit" value="Save"/></span>
 				</form:form>
 			</div>

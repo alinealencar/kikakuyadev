@@ -35,7 +35,7 @@ function calculateSubtotal(category){
 	return subtotal;
 }
 
-function calculateSubtotalLive(catEdit){
+function calculateSubtotalLive(budget, catEdit){
 	var subtotal = +0;
 
 	$(".catEdit" + catEdit).each(function() {
@@ -45,7 +45,7 @@ function calculateSubtotalLive(catEdit){
 	$("#subtotal" + catEdit).html(subtotal);
 	
 	//update total
-	calculateTotalEdit();
+	calculateTotalEdit(budget);
 	
 	return subtotal;
 }
@@ -54,7 +54,7 @@ function calculateTotal(){
 	return globalTotal;
 }
 
-function calculateTotalEdit(){
+function calculateTotalEdit(budget){
 	var total = +0;
 	var $items = $(".subtotalEdit");
 	
@@ -73,7 +73,20 @@ function calculateTotalEdit(){
 	}
 	
 	$('#totalBudgetEdit').html(total);
+	
+	calculateAmountRemainingLive(budget, total);
 }
+
+function calculateAmountRemaining(budget, total) {
+	return budget - total;
+}
+
+function calculateAmountRemainingLive(budget, total) {
+	var amountRemaining = budget - total;
+
+	$('#amountRemainingEdit').html(amountRemaining);
+}
+
 
 ///for editable dropdown list
 //$('select').editableSelect({
