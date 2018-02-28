@@ -132,7 +132,7 @@ public class BudgetController {
 		String redirectTo = "budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
-		
+		System.out.println("inside budget controller");
 		
 		try {
 			//Update goods

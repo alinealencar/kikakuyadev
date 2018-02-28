@@ -37,6 +37,7 @@ public class EventDaoImpl implements EventDao {
 			event.setEventName(rs.getString(2));
 			event.setEventDate(rs.getString(3));
 			event.setLocation(rs.getString(5));
+			event.setTotalBudget(rs.getDouble(6));
 			
 			events.add(event);
 			System.out.println("EVENT: " + event.getEventName());
@@ -86,6 +87,7 @@ public class EventDaoImpl implements EventDao {
 			event.setEventName(rs.getString(2));
 			event.setEventDate(rs.getString(3));
 			event.setLocation(rs.getString(5));
+			event.setTotalBudget(rs.getDouble(6));
 		}
 		return event;
 	}
