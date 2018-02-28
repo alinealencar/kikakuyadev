@@ -158,11 +158,10 @@
 							<div class="col-6">
 								<!-- TODO: Check selectedGuest.isPresent value -->
 								<c:choose>
-						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">No Reply</c:when>
-						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">Accepted</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">No Reply</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">Accepted</c:when>
 						  			<c:otherwise>Declined</c:otherwise>
 								</c:choose>
-						 		${selectedGuest.isPresent}
 						 	</div>
 						</div>
 						<div class="row">
@@ -374,10 +373,11 @@
 				</div>
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
-						<form:select path="isPresent" class="form-control col-6">
-							<option value="1">No Reply</option>
-				  			<option value="0">Present</option>
-				  			<option value="2">Absent</option>
+						<!-- TODO: No Reply cannot be default -->
+						<form:select path="isPresent" class="form-control col-6">							
+				  			<form:option value="0" label="Accepted"/>
+				  			<form:option value="1" label="No Reply" selected="selected"/>
+				  			<form:option value="2" label="Declined"/>
 						</form:select>
 				</div>
 				<label>Group: </label>
