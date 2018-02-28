@@ -1,4 +1,15 @@
-//Delete operations
+// Show edit budget form
+function openEditBudget() {
+	$('#editBudget').show();
+	$('#showBudget').hide();
+}
+
+function openShowBudget() {
+	$('#editBudget').hide();
+	$('#showBudget').show();
+}
+
+// Delete operations
 function deleteGood(vendorId, goodId) {
 	$('#vendorId').val(vendorId);
 	$('#goodId').val(goodId);
@@ -18,9 +29,8 @@ function deleteCategory(category) {
 	$("#budgetForm").attr("action", "deleteCategory");
 }
 
-//Calculate totals and subtotals
-
-//global variable
+// Calculate totals and subtotals
+// global variable
 var globalTotal = +0;
 
 function calculateSubtotal(category){

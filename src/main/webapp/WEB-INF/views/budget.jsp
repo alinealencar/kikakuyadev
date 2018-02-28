@@ -15,8 +15,11 @@
 <!-- body contents start -->
 	<div class="row">
 		<div class="col-sm-8">
-			<div id="showBudget">
+			${editSuccess}
+			${goodDeleted}
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''}>
 				<!-- show budget -->
+				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<h3>Budget: $${event.totalBudget}</h3>
 				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
@@ -34,8 +37,12 @@
 				<h3>Grand Total: $<span id="totalBudget"><script>document.write(calculateTotal());</script></span></h3>
 				<h3>Amount Remaining: $<span id="amountRemaining"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
 			</div>
-			<div id="editBudget">
+			<!-- edit budget -->
+			<div id="editBudget" ${goodDeleted != '' ? '' : 'style="display:none;"'}>
+				<span onclick="openShowBudget()" class="closebtn"><i class="fas fa-times"></i></span>
 				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
+					<button type="submit">Save</button>
+					<br>
 					<!-- Fields for the delete operation -->
 					<form:hidden path="category" value=""/>
 					<form:hidden path="vendorId" value=""/>
@@ -62,7 +69,6 @@
 					</c:forEach>
 					<h3>Grand Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit('${event.totalBudget}');</script></span></h3>
 					<h3>Amount Remaining: $<span id="amountRemainingEdit"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
- 				<span><input type="submit" value="Save"/></span>
 				</form:form>
 			</div>
 		</div>

@@ -47,6 +47,9 @@ public class BudgetController {
 		//Get list of all goods
 		BudgetForm budgetForm = new BudgetForm();
 		request.setAttribute("budgetForm", budgetForm);
+		
+		//Show budget as default
+		request.setAttribute("goodDeleted", "");
 		return "budget";
 	}
 	
@@ -132,7 +135,7 @@ public class BudgetController {
 		String redirectTo = "budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
-		
+		System.out.println("edit budget");
 		try {
 			//Update goods
 			if(goodsList != null && goodsList.size() > 0) {
@@ -148,6 +151,7 @@ public class BudgetController {
 			Event event = (Event) request.getSession().getAttribute("event");
 			event.setTotalBudget(newTotalBudget);
 			request.getSession().setAttribute("event", event);
+			request.setAttribute("editSuccess", "Budget was updated successfully.");
 			viewBudget(model, request);
 		} catch(Exception e){
 			e.printStackTrace();
@@ -168,15 +172,12 @@ public class BudgetController {
 				budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
 				budgetDelegate.deleteVendor(budgetForm.getVendorId());
 			}
+			viewBudget(model, request);
+			request.setAttribute("goodDeleted", "Good deleted successfully.");
 		} catch (SQLException e) {
 				e.printStackTrace();
 		}
 		
-		try {
-			viewBudget(model, request);
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		return "budget";
 	}
 	
