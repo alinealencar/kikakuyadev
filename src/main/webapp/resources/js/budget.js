@@ -18,14 +18,63 @@ function deleteCategory(category) {
 	$("#budgetForm").attr("action", "deleteCategory");
 }
 
-//Calculate subtotals
+//Calculate totals and subtotals
+
+//global variables
+var globalTotal = +0;
+
 function calculateSubtotal(category){
 	var subtotal = +0;
 	$("." + category).each(function() {
 	    subtotal += +$(this)[0].innerHTML;
 	});
 	
+	//update total
+	globalTotal += +subtotal;
+	
 	return subtotal;
+}
+
+function calculateSubtotalLive(catEdit){
+	var subtotal = +0;
+
+	$(".catEdit" + catEdit).each(function() {
+	    subtotal += +$(this)[0].value;
+	});
+
+	$("#subtotal" + catEdit).html(subtotal);
+	
+	//update total
+	calculateTotalEdit();
+	
+	return subtotal;
+}
+
+function calculateTotal(){
+	return globalTotal;
+}
+
+function calculateTotalEdit(){
+	var total = +0;
+	var $items = $(".subtotalEdit");
+	console.log($items.length);
+	
+	if ($items.length > 1){
+		for(var i = 0; i < $items.length - 1; i++){
+			$(".subtotalEdit").each(function() {
+				  total += +$(this)[i].innerHTML;
+			});
+		}
+	}
+
+	else {
+		console.log("else");
+		$(".subtotalEdit").each(function() {
+			  total += +$(this)[0].innerHTML;
+		});
+	}
+	
+	$('#totalBudgetEdit').html(total);
 }
 
 ///for editable dropdown list
