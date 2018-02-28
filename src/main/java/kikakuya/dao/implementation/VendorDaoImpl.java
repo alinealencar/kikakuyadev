@@ -75,6 +75,8 @@ public class VendorDaoImpl implements VendorDao{
 				"and e.eventId = " + eventId +
 				" order by ev.vendorcategory, v.vendorName";
 		
+		System.out.println(query);
+		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -87,44 +89,47 @@ public class VendorDaoImpl implements VendorDao{
 		Good aGood = new Good();
 		
 		while(rs.next()){
-			//Different vendor
-			if(!curVendor.equals(rs.getString(4))){
+			if(!curCategory.equals(rs.getString(1))){
 				//Skip very first case
-				if(!curVendor.equals("")) {
+				if(!curCategory.equals("")) {
 					vendorMap.put(aVendor, goodsList);
+					result.put(curCategory, vendorMap);
+					vendorMap = new HashMap<Vendor, List<Good>>();
 				}
-					
-				//Create vendor object
-				aVendor = new Vendor();
-				aVendor.setVendorId(rs.getInt(3));
-				aVendor.setName(rs.getString(4));
-				aVendor.setWebsite(rs.getString(5));
-				aVendor.setAddress(rs.getString(6));
-				aVendor.setPhoneNo(rs.getString(7));
-				curVendor = rs.getString(4);
-					
-				//Empty list out
-				goodsList = new ArrayList<Good>();
-					
-				if(!curCategory.equals(rs.getString(1))){
-					//Skip very first case
-					if(!curCategory.equals("")) {
-						result.put(curCategory, vendorMap);
-						vendorMap = new HashMap<Vendor, List<Good>>();
-					}
-					curCategory = rs.getString(1);
-				}
-			}
 				
-			//Create list of all goods for a certain vendor
-			aGood = new Good();
-			aGood.setGoodId(rs.getInt(8));
-			aGood.setGoodName(rs.getString(9));
-			aGood.setGoodPrice(rs.getDouble(10));
-			//Add good object to goodsList
-			goodsList.add(aGood);
+				curCategory = rs.getString(1);
+				curVendor = "";
+			}
+				//Different vendor
+				if(!curVendor.equals(rs.getString(4))){
+					//Skip very first case
+					if(!curVendor.equals("")) {
+						vendorMap.put(aVendor, goodsList);
+					}
+					
+					//Create vendor object
+					aVendor = new Vendor();
+					aVendor.setVendorId(rs.getInt(3));
+					aVendor.setName(rs.getString(4));
+					aVendor.setWebsite(rs.getString(5));
+					aVendor.setAddress(rs.getString(6));
+					aVendor.setPhoneNo(rs.getString(7));
+					curVendor = rs.getString(4);
+					
+					//Empty list out
+					goodsList = new ArrayList<Good>();
+				}
+				
+				//Create list of all goods for a certain vendor
+				aGood = new Good();
+				aGood.setGoodId(rs.getInt(8));
+				aGood.setGoodName(rs.getString(9));
+				aGood.setGoodPrice(rs.getDouble(10));
+				//Add good object to goodsList
+				goodsList.add(aGood);
 		
 		}
+		
 		//Handle last entities after loop
 		if(!curCategory.equals("")){
 			vendorMap.put(aVendor, goodsList);

@@ -58,7 +58,6 @@ public class LoginController {
 		try {
 			User LoginUser = loginDelegate.isValidUser(user.getEmail(), user.getUserPassword());
 			if(LoginUser != null){
-				System.out.println("Login successful. Is Remember Me: " + request.getParameter("isRememberMe"));
 				//Send the user to the session scope
 				session.setAttribute("user", LoginUser);
 				//Send the user name to the request scope
@@ -102,10 +101,6 @@ public class LoginController {
 			}
 		}
 		
-		//For testing purposes:
-//		System.out.println("LOGIN");
-//		System.out.println("email: " + user.getEmail());
-//		System.out.println("password: " + user.getUserPassword());
 		model.addAttribute("event", new Event());
 		return redirectTo;
 	}

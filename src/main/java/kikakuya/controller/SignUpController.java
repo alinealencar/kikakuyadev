@@ -50,7 +50,6 @@ public class SignUpController {
 		try {
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){
-				System.out.println("SignUp successful");
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
 				request.setAttribute("signUpSuccess", "Sign Up Successful. Please log in to start using Kikakuya.");
@@ -70,14 +69,7 @@ public class SignUpController {
 			}
 		}
 		
-		//For testing purposes:
-//		System.out.println("SIGNUP");
-//		System.out.println("name: " + user.getUserName());
-//		System.out.println("email: " + user.getEmail());
-//		System.out.println("password: " + user.getUserPassword());
-		
 		model.addAttribute("event", new Event());
-//		System.out.println("");
 		return redirectTo;
 
 	}

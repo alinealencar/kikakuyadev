@@ -114,7 +114,6 @@ public class GuestController {
 	public String processEditGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
 			boolean editGuestSuccessful = guestDelegate.editGuest(guest);
-			System.out.println("guest id: " + guest.getGuestId());
 			if(editGuestSuccessful){
 				System.out.println("Edit guest successful");
 				request.setAttribute("editGuestSuccess", "edit sucessful");

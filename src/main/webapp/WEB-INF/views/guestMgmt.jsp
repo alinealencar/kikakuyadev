@@ -15,9 +15,9 @@
 		
 			<div class="row" style="margin-top: 50px;">
 				<div class="col-sm-3">
-					<span style="width: 150px; margin:0; font-size:200%;">Guest List</span>
+					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none">
-						<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+						<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
 	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
 	   					</button>  					
    					</div>
@@ -30,7 +30,7 @@
 					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
 				</div>
 				<div class="col-sm-1 d-none d-sm-block">
-					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+					<button type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>  					
    				</div>
@@ -100,8 +100,8 @@
 									<td>${guest.lastName}</td>
 									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
-						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>
-						  					<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
+											<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>		
 						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
 										</c:choose>
 										<form class="showGuestForm" action="showGuest" method="post">
@@ -158,11 +158,10 @@
 							<div class="col-6">
 								<!-- TODO: Check selectedGuest.isPresent value -->
 								<c:choose>
-						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">No Reply</c:when>
-						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">Accepted</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 1? true : false}">No Reply</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 0? true : false}">Accepted</c:when>
 						  			<c:otherwise>Declined</c:otherwise>
 								</c:choose>
-						 		${selectedGuest.isPresent}
 						 	</div>
 						</div>
 						<div class="row">
@@ -374,10 +373,11 @@
 				</div>
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
-						<form:select path="isPresent" class="form-control col-6">
-							<option value="1">No Reply</option>
-				  			<option value="0">Present</option>
-				  			<option value="2">Absent</option>
+						<!-- TODO: No Reply cannot be default -->
+						<form:select path="isPresent" class="form-control col-6">							
+				  			<form:option value="0" label="Accepted"/>
+				  			<form:option value="1" label="No Reply" selected="selected"/>
+				  			<form:option value="2" label="Declined"/>
 						</form:select>
 				</div>
 				<label>Group: </label>
@@ -427,11 +427,19 @@ function closeEditGuest() {
     document.getElementById("editGuestSection").style.display = "none";
 }
 
+
 //show help bubbles
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();   
 });
+</script>
+<script>
+//add guest clear form when it is submited
+
+$(".showAddGuest").click(function() {
+	$("input[type=text], textarea").val("");
+	$("select").val("0");
+});
 
 </script>
-
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
