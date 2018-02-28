@@ -33,6 +33,14 @@ a.dropdown-item.linked:hover {
     background-color:  #D90368;
     color: #F1E9DA;
 }
+
+.successAlert{
+	color: #def2ec; 
+	background-color: rgba(182, 249, 229, 0.5); 
+	border: 5px solid #14e595; 
+	margin: 7px 0px; 
+	padding: 8px;
+}
 /****** menu ******/
 
 nav{
