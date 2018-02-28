@@ -29,6 +29,7 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
+		model.addAttribute("budgetForm", new BudgetForm());
 		Event event = (Event) request.getSession(false).getAttribute("event");
 		try{
 			List vendorList = budgetDelegate.getVendors(event);
@@ -74,7 +75,7 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		String redirectTo = "budget";
 		
@@ -89,6 +90,7 @@ public class BudgetController {
 			} 
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
+			viewBudget(model,request);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -108,16 +110,16 @@ public class BudgetController {
 				//vendor.setVendorId(budgetDelegate.findLastInserted());
 				budgetDelegate.addVendorEvent(vendor, event);
 			}
-				//update category column
-				budgetDelegate.editCategory(vendor);
-				//insert goods
-				for(int i=0; i<vendor.getGoodsList().size(); i++){
-					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
-				}
-					redirectTo = "budget";
-					List vendorList = budgetDelegate.getVendors(event);
-					request.setAttribute("vendors", vendorList);
-					viewBudget(model,request);
+			//update category column
+			budgetDelegate.editCategory(vendor);
+			//insert goods
+			for(int i=0; i<vendor.getGoodsList().size(); i++){
+				budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+			}
+			redirectTo = "budget";
+			List vendorList = budgetDelegate.getVendors(event);
+			request.setAttribute("vendors", vendorList);
+			viewBudget(model,request);
 		} catch (SQLException e) {
 			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
 			e.printStackTrace();
