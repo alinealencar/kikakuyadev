@@ -15,9 +15,9 @@
 		
 			<div class="row" style="margin-top: 50px;">
 				<div class="col-sm-3">
-					<span style="width: 150px; margin:0; font-size:200%;">Guest List</span>
+					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none">
-						<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+						<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
 	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
 	   					</button>  					
    					</div>
@@ -30,7 +30,7 @@
 					<span class="noReply"><i class="fas fa-exclamation-circle"></i></span>&nbsp;No Reply&emsp;
 				</div>
 				<div class="col-sm-1 d-none d-sm-block">
-					<button id="showAddGuest"  type="button" class="btn btn-link img-fluid" onclick="openAddGuest()">
+					<button type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>  					
    				</div>
@@ -427,11 +427,19 @@ function closeEditGuest() {
     document.getElementById("editGuestSection").style.display = "none";
 }
 
+
 //show help bubbles
 $(document).ready(function(){
 	$('[data-toggle="tooltip"]').tooltip();   
 });
+</script>
+<script>
+//add guest clear form when it is submited
+
+$(".showAddGuest").click(function() {
+	$("input[type=text], textarea").val("");
+	$("select").val("0");
+});
 
 </script>
-
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
