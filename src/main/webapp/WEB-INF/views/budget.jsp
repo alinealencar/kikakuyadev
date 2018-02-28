@@ -52,6 +52,7 @@
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
 	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton"><i class="fas fa-minus-circle"></i></button>
 	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${catEdit}')"/></span><br>
+								<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>
 						</c:forEach>

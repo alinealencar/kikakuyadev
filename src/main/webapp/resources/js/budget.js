@@ -20,7 +20,7 @@ function deleteCategory(category) {
 
 //Calculate totals and subtotals
 
-//global variables
+//global variable
 var globalTotal = +0;
 
 function calculateSubtotal(category){
@@ -57,7 +57,6 @@ function calculateTotal(){
 function calculateTotalEdit(){
 	var total = +0;
 	var $items = $(".subtotalEdit");
-	console.log($items.length);
 	
 	if ($items.length > 1){
 		for(var i = 0; i < $items.length - 1; i++){
@@ -68,7 +67,6 @@ function calculateTotalEdit(){
 	}
 
 	else {
-		console.log("else");
 		$(".subtotalEdit").each(function() {
 			  total += +$(this)[0].innerHTML;
 		});
