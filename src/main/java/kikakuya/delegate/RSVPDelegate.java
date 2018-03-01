@@ -38,6 +38,11 @@ public class RSVPDelegate {
 		return communicationService.findGuestById(guestId);
 	}
 	
+	
+	public List<Guest> findGuestByStatus(int status, int eventId) throws SQLException {
+		return communicationService.findGuestByStatus(status, eventId);
+	}
+
 	public Guest findGuestByToken(String token) throws SQLException {
 		return communicationService.findGuestByToken(token);
 	}

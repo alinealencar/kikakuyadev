@@ -61,6 +61,7 @@ public class RSVPController {
 			@ModelAttribute("email") Email email){
 		
 		String redirectTo = "sendMessage";
+		int noReply = 1;
 		User user = (User) request.getSession().getAttribute("user");
 		
 		Event event = (Event) request.getSession().getAttribute("event");
@@ -69,7 +70,7 @@ public class RSVPController {
 		
 		
 		try {
-			guestList = rsvpDelegate.findGuests(event);
+			guestList = rsvpDelegate.findGuestByStatus(noReply,event.getEventId());
 			if(!rsvpDelegate.countEmailByEvent(event)){
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
