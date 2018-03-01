@@ -63,13 +63,6 @@ public class RSVPController {
 		String redirectTo = "sendMessage";
 		User user = (User) request.getSession().getAttribute("user");
 		
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
-		//event.setLocation("ACC"); 
-		//event.setEventDate("2018-05-29");
-		//event.setEventName("Chace's Birthday");
-		
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		List<Guest> guestList;
@@ -81,7 +74,7 @@ public class RSVPController {
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
 						rsvpDelegate.sendRSVP(email, user, event, guestList);
-						request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
+						request.setAttribute("sendRSVPSuccess", "RSVPs have been successfully sent to all guests.");
 						redirectTo = "sendMessage";
 					}
 				}

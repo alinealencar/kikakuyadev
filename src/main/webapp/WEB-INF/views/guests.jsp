@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <div class="container">
 <!-- body contents start -->
-	<div class="row" style="margin-top: 50px;">
+	<div class="row">
 		<div class="col-sm-6 text-center">
 			<form action="sendMessage" method="get"><input class="img-fluid" type="image" src="resources/images/guests/message_circle_line.png" alt="Send Message"></form>
 			<h3>Send Message</h3>

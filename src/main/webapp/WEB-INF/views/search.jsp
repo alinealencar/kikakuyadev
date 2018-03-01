@@ -8,7 +8,7 @@
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <div class="container">
 <!-- body contents start -->
-	<h2 style="margin-top: 50px;">Search Vendors</h2>
+	<h2>Search Vendors</h2>
 	<form action="search" method="post" >
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			

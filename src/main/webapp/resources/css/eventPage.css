@@ -1,9 +1,5 @@
 @CHARSET "ISO-8859-1";
 
-.container{
-	margin-top:60px;
-}
-
 h4{
 	margin: 0px 10px 0px 10px;
 	float:right;
@@ -30,9 +26,6 @@ h4{
 	margin: 10px 10px 10px 10px;
 }
 
-
-
-
 .textInput{
 	margin-top: 2px;
 	height: 28px;
@@ -44,12 +37,6 @@ h4{
 
 .inputError{
 	color: red;
-}
-
-.btn{
-	padding: 7px;
-	width: 100%;
-	
 }
 
 #deleteBtn{
