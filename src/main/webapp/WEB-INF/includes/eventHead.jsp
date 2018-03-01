@@ -21,11 +21,6 @@
 				</div>
 			</div>
 			<div class="col-sm-10">
-				<table>
-					<tr>
-					<td class="align-middle text-center"><h3 class="font-weight-light"> ${eventName}  in  <b>${remainDays}  days</b></h3></td>
-					</tr>
-				</table>
 			</div>
 			<div class="col-sm-1 d-none d-sm-block d-md-none">
 				<div id="sm-account" class="dropdown float-right">
@@ -60,7 +55,6 @@
 				 </div>
 			</div>
 		</div><!-- .row -->
-		<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 	</header>
 </div>
 </body>
