@@ -56,5 +56,3 @@
 			</div>
 		</div><!-- .row -->
 	</header>
-</div>
-</body>
