@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css?family=Quicksand" rel="stylesheet">
 
 <!-- link css -->
+<link rel="stylesheet" type="text/css" href="resources/css/eventPage.css">
 <link rel="stylesheet" type="text/css" href="resources/css/style.css">
 <link rel="stylesheet" type="text/css" href="resources/css/editable-select.css">
 <link rel="stylesheet" type="text/css" href="resources/css/animated-side.css">

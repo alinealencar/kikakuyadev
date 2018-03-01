@@ -37,12 +37,20 @@ a.dropdown-item.linked:hover {
     color: #F1E9DA;
 }
 
-.successAlert{
+.signupSuccess{
 	color: #def2ec; 
 	background-color: rgba(182, 249, 229, 0.5); 
 	border: 5px solid #14e595; 
 	margin: 7px 0px; 
 	padding: 8px;
+}
+
+.signupError{
+	color: #def2ec; 
+	background-color: rgba(242, 198, 205, 0.5); 
+	border: 5px solid #e85c76; 
+	margin: 8px 0px; 
+	padding:8px;
 }
 /****** menu ******/
 
@@ -157,6 +165,22 @@ Form validation
 
 .formError {
 	color: red;
+}
+
+.successAlert{
+	color: #025b19; 
+	background-color: rgba(182, 249, 229, 0.5); 
+	border: 5px solid #14e595; 
+	margin: 7px 0px; 
+	padding: 8px;
+}
+
+.errorAlert{
+	color: #c11d07; 
+	background-color: rgba(242, 198, 205, 0.5); 
+	border: 5px solid #e85c76; 
+	margin: 8px 0px; 
+	padding:8px;
 }
 
 /*********************************

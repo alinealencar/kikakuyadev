@@ -71,7 +71,7 @@
 									<div class="col-md-6">
 										Plus Ones&nbsp;
 										<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
-											<span class="info"><i class="fas fa-info-circle"></i></span>
+											<span class="info"><i class="fas fa-question-circle"></i></span>
 										</a>
 									</div>
 									<div class="col-md-6">
@@ -191,7 +191,7 @@
 						<div> ${selectedGuest.specialRequests}</div>
 						<hr>
 						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
-							<span class="info"><i class="fas fa-info-circle"></i></span>
+							<span class="info"><i class="fas fa-question-circle"></i></span>
 						</a></i></h5>
 						<div class="row">
 							<div class="col-3">
@@ -259,7 +259,7 @@
 						</div>
 					</div>
 					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
-						<span class="info"><i class="fas fa-info-circle"></i></span>
+						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
 						<div class="col-6">
@@ -340,7 +340,7 @@
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
 						<span class="info">
-							<i class="fas fa-info-circle"></i>
+							<i class="fas fa-question-circle"></i>
 						</span>
 					</a>
 					(Maximum):
