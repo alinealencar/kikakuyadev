@@ -8,6 +8,9 @@ body div#container{
 	color: #2E294E;
 	background-color: #F1E9DA;
 	font-family: 'Quicksand', sans-serif;
+	
+	min-height:100%;
+	position:relative;
 }
 
 /****** header ******/
@@ -68,20 +71,33 @@ nav li{
 
 
 /****** footer ******/
-
+html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+.container {
+	padding:10px;
+   padding-bottom:50px; /* height of the footer */
+}
 footer {
+	position:absolute;
+   	bottom:0;
+   	width:100%;
 	height: 50px;
     padding: 15px;
     color: #F1E9DA;
 	background-color: #541388;
 	margin-top: 15px;	
 }
+/*
 .above-footer{
-    min-height: calc(100vh - 50px); /* hoge = stickyFooter height */
+    min-height: calc(100vh - 50px); hoge = stickyFooter height
 }
 .sticky-footer{
-    /*height: 50px;                   /* hoge = stickyFooter height */
-}
+    height: 50px;                   /* hoge = stickyFooter height
+} */
 
 /****** icon ******/
 .fabutton {
