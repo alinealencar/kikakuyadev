@@ -1,7 +1,7 @@
 <footer id="footer" class="container-fluid text-center" style="margin-top: 15px;">
 		<div>&copy; KIKAKUYA - 2018 All Rights Reserved</div>
 	</footer>
-<!-- end of #container.container-fluid -->
+</div><!-- end of #container.container-fluid -->
 <!-- jQuery library -->
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 

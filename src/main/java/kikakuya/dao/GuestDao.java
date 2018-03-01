@@ -17,5 +17,6 @@ public interface GuestDao {
 	public Guest findGuestByToken(String token) throws SQLException;
 	public boolean deleteGuestToken(Guest guest) throws SQLException;
 	public boolean isTokenFound(String token) throws SQLException;
-	
+	public int countGuests(Event event) throws SQLException;
+	public int countGuestsByStatus(Event event, int status) throws SQLException;
 }

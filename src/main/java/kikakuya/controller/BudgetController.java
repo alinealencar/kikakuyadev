@@ -29,7 +29,8 @@ public class BudgetController {
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
-		Event event = (Event) request.getSession().getAttribute("event");
+		model.addAttribute("budgetForm", new BudgetForm());
+		Event event = (Event) request.getSession(false).getAttribute("event");
 		try{
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
@@ -44,21 +45,22 @@ public class BudgetController {
 		request.setAttribute("budgetInfo", budgetInfo);
 		
 		//Get list of all goods
-		BudgetForm goodsListForm = new BudgetForm();
-		request.setAttribute("goodsListForm", goodsListForm);
+		BudgetForm budgetForm = new BudgetForm();
+		request.setAttribute("budgetForm", budgetForm);
+		
+		//Show budget as default
+		request.setAttribute("goodDeleted", "");
 		return "budget";
 	}
 	
 	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
-	public String processAddSearchVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddSearchVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		String redirectTo = "budget";
 		try {
+			//add new vendor from search
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
@@ -66,8 +68,8 @@ public class BudgetController {
 			}
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
-			//String category = request.getParameter("category");
-			//session.setAttribute("category", category);
+			
+			viewBudget(model,request);
 		} catch (SQLException e) {
 			redirectTo = "searchResult";
 			e.printStackTrace();
@@ -76,16 +78,14 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
-	public String processAddVendor(HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
+	public String processAddVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
 		String redirectTo = "budget";
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1);
 		
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		try {
+			//add new vendor
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
@@ -93,6 +93,7 @@ public class BudgetController {
 			} 
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
+			viewBudget(model,request);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
@@ -104,22 +105,24 @@ public class BudgetController {
 	public String processAddToBudget(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 				
 		String redirectTo = "budget";
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1);
-		
 		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
-			if(budgetDelegate.addVendorEvent(vendor, event)){
-				for(int i=0; i<vendor.getGoodsList().size(); i++){
-					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
-				}
-				redirectTo = "budget";
-				List vendorList = budgetDelegate.getVendors(event);
-				request.setAttribute("vendors", vendorList);
-				viewBudget(model,request);
+			//add new vendorvent
+			if(!budgetDelegate.isVendorFound(vendor)){
+				//vendor.setVendorId(budgetDelegate.findLastInserted());
+				budgetDelegate.addVendorEvent(vendor, event);
 			}
+			//update category column
+			budgetDelegate.editCategory(vendor);
+			//insert goods
+			for(int i=0; i<vendor.getGoodsList().size(); i++){
+				budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+			}
+			redirectTo = "budget";
+			List vendorList = budgetDelegate.getVendors(event);
+			request.setAttribute("vendors", vendorList);
+			viewBudget(model,request);
 		} catch (SQLException e) {
 			request.setAttribute("searchError", "Error adding vendor to budget. Please try again.");
 			e.printStackTrace();
@@ -132,34 +135,94 @@ public class BudgetController {
 		String redirectTo = "budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
-		
 		try {
 			//Update goods
-			for(int i = 0; i < goodsList.size(); i++){
-				budgetDelegate.editGood(goodsList.get(i));
+			if(goodsList != null && goodsList.size() > 0) {
+				for(int i = 0; i < goodsList.size(); i++){
+					budgetDelegate.editGood(goodsList.get(i));
+				}
 			}
-			
+				
 			//Update total budget
-				budgetDelegate.editTotalBudget(1, newTotalBudget);
+			budgetDelegate.editTotalBudget(1, newTotalBudget);
 			
-			//Refresh budget info
+			//Update event object in the session scope
+			Event event = (Event) request.getSession().getAttribute("event");
+			event.setTotalBudget(newTotalBudget);
+			request.getSession().setAttribute("event", event);
+			request.setAttribute("editSuccess", "Budget was updated successfully.");
 			viewBudget(model, request);
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 		
+		
 		return redirectTo;
 	}
 	
 	@RequestMapping(value="/deleteGood", method = RequestMethod.POST)
-	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute Good good){
-		System.out.println("entrou no delete good");
-		
+	public String deleteGood(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
 		try {
+			//delete good
+			budgetDelegate.deleteGood(budgetForm.getGoodId());
+			
+			//if there's no goods anymore for this vendor, delete it
+			if(budgetDelegate.isZeroGoods(budgetForm.getVendorId())){
+				budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
+				budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			}
+			viewBudget(model, request);
+			request.setAttribute("goodDeleted", "Good deleted successfully.");
+		} catch (SQLException e) {
+				e.printStackTrace();
+		}
+		
+		return "budget";
+	}
+	
+	@RequestMapping(value="/deleteVendor", method = RequestMethod.POST)
+	public String deleteVendor(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
+		try {
+			//budgetDelegate.deleteGoodsByVendor(budgetForm.getVendorId());
+			budgetDelegate.deleteVendorEvent(budgetForm.getVendorId());
+			budgetDelegate.deleteVendor(budgetForm.getVendorId());
+			
 			viewBudget(model, request);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return "budget";
+	}
+	
+	@RequestMapping(value="/deleteCategory", method = RequestMethod.POST)
+	public String deleteCategory(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
+		String category = budgetForm.getCategory();
+		Event event = (Event) request.getSession().getAttribute("event");
+		System.out.println("in the delete category");
+		try {
+			//delete vendor associated to a certain category? Now you can't add one vendor in 2 different categories,
+			//so it makes sense to delete the vendor too. Bug or feature?
+			budgetDelegate.deleteCategory(event.getEventId(), category);
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "budget";
+	}
+	
+	@RequestMapping(value="/showVendor", method = RequestMethod.POST)
+	public String viewVendor(Model model, HttpServletRequest request) {
+		int vendorId = Integer.parseInt(request.getParameter("vendorId"));
+		System.out.println("vendor id: " + vendorId);
+		try {
+			Vendor vendor = budgetDelegate.getVendor(vendorId);
+			request.setAttribute("selectedVendor", vendor);
+			viewBudget(model, request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		
 		return "budget";
 	}

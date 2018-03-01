@@ -20,7 +20,7 @@
 	  	<form:hidden value="${guest.guestId}" path="guestId" />
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">
-		  		<h4><form:radiobutton name="attendance" id="attend" value="1" path="isPresent" required="true" checked="true"/>Happily attend!</h4>
+		  		<h4><form:radiobutton name="attendance" id="attend" value="0" path="isPresent" required="true" checked="true"/>Happily attend!</h4>
 		  	</label>
 		  	<label class="radio-inline text-center col-sm-6">
 		  		<h4><form:radiobutton name="attendance" id="absent" value="2" path="isPresent" />Sadly decline...</h4>

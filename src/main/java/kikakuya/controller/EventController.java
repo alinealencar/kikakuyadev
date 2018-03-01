@@ -16,6 +16,10 @@ import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.User;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+
 @Controller
 public class EventController {
 
@@ -25,22 +29,29 @@ public class EventController {
 	//List all the event by user
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
-		
+		String redirectTo = "event";
 		User user = (User) request.getSession().getAttribute("user");
 		try {
-			List<Event> event = eventDelegate.listEventsByUser(user);
-			if (event.size() > 0){
-				request.setAttribute("listEvent", event);
+			if(user != null) {
+				List<Event> event = eventDelegate.listEventsByUser(user);
+				if (event.size() > 0){
+					request.setAttribute("listEvent", event);
+				}
+				else{
+					request.setAttribute("noEvents", "No events created yet! Create one!");
+				}
 			}
-			else{
-				request.setAttribute("noEvents", "No events created yet! Create one!");
+			else {
+				//if user not found in session, redirect them to the login page
+				model.addAttribute("user", new User());
+				redirectTo = "index";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		//Send the list of all events to the session scope
 		model.addAttribute("event", new Event());
-		return "event";
+		return redirectTo;
 	}
 	
 	//Add an event
@@ -78,7 +89,6 @@ public class EventController {
 		
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
-			System.out.println("event id: " + event.getEventId());
 			if(isUpdateEvent){
 				System.out.println("Update successful");
 			}
@@ -100,7 +110,6 @@ public class EventController {
 		
 		try{
 			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
-			System.out.println("event id: " + event.getEventId());
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
 		} 
@@ -123,10 +132,19 @@ public class EventController {
 			HttpSession session = request.getSession();
 			try{			
 				Event eventName = eventDelegate.getSelectedEvent(event.getEventId());
-				System.out.println(event.getEventId());
+				//System.out.println(event.getEventId());
 				
 				//Send the event to the session scope
 				session.setAttribute("event", eventName);
+				
+				//Calculate remaining days
+				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+				LocalDate eventsDate = LocalDate.parse(eventName.getEventDate(), formatter);
+				LocalDate today = LocalDate.now();
+				
+				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
+				session.setAttribute("remainingDays", daysBetween);
+				
 			}
 			catch (Exception e){
 				e.printStackTrace();

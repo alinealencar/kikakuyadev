@@ -33,7 +33,7 @@ CREATE TABLE Event (
 CREATE TABLE VendorEvent (
   vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
   EventeventId    int(10) NOT NULL,
-  VendorvendorId  int(10) NOT NULL UNIQUE,
+  VendorvendorId  int(10) NOT NULL,
   vendorCategory  varchar(100),
   PRIMARY KEY (vendorEventId));
 CREATE TABLE Good (
@@ -47,7 +47,7 @@ CREATE TABLE Guest (
   token varchar(255) NOT NULL UNIQUE,
   firstName varchar(50) NOT NULL, 
   lastName  varchar(50) NOT NULL, 
-  email     varchar(50) NOT NULL,
+  email     varchar(50) NOT NULL UNIQUE,
   isPresent   int(1),
   company varchar(50),
   kidsWith int(3),
@@ -94,9 +94,9 @@ CREATE TABLE Vendor (
   phone varchar(50),
   address varchar(255),
   PRIMARY KEY (vendorId));
-ALTER TABLE Good ADD INDEX FKGoodVendorEvent (VendorEventvendorEventId), ADD CONSTRAINT FKGoodVendorEvent FOREIGN KEY (VendorEventvendorEventId) REFERENCES VendorEvent (vendorEventId);
-ALTER TABLE VendorEvent ADD INDEX FKVendorVendorEvent (VendorvendorId), ADD CONSTRAINT FKVendorVendorEvent FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId);
-ALTER TABLE VendorEvent ADD INDEX FKEventVendorEvent (EventeventId), ADD CONSTRAINT FKEventVendorEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
+ALTER TABLE Good ADD INDEX FKGoodVendorEvent (VendorEventvendorEventId), ADD CONSTRAINT FKGoodVendorEvent FOREIGN KEY (VendorEventvendorEventId) REFERENCES VendorEvent (vendorEventId) ON DELETE CASCADE;
+ALTER TABLE VendorEvent ADD INDEX FKVendorVendorEvent (VendorvendorId), ADD CONSTRAINT FKVendorVendorEvent FOREIGN KEY (VendorvendorId) REFERENCES Vendor (vendorId) ON DELETE CASCADE;
+ALTER TABLE VendorEvent ADD INDEX FKEventVendorEvent (EventeventId), ADD CONSTRAINT FKEventVendorEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId) ON DELETE CASCADE;
 ALTER TABLE Item ADD INDEX FKItemList (ListlistId), ADD CONSTRAINT FKItemList FOREIGN KEY (ListlistId) REFERENCES List (listId);
 ALTER TABLE List ADD INDEX FKListEvent (EventeventId), ADD CONSTRAINT FKListEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT FKGuestPlusOne FOREIGN KEY (GuestguestId) REFERENCES Guest(guestId);

@@ -66,5 +66,38 @@ public class BudgetDelegate {
 	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {
 		return eventService.editTotalBudget(eventId, totalBudget);
 	}
+	
+	public boolean deleteGood(int goodId) throws SQLException {
+		return budgetService.deleteGood(goodId);
+	}
+	
+	public boolean deleteVendorEvent(int vendorId) throws SQLException {
+		return budgetService.deleteVendorEvent(vendorId);
+	}
+	
+	public boolean deleteVendor(int vendorId) throws SQLException {
+		return budgetService.deleteVendor(vendorId);
+	}
+	
+	public boolean isZeroGoods(int vendorId) throws SQLException {
+		return budgetService.isZeroGoods(vendorId);
+	}
+	
+	public boolean deleteCategory(int eventId, String category) throws SQLException {
+		return budgetService.deleteCategory(eventId, category);
+	}
+	
+	public boolean editCategory(Vendor vendor) throws SQLException {
+		return budgetService.editCategory(vendor);
+	}
+
+	public boolean isVendorFound(Vendor vendor) throws SQLException {
+		return budgetService.isVendorFound(vendor);
+	}
+	
+	public Vendor getVendor(int vendorId) throws SQLException {
+		return budgetService.findVendor(vendorId);
+	}
+	
 }
 

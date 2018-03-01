@@ -1,4 +1,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<jsp:include page="/WEB-INF/includes/head.jsp" />
 <body>
 <div id="container" class="container.container-fluid">
 	<header>
@@ -35,8 +37,12 @@
 				<img alt="Kikakuya Image" src="resources/images/header/login_image.png" width="70%">
 			</div>
 			<div class="col-sm-6 text-center" style="margin-top: 10px;">
-				<span>${signUpSuccess}</span>
-				<span>${signUpError}</span>
+				<c:if test="${not empty signUpSuccess}">
+					<span class="isa_success successAlert" style="color: #def2ec; background-color: rgba(136, 239, 208, 0.5); border: 5px solid #14e595; margin: 8px 0px; padding:8px;"><i class="fa fa-check"></i>&emsp;${signUpSuccess}</span>
+				</c:if>
+				<c:if test="${not empty signUpError}">
+					<span class="isa_error" style="color: #def2ec; background-color: rgba(242, 198, 205, 0.5); border: 5px solid #e85c76; margin: 8px 0px; padding:8px;"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${signUpError}</span>
+				</c:if>
 				<div class="row">
 					<div class="col-sm-3"></div>
 
@@ -66,3 +72,4 @@
 				</div>
 			</div>
 	</header>
+

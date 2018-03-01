@@ -11,11 +11,11 @@ body div#container{
 }
 
 /****** header ******/
-header{
+header {
 	padding: 15px;
 	background-color: #541388;
     color: #F1E9DA;	
-	margin-bottom: 15px;
+	margin-bottom: 0px;
 }
 
 header table{
@@ -33,7 +33,16 @@ a.dropdown-item.linked:hover {
     background-color:  #D90368;
     color: #F1E9DA;
 }
+
+.successAlert{
+	color: #def2ec; 
+	background-color: rgba(182, 249, 229, 0.5); 
+	border: 5px solid #14e595; 
+	margin: 7px 0px; 
+	padding: 8px;
+}
 /****** menu ******/
+
 nav{
 	background-color: #541388;
 }
@@ -67,7 +76,23 @@ footer {
 	background-color: #541388;
 	margin-top: 15px;	
 }
+.above-footer{
+    min-height: calc(100vh - 50px); /* hoge = stickyFooter height */
+}
+.sticky-footer{
+    /*height: 50px;                   /* hoge = stickyFooter height */
+}
 
+/****** icon ******/
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+
+.fas {
+	cursor: pointer;
+}
 
 /*********************************
 Search result
@@ -90,6 +115,9 @@ Guest Management
 .absent{
 	color: red;
 }
+.info{
+	color:blue;
+}
 tbody tr {
 	cursor: pointer;
 }
@@ -99,6 +127,14 @@ tbody tr {
 .showSection {
 	display:inline-block;
 }
+table.table > thead > tr > th{
+    border-top:1px solid #999999;
+    border-bottom:2px solid #999999;
+}
+table.table > tbody > tr > td{
+    border-bottom:1px solid #999999;
+}
+
 /*********************************
 Form validation
 **********************************/

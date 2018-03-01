@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.GuestDelegate;
 import kikakuya.model.Email;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.GuestPlusOneForm;
@@ -30,9 +31,31 @@ public class GuestController {
 	
 	//Show guest dashboard
 	@RequestMapping(value = "/guestsDash", method = RequestMethod.GET)
-	public String viewGuestDashboard(Model model){
+	public String viewGuestDashboard(Model model, HttpServletRequest request){
+		int present = 0; 
+		int absent = 2; 
+		int noReply = 1;
+		
+		Event event = (Event) request.getSession().getAttribute("event");
+		
 		model.addAttribute("guest", new Guest());
 		model.addAttribute("plusOnes", new GuestPlusOneForm());
+		
+		try {
+			//get total guest count
+			int guestCount = guestDelegate.countGuests(event);
+			//get guest count by rsvp status
+			int presentCount = guestDelegate.countGuestsByStatus(event,present);
+			int absentCount = guestDelegate.countGuestsByStatus(event,absent);
+			int noReplyCount = guestDelegate.countGuestsByStatus(event,noReply);
+			
+			request.setAttribute("totalGuests", guestCount);
+			request.setAttribute("presentGuests", presentCount);
+			request.setAttribute("absentGuests", absentCount);
+			request.setAttribute("noReplyGuests", noReplyCount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return "guests";
 	}
 	
@@ -75,7 +98,12 @@ public class GuestController {
 			}
 				
 		} catch(Exception e){
-			e.printStackTrace();
+			if(e.getMessage().indexOf("for key 'email'") != -1){
+				request.setAttribute("addGuestError", "This guest is already registered.");
+			}
+			else {
+				e.printStackTrace();
+			}
 		}
 		
 		return "guestMgmt";
@@ -86,7 +114,6 @@ public class GuestController {
 	public String processEditGuest(HttpServletRequest request, @ModelAttribute("guest") Guest guest, Model model){
 		try {
 			boolean editGuestSuccessful = guestDelegate.editGuest(guest);
-			System.out.println("guest id: " + guest.getGuestId());
 			if(editGuestSuccessful){
 				System.out.println("Edit guest successful");
 				request.setAttribute("editGuestSuccess", "edit sucessful");

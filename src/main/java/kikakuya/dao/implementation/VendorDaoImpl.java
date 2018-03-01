@@ -30,9 +30,10 @@ public class VendorDaoImpl implements VendorDao{
 	public List<Vendor> findVendors(Event event) throws SQLException {
 		//String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
 		//		+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
-		String query = "SELECT * FROM vendor INNER JOIN vendorevent "
+		String query = "SELECT DISTINCT vendor.vendorId, vendor.vendorName FROM vendor INNER JOIN vendorevent "
 				+ "ON vendor.vendorId = vendorevent.VendorvendorId "
-				+ "WHERE EventeventId=" + event.getEventId();
+				+ "WHERE vendorevent.EventeventId=" + event.getEventId();
+				//+ " ORDER BY vendor.vendorId ASC";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -40,9 +41,9 @@ public class VendorDaoImpl implements VendorDao{
 			Vendor vendor = new Vendor();
 			vendor.setVendorId(rs.getInt(1));
 			vendor.setName(rs.getString(2));
-			vendor.setAddress(rs.getString(3));
-			vendor.setWebsite(rs.getString(4));
-			vendor.setPhoneNo(rs.getString(5));
+			//vendor.setAddress(rs.getString(3));
+			//vendor.setWebsite(rs.getString(4));
+			//vendor.setPhoneNo(rs.getString(5));
 			
 			vendors.add(vendor);
 		}
@@ -65,13 +66,15 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public Map<String, Map<Vendor, List<Good>>> findBudget(int eventId) throws SQLException {
-		String query = "select ev.vendorcategory, v.vendorName, v.website, v.address, v.phone, " +
-	"g.goodId, g.goodName, g.goodPrice from event e, vendorevent ev, vendor v, good g " +
-	"where ev.eventEventId = e.eventId " +
-	"and ev.vendorVendorId = v.vendorId " +
-	"and ev.vendorEventId = g.vendorEventVendorEventId " +
-	"and e.eventId = " + eventId +
-	" order by ev.vendorcategory, v.vendorName";
+		String query = "select ev.vendorcategory, ev.vendoreventId," + 
+				" v.vendorId, v.vendorName, v.website, v.address, v.phone, " +
+				"g.goodId, g.goodName, g.goodPrice from event e, vendorevent ev, vendor v, good g " +
+				"where ev.eventEventId = e.eventId " +
+				"and ev.vendorVendorId = v.vendorId " +
+				"and ev.vendorEventId = g.vendorEventVendorEventId " +
+				"and e.eventId = " + eventId +
+				" order by ev.vendorcategory, v.vendorName";
+		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -84,45 +87,49 @@ public class VendorDaoImpl implements VendorDao{
 		Good aGood = new Good();
 		
 		while(rs.next()){
-			//Different vendor
-			if(curVendor != null || !curVendor.equals(rs.getString(2))){
+			if(!curCategory.equals(rs.getString(1))){
 				//Skip very first case
-				if(curVendor == null || !curVendor.equals("")) {
+				if(!curCategory.equals("")) {
 					vendorMap.put(aVendor, goodsList);
+					result.put(curCategory, vendorMap);
+					vendorMap = new HashMap<Vendor, List<Good>>();
 				}
-					
-				//Create vendor object
-				aVendor = new Vendor();
-				aVendor.setName(rs.getString(2));
-				aVendor.setWebsite(rs.getString(3));
-				aVendor.setAddress(rs.getString(4));
-				aVendor.setPhoneNo(rs.getString(5));
-				curVendor = rs.getString(2);
-					
-				//Empty list out
-				goodsList = new ArrayList<Good>();
-					
-				if(curCategory != null || !curCategory.equals(rs.getString(1))){
-					//Skip very first case
-					if(!curCategory.equals("")) {
-						result.put(curCategory, vendorMap);
-						vendorMap = new HashMap<Vendor, List<Good>>();
-					}
-					curCategory = rs.getString(1);
-				}
-			}
 				
-			//Create list of all goods for a certain vendor
-			aGood = new Good();
-			aGood.setGoodId(rs.getInt(6));
-			aGood.setGoodName(rs.getString(7));
-			aGood.setGoodPrice(rs.getDouble(8));
-			//Add good object to goodsList
-			goodsList.add(aGood);
+				curCategory = rs.getString(1);
+				curVendor = "";
+			}
+				//Different vendor
+				if(!curVendor.equals(rs.getString(4))){
+					//Skip very first case
+					if(!curVendor.equals("")) {
+						vendorMap.put(aVendor, goodsList);
+					}
+					
+					//Create vendor object
+					aVendor = new Vendor();
+					aVendor.setVendorId(rs.getInt(3));
+					aVendor.setName(rs.getString(4));
+					aVendor.setWebsite(rs.getString(5));
+					aVendor.setAddress(rs.getString(6));
+					aVendor.setPhoneNo(rs.getString(7));
+					curVendor = rs.getString(4);
+					
+					//Empty list out
+					goodsList = new ArrayList<Good>();
+				}
+				
+				//Create list of all goods for a certain vendor
+				aGood = new Good();
+				aGood.setGoodId(rs.getInt(8));
+				aGood.setGoodName(rs.getString(9));
+				aGood.setGoodPrice(rs.getDouble(10));
+				//Add good object to goodsList
+				goodsList.add(aGood);
 		
 		}
+		
 		//Handle last entities after loop
-		if(curCategory == null || !curCategory.equals("")){
+		if(!curCategory.equals("")){
 			vendorMap.put(aVendor, goodsList);
 			result.put(curCategory, vendorMap);
 		}
@@ -142,14 +149,25 @@ public class VendorDaoImpl implements VendorDao{
 	}
 
 	@Override
-	public boolean updateGood(Good good) throws SQLException {
-		String query = "update good set " +
-	"goodName='" + good.getGoodName() + "', " +
-	"goodPrice=" + good.getGoodPrice() + " " +
-	"where goodId=" + good.getGoodId();
+	public boolean deleteVendor(int vendorId) throws SQLException {
+		String query = "delete from vendor where vendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
-		
-		return(rowsAffected > 0);
+		return rowsAffected > 0;
+	}
+
+	@Override
+	public Vendor findVendor(int vendorId) throws SQLException {
+		String query = "select * from vendor where vendorId=" + vendorId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		Vendor aVendor = new Vendor();
+		if(rs.next()){
+			aVendor.setName(rs.getString(2));
+			aVendor.setWebsite(rs.getString(3));
+			aVendor.setPhoneNo(rs.getString(4));
+			aVendor.setAddress(rs.getString(5));
+		}
+		return aVendor;
 	}
 }

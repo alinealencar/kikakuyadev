@@ -5,6 +5,7 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <div class="container">
 <!-- body contents start -->
 	<div class="row" style="margin-top: 50px;">
@@ -28,12 +29,11 @@
 		</div>
 	</div>
 	<br>
-	<h3>${attendGuests}58 guests of 80${totalGuests}</h3>
+	<h3>${presentGuests} guests of ${totalGuests}</h3>
 	<div class="progress" style="margin-bottom: 50px;">
-  		<div class="progress-bar bg-success" role="progressbar" style="width: ${attendRate}72.5%" aria-valuenow="${attendRate}72.5" aria-valuemin="0" aria-valuemax="100">${attendGuests}58</div>
-  		<div class="progress-bar bg-danger" role="progressbar" style="width: ${absentRate}0.625%" aria-valuenow="${absentRate}0.625" aria-valuemin="0" aria-valuemax="100">${absentGuests}5</div>
-  		<div class="progress-bar bg-warning" role="progressbar" style="width: ${noResponseRate}27.5%" aria-valuenow="${noResponseRate}27.5" aria-valuemin="0" aria-valuemax="100">${noResponseGuests}22</div>
-	</div>
+		<div class="progress-bar bg-danger" role="progressbar" style="width: ${(absentGuests/totalGuests)*100}%" aria-valuenow="${(absentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${absentGuests}</div>
+	  	<div class="progress-bar bg-success" role="progressbar" style="width: ${(presentGuests/totalGuests)*100}%" aria-valuenow="${(presentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${presentGuests}</div>
+	  	<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>	</div>
 <!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

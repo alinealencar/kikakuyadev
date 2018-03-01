@@ -5,76 +5,114 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
+<jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page isELIgnored="false" %>
+<script src="resources/js/budget.js"></script>
 <div class="container">
 <!-- body contents start -->
 	<div class="row">
 		<div class="col-sm-8">
-			<div id="showBudget">
+			${editSuccess}
+			${goodDeleted}
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''}>
 				<!-- show budget -->
-				<h3>Budget: ${event.totalBudget}</h3>
+				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
+				<h3>Budget: $${event.totalBudget}</h3>
+				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
 	   				<h3>${category.key}</h3>
 	   				<c:forEach var="vendor" items="${category.value}">
 	   					<h4>${vendor.key.name} - Price</h4>
+	   					<!-- Get details of the vendor -->
+	   					<form action="showVendor" method="post">
+	   						<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
+	   						<button type="submit" class="fabutton">
+	   							<i class="fas fa-address-card"></i>
+	   						</button>
+	   					</form>
 	   					<c:forEach var="good" items="${vendor.value}">
-	   						<h5>${good.goodName} - ${good.goodPrice}</h5>
+	   						<h5>${good.goodName} - <span class="category${cat}">${good.goodPrice}</span></h5>
 						</c:forEach>
 					</c:forEach>
-					<h4>Subtotal: </h4>
+					<h4>Subtotal: $ <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
+					
+					<c:set var="cat" value="${cat + 1}" scope="page"/>
 				</c:forEach>
-				<h3>Total: </h3>
+				<h3>Grand Total: $<span id="totalBudget"><script>document.write(calculateTotal());</script></span></h3>
+				<h3>Amount Remaining: $<span id="amountRemaining"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
 			</div>
-			<div id="editBudget">
-				<form:form action="editBudget" method="post" modelAttribute="goodsListForm">
-					Budget: <input name="totalBudget" value="${event.totalBudget}"/><br>
+			<!-- edit budget -->
+			<div id="editBudget" ${goodDeleted != '' ? '' : 'style="display:none;"'}>
+				<span onclick="openShowBudget()" class="closebtn"><i class="fas fa-times"></i></span>
+				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
+					<button type="submit">Save</button>
+					<br>
+					<!-- Fields for the delete operation -->
+					<form:hidden path="category" value=""/>
+					<form:hidden path="vendorId" value=""/>
+	   				<form:hidden path="goodId" value=""/>
+	   				
+					Budget: $<input type="number" name="totalBudget" value="${event.totalBudget}"/><br>
+					<c:set var="catEdit" value="1" scope="page" />
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-							<!-- Delete category -->
-	   						<form:form action="deleteCategory" method="post"><i class="fas fa-minus-circle"></i></form:form>
-	   						<h3>${category.key}</h3><br>
+						<button onclick="deleteCategory('${category.key}');" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   					<h3>${category.key}</h3><br>
 	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
-	   						<!-- Delete vendor -->
-	   						<form:form action="deleteVendor" method="post"><i class="fas fa-minus-circle"></i></form:form>
+	   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   						<h4>${vendor.key.name} - Price</h4><br>
 	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
-	   							<!-- Delete good -->
-	   							<form:form action="deleteGood" method="post" modelAttribute="good">
-	   								<button type="submit"><i class="fas fa-minus-circle"></i></button>
-	   								<form:hidden path="goodId" value="${good.goodId}"/>
-	   							</form:form>
-	   							<%-- <input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/> --%>
-	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <input name="goodsList[${count}].goodPrice" value="${good.goodPrice}"/><br>
+	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/></span><br>
+								<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 								<c:set var="count" value="${count + 1}" scope="page"/>
 							</c:forEach>
 						</c:forEach>
+						<h4>Subtotal: $ <span id="subtotal${catEdit}" class="subtotalEdit"><script>calculateSubtotalLive('${event.totalBudget}', '${catEdit}');</script></span></h4>
+						<c:set var="catEdit" value="${catEdit + 1}" scope="page"/>
 					</c:forEach>
-				<span><input type="submit" value="Save"/></span>
+					<h3>Grand Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit('${event.totalBudget}');</script></span></h3>
+					<h3>Amount Remaining: $<span id="amountRemainingEdit"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
 				</form:form>
 			</div>
 		</div>
-		<div class="col-sm-4" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc">
+		<div class="col-sm-4">
+			<!-- vendor details  -->
+			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
+				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
+				${selectedVendor.name} <br>
+				${selectedVendor.phoneNo != "" ? 'Phone: ' : ''} ${selectedVendor.phoneNo} <br>
+				${selectedVendor.address != "" ? 'Address: ' : ''} ${selectedVendor.address} <br> 
+				${selectedVendor.website != "" ? 'Website: ' : ''} <a href="${selectedVendor.website}">Yelp</a>
+			</div>
+			
 			<!-- budget form add here -->
+			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
 				<div class="form-group">
-      				<form:select id="category" class="form-control ui-select" path="category">
+      				<form:select id="category" class="form-control ui-select category" path="category">
 	        			<option selected>--- Select Category ---</option>
-	       				<option>Balloon Services</option>
-	       				<option>Cake</option>
-	       				<option>Cards & Stationery</option>
-	       				<option>Caterer</option>
-	       				<option>Decorations</option>
-	       				<option>Entertainment</option>
-	       				<option>Floral Design</option>
-	       				<option>Music</option>
-	       				<option>Party Equipment Rental</option>
-	       				<option>Photography</option>
-	       				<option>Transportation</option>
-	       				<option>Venue</option>
-	       				<option>Other</option>
+	        			<option value="Accommodation">Accommodation</option>
+	        			<option value="Alcohol">Alcohol</option>
+	       				<option value="Balloon Services">Balloon Services</option>
+	       				<option value="Beauty">Beauty</option>
+	       				<option value="Cake">Cake</option>
+	       				<option value="Cards & Stationery">Cards & Stationery</option>
+	       				<option value="Caterer">Caterer</option>
+	       				<option value="Decorations">Decorations</option>
+	       				<option value="Entertainment">Entertainment</option>
+	       				<option value="Floral Design">Floral Design</option>
+	       				<option value="Music">Music</option>
+	       				<option value="Party Equipment Rental">Party Equipment Rental</option>
+	       				<option value="Party Favors">Party Favors</option>
+	       				<option value="Photography">Photography</option>
+	       				<option value="Staff">Staff</option>
+	       				<option value="Transportation">Transportation</option>
+	       				<option value="Venue">Venue</option>
+	       				<option value="Other">Other</option>
       				</form:select>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
@@ -140,22 +178,38 @@
       					<form:input type="text" class="form-control" placeholder="Phone Number" path="phoneNo" />
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
-      				<div class="text-center">
-      					<button type="submit" class="btn btn-success">Submit</button>
-      				</div><br>
-      				<div class="text-center">
-      					<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      				<div  class="form-group row">
+      					<div class="col-sm-6 text-center">
+      						<button type="submit" class="btn btn-success">Submit</button>
+      					</div><br>
+      					<div class="col-sm-6 text-center">
+      						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      					</div>
       				</div>
       			</form:form><br>
       		</div>
+		</div>
 		</div>
 	</div>
 		
 <!-- body contents end -->
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
-<!-- <script src="resources/js/budget.js"></script> -->
 <script type="text/javascript">
+/*** Sticky form ***/
+$(document).ready(function(){
+	//show selected value
+	var valueFromLS = sessionStorage.getItem("selectedCategory");
+	$(".category option[value='" + valueFromLS + "']").prop("selected",true);
+});
+$(document).ready(function(){
+	//get selected value from dropdown
+	$('.category').change(function(){
+		var selectedCategory = $('.category').val();
+		sessionStorage.setItem("selectedCategory",selectedCategory);
+	});
+});
+
 $(document).ready(function(){
 	var counter = 1;
 	$("#btnAddItemPrice").click(function () {
@@ -163,14 +217,6 @@ $(document).ready(function(){
 		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
 		counter++;
 	});
-	
-	$("#formAddToBudget").keypress(function(e) {
-		  //Enter key
-		  if (e.which == 13) {
-		    return false;
-		  }
-		});
-	
 });
 
 $(document).ready(function(){
@@ -196,9 +242,6 @@ $(document).ready(function(){
 	});
 });
 
-$(document).on("keypress", ":input:not(select)", function(event) {
-    return event.keyCode != 13;
-});
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

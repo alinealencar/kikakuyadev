@@ -66,9 +66,9 @@ public class GuestDelegate {
 	}
 	
 	public List<String> getMealOptions(int eventId) throws SQLException {
-		Event event = new Event();
-		event.setEventId(eventId);
-		Email email = commService.findEmailByEvent(event);
+		Guest guest = new Guest();
+		guest.setEventId(eventId);
+		Email email = commService.findEmailByEvent(guest);
 		
 		List<String> meals = new ArrayList();
 		if(email.getMealChoiceBeef() != null)
@@ -86,4 +86,14 @@ public class GuestDelegate {
 		
 		return meals;
 	}
+	
+	public int countGuestsByStatus(Event event, int status) throws SQLException{
+		return guestService.countGuestsByStatus(event, status);
+	}
+	
+	public int countGuests(Event event) throws SQLException{
+		return guestService.countGuests(event);
+	}
+	
+	
 }

@@ -24,9 +24,6 @@ public class GuestDaoImpl implements GuestDao {
 	}
 	
 	public List<Guest> findGuests(Event event) throws SQLException {
-//		String query = "SELECT * FROM guest INNER JOIN guest_event "
-//				+ "ON guest.guestId = guest_event.GuestguestId "
-//				+ "WHERE guest_event.EventeventId=" + event.getEventId();
 		String query = "SELECT * FROM guest WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Guest> guests = new ArrayList<Guest>();
@@ -208,6 +205,31 @@ public class GuestDaoImpl implements GuestDao {
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return(rowsAffected > 0);
+	}
+
+	@Override
+	public int countGuestsByStatus(Event event, int status) throws SQLException {
+		int count = 0;
+		String query = "SELECT COUNT(*) FROM guest WHERE EventeventId=" + event.getEventId()
+				+ " AND isPresent=" + status;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+            count = rs.getInt(1);
+        }
+		return count;
+	}
+
+	@Override
+	public int countGuests(Event event) throws SQLException {
+		int count = 0;
+		String query = "SELECT COUNT(*) FROM guest WHERE EventeventId=" + event.getEventId();
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+            count = rs.getInt(1);
+        }
+		return count;
 	}
 
 }
