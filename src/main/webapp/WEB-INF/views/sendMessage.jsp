@@ -13,9 +13,9 @@
 	<!-- body contents start -->
 	<h2>Send Messages</h2>
 	<div id="alertMessage">
-		<div class="${(sendRSVPSuccess != null) ? 'successAlert':''}" role="alert">${sendRSVPSuccess}</div>
-		<div class="${(sendRSVPError != null) ? 'alert alert-danger':''}" role="alert">${sendRSVPError}</div>
-		<div class="${(sendBroadcastSuccess != null) ? 'successAlert':''}" role="alert">${sendBroadcastSuccess}</div>
+		<div class="${(sendRSVPSuccess != null) ? 'successAlert':''}">${sendRSVPSuccess}</div>
+		<div class="${(sendRSVPError != null) ? 'errorAlert':''}">${sendRSVPError}</div>
+		<div class="${(sendBroadcastSuccess != null) ? 'successAlert':''}">${sendBroadcastSuccess}</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-sm-4">

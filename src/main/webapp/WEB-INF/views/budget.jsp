@@ -15,8 +15,12 @@
 <!-- body contents start -->
 	<div class="row">
 		<div class="col-sm-8">
-			${editSuccess}
-			${goodDeleted}
+		<c:if test="${not empty editSuccess}">
+			<div class="successAlert">${editSuccess}</div>
+		</c:if>
+		<c:if test="${not empty goodDeleted}">
+			<div class="successAlert">${goodDeleted}</div>
+		</c:if>
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''}>
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
