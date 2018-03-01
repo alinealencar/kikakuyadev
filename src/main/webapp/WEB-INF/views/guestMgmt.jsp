@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 		
-			<div class="row" style="margin-top: 50px;">
+			<div class="row">
 				<div class="col-sm-3">
 					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none">
@@ -329,13 +329,16 @@
 			<span id="closeAddGuest" class="closebtn" onclick="closeAddGuest()"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
-			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest">
+			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest" onsubmit="return validateEventForm();">
 				<label>First Name: </label>
-				<form:input path="firstName" class="form-control" style="margin-bottom:10px;"/>				
+				<form:input path="firstName" class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;"/>				
+					<span id="fNameError" class="formError"></span> <br/>
 				<label>Last Name: </label>
-				<form:input path="lastName" class="form-control" style="margin-bottom:10px;"/>
+				<form:input path="lastName" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
+					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email: </label>
-				<form:input path="email" class="form-control" style="margin-bottom:10px;"/>
+				<form:input path="email" class="email form-control" oninput="validateEmail()" style="margin-bottom:10px;"/>
+					<span id="emailError" class="formError"></span> <br/>
 				<label>
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
@@ -442,4 +445,5 @@ $(".showAddGuest").click(function() {
 });
 
 </script>
+<script src="resources/js/validateGuest.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

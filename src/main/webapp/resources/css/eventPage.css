@@ -1,9 +1,9 @@
 @CHARSET "ISO-8859-1";
 
-.container{
-	margin-top:60px;
-}
+<<<<<<< HEAD
 
+=======
+>>>>>>> be1ed1c799d45731cbdf5d1d8dbb9dc1fcbb58ef
 h4{
 	margin: 0px 10px 0px 10px;
 	float:right;
@@ -15,6 +15,7 @@ h4{
 	float: center;
 	border: solid;
 	margin-right: 10px;
+	background-color: green;
 	}
 	
 .tile {
@@ -23,15 +24,14 @@ h4{
   width: 100%;
   margin: 5px;
   margin-left: 10px;
-  
 }
 
 .tile-title{
 	margin: 10px 10px 10px 10px;
+<<<<<<< HEAD
+	
+=======
 }
-
-
-
 
 .textInput{
 	margin-top: 2px;
@@ -44,12 +44,7 @@ h4{
 
 .inputError{
 	color: red;
-}
-
-.btn{
-	padding: 7px;
-	width: 100%;
-	
+>>>>>>> be1ed1c799d45731cbdf5d1d8dbb9dc1fcbb58ef
 }
 
 #deleteBtn{
@@ -57,7 +52,6 @@ h4{
   	color: black;
   	background-color: transparent;
   	border: none;
-  	cursor: context-menu;
 }
 
 .eventButton {

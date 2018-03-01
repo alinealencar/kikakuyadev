@@ -30,15 +30,17 @@ public class EventController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		String redirectTo = "event";
-		User user = (User) request.getSession().getAttribute("user");
+		
+		User user = (User) request.getSession(false).getAttribute("user");
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
-				if (event.size() > 0){
-					request.setAttribute("listEvent", event);
+				System.out.println("no of events: " + event.size());
+				if (event.size() <= 0){
+					request.setAttribute("noEvents", "No events created yet! Create one!");
 				}
 				else{
-					request.setAttribute("noEvents", "No events created yet! Create one!");
+					request.setAttribute("listEvent", event);
 				}
 			}
 			else {
