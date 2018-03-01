@@ -3,7 +3,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
-<jsp:include page="/WEB-INF/includes/eventHead.jsp" />
+<jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
 
 <div>
@@ -109,113 +109,7 @@
 </form:form>
 
 </div>
-<style>
 
-.container{
-	margin-top:60px;
-}
-
-h4{
-	margin: 0px 10px 0px 10px;
-	float:right;
-}	
-
-.eventTile{
-	border-radius: 25px;
-	height: 100%;
-	float: center;
-	border: solid;
-	margin-right: 10px;
-	}
-	
-.tile {
-  /*transform: scale(1); */
-  border-radius: 25px;
-  width: 100%;
-  margin: 5px;
-  margin-left: 10px;
-  
-}
-
-.tile-title{
-	margin: 10px 10px 10px 10px;
-}
-
-footer {
-	clear: both;
-	height: 50px;
-    padding: 15px;
-    color: #F1E9DA;
-	background-color: #541388;
-	margin-top: 15px;	
-}
-
-
-.textInput{
-	margin-top: 2px;
-	height: 28px;
-	border: 1px solid #5E6E66;
-	font-size: 16px;
-	padding: 1px;
-	width: 100%;
-}
-
-.inputError{
-	color: red;
-}
-
-.btn{
-	padding: 7px;
-	width: 100%;
-	
-}
-
-#deleteBtn{
-	outline: none;
-  	color: black;
-  	background-color: transparent;
-  	border: none;
-  	cursor: context-menu;
-}
-
-.eventButton {
-  background-color: transparent;
-  border: none;
-  color: black;
-  text-align: left;
-  transition: all 0.5s;
-  cursor: context-menu;
-  margin: 5px;
-}
-
-.eventButton span {
-  cursor: context-menu;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
-}
-
-.eventButton span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.eventButton:hover span {
-  padding-right: 25px;
-  padding-left: 25px;
-  padding-bottom: 10px;
-}
-
-.eventButton:hover span:after {
-  opacity: 1;
-  right: 0;
-}
-
-</style>
 <script src="resources/js/event.js"></script>
 <jsp:include page="/WEB-INF/includes/event.jsp" />
 	
