@@ -30,7 +30,8 @@ public class EventController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		String redirectTo = "event";
-		User user = (User) request.getSession().getAttribute("user");
+		
+		User user = (User) request.getSession(false).getAttribute("user");
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
