@@ -2,24 +2,24 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="resources/css/eventPage.css"></script>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
-
-
 <div class="container">
-
+	
 <div>
 	<div class="${(insertError != null) ? 'alert alert-danger' :''}" role="alert">${insertError }</div>
 	<div class="${(addAnEvent != null) ? 'alert alert-danger' :''}" role="alert">${addAnEvent }</div>
 	<div class="${(not empty noEvents) ? 'alert alert-danger' :''}" role="alert">${noEvents}</div>
 </div>
-<div class="addEventBtn">
-	<span class="glyphicon glyphicon-plus-sign" style="font-size:42px; color:#D90368; float:right; margin-right: 5%;" onclick="showForm()"></span>
-</div>				
+			
 
 <!-- SHOWING THE EVENTS -->
 	<div class="tile" id="showEventList">
+		<div class="addEventBtn">
+	<span class="glyphicon glyphicon-plus-sign" style="font-size:42px; color:#D90368; float:right; margin-right: 5%;" onclick="showForm()"></span>
+</div>
 		<c:forEach items="${listEvent}" var="event">
 			<div class="eventTile" style="float:left;">
 				<h4>${event.eventName} 
