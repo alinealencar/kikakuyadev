@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-12">
 		
-			<div class="row" style="margin-top: 50px;">
+			<div class="row">
 				<div class="col-sm-3">
 					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none">

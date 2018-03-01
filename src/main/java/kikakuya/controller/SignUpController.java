@@ -46,7 +46,7 @@ public class SignUpController {
 	@RequestMapping(method = RequestMethod.POST)
 	public String processSignUp(HttpServletRequest request, HttpServletResponse response, @ModelAttribute("user") User user, Model model){
 		String redirectTo = "index";
-
+		
 		try {
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){

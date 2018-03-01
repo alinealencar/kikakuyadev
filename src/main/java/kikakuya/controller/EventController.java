@@ -30,7 +30,8 @@ public class EventController {
 	@RequestMapping(value="/list", method = RequestMethod.GET)
 	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		String redirectTo = "event";
-		User user = (User) request.getSession().getAttribute("user");
+		
+		User user = (User) request.getSession(false).getAttribute("user");
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
@@ -50,7 +51,7 @@ public class EventController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//Send the list of all events to the session scope
+
 		model.addAttribute("event", new Event());
 		return redirectTo;
 	}
@@ -135,9 +136,8 @@ public class EventController {
 				Event eventName = eventDelegate.getSelectedEvent(event.getEventId());
 				//System.out.println(event.getEventId());
 				
-				//Send the event to the session scope
-				session.setAttribute("event", eventName);
-				
+				System.out.println(eventName);
+
 				//Calculate remaining days
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 				LocalDate eventsDate = LocalDate.parse(eventName.getEventDate(), formatter);
@@ -145,11 +145,13 @@ public class EventController {
 				
 				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
 				session.setAttribute("remainingDays", daysBetween);
+				//Send the event to the session scope
+				session.setAttribute("event", eventName);
 				
 			}
 			catch (Exception e){
 				e.printStackTrace();
 			}
-			return "calendar";
+			return "redirect:/calendar";
 		}
 }

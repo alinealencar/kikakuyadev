@@ -1,6 +1,9 @@
 @CHARSET "ISO-8859-1";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> be1ed1c799d45731cbdf5d1d8dbb9dc1fcbb58ef
 h4{
 	margin: 0px 10px 0px 10px;
 	float:right;
@@ -25,7 +28,23 @@ h4{
 
 .tile-title{
 	margin: 10px 10px 10px 10px;
+<<<<<<< HEAD
 	
+=======
+}
+
+.textInput{
+	margin-top: 2px;
+	height: 28px;
+	border: 1px solid #5E6E66;
+	font-size: 16px;
+	padding: 1px;
+	width: 100%;
+}
+
+.inputError{
+	color: red;
+>>>>>>> be1ed1c799d45731cbdf5d1d8dbb9dc1fcbb58ef
 }
 
 #deleteBtn{
