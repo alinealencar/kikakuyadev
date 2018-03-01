@@ -63,11 +63,10 @@ public class GuestController {
 	@RequestMapping(value = "/guestMgmt", method = RequestMethod.GET)
 	public String viewGuest(HttpServletRequest request, Model model){
 		HttpSession session = request.getSession();
-		// TODO Send all guests related to the event that is currently selected
-		int eventId = 1;
+		Event event = (Event) request.getSession(false).getAttribute("event");
 		//Get a list of all guests
 		try {
-			List<Guest> allGuests = guestDelegate.getAllGuests(eventId);
+			List<Guest> allGuests = guestDelegate.getAllGuests(event.getEventId());
 			session.setAttribute("guests", allGuests);
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -49,7 +49,7 @@ public class EventController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		//Send the list of all events to the session scope
+
 		model.addAttribute("event", new Event());
 		return redirectTo;
 	}
@@ -134,9 +134,8 @@ public class EventController {
 				Event eventName = eventDelegate.getSelectedEvent(event.getEventId());
 				//System.out.println(event.getEventId());
 				
-				//Send the event to the session scope
-				session.setAttribute("event", eventName);
-				
+				System.out.println(eventName);
+
 				//Calculate remaining days
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
 				LocalDate eventsDate = LocalDate.parse(eventName.getEventDate(), formatter);
@@ -144,11 +143,13 @@ public class EventController {
 				
 				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
 				session.setAttribute("remainingDays", daysBetween);
+				//Send the event to the session scope
+				session.setAttribute("event", eventName);
 				
 			}
 			catch (Exception e){
 				e.printStackTrace();
 			}
-			return "calendar";
+			return "redirect:/calendar";
 		}
 }
