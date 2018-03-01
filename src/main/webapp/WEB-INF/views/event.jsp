@@ -113,4 +113,4 @@
 </div>
 
 <script src="resources/js/event.js"></script>
-	
+<jsp:include page="/WEB-INF/includes/footer.jsp"/>
