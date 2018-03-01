@@ -34,11 +34,12 @@ public class EventController {
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
-				if (event.size() > 0){
-					request.setAttribute("listEvent", event);
+				System.out.println("no of events: " + event.size());
+				if (event.size() <= 0){
+					request.setAttribute("noEvents", "No events created yet! Create one!");
 				}
 				else{
-					request.setAttribute("noEvents", "No events created yet! Create one!");
+					request.setAttribute("listEvent", event);
 				}
 			}
 			else {

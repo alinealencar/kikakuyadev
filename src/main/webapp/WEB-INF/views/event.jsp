@@ -6,16 +6,18 @@
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
 
+
+<div class="container">
+
 <div>
-	<div class="${(insertError  != null) ? 'alert alert-danger' :''}" role="alert">${insertError }</div>
-	<div class="${(addAnEvent  != null) ? 'alert alert-danger' :''}" role="alert">${addAnEvent }</div>
-	<div class="${(noEvents  != null) ? 'alert alert-danger' :''}" role="alert">${noEvents }</div>
+	<div class="${(insertError != null) ? 'alert alert-danger' :''}" role="alert">${insertError }</div>
+	<div class="${(addAnEvent != null) ? 'alert alert-danger' :''}" role="alert">${addAnEvent }</div>
+	<div class="${(not empty noEvents) ? 'alert alert-danger' :''}" role="alert">${noEvents}</div>
 </div>
 <div class="addEventBtn">
 	<span class="glyphicon glyphicon-plus-sign" style="font-size:42px; color:#D90368; float:right; margin-right: 5%;" onclick="showForm()"></span>
-</div>
-<div class="container">
-				
+</div>				
+
 <!-- SHOWING THE EVENTS -->
 	<div class="tile" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
@@ -76,7 +78,7 @@
 	</div>
 	<div>
 		<!-- button type="submit" onclick="showList()">Save</button-->
-		<input type="submit" value="Done" class="btn"/>
+		<input type="submit" value="Done"/>
 	</div>
 
 </form:form>

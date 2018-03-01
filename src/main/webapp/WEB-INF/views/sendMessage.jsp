@@ -284,4 +284,5 @@ document.getElementById('guestSelection').onchange = function(e) {
 </script>
   	<!-- body contents end -->
 </div>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
