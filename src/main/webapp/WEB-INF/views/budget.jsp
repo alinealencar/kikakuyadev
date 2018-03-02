@@ -21,7 +21,8 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} >
+			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
@@ -73,7 +74,7 @@
 	   						<h5>--</h5>
 	   					</div>
 	   					<div class= "col-5">
-	   						 <h4>$ <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
+	   						 <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
 	   					</div>
 	   				</div>			
 					<c:set var="cat" value="${cat + 1}" scope="page"/>
@@ -90,41 +91,102 @@
 					</div>
 				</div>
 				
-				
+			</div>	
 			</div>
 			<!-- edit budget -->
-			<div id="editBudget" ${goodDeleted != '' ? '' : 'style="display:none;"'}>
-				<span onclick="openShowBudget()" class="closebtn"><i class="fas fa-times"></i></span>
+			<div id="editBudget" ${goodDeleted != '' ? '' : 'style="display:none;"'} >
+			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
+				<div onclick="openShowBudget()" class="closebtn" style=" position: absolute;right: 25px;"><i class="fas fa-times"></i></div>
+				<br>
 				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
-					<button type="submit">Save</button>
-					<br>
 					<!-- Fields for the delete operation -->
 					<form:hidden path="category" value=""/>
 					<form:hidden path="vendorId" value=""/>
 	   				<form:hidden path="goodId" value=""/>
-	   				
-					Budget: $<input type="number" name="totalBudget" value="${event.totalBudget}"/><br>
+	   				<div class="row">
+		   				<div class="col-sm-9">
+		   					<div class="row">
+		   						<div class="col-5 text-right">
+		   							<span style="font-size:25px;">Budget: $</span>
+		   						</div>	
+		   						<div class="col-7">
+		   							<input type="number" class="form-control" name="totalBudget" value="${event.totalBudget}"/>
+		   						</div>
+		   					</div>
+		   				</div>
+		   				<div class="col-sm-3 text-right">
+							<button type="submit" class="btn btn-info"">Save</button>
+						</div>
+	   				</div>	   				
+					<hr>
 					<c:set var="catEdit" value="1" scope="page" />
 					<c:set var="count" value="0" scope="page" />
 					<c:forEach var="category" items="${budgetInfo}" varStatus="catRow">
-						<button onclick="deleteCategory('${category.key}');" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   					<h3>${category.key}</h3><br>
-	   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
-	   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   						<h4>${vendor.key.name} - Price</h4><br>
-	   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
-	   							<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   							<input name="goodsList[${count}].goodName" value="${good.goodName}"/> - <span>$<input class="catEdit${catEdit}" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/></span><br>
-								<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
-								<c:set var="count" value="${count + 1}" scope="page"/>
+						<fieldset id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">	   					
+		   					<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">
+			   					<button onclick="deleteCategory('${category.key}');" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+			   					<h3>${category.key}</h3>
+		   					</legend>
+		   					<c:forEach var="vendor" items="${category.value}" varStatus="vendorRow">
+		   						<button onclick="deleteVendor(${vendor.key.vendorId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+		   						<h4 style="margin-right:10px; text-decoration:underline;">${vendor.key.name}</h4><br>
+		   						<c:forEach var="good" items="${vendor.value}" varStatus="status">
+		   							<div class="row">
+		   								<div class= "col-6 col-md-5" >
+		   									<div class="row">
+		   										<div class= "col-2">
+					   								<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+					   							</div>
+					   							<div class= "col-10" >
+					   								<input name="goodsList[${count}].goodName" value="${good.goodName}" class="form-control">
+				   								</div>
+				   							</div>
+				   						</div>
+			   							<div class= "col-md-2 text-center d-none d-md-block " >
+			   								-- 
+			   							</div> 
+			   							<div class= "col-6 col-md-5" >
+			   								<div class="row">
+		   										<div class= "col-2">
+		   											$
+		   										</div>	
+		   										<div class= "col-10">
+				   									<input class="catEdit${catEdit} form-control" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/>
+												</div>
+											<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
+											<c:set var="count" value="${count + 1}" scope="page"/>
+											</div>
+										</div>
+									</div>
+								</c:forEach>
+								<hr>
 							</c:forEach>
-						</c:forEach>
-						<h4>Subtotal: $ <span id="subtotal${catEdit}" class="subtotalEdit"><script>calculateSubtotalLive('${event.totalBudget}', '${catEdit}');</script></span></h4>
-						<c:set var="catEdit" value="${catEdit + 1}" scope="page"/>
+							<div class="row">
+	   							<div class= "col-5 text-right" >
+	   								<h4>Subtotal:</h4>
+	   							</div>
+	   							<div class= "col-2 text-center">
+	   								<h5>--</h5>
+	   							</div>
+	   							<div class= "col-5">
+	   						 		 <h4>$ <span id="subtotal${catEdit}" class="subtotalEdit"><script>calculateSubtotalLive('${event.totalBudget}', '${catEdit}');</script></span></h4>
+	   							</div>
+	   						</div>			
+							<c:set var="catEdit" value="${catEdit + 1}" scope="page"/>
+						</fieldset>
 					</c:forEach>
-					<h3>Grand Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit('${event.totalBudget}');</script></span></h3>
-					<h3>Amount Remaining: $<span id="amountRemainingEdit"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+					<div class="row text-center">
+						<div class="col-12">
+							<h3>Grand Total: $<span id="totalBudgetEdit"><script>calculateTotalEdit('${event.totalBudget}');</script></span></h3>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-12">
+							<h3>Amount Remaining: <span id="amountRemainingEdit">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+						</div>
+					</div>
 				</form:form>
+			</div>
 			</div>
 		</div>
 		<div class="col-sm-4">
@@ -294,6 +356,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 	if((calculateAmountRemaining('${event.totalBudget}', calculateTotal())) < 0){
 		$('#amountRemaining').css("color", "#D90368");
+		$('#amountRemainingEdit').css("color", "#D90368");
 	}
 });
 </script>

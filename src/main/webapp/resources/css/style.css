@@ -197,7 +197,9 @@ Form validation
 /*********************************
 slide in form
 **********************************/
+
 /*General styles for all slide in form*/
+/*
 .cbp-spmenu {
 	position: fixed;
 	background-color: #F1E9DA;
@@ -227,6 +229,7 @@ color: #47a3da;
 }
 
 /*Orientation-dependent styles for the content of the slide in form*/
+/*
 .cbp-spmenu-vertical {
 width: 360px;
 height: 100%;
@@ -240,6 +243,7 @@ padding: 1em;
 }
 
 /*Vertical form that slides from the left*/
+/*
 .cbp-spmenu-right {
 right: 0px;
 }
@@ -248,8 +252,9 @@ right: -360px;
 }
 
 /*Transitions*/
+/*
 .cbp-spmenu, .cbp-spmenu-push {
 -webkit-transition: all 0.3s ease;
 -moz-transition: all 0.3s ease;
 transition: all 0.3s ease;
-}
+}*/
