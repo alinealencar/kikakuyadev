@@ -21,32 +21,76 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''}>
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
-				<h3>Budget: $${event.totalBudget}</h3>
+				<div class="row text-center">
+				<div class="col-12">
+				<h2>Budget: <b>$${event.totalBudget}</b></h2>
+				</div>
+				</div>
+				<hr>
 				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
-	   				<h3>${category.key}</h3>
+					<fieldset id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+	   				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc"><h3>${category.key}</h3></legend>
 	   				<c:forEach var="vendor" items="${category.value}">
-	   					<h4>${vendor.key.name} - Price</h4>
-	   					<!-- Get details of the vendor -->
-	   					<form action="showVendor" method="post">
-	   						<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
-	   						<button type="submit" class="fabutton">
-	   							<i class="fas fa-address-card"></i>
-	   						</button>
-	   					</form>
+	   					<div class="row">
+		   					<div class= "col-12">
+							<div class="row " style="padding-left:20px;">
+		   						<h4 style="margin-right:10px; text-decoration:underline;">${vendor.key.name}</h4>
+				   				<!-- Get details of the vendor -->
+				   				<form action="showVendor" method="post">
+				   					<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
+				   					<button type="submit" class="fabutton">
+				   						<i class="fas fa-address-card"></i>
+									</button>
+			   					</form>
+		   					</div>
+							</div>
+	   					</div>
 	   					<c:forEach var="good" items="${vendor.value}">
-	   						<h5>${good.goodName} - <span class="category${cat}">${good.goodPrice}</span></h5>
+	   						<div class="row">
+	   							<div class= "col-5 text-right" >
+	   								<h5>${good.goodName}</h5>
+	   							</div>
+	   							<div class= "col-2 text-center">
+	   								<h5>--</h5>
+	   							</div>
+	   							<div class= "col-5">
+	   								<h5><span class="category${cat}">${good.goodPrice}</span></h5>
+	   							</div>
+	   						</div>
 						</c:forEach>
+						<hr>
 					</c:forEach>
-					<h4>Subtotal: $ <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
-					
+
+					<div class="row">
+	   					<div class= "col-5 text-right" >
+	   						<h4>Subtotal:</h4>
+	   					</div>
+	   					<div class= "col-2 text-center">
+	   						<h5>--</h5>
+	   					</div>
+	   					<div class= "col-5">
+	   						 <h4>$ <script>document.write(calculateSubtotal('category${cat}'));</script></h4>
+	   					</div>
+	   				</div>			
 					<c:set var="cat" value="${cat + 1}" scope="page"/>
+					</fieldset>
 				</c:forEach>
-				<h3>Grand Total: $<span id="totalBudget"><script>document.write(calculateTotal());</script></span></h3>
-				<h3>Amount Remaining: $<span id="amountRemaining"><script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+				<div class="row text-center">
+					<div class="col-12">
+						<h3>Grand Total: <b>$<span id="totalBudget"><script>document.write(calculateTotal());</script></span></b></h3>
+					</div>
+				</div>
+				<div class="row text-center">
+					<div class="col-12">
+						<h3>Amount Remaining: <span id="amountRemaining">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+					</div>
+				</div>
+				
+				
 			</div>
 			<!-- edit budget -->
 			<div id="editBudget" ${goodDeleted != '' ? '' : 'style="display:none;"'}>
@@ -246,6 +290,12 @@ $(document).ready(function(){
 	});
 });
 
+/***Amount Remaining color decoration ***/
+$(document).ready(function(){
+	if((calculateAmountRemaining('${event.totalBudget}', calculateTotal())) < 0){
+		$('#amountRemaining').css("color", "#D90368");
+	}
+});
 </script>
 
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
