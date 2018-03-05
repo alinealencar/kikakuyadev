@@ -6,8 +6,6 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
-
-
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
 		<div  class="col-sm-10">
@@ -119,7 +117,7 @@
 						</div>
 						
 						<!-- Modal footer -->
-				        <div>
+				        <div class="text-right">
 							<input class="btn btn-success" type="submit" value="Done"/>
 						</div>
 					</form:form>
