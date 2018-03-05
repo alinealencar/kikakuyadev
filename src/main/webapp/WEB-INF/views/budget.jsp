@@ -201,10 +201,11 @@
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">	
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onsubmit="return validateBudget();">	
 				<div class="form-group">
-      				<form:select id="category" class="form-control ui-select category" path="category">
-	        			<option selected>--- Select Category ---</option>
+      				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
+	        			<!--option selected>--- Select Category ---</option-->
+	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -224,16 +225,19 @@
 	       				<option value="Venue">Venue</option>
 	       				<option value="Other">Other</option>
       				</form:select>
+      				<span id="categoryError" class="formError"></span>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
       				<label>Select Vendor:</label>
-      				<form:select id="vendor" class="form-control" path="vendorId">
-	        			<option>--- Vendor ---</option>
+      				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
+	        			<!--option>--- Vendor ---</option-->
+	        			<option value="--- Vendor ---">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
+      					<span id="vendorError" class="formError"></span>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
       				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
@@ -254,14 +258,18 @@
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem" class="col-6">
-		   						<form:input type="text" class="form-control" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   						<form:input type="text" class="item form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   						
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
-		   						<form:input type="text" class="form-control" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
+		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
+		   						
 		   					</div>
 
 		   			</div>
 		   			</c:forEach>
+		   				<span id="itemError" class="formError"></span>
+		   				<span id="priceError" class="formError"></span>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
@@ -281,11 +289,14 @@
 			</form:form>
 			
 			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor">
+				<form:form action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateBudget();">
       				<div class="text-center" id="enterVendor">
-      					<form:input type="text" class="form-control" placeholder="Vendor Name" path="name" />
-      					<form:input type="text" class="form-control" placeholder="Address" path="address" />
-      					<form:input type="text" class="form-control" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
+      						<span id="nameError" class="formError"></span>
+      					<form:input type="text" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
+      						<span id="addressError" class="formError"></span>
+      					<form:input type="text" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
+      						<span id="phoneNoError" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
       				<div  class="form-group row">
@@ -361,6 +372,5 @@ $(document).ready(function(){
 });
 </script>
 
+<script src="resources/js/validateBudget.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
-
-
