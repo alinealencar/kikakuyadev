@@ -1,12 +1,12 @@
 
-
+/*
 h4{
 	margin-left: 17px;
 	margin-right: 10px;
 	margin-top: 10px;
 	float:right;
 }	
-
+*/
 hr{
 	border-width: 5px;
 }
@@ -14,26 +14,28 @@ hr{
 .addEventBtn{
 	font-size:42px; 
 	color:#D90368; 
-	float:right; 
-	margin-right: 5%;
+	/*float:right; 
+	margin-right: 5%;*/
 }
 
 .eventTile{
 	border-radius: 15px;
-	float: left;
+	/*float: left;
 	margin-left: 2%;
-	margin-top: 15%;
+	margin-top: 15%;*/
+	padding-bottom: 5px;
+	margin-bottom: 15px;
 	background-color: #00cccc;
 }
-	
-.tile-title{
+
+.tile-content{
 	margin: 5px 10px 10px 10px;
 	padding: 2%;
 }
 
 #deleteBtn{
 	outline: none;
-  	color: black;
+  	color: #2E294E;
   	background-color: transparent;
   	border: none;
   	cursor: pointer;
@@ -42,7 +44,7 @@ hr{
 .eventButton {
   background-color: transparent;
   border: none;
-  color: black;
+  color: #2E294E;
   text-align: left;
   transition: all 0.5s;
   cursor: pointer;
