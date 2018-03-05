@@ -238,14 +238,17 @@
 				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
 				<h2>Edit Guest</h2>
-				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest">
+				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return validateEventForm();">
 					<form:hidden path="token" value="${selectedGuest.token}"/>
 					<label>First Name:</label>
-					<form:input path="firstName" value="${selectedGuest.firstName}"  class="form-control" style="margin-bottom:10px;"/>
+					<form:input path="firstName" value="${selectedGuest.firstName}"  class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
+						<span id="fNameError" class="formError"></span> <br/>
 					<label>Last Name: </label>
-					<form:input path="lastName" value="${selectedGuest.lastName}" class="form-control" style="margin-bottom:10px;"/>
+					<form:input path="lastName" value="${selectedGuest.lastName}" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
+						<span id="lNameError" class="formError"></span> <br/>
 					<label>Email: </label>
-					<form:input path="email" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"/>
+					<form:input path="email" value="${selectedGuest.email}" class="email form-control" oninput="validateName()" style="margin-bottom:10px;"/>
+						<!--span id="emailError" class="formError"></span-->
 					<div class="form-group row">
 						<div class="col-6">
 							<label>RSVP Status: </label>
@@ -338,7 +341,7 @@
 					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email: </label>
 				<form:input path="email" class="email form-control" oninput="validateEmail()" style="margin-bottom:10px;"/>
-					<span id="emailError" class="formError"></span> <br/>
+					<!--span id="emailError" class="formError"></span--> <br/>
 				<label>
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">

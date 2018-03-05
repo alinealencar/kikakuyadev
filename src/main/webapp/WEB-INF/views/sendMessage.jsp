@@ -31,7 +31,7 @@
 
 
 	<div  id="rsvpForm" style="display:none;">
-		<form:form action="rsvp" method="post" modelAttribute="email">
+		<form:form action="rsvp" method="post" modelAttribute="email" onsubmit="return validateRSVPForm();">
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
@@ -39,8 +39,10 @@
 				</div>		
   				<label for="replyDue" class="sr-only col-2 col-form-label">Reply Due</label>
   				<div class="col-sm-8">
-    				<form:input class="form-control" type="date" id="replyDue" path="replyDue" required="true"/>
+    				<form:input class="replyDue form-control" oninput="validateReplyDue()" type="date" id="replyDue" path="replyDue"/>
+  					<span id="replyDueError" class="formError"></span>
   				</div>
+  					
      		</div>
      		
      		<div  class="form-group row">
@@ -50,7 +52,7 @@
 				<div class="col-sm-8">		
  					<div class="form-check form-check-inline">
   						<form:checkbox class="form-check-input" id="beef" value="Beef" path="mealChoiceBeef" />
-  						<label class="form-check-label" for="beef">Beef</label>
+  						<label class=" form-check-label" for="beef">Beef</label>
 					</div>
 					<div class="form-check form-check-inline">
 					  <form:checkbox class="form-check-input" id="pork" value="Pork" path="mealChoicePork" />
@@ -92,7 +94,7 @@
 
 	
 	<div id="broadcastForm" style="display:none;">
-		<form:form action="broadcast" method="post" modelAttribute="email">
+		<form:form action="broadcast" method="post" modelAttribute="email" onsubmit="return validateBroadcastMsg();">
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
@@ -100,7 +102,8 @@
 				</div>
   				<label for="subject" class="sr-only col-2 col-form-label">Subject</label>
   				<div class="col-sm-8">
-    				<form:input class="form-control" type="text" id="subject" path="title" required="true"/>
+    				<form:input class="title form-control" oninput="validateSubject()" type="text" id="subject" path="title"/>
+  					<span id="titleError" class="formError"></span>
   				</div>
 			</div>
     
@@ -161,7 +164,8 @@
 				</div>
 				<div class="col-sm-8">
 					<h5><label for="message" class="sr-only">Compose message</label></h5>				
-    				<form:textarea class="form-control" id="message" rows="3" path="message" required="true"></form:textarea>
+    				<form:textarea class="message form-control" oninput="validateMessage()" id="message" rows="3" path="message"></form:textarea>
+    				<span id="messageError" class="formError"></span>
     			</div>
   			</div>
   			
@@ -285,4 +289,6 @@ document.getElementById('guestSelection').onchange = function(e) {
   	<!-- body contents end -->
 </div>
 
+<script src="resources/js/validateBroadcastMsg.js"></script>
+<script src="resources/js/validateRSVP.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

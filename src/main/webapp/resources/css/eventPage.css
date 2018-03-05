@@ -1,46 +1,34 @@
-@CHARSET "ISO-8859-1";
+
 
 h4{
-	margin: 0px 10px 0px 10px;
+	margin-left: 17px;
+	margin-right: 10px;
+	margin-top: 10px;
 	float:right;
 }	
 
+hr{
+	border-width: 5px;
+}
+
+.addEventBtn{
+	font-size:42px; 
+	color:#D90368; 
+	float:right; 
+	margin-right: 5%;
+}
+
 .eventTile{
-	border-radius: 25px;
-	height: 100%;
-	float: center;
-	border: solid;
-	margin-right: 10px;
-	background-color: green;
-	}
-	
-.tile {
-  /*transform: scale(1); */
-  border-radius: 25px;
-  width: 100%;
-  margin: 5px;
-  margin-left: 10px;
+	border-radius: 15px;
+	float: left;
+	margin-left: 2%;
+	margin-top: 15%;
+	background-color: #00cccc;
 }
-
+	
 .tile-title{
-	margin: 10px 10px 10px 10px;
-<<<<<<< HEAD
-	
-=======
-}
-
-.textInput{
-	margin-top: 2px;
-	height: 28px;
-	border: 1px solid #5E6E66;
-	font-size: 16px;
-	padding: 1px;
-	width: 100%;
-}
-
-.inputError{
-	color: red;
->>>>>>> be1ed1c799d45731cbdf5d1d8dbb9dc1fcbb58ef
+	margin: 5px 10px 10px 10px;
+	padding: 2%;
 }
 
 #deleteBtn{
@@ -48,6 +36,7 @@ h4{
   	color: black;
   	background-color: transparent;
   	border: none;
+  	cursor: pointer;
 }
 
 .eventButton {
@@ -56,33 +45,11 @@ h4{
   color: black;
   text-align: left;
   transition: all 0.5s;
-  cursor: context-menu;
-  margin: 5px;
+  cursor: pointer;
+  margin-top: 0px;
 }
 
-.eventButton span {
-  cursor: context-menu;
-  display: inline-block;
-  position: relative;
-  transition: 0.5s;
+.eventButton:focus {
+	outline:0;
 }
 
-.eventButton span:after {
-  content: '\00bb';
-  position: absolute;
-  opacity: 0;
-  top: 0;
-  right: -20px;
-  transition: 0.5s;
-}
-
-.eventButton:hover span {
-  padding-right: 25px;
-  padding-left: 25px;
-  padding-bottom: 10px;
-}
-
-.eventButton:hover span:after {
-  opacity: 1;
-  right: 0;
-}

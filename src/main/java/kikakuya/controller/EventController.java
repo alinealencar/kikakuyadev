@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
+import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 import java.time.LocalDate;
@@ -58,27 +59,32 @@ public class EventController {
 	
 	//Add an event
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("event") Event event, Model model, 
-					HttpServletRequest request){ 
+	public String add(@ModelAttribute("event") Event event, Model model, HttpServletRequest request){ 
 		
 		User user = (User) request.getSession().getAttribute("user");
+		
 		try {
 			List <Event> list = eventDelegate.listEventsByUser(user);
-	
-			if(list.size() <3 ){
-				boolean isValidEvent = eventDelegate.insertEvent(event, user);
+			if(list.size() < 3 ){
+					boolean isValidEvent = eventDelegate.insertEvent(event, user);
 					if(isValidEvent){
 						System.out.println("Insert successful");
+						request.setAttribute("insertError", "Added successfully!");
+						
+						//Update event list
+						request.getSession().setAttribute("listEvent", list);
 					}
 					else {
 					System.out.println("Insert unsuccessful");
-					}
+				}
 			}
-			else
-				request.setAttribute("insertError", "You are only allowed to create up to 2 events!");
+			else {
+				request.setAttribute("insertError", "You are only allowed to create up to 3 events!");
 			}
+		}
 		catch(Exception e) {
 				e.printStackTrace();
+				request.setAttribute("insertError", "You are only allowed to create up to 3 events!");
 			}
 		
 		return "redirect:/list";
@@ -114,6 +120,7 @@ public class EventController {
 			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
+				request.setAttribute("deleteEvent", "Successfuly deleted!");
 		} 
 		else {
 			System.out.println("Delete unsuccessful");

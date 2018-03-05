@@ -1,5 +1,5 @@
 
-<footer id="footer" class="container-fluid text-center" style="margin-top: 15px;">
+<footer id="footer" class="container-fluid text-center">
 	<div>&copy; KIKAKUYA - 2018 All Rights Reserved</div>
 </footer>
 </div><!-- end of #container.container-fluid -->

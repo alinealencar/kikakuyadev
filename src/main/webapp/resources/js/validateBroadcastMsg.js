@@ -23,7 +23,7 @@ function validateSubject(){
 		validTitle = false;
 	}
 	else{
-		document.getElementById("titleError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("titleError").innerHTML = "";
 		validTitle = true;
 	}
 }
@@ -37,7 +37,7 @@ function validateMessage(){
 		validMessage = false;
 	}
 	else{
-		document.getElementById("messageError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("messageError").innerHTML = "";
 		validMessage = true;
 	}
 }

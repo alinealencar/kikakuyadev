@@ -24,7 +24,7 @@ function validateEventName(){
 		validEventName = false;
 	}
 	else{
-		document.getElementById("eventNameError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("eventNameError").innerHTML = "";
 		validEventName = true;
 	}
 }
@@ -36,7 +36,7 @@ function validateLocation(){
 		validLocation = false;
 	}
 	else{
-		document.getElementById("locationError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("locationError").innerHTML = "";
 		validLocation = true;
 	}
 }
@@ -54,7 +54,7 @@ function validateDate(){
 		validDate = false;
 	}
 	else{
-		document.getElementById("eventDateError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("eventDateError").innerHTML = "";
 		validDate = true;
 	}
 }
@@ -71,6 +71,7 @@ function showForm(){
 	document.getElementById("showEventList").style.display = 'none';
 	document.getElementById("showAddForm").style.display = 'inline-block';
 	document.getElementById("editEvent").style.display = 'none';
+	document.getElementById("alertMsg").style.display = 'none';
 }
 
 function editEvent(){

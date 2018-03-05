@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 
 import kikakuya.dao.EventDao;
 import kikakuya.model.Event;
-import kikakuya.model.Guest;
 import kikakuya.model.User;
 
 public class EventDaoImpl implements EventDao {

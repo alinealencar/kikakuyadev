@@ -20,7 +20,7 @@ function validateName(){
 		validFirstName = false;
 	}
 	else{
-		document.getElementById("fNameError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("fNameError").innerHTML = "";
 		validFirstName = true;
 	}
 	
@@ -29,7 +29,7 @@ function validateName(){
 		validLastName = false;
 	}
 	else{
-		document.getElementById("lNameError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("lNameError").innerHTML = "";
 		validLastName = true;
 	}
 }
@@ -47,7 +47,7 @@ function validateEmail(){
 		validEmail = false;
 	}
 	else {
-		document.getElementById("emailError").innerHTML = "<span style='color:green'><i class='fas fa-check'></i></span>";
+		document.getElementById("emailError").innerHTML = "";
 		validEmail = true;
 	}
 }
