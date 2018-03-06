@@ -228,8 +228,8 @@
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
       				<label>Select Vendor:</label>
-      				<form:select id="vendor" class="form-control" path="vendorId">
-	        			<option>--- Vendor ---</option>
+      				<form:select id="vendor" class="form-control vendorList" path="vendorId">
+	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
@@ -273,7 +273,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="submit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -290,7 +290,7 @@
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
-      						<button type="submit" class="btn btn-success">Submit</button>
+      						<button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button>
       					</div><br>
       					<div class="col-sm-6 text-center">
       						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
@@ -309,14 +309,39 @@
 /*** Sticky form ***/
 $(document).ready(function(){
 	//show selected value
-	var valueFromLS = sessionStorage.getItem("selectedCategory");
-	$(".category option[value='" + valueFromLS + "']").prop("selected",true);
+	var valueFromSS = sessionStorage.getItem("selectedCategory");
+	$(".category option[value='" + valueFromSS + "']").prop("selected",true);
 });
 $(document).ready(function(){
 	//get selected value from dropdown
 	$('.category').change(function(){
 		var selectedCategory = $('.category').val();
 		sessionStorage.setItem("selectedCategory",selectedCategory);
+	});
+});
+
+$(document).ready(function(){
+	var flag = sessionStorage.getItem("flag");
+	if(!flag){
+		$("#vendor option").prop("selected", false);
+		$("#vendor option[value='']").prop("selected",true);
+	}
+	
+});
+
+$(document).ready(function(){
+	$("#addBudget").click(function () {
+		console.log($('#vendor').val());
+		$( "#formAddToBudget" ).submit();
+		sessionStorage.clear();
+		$("#vendor option").prop("selected", false);
+		$("#vendor option[value='']").prop("selected",true);
+	});
+});
+
+$(document).ready(function(){
+	$('#btnEnterVendor').click(function(){
+		sessionStorage.setItem("flag","true");
 	});
 });
 

@@ -4,7 +4,7 @@ var validReplyDue = false;
 var validMealChoice = false;
 
 function validateRSVPForm(){
-	if (validReplyDue && validMealChoice){
+	if (validReplyDue){
 		form.submit();
 		form.reset();
 	}

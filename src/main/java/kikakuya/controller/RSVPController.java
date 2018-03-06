@@ -75,7 +75,7 @@ public class RSVPController {
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
 						rsvpDelegate.sendRSVP(email, user, event, guestList);
-						request.setAttribute("sendRSVPSuccess", "RSVPs have been successfully sent to all guests.");
+						request.setAttribute("sendRSVPSuccess", "RSVPs have been successfully sent.");
 						redirectTo = "sendMessage";
 					}
 				}

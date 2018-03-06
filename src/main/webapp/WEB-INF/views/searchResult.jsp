@@ -41,7 +41,7 @@
 	
 	<ul style="margin-bottom: 0px; list-style: none;">
 		<c:forEach items="${vendors}" var="vendor" >
-			<form:form action="addSearchVendor" method="post" modelAttribute="vendor">
+			<form:form class="formAddSearchVendor" action="addSearchVendor" method="post" modelAttribute="vendor">
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
@@ -51,7 +51,7 @@
 				</div>
 				<div class="col-md-6">
 					<h3>${vendor.name}</h3>
-					<form:hidden path="name" value="${vendor.name}" />
+					<form:hidden path="name" class="vendorName" value="${vendor.name}" />
 					<div>
 						<c:choose>
 			  				<c:when test="${vendor.rating == 0}">
@@ -94,7 +94,7 @@
 					<form:hidden path="website" value="${vendor.website}" />
 				</div>
 				<div class="col-md-3">
-					<button id="btnAddVendor" type="submit" class="btn btn-primary d-none d-md-block" name="addVendor" style="background-color: #D90368;
+					<button type="submit" class="btn btn-primary d-none d-md-block btnAddSearchVendor" name="addVendor" style="background-color: #D90368;
 	color: #F1E9DA; border-color: #D90368;">
       					Add to Budget
    					</button>
@@ -106,5 +106,11 @@
 	</ul>
 <!-- body contents end -->
 </div>
-
+<script type="text/javascript">
+$(document).ready(function(){
+	$('.btnAddSearchVendor').click(function(){
+		sessionStorage.setItem("flag","true");
+	});
+});
+</script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

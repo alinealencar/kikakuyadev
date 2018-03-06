@@ -52,14 +52,24 @@
 				
 				
 		<div class="form-group" >
-			<h5>Please indicate name and a meal choice</h5>
-			
+		<c:choose>
+			<c:when test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
+				<h5>Please indicate name and a meal choice</h5>
+			</c:when>
+			<c:otherwise>
+				<h5>Please indicate name</h5>
+			</c:otherwise>
+		</c:choose>
+		
+		
 			<!-- meal choice for guest -->
 			<div class="row">
 				<div class="col-sm-6">
     				<label for="guestName" class="sr-only">Guest Name</label>
     				<form:input type="text" id="guestName" class="form-control" value="${guest.firstName} ${guest.lastName}" path="${firstName}" required="true"/>
     			</div>
+    			
+    			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
     			<div class="col-sm-6">
     				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="guestMeal" path="mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -83,6 +93,7 @@
     					</c:if>
   					</form:select>
     			</div>
+    			</c:if>
     		</div>
     			
     		<!-- meal choice for Adult +1 -->
@@ -91,6 +102,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName1" class="form-control" placeholder="Enter Adult 1" path="plusOneList[0].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal1" path="plusOneList[0].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -114,6 +126,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[0].category" />
     		</div>
 			
@@ -123,6 +136,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName2" class="form-control" placeholder = "Enter Adult 2" path="plusOneList[1].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal2" path="plusOneList[1].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -146,6 +160,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[1].category" />
     		</div>
     		
@@ -155,6 +170,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName3" class="form-control" placeholder="Enter Adult 3" path="plusOneList[2].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal3" path="plusOneList[2].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -178,6 +194,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[2].category" />
     		</div>
     		
@@ -187,6 +204,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName4" class="form-control" placeholder="Enter Adult 4" path="plusOneList[3].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal4" path="plusOneList[3].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -210,6 +228,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[3].category" />
     		</div>
     		
@@ -219,6 +238,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName1" class="form-control" placeholder="Enter Kid 1" path="plusOneList[4].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal1" path="plusOneList[4].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -242,6 +262,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[4].category" />
     		</div>
     		
@@ -251,6 +272,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName2" class="form-control" placeholder="Enter Kid 2" path="plusOneList[5].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal2" path="plusOneList[5].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -274,6 +296,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[5].category" />
     		</div>
     		
@@ -283,6 +306,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName3" class="form-control" placeholder="Enter Kid 3" path="plusOneList[6].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal3" path="plusOneList[6].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -306,6 +330,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[6].category" />
     		</div>
     		
@@ -315,6 +340,7 @@
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName4" class="form-control" placeholder="Enter Kid 4" path="plusOneList[7].fullName"/>
       			</div>
+      			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (email.mealChoiceVeg) || (email.mealChoiceFish) || (email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal4" path="plusOneList[7].mealChoice">
     					<option value="" selected>---Select a meal---</option>
@@ -338,6 +364,7 @@
     					</c:if>
   					</form:select>
       			</div>
+      			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[7].category" />
     		</div><br>
     		
