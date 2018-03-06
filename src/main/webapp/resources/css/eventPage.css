@@ -22,10 +22,12 @@ hr{
 	border-radius: 15px;
 	/*float: left;
 	margin-left: 2%;
+	margin-top: 15%;
+	background-color: #00bfa5;
 	margin-top: 15%;*/
 	padding-bottom: 5px;
 	margin-bottom: 15px;
-	background-color: #00cccc;
+	background-color: #00bfa5;
 }
 
 .tile-content{
