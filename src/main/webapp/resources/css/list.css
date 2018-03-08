@@ -1,17 +1,27 @@
+/***** all lists *****/
+ul#allList {
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+/***** item list *****/
+
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
 }
 
 /* Remove margins and padding from the list */
-ul#list {
+ul#itemList {
     margin: 0;
     padding: 0;
     
 }
 
 /* Style the list items */
-ul#list li {
+ul#itemList li {
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
@@ -29,19 +39,19 @@ ul#list li {
 }
 
 /* Darker background-color on hover */
-ul#list li:hover {
+ul#itemList li:hover {
     background: #ddd;
 }
 
 /* When clicked on, add a background color and strike out text */
-ul#list li.checked {
+ul#itemList li.checked {
     background: #888;
     color: #fff;
     text-decoration: line-through;
 }
 
 /* Add a "checked" mark when clicked on */
-ul#list li.checked::before {
+ul#itemList li.checked::before {
     content: '';
     position: absolute;
     border-color: #fff;

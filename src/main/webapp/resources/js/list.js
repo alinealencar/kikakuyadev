@@ -1,5 +1,7 @@
+ /***** item list *****/
+
 // Create a "close" button and append it to each list item
-var list = document.getElementsByTagName("UL")[1];
+var list = document.getElementsByTagName("UL")[2];
 var myNodelist = list.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -21,7 +23,7 @@ for (i = 0; i < close.length; i++) {
 }
 
 // Add a "checked" symbol when clicking on a list item
-var list = document.querySelector('UL#list');
+var list = document.querySelector('UL#itemList');
 list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
@@ -31,15 +33,15 @@ list.addEventListener('click', function(ev) {
 // Create a new list item when clicking on the "Add" button
 function newElement() {
   var li = document.createElement("li");
-  var inputValue = document.getElementById("myInput").value;
+  var inputValue = document.getElementById("itemInput").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
     alert("You must write something!");
   } else {
-    document.getElementById("list").appendChild(li);
+    document.getElementById("itemList").appendChild(li);
   }
-  document.getElementById("myInput").value = "";
+  document.getElementById("itemInput").value = "";
 
   var span = document.createElement("SPAN");
   var txt = document.createTextNode("\u00D7");
