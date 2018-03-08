@@ -29,7 +29,7 @@
 					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
 				</div>
 				<div class="col-3">
-					<button type="button" class="btn btn-link img-fluid showAddGuest" style="padding:0px;" onclick="newElement()">
+					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> <!-- onclick="newElement()"> -->
 		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
 		   			</button>
 	   			</div>
@@ -38,15 +38,15 @@
 			<hr>
 			
 			<!-- all list body -->
-			<c:set var="cat" value="1" scope="page" />
+			<!--<c:set var="cat" value="1" scope="page" />-->
 			<ul id="allList">
-				<c:forEach var="good" items="${vendor.value}">
+				<c:forEach var="list" items="${lists}">
 	   				<div class="row">
 	   					<div class= "col-2">
 	   						<span><i class="fas fa-list-ul"></i></span>
 	   					</div>
 	   					<div class= "col-10">
-	   						${listTitle}To-do list
+	   						${list.listTitle}
 	   					</div>
 	   				</div>
 				</c:forEach>		
@@ -61,7 +61,7 @@
 		      			<span onclick=""  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
 					</div>
 					<div class="col-9">
-						<h3>${listTitle}To-do list</h3>
+						<h3>${list.listTitle}</h3>
 					</div>
 					<div class="col-2 text-right">
 						<button  type="button" class="btn btn-link img-fluid" onclick="">
