@@ -38,10 +38,7 @@ public class RSVPController {
 	* @return
 	*/
 	@RequestMapping(value="/sendMessage", method = RequestMethod.GET)
-	public String viewSendMessage(Model model, HttpServletRequest request){
-		//for testing
-		//Event event = new Event(); 
-		//event.setEventId(1); 
+	public String viewSendMessage(Model model, HttpServletRequest request){ 
 		
 		Event event = (Event) request.getSession().getAttribute("event");
 				

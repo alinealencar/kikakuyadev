@@ -3,9 +3,12 @@
 
 <% session.setAttribute("feature", feature); %>
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
+
 <div class="container"><!-- body contents start -->
 	<div class="row">
 		<!-- All list -->
@@ -20,16 +23,18 @@
 		   			</button>  
 		   		</div>
 			</div>
+			<form:form method="post" action="addList" modelAttribute="list">
 			<div class="row">
 				<div class="col-9">
-					<input type="text" id="listInput" class="form-control" placeholder="Name new list">
+					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
 				</div>
 				<div class="col-3">
 					<button type="button" class="btn btn-link img-fluid showAddGuest" style="padding:0px;" onclick="newElement()">
 		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
 		   			</button>
 	   			</div>
-   			</div>  		
+   			</div> 
+   			</form:form> 		
 			<hr>
 			
 			<!-- all list body -->
