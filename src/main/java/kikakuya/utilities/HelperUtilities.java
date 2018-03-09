@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.util.DigestUtils;
@@ -35,5 +39,19 @@ public class HelperUtilities {
 	        }
 	    }
 	    return ret.toString();
+	}
+	
+	public static Timestamp stringToTimestamp(String year, String month, String day, String hour, String minute, String ampm) 
+			throws ParseException{
+		if(ampm.equals("pm"))
+			hour += 12;
+		
+		String strDate = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+	    Date parsedDate = dateFormat.parse(strDate);
+	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	    
+	    return timestamp;
 	}
 }

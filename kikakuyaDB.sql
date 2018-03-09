@@ -5,7 +5,8 @@ grant all on KIKAKUYADEV.* to 'admin'@'localhost' identified by 'admin';
 
 CREATE TABLE Appointment (
   apptId       int(10) NOT NULL AUTO_INCREMENT, 
-  apptDateTime date NOT NULL, 
+  apptTitle		varchar(50) NOT NULL,
+  apptDateTime datetime NOT NULL, 
   apptNotes    varchar(255), 
   UseruserId   int(10) NOT NULL,
   location    varchar(255),
