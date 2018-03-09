@@ -27,17 +27,19 @@ var list = document.querySelector('UL#itemList');
 list.addEventListener('click', function(ev) {
   if (ev.target.tagName === 'LI') {
     ev.target.classList.toggle('checked');
+    //document.getElementById("formUpdateItemStatus").submit();
   }
 }, false);
 
 // Create a new list item when clicking on the "Add" button
 function newElement() {
+  document.getElementById("formAddItem").submit();
   var li = document.createElement("li");
   var inputValue = document.getElementById("itemInput").value;
   var t = document.createTextNode(inputValue);
   li.appendChild(t);
   if (inputValue === '') {
-    alert("You must write something!");
+    //alert("You must write something!");
   } else {
     document.getElementById("itemList").appendChild(li);
   }
