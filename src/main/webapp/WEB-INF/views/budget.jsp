@@ -229,7 +229,6 @@
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<label>Select Vendor:</label>
       				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
 	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">

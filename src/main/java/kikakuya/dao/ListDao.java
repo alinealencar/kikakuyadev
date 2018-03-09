@@ -11,4 +11,5 @@ public interface ListDao {
 	public boolean insertList(Lists list, Event event) throws SQLException;
 	public boolean updateList(Lists list) throws SQLException;
 	public boolean deleteList(int listId) throws SQLException;
+	public Lists findListById(int listId) throws SQLException;
 }

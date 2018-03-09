@@ -3,15 +3,25 @@ package kikakuya.service.implementation;
 import java.sql.SQLException;
 import java.util.List;
 
+import kikakuya.dao.ItemDao;
 import kikakuya.dao.ListDao;
 import kikakuya.model.Event;
+import kikakuya.model.Item;
 import kikakuya.model.Lists;
 import kikakuya.service.ListService;
 
 public class ListServiceImpl implements ListService{
 
 	private ListDao listDao;
-	
+	private ItemDao itemDao;
+
+	public ItemDao getItemDao() {
+		return itemDao;
+	}
+
+	public void setItemDao(ItemDao itemDao) {
+		this.itemDao = itemDao;
+	}
 	
 	public ListDao getListDao() {
 		return listDao;
@@ -40,7 +50,35 @@ public class ListServiceImpl implements ListService{
 	public boolean editList(Lists list) throws SQLException {
 		return listDao.updateList(list);
 	}
+
+	@Override
+	public Lists getListById(int listId) throws SQLException {
+		return listDao.findListById(listId);
+	}
 	
+	@Override
+	public List<Item> getItems(Lists list) throws SQLException {
+		return itemDao.findItems(list);
+	}
+
+	@Override
+	public boolean addItem(Item item) throws SQLException {
+		return itemDao.insertItem(item);
+	}
+
+	@Override
+	public boolean editItem(Item item) throws SQLException {
+		return itemDao.updateItem(item);
+	}
 	
+	@Override
+	public boolean editItemStatus(Item item) throws SQLException {
+		return itemDao.updateItemStatus(item);
+	}
+
+	@Override
+	public boolean deleteItem(int itemId) throws SQLException {
+		return itemDao.deleteItem(itemId);
+	}
 
 }

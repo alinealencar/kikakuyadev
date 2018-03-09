@@ -68,4 +68,17 @@ public class ListDaoImpl implements ListDao{
 		
 		return rowsAffected > 0;
 	}
+
+	@Override
+	public Lists findListById(int listId) throws SQLException {
+		String query = "SELECT * FROM list WHERE listId="+listId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		Lists list = new Lists();
+		while(rs.next()){
+			list.setListId(rs.getInt(1));
+			list.setListTitle(rs.getString(2));
+		}
+		return list;
+	}
 }

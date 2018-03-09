@@ -13,9 +13,14 @@
 	
 	<bean id="listService" class="kikakuya.service.implementation.ListServiceImpl">
 		<property name="listDao" ref="listDao"></property>
+		<property name="itemDao" ref="itemDao"></property>
 	</bean>
 		
 	<bean name="listDao" class="kikakuya.dao.implementation.ListDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean name="itemDao" class="kikakuya.dao.implementation.ItemDaoImpl">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 </beans>
