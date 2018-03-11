@@ -1,27 +1,18 @@
-/***** all lists *****/
-ul#allList {
-    margin: 0;
-    padding: 0;
-    
-}
-
-
-/***** item list *****/
-
 /* Include the padding and border in an element's total width and height */
 * {
     box-sizing: border-box;
 }
 
-/* Remove margins and padding from the list */
-ul#itemList {
+
+/***** lists page *****/
+ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody{ 
     margin: 0;
     padding: 0;
     
 }
 
 /* Style the list items */
-ul#itemList li {
+ul#showAllListBody li, ul#itemList li, ul#editAllListBody li,  ul#editItemListBody li{
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
@@ -38,10 +29,21 @@ ul#itemList li {
     user-select: none;
 }
 
-/* Darker background-color on hover */
-ul#itemList li:hover {
+ul#showAllListBody li:hover, ul#itemList li:hover {
     background: #ddd;
 }
+
+
+
+/***** all lists *****/
+/* When clicked on, add a background color*//**********************************focus doesn't work********/
+ul#showAllListBody li:focus, ul#showAllListBody li:active {
+    background-color: #888;
+    color: #fff;
+}
+
+
+/***** item list *****/
 
 /* When clicked on, add a background color and strike out text */
 ul#itemList li.checked {
@@ -64,6 +66,50 @@ ul#itemList li.checked::before {
     width: 7px;
 }
 
+
+
+/* make checkbox bigger */
+.itemStatusChk {
+	
+	 /*width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;*/
+    
+	/*-webkit-appearance:none;*/
+    width:20px;
+    height:20px;*/
+    /*background:white;*/
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+/* Make button not look like a button */
+button#btnSelectList {
+    background:none!important;
+     color:inherit;
+     border:none; 
+     padding:1px!important;
+     font: inherit;
+     cursor: pointer;
+     /*width: 300px;*/
+     text-align: left;
+}
+
+li.showAllListLi{
+	padding:0;
+}
+
+/*ul#itemList li .itemStatusChk:checked {
+    background: green;
+    text-decoration: line-through;
+}*/
+
 /* Style the close button */
 .close {
     position: absolute;
@@ -77,10 +123,10 @@ ul#itemList li.checked::before {
     color: white;
 }
 
-/* Clear floats after the header */
+/* Clear floats after the header *//*
 .listHeader:after {
     content: "";
     display: table;
     clear: both;
 }
-
+*/

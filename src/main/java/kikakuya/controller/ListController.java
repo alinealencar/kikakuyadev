@@ -29,7 +29,7 @@ public class ListController {
 	//show lists
 	@RequestMapping(value="/lists", method = RequestMethod.GET)
 	public String viewLists(Model model, HttpServletRequest request) throws SQLException{
-		
+		HttpSession session = request.getSession();
 		Event event = (Event) request.getSession().getAttribute("event");
 		model.addAttribute("list", new Lists());
 		model.addAttribute("item", new Item());
@@ -46,7 +46,7 @@ public class ListController {
 					firstList = lists.get(0);
 					//show items of first list
 					items = listDelegate.getItems(firstList);
-					request.setAttribute("selectedList", firstList);
+					session.setAttribute("selectedList", firstList);
 				}
 				else{
 					items = listDelegate.getItems(selectedList);
@@ -136,6 +136,9 @@ public class ListController {
 			Lists list = (Lists)request.getSession().getAttribute("selectedList");
 			List<Item> items = new ArrayList<>();
 			//item.setListidFK(list.getListId());
+			if(item.getItemStatus() == null){
+				item.setItemStatus(0);
+			}
 			try {
 				//update item status
 				if(listDelegate.editItemStatus(item)){
