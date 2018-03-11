@@ -90,15 +90,19 @@ ul#itemList li.checked::before {
 }
 
 /* Make button not look like a button */
-#btnSelectList {
+button#btnSelectList {
     background:none!important;
      color:inherit;
      border:none; 
      padding:1px!important;
      font: inherit;
      cursor: pointer;
-     width: 300px;
+     /*width: 300px;*/
      text-align: left;
+}
+
+li.showAllListLi{
+	padding:0;
 }
 
 /*ul#itemList li .itemStatusChk:checked {

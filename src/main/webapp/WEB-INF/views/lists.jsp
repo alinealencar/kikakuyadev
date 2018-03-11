@@ -44,8 +44,8 @@
 				<c:forEach var="list" items="${lists}" >
 					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 						<form:hidden path="listId" value="${list.listId}" />
-						<li >
-							<button id="btnSelectList" type="submit">
+						<li class="showAllListLi">
+							<button id="btnSelectList" class="btn-block" type="submit">
 			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
 			   				</button>
 						</li>
