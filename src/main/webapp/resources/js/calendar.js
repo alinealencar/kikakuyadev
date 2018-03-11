@@ -21,6 +21,54 @@ $('#year, #month').change(function() {
 });
 
 $(document).ready(function(){
+	$.ajax({
+		type: "POST",
+	     url: "calendarNav",
+	     data: { month: $('#curMonth').html(), year: $('#curYear').html(), action: "loadMonth"} // parameters
+	})
+	.done(function(response) {
+//    	 $("#curMonth").html(response.name);
+//    	 $("#curYear").html(response.year);
+    	 
+    	 //clear current table body
+    	 $("#calendar").find('tbody').empty();
+    	 
+    	 var curDate = response.firstDay; //Weekday the month starts
+    	 var numOfDays = response.numOfDays;
+    	 var curWeekDay = 1; //Weekday. Start printing cells on sunday
+    	 var weekNum = 1;
+    	 var startPrintingDays = false;
+    	 var monthDay = 1;
+    		
+    	 //Add row for the first week
+    	 $("#calendar").find('tbody')
+    	    .append($('<tr id=week'+weekNum+'>'));
+    	 
+    	while(monthDay <= numOfDays){
+    		
+    		if(curDate === curWeekDay)
+    			startPrintingDays = true;
+    		
+    		if(!startPrintingDays) //Print empty days
+    			$("#calendar").find('#week' + weekNum).append($('<td>')
+    	            .append(""));
+    		else {
+    			$("#calendar").find('#week' + weekNum).append($('<td>')
+	    	            .append(monthDay));
+    			monthDay++;
+    		}
+    		
+	    	if(curWeekDay === 7){
+	    		curWeekDay = 1;
+	    		weekNum++;
+	    		$("#calendar").find('tbody')
+	    	    .append($('<tr id=week'+weekNum+'>'));
+	    	}
+	    	else
+	    		curWeekDay++;
+	    }
+	});
+	
 	$("#nextMonth").click(function (event) {
 		$.ajax({
 			type: "POST",

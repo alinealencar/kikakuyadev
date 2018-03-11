@@ -56,6 +56,13 @@ public class HelperUtilities {
 	    return timestamp;
 	}
 	
+public static Calendar getLoadMonth(String curMonth, String curYear) {
+		
+		Calendar c = getMonth(curMonth, curYear);
+	    c.set(Calendar.DAY_OF_MONTH, 1);
+	    return c;
+	}
+	
 	public static Calendar getNextMonth(String curMonth, String curYear) {
 		
 		Calendar c = getMonth(curMonth, curYear);

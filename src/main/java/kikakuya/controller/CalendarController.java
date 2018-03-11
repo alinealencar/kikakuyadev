@@ -64,8 +64,11 @@ public class CalendarController {
 	public MonthPresentation Submit(ModelMap model, HttpServletRequest request, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
 		MonthPresentation monthPresentation = new MonthPresentation();
 		Calendar monthCal = Calendar.getInstance();
+		if(action.equals("loadMonth")){
+			monthCal = HelperUtilities.getLoadMonth(month, year);
+		}
 		//nextMonth
-		if(action.equals("nextMonth")){
+		else if(action.equals("nextMonth")){
 			//Get information about next month using the Calendar class
 			monthCal = HelperUtilities.getNextMonth(month, year);
 		}
