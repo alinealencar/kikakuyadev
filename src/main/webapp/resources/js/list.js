@@ -156,13 +156,6 @@ function newElement() {
     }
   }
 }
-<<<<<<< HEAD
+
 
 */
-||||||| merged common ancestors
-
-
-=======
-*/
-
->>>>>>> e832b877374a3d047a6ad99cc0b1f3d6ec31cd13

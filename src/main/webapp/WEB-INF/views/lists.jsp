@@ -178,7 +178,6 @@
 		
 		<!-- Edit item list  -->
 		<!-- item lists header-->
-<<<<<<< HEAD
 		<div class="col-sm-8" id="editItemList" style="display: none;">
 			<div id="myDIV" class="listHeader">
 				<div class="row">
@@ -239,18 +238,6 @@
 		<!-- End of Edit item lists -->	
 			
 	</div> <!-- .row for all contents -->	
-||||||| merged common ancestors
-		
-		
-		
-		
-	</div> 	
-=======
-		
-		
-		
-	</div> 	
->>>>>>> e832b877374a3d047a6ad99cc0b1f3d6ec31cd13
 </div><!-- body contents end -->
 <script src="resources/js/list.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
