@@ -2,6 +2,8 @@ package kikakuya.model;
 
 import java.sql.Timestamp;
 import java.text.ParseException;
+import java.time.LocalDateTime;
+import java.util.Calendar;
 
 import kikakuya.utilities.HelperUtilities;
 
@@ -23,6 +25,34 @@ public class Appointment {
 	public Appointment() {
 		
 	}
+
+	public void setDatetime(Timestamp datetime) {
+		LocalDateTime ddd = datetime.toLocalDateTime();
+		
+		this.day = String.valueOf(ddd.getDayOfMonth());
+		this.month = HelperUtilities.getMonthName(ddd.getMonthValue() - 1);
+		this.year = String.valueOf(ddd.getYear());
+		
+		if(ddd.getHour() > 1 && ddd.getHour() < 12){
+			this.hour = String.valueOf(ddd.getHour());
+			this.ampm = "am";
+		}
+		else if(ddd.getHour() == 0){
+			this.hour = "12";
+			this.ampm = "am";
+		}
+		else if(ddd.getHour() == 12){
+			this.hour = "12";
+			this.ampm = "pm";
+		}
+		else {
+			this.hour = String.valueOf(ddd.getHour() - 12);
+			this.ampm="pm";
+		}
+		
+		this.minute = String.valueOf(ddd.getMinute());
+	}
+
 	public int getApptId() {
 		return apptId;
 	}
@@ -100,13 +130,15 @@ public class Appointment {
 	public Timestamp getApptDateTime() throws ParseException{
 		return HelperUtilities.stringToTimestamp(year, month, day, hour, minute, ampm);
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Appointment [apptId=" + apptId + ", title=" + title + ", day=" + day + ", month=" + month + ", year="
-				+ year + ", hour=" + hour + ", minute=" + minute + ", ampm=" + ampm + ", notes=" + notes + ", userId="
-				+ userId + ", location=" + location + ", color=" + color + "]";
+		return "Appointment [apptId=" + apptId + ", title=" + title + ", day=" + day
+				+ ", month=" + month + ", year=" + year + ", hour=" + hour + ", minute=" + minute + ", ampm=" + ampm
+				+ ", notes=" + notes + ", userId=" + userId + ", location=" + location + ", color=" + color + "]";
 	}
+	
+	
 	
 	
 }

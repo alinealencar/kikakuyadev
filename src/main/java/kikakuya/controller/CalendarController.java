@@ -85,10 +85,18 @@ public class CalendarController {
 			monthCal = HelperUtilities.getPrevYear(month, year);
 		}
 
-		monthPresentation.setName(HelperUtilities.getMonthName(monthCal));
+		monthPresentation.setName(HelperUtilities.getMonthName(monthCal.get(Calendar.MONTH)));
 		monthPresentation.setYear(monthCal.get(Calendar.YEAR));
 		monthPresentation.setFirstDay(HelperUtilities.getDayOfWeek(monthCal));
 		monthPresentation.setNumOfDays(HelperUtilities.getNumOfDays(monthCal));
+		
+		try {
+			monthPresentation.setAppointments(calendarDelegate.findAppt(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR)));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(monthPresentation);
 		
 		return monthPresentation;
 	}

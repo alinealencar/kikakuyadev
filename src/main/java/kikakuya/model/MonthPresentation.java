@@ -49,9 +49,5 @@ public class MonthPresentation {
 		return "MonthPresentation [name=" + name + ", year=" + year + ", firstDay=" + firstDay + ", numOfDays="
 				+ numOfDays + ", appointments=" + appointments + "]";
 	}
-
-	
-	
-	
 	
 }
