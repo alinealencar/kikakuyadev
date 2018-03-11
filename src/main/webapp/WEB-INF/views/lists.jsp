@@ -18,7 +18,7 @@
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
-				<div class="col-3">
+				<div class="col-3 text-right" >
 					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openEditAllLists()">
 		      			<span onclick="openEditAllLists()"><i class="fas fa-edit"></i></span>
 		   			</button>  
@@ -40,7 +40,7 @@
 			
 			<!-- All lists body -->
 			<!--<c:set var="cat" value="1" scope="page" />-->
-			<ul id="showAllListBody" onclick="changeSelectedListBgColor(this)">
+			<ul id="showAllListBody">
 				<c:forEach var="list" items="${lists}" >
 					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 						<form:hidden path="listId" value="${list.listId}" />
@@ -71,7 +71,6 @@
 					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="closeEditAllLists()">
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
-
 		   		</div>
 			</div>
 			<form:form method="post" action="addList" modelAttribute="list">
@@ -89,27 +88,23 @@
 			<hr>
 			
 		<!-- All lists body -->
-			<c:forEach var="list" items="${lists}" >
-				<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
-					<form:hidden path="listId" value="${list.listId}" />
-					<ul>
-	   					<div class="row">
-	   						<div class="col-2">
-	   							<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   						</div>
-	   						<div class="col-10">
-	   							<input name="" value="${list.listTitle}" class="form-control">
-	   						</div>
-	   					</div>
-					</ul>	
-				</form:form>	
-			</c:forEach>	
+			<ul id="editAllListBody">	
+				<c:forEach var="list" items="${lists}" >
+					<li>					
+		   				<div class="row">
+		   					<div class="col-12">
+		   						<input name="" value="${list.listTitle}" class="form-control">
+		   					</div>
+		   				</div>							
+					</li>	
+				</c:forEach>
+			</ul>	
 		   					
 				
 		   						
 		</div>
 		<!-- End of Edit All lists -->
-		
+		<!-- *****************************************************************************************************column change -->
 		<!-- Show item list  -->
 		<!-- item list header -->
 		<c:choose>
@@ -120,11 +115,16 @@
 						<div class="col-1 d-block d-sm-none">
 		      				<span onclick=""  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
 						</div>
-						<div class="col-9">
+						<div class="col-7">
 							<h3>${selectedList.listTitle}</h3>
 						</div>
-						<div class="col-2 text-right">
-							<button  type="button" class="btn btn-link img-fluid" onclick="">
+						<div class="col-5 text-right d-none d-sm-block">
+							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+		      					<span><i class="fas fa-edit"></i></span>
+		   					</button>  
+		   				</div>	   		
+						<div class="col-4 text-right d-block d-sm-none">
+							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
 		      					<span><i class="fas fa-edit"></i></span>
 		   					</button>  
 		   				</div>	   									
@@ -133,7 +133,7 @@
 					<div class="row">
 						<div class="col-10">
 							<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
-						</div>
+						</div>						
 						<div class="col-2">
 			  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
 		      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
@@ -167,11 +167,66 @@
 		
 		<!-- Edit item list  -->
 		<!-- item lists header-->
-		
-		
-		
-		
-	</div> 	
+		<div class="col-sm-8" id="editItemList" style="display: none;">
+			<div id="myDIV" class="listHeader">
+				<div class="row">
+					<div class="col-1 d-block d-sm-none">
+			      		<span onclick=""  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
+					</div>
+					<div class="col-6 d-block d-sm-none">
+						<h3>${selectedList.listTitle}</h3>
+					</div>
+					<div class="col-9 d-none d-sm-block">
+						<h3>${selectedList.listTitle}</h3>
+					</div>
+	      			<div class="col-2">
+						<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+	      					Save
+	      				</button>
+	      			</div>
+					<div class="col-3 d-block d-sm-none text-right">
+						<button  type="button" class="btn btn-link img-fluid" onclick="closeEditItemList()">
+			      			<span><i class="fas fa-times"></i></span>
+			   			</button>  
+			   		</div>
+			   		<div class="col-1 d-none d-sm-block text-right">
+						<button  type="button" class="btn btn-link img-fluid" onclick="closeEditItemList()">
+			      			<span><i class="fas fa-times"></i></span>
+			   			</button>  
+			   		</div>	   			   									
+				</div>
+				<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
+				<div class="row">
+					<div class="col-10">
+						<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
+					</div>
+					<div class="col-2">
+		  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
+	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
+	   					</button>
+					</div>
+				</div>	
+				</form:form>
+ 			</div>		
+				
+			<hr>
+		<!-- All lists body -->
+			<ul id="editItemListBody">
+				<c:forEach var="item" items="${items}">
+					<li>
+						<div class="row">
+		   					<div class="col-12">
+		   						<input name="" value="${item.itemName}" class="form-control">
+		   					</div>
+		   				</div>
+	   				</li>
+				</c:forEach>
+			</ul>
+		   						
+		</div>
+		<!-- End of Edit item lists -->	
+			
+	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
 <script src="resources/js/list.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

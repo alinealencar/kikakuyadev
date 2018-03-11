@@ -3,21 +3,23 @@
  *******************************/
 
 
-/***** show edit all lists *****/
+/***** show/hide edit all lists *****/
+//when click edit button in all lists, hide show and show edit
 function openEditAllLists(){
 	$('#editAllLists').show();
 	$('#showAllLists').hide();
 }
 
+//when click x button in all lists, hide edit and show show
 function closeEditAllLists(){
 	$('#editAllLists').hide();
 	$('#showAllLists').show();
 }
 
 /***** all lists list decoration *****/
-/*
+
 //Create a "close" button and append it to each list item
-var list = document.getElementsByTagName("UL")[0];
+var list = document.getElementsByTagName("UL")[1];
 var myNodelist = list.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -38,7 +40,7 @@ close[i].onclick = function() {
 }
 }
 
-
+/*
 //Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('UL#showAllListBody');
 list.addEventListener('click', function(ev) {
@@ -82,10 +84,22 @@ for (i = 0; i < close.length; i++) {
 /*******************************
  * item lists
  *******************************/
+/***** show/hide edit item list *****/
+//when click edit button in item list, hide show and show edit
+function openEditItemList(){
+	$('#editItemList').show();
+	$('#itemsDiv').hide();
+}
+
+//when click edit button in item list, hide edit and show show
+function closeEditItemList(){
+	$('#editItemList').hide();
+	$('#itemsDiv').show();
+}
 /***** item list list decoration *****/
 
 // Create a "close" button and append it to each list item
-var list = document.getElementsByTagName("UL")[2];
+var list = document.getElementsByTagName("UL")[3];
 var myNodelist = list.getElementsByTagName("LI");
 var i;
 for (i = 0; i < myNodelist.length; i++) {
@@ -105,7 +119,7 @@ for (i = 0; i < close.length; i++) {
     div.style.display = "none";
   }
 }
-
+/*
 // Add a "checked" symbol when clicking on a list item
 var list = document.querySelector('UL#itemList');
 list.addEventListener('click', function(ev) {
@@ -143,4 +157,4 @@ function newElement() {
   }
 }
 
-
+*/
