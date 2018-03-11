@@ -92,7 +92,14 @@
 			<ul id="itemList">
 				<c:forEach var="item" items="${items}">
 					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
-						<li>${item.itemName}</li>
+						<c:choose>
+							<c:when test="${item.itemStatus eq 0}">
+								<li><form:checkbox path="itemStatus" value="1" onClick="this.form.submit()"/>${item.itemName}</li>
+							</c:when>
+							<c:otherwise>
+								<li><form:checkbox path="itemStatus" value="1" onClick="this.form.submit()" checked="true"/>${item.itemName}</li>
+							</c:otherwise>
+						</c:choose>
 						<form:hidden path="itemId" value="${item.itemId}"/>
 					</form:form>
 				</c:forEach>
