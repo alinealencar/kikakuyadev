@@ -11,15 +11,16 @@
 
 <div class="container"><!-- body contents start -->
 	<div class="row">
-		<!-- All list -->
-		<div class="col-sm-4 d-none d-sm-block" style="border-right:1px solid #cccccc;">
+		<!-- Show All lists -->
+		<!-- All lists header-->
+		<div id="showAllLists" class="col-sm-4" style="border-right:1px solid #cccccc;">
 			<div class="row">
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3">
-					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
-		      			<span onclick="openEditGuest()"><i class="fas fa-edit"></i></span>
+					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openEditAllLists()">
+		      			<span onclick="openEditAllLists()"><i class="fas fa-edit"></i></span>
 		   			</button>  
 		   		</div>
 			</div>
@@ -37,25 +38,80 @@
    			</form:form> 		
 			<hr>
 			
-			<!-- all list body -->
+			<!-- All lists body -->
 			<!--<c:set var="cat" value="1" scope="page" />-->
+			<ul id="showAllListBody" onclick="changeSelectedListBgColor(this)">
+				<c:forEach var="list" items="${lists}" >
+					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
+						<form:hidden path="listId" value="${list.listId}" />
+						<li >
+							<button id="btnSelectList" type="submit">
+			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   				</button>
+						</li>
+					</form:form>	
+				</c:forEach>	
+			</ul>
+		</div>
+		<!-- End of Show All list -->
+		
+		<!-- Edit All lists  -->
+		<!-- All lists header-->
+		<div id="editAllLists" class="col-sm-4" style="display: none; border-right:1px solid #cccccc;">
+			<div class="row">
+				<div class="col-6">
+					<h3>All lists</h3>
+				</div>
+				<div class="col-3">
+					<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+	      				Save
+	      			</button>
+	      		</div>
+				<div class="col-3">
+					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="closeEditAllLists()">
+		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
+		   			</button>  
+
+		   		</div>
+			</div>
+			<form:form method="post" action="addList" modelAttribute="list">
+			<div class="row">
+				<div class="col-9">
+					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+				</div>
+				<div class="col-3">
+					<button type="submit" class="btn btn-link img-fluid" style="padding:0px;" onclick="newElement()"> 
+		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
+		   			</button>
+	   			</div>
+   			</div> 
+   			</form:form> 		
+			<hr>
+			
+		<!-- All lists body -->
 			<c:forEach var="list" items="${lists}" >
 				<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 					<form:hidden path="listId" value="${list.listId}" />
-					<ul id="allList">
+					<ul>
 	   					<div class="row">
+	   						<div class="col-2">
+	   							<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   						</div>
 	   						<div class="col-10">
-	   							<button id="btnSelectList" type="submit">
-	   								<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
-	   							</button>
+	   							<input name="" value="${list.listTitle}" class="form-control">
 	   						</div>
 	   					</div>
 					</ul>	
 				</form:form>	
 			</c:forEach>	
+		   					
+				
+		   						
 		</div>
+		<!-- End of Edit All lists -->
 		
-		<!-- item list -->
+		<!-- Show item list  -->
+		<!-- item list header -->
 		<c:choose>
 			<c:when test="${empty noListMessage}">
 				<div class="col-sm-8" id="itemsDiv">
@@ -87,25 +143,34 @@
    					</form:form>	
 				</div>
 				
-			<hr>
-			<!-- item list body -->
-			<ul id="itemList">
-				<c:forEach var="item" items="${items}">
-					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
-						<li>${item.itemName}</li>
-						<form:hidden path="itemId" value="${item.itemId}"/>
-					</form:form>
-				</c:forEach>
-			</ul>
-		</div>
-		</c:when>
-				<c:otherwise>
-					<br><br><br>
-					<div class="text-center">
-						<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
-					</div>
-				</c:otherwise>
-			</c:choose>
+				<hr>
+					
+				<!-- item list body -->
+				<ul id="itemList">
+					<c:forEach var="item" items="${items}">
+						<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
+							<li>${item.itemName}</li>
+							<form:hidden path="itemId" value="${item.itemId}"/>
+						</form:form>
+					</c:forEach>
+				</ul>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<br><br><br>
+				<div class="text-center">
+					<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
+				</div>
+			</c:otherwise>
+		</c:choose>
+		<!-- End of Show item list -->	
+		
+		<!-- Edit item list  -->
+		<!-- item lists header-->
+		
+		
+		
+		
 	</div> 	
 </div><!-- body contents end -->
 <script src="resources/js/list.js"></script>
