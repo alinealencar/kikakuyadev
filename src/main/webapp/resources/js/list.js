@@ -97,7 +97,7 @@ function closeEditItemList(){
 	$('#itemsDiv').show();
 }
 /***** item list list decoration *****/
-
+/*
 // Create a "close" button and append it to each list item
 var list = document.getElementsByTagName("UL")[3];
 var myNodelist = list.getElementsByTagName("LI");
@@ -156,5 +156,13 @@ function newElement() {
     }
   }
 }
+<<<<<<< HEAD
 
 */
+||||||| merged common ancestors
+
+
+=======
+*/
+
+>>>>>>> e832b877374a3d047a6ad99cc0b1f3d6ec31cd13

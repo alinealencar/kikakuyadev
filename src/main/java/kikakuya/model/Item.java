@@ -2,7 +2,8 @@ package kikakuya.model;
 
 public class Item {
 	
-	private int itemId, itemStatus, listIdFK;
+	private int itemId, listIdFK;
+	private Integer itemStatus;
 	private String itemName;
 	
 	public Item() {
@@ -14,10 +15,10 @@ public class Item {
 	public void setItemId(int itemId) {
 		this.itemId = itemId;
 	}
-	public int getItemStatus() {
+	public Integer getItemStatus() {
 		return itemStatus;
 	}
-	public void setItemStatus(int itemStatus) {
+	public void setItemStatus(Integer itemStatus) {
 		this.itemStatus = itemStatus;
 	}
 	public String getItemName() {

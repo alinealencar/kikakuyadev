@@ -193,17 +193,6 @@ Form validation
 	border-radius: 5px;
 }
 
-/*********************************
-list
-**********************************/
-#btnSelectList {
-     background:none!important;
-     color:inherit;
-     border:none; 
-     padding:3px!important;
-     font: inherit;
-     cursor: pointer;
-}
 
 /*********************************
 slide in form

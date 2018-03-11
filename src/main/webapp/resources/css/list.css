@@ -66,7 +66,51 @@ ul#itemList li.checked::before {
     width: 7px;
 }
 
+<<<<<<< HEAD
 /* Style the close button */
+||||||| merged common ancestors
+/* Style the close button *//*
+=======
+/* make checkbox bigger */
+.itemStatusChk {
+	
+	 /*width: 1.3em;
+    height: 1.3em;
+    background-color: white;
+    border-radius: 50%;
+    vertical-align: middle;
+    border: 1px solid #ddd;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;*/
+    
+	/*-webkit-appearance:none;*/
+    width:20px;
+    height:20px;*/
+    /*background:white;*/
+    border-radius:5px;
+    border:2px solid #555;
+}
+
+/* Make button not look like a button */
+#btnSelectList {
+    background:none!important;
+     color:inherit;
+     border:none; 
+     padding:1px!important;
+     font: inherit;
+     cursor: pointer;
+     width: 300px;
+     text-align: left;
+}
+
+/*ul#itemList li .itemStatusChk:checked {
+    background: green;
+    text-decoration: line-through;
+}*/
+
+/* Style the close button *//*
+>>>>>>> e832b877374a3d047a6ad99cc0b1f3d6ec31cd13
 .close {
     position: absolute;
     right: 0;

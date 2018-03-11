@@ -143,30 +143,42 @@
    					</form:form>	
 				</div>
 				
-				<hr>
-					
-				<!-- item list body -->
-				<ul id="itemList">
-					<c:forEach var="item" items="${items}">
-						<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
-							<li>${item.itemName}</li>
-							<form:hidden path="itemId" value="${item.itemId}"/>
-						</form:form>
-					</c:forEach>
-				</ul>
-				</div>
-			</c:when>
-			<c:otherwise>
-				<br><br><br>
-				<div class="text-center">
-					<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
-				</div>
-			</c:otherwise>
-		</c:choose>
+
+			<hr>
+			<!-- item list body -->
+			<ul id="itemList">
+				<c:forEach var="item" items="${items}">
+					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
+						<c:choose>
+							<c:when test="${item.itemStatus eq 0}">
+								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()"/>
+								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+							</c:when>
+							<c:otherwise>
+								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()" checked="true"/>
+								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+							</c:otherwise>
+						</c:choose>
+						<form:hidden path="itemId" value="${item.itemId}"/>
+					</form:form>
+				</c:forEach>
+			</ul>
+		</div>
+		</c:when>
+				<c:otherwise>
+					<br><br><br>
+					<div class="text-center">
+						<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
+					</div>
+				</c:otherwise>
+			</c:choose>
+
+				
 		<!-- End of Show item list -->	
 		
 		<!-- Edit item list  -->
 		<!-- item lists header-->
+<<<<<<< HEAD
 		<div class="col-sm-8" id="editItemList" style="display: none;">
 			<div id="myDIV" class="listHeader">
 				<div class="row">
@@ -227,6 +239,18 @@
 		<!-- End of Edit item lists -->	
 			
 	</div> <!-- .row for all contents -->	
+||||||| merged common ancestors
+		
+		
+		
+		
+	</div> 	
+=======
+		
+		
+		
+	</div> 	
+>>>>>>> e832b877374a3d047a6ad99cc0b1f3d6ec31cd13
 </div><!-- body contents end -->
 <script src="resources/js/list.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
