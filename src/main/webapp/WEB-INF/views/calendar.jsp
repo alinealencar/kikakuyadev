@@ -7,17 +7,46 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<script src="resources/js/calendar.js"></script>
 <div class="container">
 	<!-- body contents start -->
 	<div class="row">
 		<!-- Calendar -->
 		<div class="col-sm-9">
+			
+			<button id="prevYear"><i class="fas fa-chevron-left"></i></button>
+			<span id="curYear">2018</span>
+			<button id="nextYear"><i class="fas fa-chevron-right"></i></button>
+			<br>
+			<button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+			<span id="curMonth">March</span>
+			<button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+			<table id="calendar">
+				<thead>
+					<tr>
+						<th>Sun</th>
+						<th>Mon</th>
+						<th>Tue</th>
+						<th>Wed</th>
+						<th>Thu</th>
+						<th>Fri</th>
+						<th>Sat</th>
+					</tr>
+				</thead>
+				<tbody>
+				
+				</tbody>
+			</table>
 		</div>
 		
 		<!-- Forms -->
 		<div class="col-sm-3">
 			<div id="addAppt">
+				<c:if test="${not empty addApptSuccess}">
+					<div class="successAlert">${addApptSuccess}</div>
+				</c:if>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
 					<label>Title*: </label>
 					<form:input path="title" type="text" class="item form-control"/>
@@ -97,8 +126,12 @@
 					<input type="submit" value="Add"/>
 				</form:form>
 			</div>
+			<div id="showAppt">
+			</div>
+			<div id="editAppt">
+			</div>
 		</div>
 	</div>
 </div>
-<script src="resources/js/calendar.js"></script>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

@@ -7,6 +7,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
@@ -53,5 +54,84 @@ public class HelperUtilities {
 	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
 	    
 	    return timestamp;
+	}
+	
+	public static Calendar getNextMonth(String curMonth, String curYear) {
+		
+		Calendar c = getMonth(curMonth, curYear);
+	    c.set(Calendar.DAY_OF_MONTH, 1);
+	    c.add(Calendar.MONTH, 1);
+	    return c;
+	}
+	
+	public static Calendar getPrevMonth(String curMonth, String curYear) {
+		
+		Calendar c = getMonth(curMonth, curYear);
+	    c.set(Calendar.DAY_OF_MONTH, 1);
+	    c.add(Calendar.MONTH, -1);
+	    return c;
+	}
+	
+	public static Calendar getNextYear(String curMonth, String curYear) {
+		
+		Calendar c = getMonth(curMonth, curYear);
+	    c.set(Calendar.DAY_OF_MONTH, 1);
+	    c.add(Calendar.YEAR, 1);
+	    return c;
+	}
+	
+	public static Calendar getPrevYear(String curMonth, String curYear) {
+		
+		Calendar c = getMonth(curMonth, curYear);
+	    c.set(Calendar.DAY_OF_MONTH, 1);
+	    c.add(Calendar.YEAR, -1);
+	    return c;
+	}
+	
+	public static Calendar getMonth(String curMonth, String curYear){
+		Calendar c = Calendar.getInstance();
+		
+		if(curMonth.equals("January"))
+			c.set(Calendar.MONTH, Calendar.JANUARY);
+		else if(curMonth.equals("February"))
+			c.set(Calendar.MONTH, Calendar.FEBRUARY);
+		else if(curMonth.equals("March"))
+			c.set(Calendar.MONTH, Calendar.MARCH);
+		else if(curMonth.equals("April"))
+			c.set(Calendar.MONTH, Calendar.APRIL);
+		else if(curMonth.equals("May"))
+			c.set(Calendar.MONTH, Calendar.MAY);
+		else if(curMonth.equals("June"))
+			c.set(Calendar.MONTH, Calendar.JUNE);
+		else if(curMonth.equals("July"))
+			c.set(Calendar.MONTH, Calendar.JULY);
+		else if(curMonth.equals("August"))
+			c.set(Calendar.MONTH, Calendar.AUGUST);
+		else if(curMonth.equals("September"))
+			c.set(Calendar.MONTH, Calendar.SEPTEMBER);
+		else if(curMonth.equals("October"))
+			c.set(Calendar.MONTH, Calendar.OCTOBER);
+		else if(curMonth.equals("November"))
+			c.set(Calendar.MONTH, Calendar.NOVEMBER);
+		else if(curMonth.equals("December"))
+			c.set(Calendar.MONTH, Calendar.DECEMBER);
+		
+		c.set(Calendar.YEAR, Integer.parseInt(curYear));
+		
+		return c;
+	}
+	
+	public static String getMonthName(Calendar c){
+		int month = c.get(Calendar.MONTH);
+		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+	    return monthNames[month];
+	}
+	
+	public static int getDayOfWeek(Calendar c){
+		return c.get(Calendar.DAY_OF_WEEK);
+	}
+	
+	public static int getNumOfDays(Calendar c){
+		return c.getActualMaximum(Calendar.DAY_OF_MONTH);
 	}
 }
