@@ -201,11 +201,11 @@
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">
 				<div class="form-group">
       				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
-	        			<option value="--- Select Category ---">--- Select Category ---</option>
+	        			<option value="--- Select Category ---" selected>--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -230,7 +230,7 @@
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
       				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
-	        			<option value="">--- Vendor ---</option>
+	        			<option value="" selected>--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
@@ -287,7 +287,7 @@
 			</form:form>
 			
 			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
+				<form:form action="addVendor" method="post" modelAttribute="vendor">
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>

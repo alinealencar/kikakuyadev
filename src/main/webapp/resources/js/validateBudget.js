@@ -8,11 +8,20 @@ var validPrice = false;
 var validName = false;
 var validAddress = false;
 var phoneNo = false;
-var website = false;
 
 function validateBudget(){
-	if (validCategory && validVendor && validItem && validPrice
-				&& validName && validAddress && phoneNo && website){
+	if (validCategory && validVendor){
+		form.submit();
+		form.reset();
+	}
+	else{
+		return false;
+	}
+	return true;
+}
+
+function validateAddVendor(){
+	if (validName && validAddress && phoneNo && website){
 		form.submit();
 		form.reset();
 	}
@@ -25,7 +34,7 @@ function validateBudget(){
 function validateCategory(){	
 	var category = document.getElementsByClassName("category")[0].value;
 	
-	if (category == "--- Select Category ---"){
+	if (category === "--- Select Category ---"){
 		document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
 		validCategory = false;
 	}
@@ -38,7 +47,7 @@ function validateCategory(){
 function validateVendor(){
 	var vendor = document.getElementsByClassName("vendor")[0].value;
 	
-	if (vendor == "--- Vendor ---"){
+	if (vendor === ""){
 		document.getElementById("vendorError").innerHTML = "<i class='fas fa-times'></i>  Please select vendor";
 		validVendor = false;
 	}
@@ -66,6 +75,10 @@ function validatePrice(){
 	
 	if(isNaN(price)){
 		document.getElementById("priceError").innerHTML = "<i class='fas fa-times'></i> Please enter numbers only.";
+		validPrice = false;
+	}
+	else if(price == ""){
+		document.getElementById("priceError").innerHTML = "<i class='fas fa-times'></i> Please enter price";
 		validPrice = false;
 	}
 	else{
@@ -113,10 +126,4 @@ function validatePhoneNo(){
 		document.getElementById("phoneNoError").innerHTML = "";
 		validPhoneNo = true;
 	}
-}
-
-function validateWebSite(){
-	var website = document.getElementsByClassName("website")[0].value;
-	
-	
 }
