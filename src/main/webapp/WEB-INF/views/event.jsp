@@ -94,14 +94,14 @@
 						<form:hidden path="eventId"/>
 			
 						<div>
-							<label> Event Name: </label> 
+							<label> Event Name<label>*</>: </label> 
 							<form:input path="eventName" class="eventName form-control" oninput="validateEventName()" maxlength="20"/>
 							<span id="eventNameError" class="formError"></span>
 							<br>
 						</div>
 						<div>
-							<label>Location: </label>
-							<form:input path="location" class="location form-control" oninput="validateLocation()" --- Select Category ---/>
+							<label>Location*: </label>
+							<form:input path="location" class="location form-control" oninput="validateLocation()"/>
 								<span id="locationError" class="formError"></span>
 							<br>
 							<!--form:input type="text" name="eventLocation" path="location"/>
