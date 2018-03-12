@@ -112,6 +112,7 @@ public class ListController {
 		Lists list = (Lists)request.getSession().getAttribute("selectedList");
 		List<Item> items = new ArrayList<>();
 		item.setListidFK(list.getListId());
+		item.setItemStatus(0);
 		try {
 			System.out.println("list id: " + item.getListIdFK());
 			System.out.println("item name: " + item.getItemName());
