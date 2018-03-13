@@ -8,12 +8,29 @@
 function openEditAllLists(){
 	$('#editAllLists').show();
 	$('#showAllLists').hide();
+	$('#itemsDiv').foggy({blurRadius: 3,          // In pixels.
+						opacity: 0.8,           // Falls back to a filter for IE.
+						cssFilterSupport: true  // Use "-webkit-filter" where available.
+						});
+	$('#itemsDiv').css("filter","grayscale");
+	$("#itemsDiv :input").attr("disabled", true);
+	$("ul#itemList li").hover(function(){
+        $(this).css("background-color", "#F1E9DA");
+        });
+
 }
 
 //when click x button in all lists, hide edit and show show
 function closeEditAllLists(){
 	$('#editAllLists').hide();
 	$('#showAllLists').show();
+	$('#itemsDiv').foggy(false);
+	$("#itemsDiv :input").attr("disabled", false);
+}
+
+/***** delete button *****/
+function onClickDelete(){
+	confirm("Are you sure you want to delete this list ?");
 }
 
 /***** all lists list decoration *****/

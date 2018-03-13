@@ -84,7 +84,7 @@
 					<li>					
 		   				<div class="row">
 		   					<div class="col-2 btnListDelete">
-	   							<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   						</div>
 		   					<div class="col-10">
 		   						<input name="" value="${list.listTitle}" class="form-control">
@@ -215,7 +215,7 @@
  			</div>		
 				
 			<hr>
-		<!-- All lists body -->
+		<!-- item list body -->
 			<ul id="editItemListBody">
 				<c:forEach var="item" items="${items}">
 					<li>
@@ -234,5 +234,6 @@
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
 <script src="resources/js/list.js"></script>
+<script src="resources/js/jquery-foggy.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
