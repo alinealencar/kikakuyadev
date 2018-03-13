@@ -11,16 +11,17 @@
 
 <div class="container"><!-- body contents start -->
 	<div class="row">
+		<div id="allListsDiv" class="col-sm-4" style="border-right:1px solid #cccccc;">
 		<!-- Show All lists -->
-		<!-- All lists header-->
-		<div id="showAllLists" class="col-sm-4" style="border-right:1px solid #cccccc;">
+		<!-- All lists header-->		
+		<div id="showAllLists">
 			<div class="row">
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right" >
-					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openEditAllLists()">
-		      			<span onclick="openEditAllLists()"><i class="fas fa-edit"></i></span>
+					<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
+		      			<span><i class="fas fa-edit"></i></span>
 		   			</button>  
 		   		</div>
 			</div>
@@ -57,58 +58,46 @@
 		
 		<!-- Edit All lists  -->
 		<!-- All lists header-->
-		<div id="editAllLists" class="col-sm-4" style="display: none; border-right:1px solid #cccccc;">
+		<div id="editAllLists" style="display:none;">
 			<div class="row">
-				<div class="col-9">
+				<div class="col-6">
 					<h3>All lists</h3>
 				</div>
+				<div class="col-3 text-right">
+					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+		    			Save
+		    		</button>
+		    	</div>
 				<div class="col-3">
 					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="closeEditAllLists()">
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
 		   		</div>
 		   	</div>
-		   	<div class="row">
-				<div class="col-12 text-right">
-					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
-		    			Save
-		    		</button>
-		    	</div>
-	      	</div>
+		   
 			<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
-				<c:forEach var="list" items="${lists}" >
-					<li>					
-		   				<div class="row">
-		   					<div class="col-2 btnListDelete">
-	   							<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   						</div>
-		   					<div class="col-10">
-		   						<input name="" value="${list.listTitle}" class="form-control">
-		   					</div>
-		   				</div>							
-					</li>	
-				</c:forEach>
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
 						<li>					
 		   					<div class="row">
-		   						<div class="col-12">
+		   						<div class="col-2 btnListDelete">
+	   								<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							</div>
+		   						<div class="col-10">
 		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
 		   						</div>
 		   					</div>							
 						</li>
 					</c:forEach>
 				</form:form>	
-			</ul>	
-		   					
-				
-		   						
+			</ul>							
 		</div>
 		<!-- End of Edit All lists -->
+		</div>
 		<!-- *****************************************************************************************************column change -->
 		<!-- Show item list  -->
 		<!-- item list header -->
@@ -211,18 +200,6 @@
 			   			</button>  
 			   		</div>	   			   									
 				</div>
-				<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
-				<div class="row">
-					<div class="col-10">
-						<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
-					</div>
-					<div class="col-2">
-		  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
-	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
-	   					</button>
-					</div>
-				</div>	
-				</form:form>
  			</div>		
 				
 			<hr>
@@ -231,7 +208,10 @@
 				<c:forEach var="item" items="${items}">
 					<li>
 						<div class="row">
-		   					<div class="col-12">
+							<div class="col-1 btnListDelete">
+	   							<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   						</div>
+		   					<div class="col-11">
 		   						<input name="" value="${item.itemName}" class="form-control">
 		   					</div>
 		   				</div>
