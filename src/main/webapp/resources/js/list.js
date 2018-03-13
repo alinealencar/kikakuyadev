@@ -17,7 +17,7 @@ function closeEditAllLists(){
 }
 
 /***** all lists list decoration *****/
-
+/*
 //Create a "close" button and append it to each list item
 var list = document.getElementsByTagName("UL")[1];
 var myNodelist = list.getElementsByTagName("LI");
