@@ -1,10 +1,14 @@
 package kikakuya.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Item {
 	
 	private int itemId, listIdFK;
 	private Integer itemStatus;
 	private String itemName;
+	private List<Item> itemsList = new ArrayList<>();
 	
 	public Item() {
 		
@@ -30,9 +34,18 @@ public class Item {
 	public int getListIdFK() {
 		return listIdFK;
 	}
-	public void setListidFK(int listIdFK) {
+	public void setListIdFK(int listIdFK) {
 		this.listIdFK = listIdFK;
 	}
+	public List<Item> getItemsList() {
+		return itemsList;
+	}
+	public void setItemsList(List<Item> itemsList) {
+		this.itemsList = itemsList;
+	}
+	
+	
+	
 	
 	
 	

@@ -48,13 +48,18 @@ public class ListController {
 					//show items of first list
 					items = listDelegate.getItems(firstList);
 					session.setAttribute("selectedList", firstList);
+					request.setAttribute("items", items);
 				}
 				else{
 					items = listDelegate.getItems(selectedList);
+					if(items.size() == 0)
+						request.setAttribute("noItemsMsg", "No items found.");
+					else
+						request.setAttribute("items", items);
 					request.setAttribute("selectedList", selectedList);
 				}
 				request.setAttribute("lists", lists);
-				request.setAttribute("items", items);
+				//request.setAttribute("items", items);
 			}
 			else {
 				request.setAttribute("noListMessage", "No list to display. Create one now.");
@@ -96,8 +101,10 @@ public class ListController {
 			selectedList = listDelegate.getListById(list.getListId());
 			//get items of selected list
 			selectedListItems = listDelegate.getItems(selectedList);
+			
 			session.setAttribute("selectedList", selectedList);
 			request.setAttribute("items", selectedListItems);
+			
 			viewLists(model, request);
 		}catch (SQLException e){
 			e.printStackTrace();
@@ -112,7 +119,7 @@ public class ListController {
 		//get selected list
 		Lists list = (Lists)request.getSession().getAttribute("selectedList");
 		List<Item> items = new ArrayList<>();
-		item.setListidFK(list.getListId());
+		item.setListIdFK(list.getListId());
 		item.setItemStatus(0);
 		try {
 			System.out.println("list id: " + item.getListIdFK());
@@ -158,11 +165,28 @@ public class ListController {
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
 	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
 		String redirectTo = "lists";
-		//List<Lists> lists = new ArrayList<>();
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
 				listDelegate.editList(list.getListsList().get(i));
+			}
+			viewLists(model,request);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return redirectTo;
+	}
+	
+	@RequestMapping(value="/editItem", method = RequestMethod.POST)
+	public String processEditItem(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
+		String redirectTo = "lists";
+		try{
+			//Update list items
+			if(item.getItemsList() != null && item.getItemsList().size() > 0){
+				for(int i=0; i<item.getItemsList().size(); i++){
+					listDelegate.editItem(item.getItemsList().get(i));
+				}
 			}
 			viewLists(model,request);
 		}
