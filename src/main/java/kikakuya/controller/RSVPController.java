@@ -76,11 +76,13 @@ public class RSVPController {
 						redirectTo = "sendMessage";
 					}
 				}
-				else
+				else {
+					System.out.println("error in send rsvp");
 					request.setAttribute("sendRSVPError", "Error! No guests found.");
+				}
 			}
 			else{
-				request.setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
+				request.getSession().setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
 				request.setAttribute("guests", guestList);
 			}
 		

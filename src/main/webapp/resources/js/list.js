@@ -33,6 +33,7 @@ function onClickDelete(){
 	confirm("Are you sure you want to delete this list ?");
 }
 
+
 /***** all lists list decoration *****/
 /*
 //Create a "close" button and append it to each list item
@@ -173,6 +174,8 @@ function newElement() {
     }
   }
 }*/
+
+
 
 
 
