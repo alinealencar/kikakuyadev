@@ -26,9 +26,9 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div><br>
 					<c:if test="${not empty loginError}">
-						<span class="signUpError">${loginError}</span>
+						<span class="signupError">${loginError}</span>
 					</c:if>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>

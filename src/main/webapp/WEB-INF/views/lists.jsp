@@ -63,7 +63,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3">
-					<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				Save
 	      			</button>
 	      		</div>
@@ -89,15 +89,18 @@
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
-				<c:forEach var="list" items="${lists}" >
-					<li>					
-		   				<div class="row">
-		   					<div class="col-12">
-		   						<input name="" value="${list.listTitle}" class="form-control">
-		   					</div>
-		   				</div>							
-					</li>	
-				</c:forEach>
+			<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
+				<c:forEach var="list" items="${lists}" varStatus="loop">
+						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
+						<li>					
+		   					<div class="row">
+		   						<div class="col-12">
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   						</div>
+		   					</div>							
+						</li>
+						</c:forEach>
+					</form:form>	
 			</ul>	
 		   					
 				
@@ -239,6 +242,14 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
+<script>
+//submit edit all lists form
+$(document).ready(function(){
+	$( "#btnSaveEdit" ).click(function() {
+		$('#formEditList').submit();
+	});
+});
+</script>
 <script src="resources/js/list.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 

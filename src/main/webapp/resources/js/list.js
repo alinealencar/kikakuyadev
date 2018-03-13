@@ -16,6 +16,7 @@ function closeEditAllLists(){
 	$('#showAllLists').show();
 }
 
+
 /***** all lists list decoration *****/
 
 //Create a "close" button and append it to each list item
@@ -156,6 +157,8 @@ function newElement() {
     }
   }
 }*/
+
+
 
 
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import kikakuya.delegate.ListDelegate;
+import kikakuya.model.BudgetForm;
 import kikakuya.model.Event;
 import kikakuya.model.Item;
 import kikakuya.model.Lists;
@@ -129,30 +130,45 @@ public class ListController {
 	
 	}
 	
-		//update item status
-		@RequestMapping(value="/updateItemStatus", method = RequestMethod.POST)
-		public String processUpdateItemStatus(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
-			String redirectTo = "lists";
-			//get selected list
-			Lists list = (Lists)request.getSession().getAttribute("selectedList");
-			List<Item> items = new ArrayList<>();
-			//item.setListidFK(list.getListId());
-			if(item.getItemStatus() == null){
-				item.setItemStatus(0);
-			}
-			try {
-				//update item status
-				if(listDelegate.editItemStatus(item)){
-					items = listDelegate.getItems(list);
-					request.setAttribute("items", items);
-				} 
-				viewLists(model,request);
-			} catch(SQLException e) {
-				e.printStackTrace();
-			}
-			return redirectTo;
+	//update item status
+	@RequestMapping(value="/updateItemStatus", method = RequestMethod.POST)
+	public String processUpdateItemStatus(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
+		String redirectTo = "lists";
+		//get selected list
+		Lists list = (Lists)request.getSession().getAttribute("selectedList");
+		List<Item> items = new ArrayList<>();
+		//item.setListidFK(list.getListId());
+		if(item.getItemStatus() == null){
+			item.setItemStatus(0);
+		}
+		try {
+			//update item status
+			if(listDelegate.editItemStatus(item)){
+				items = listDelegate.getItems(list);
+				request.setAttribute("items", items);
+			} 
+			viewLists(model,request);
+		} catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return redirectTo;
 		
 		}
-	
-	
+		
+	@RequestMapping(value="/editList", method = RequestMethod.POST)
+	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
+		String redirectTo = "lists";
+		//List<Lists> lists = new ArrayList<>();
+		try{
+			//Update lists
+			for(int i=0; i<list.getListsList().size(); i++){
+				listDelegate.editList(list.getListsList().get(i));
+			}
+			viewLists(model,request);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return redirectTo;
+	}
 }
