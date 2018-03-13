@@ -59,38 +59,26 @@
 		<!-- All lists header-->
 		<div id="editAllLists" class="col-sm-4" style="display: none; border-right:1px solid #cccccc;">
 			<div class="row">
-				<div class="col-6">
+				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
-				<div class="col-3">
-					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
-	      				Save
-	      			</button>
-	      		</div>
 				<div class="col-3">
 					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="closeEditAllLists()">
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
 		   		</div>
+		   		<div class="col-3">
+					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+	      				Save
+	      			</button>
+	      		</div>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
-			<div class="row">
-				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
-				</div>
-				<div class="col-3">
-					<button type="submit" class="btn btn-link img-fluid" style="padding:0px;" onclick="newElement()"> 
-		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
-		   			</button>
-	   			</div>
-   			</div> 
-   			</form:form> 		
 			<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
-			<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
-				<c:forEach var="list" items="${lists}" varStatus="loop">
+				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
+					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
 						<li>					
 		   					<div class="row">
@@ -99,8 +87,8 @@
 		   						</div>
 		   					</div>							
 						</li>
-						</c:forEach>
-					</form:form>	
+					</c:forEach>
+				</form:form>	
 			</ul>	
 		   					
 				
