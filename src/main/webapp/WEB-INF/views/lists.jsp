@@ -68,16 +68,30 @@
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
 		   		</div>
-		   		<div class="col-3">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
-	      				Save
-	      			</button>
-	      		</div>
-			</div>
+		   	</div>
+		   	<div class="row">
+				<div class="col-12 text-right">
+					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+		    			Save
+		    		</button>
+		    	</div>
+	      	</div>
 			<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
+				<c:forEach var="list" items="${lists}" >
+					<li>					
+		   				<div class="row">
+		   					<div class="col-2 btnListDelete">
+	   							<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   						</div>
+		   					<div class="col-10">
+		   						<input name="" value="${list.listTitle}" class="form-control">
+		   					</div>
+		   				</div>							
+					</li>	
+				</c:forEach>
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
@@ -220,7 +234,7 @@
  			</div>		
 				
 			<hr>
-		<!-- All lists body -->
+		<!-- item list body -->
 			<ul id="editItemListBody">
 				<form:form id="formEditItem" action="editItem" method="post" modelAttribute="item">
 					<c:forEach var="item" items="${items}" varStatus="loop">
@@ -257,5 +271,6 @@ $(document).ready(function(){
 });
 </script>
 <script src="resources/js/list.js"></script>
+<script src="resources/js/jquery-foggy.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
