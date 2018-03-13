@@ -1,9 +1,13 @@
 package kikakuya.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Lists {
 	
 	private int listId;
 	private String listTitle;
+	private List<Lists> listsList = new ArrayList<>();
 	
 	public Lists() {
 		
@@ -24,6 +28,15 @@ public class Lists {
 	public void setListTitle(String listTitle) {
 		this.listTitle = listTitle;
 	}
+
+	public List<Lists> getListsList() {
+		return listsList;
+	}
+
+	public void setListsList(List<Lists> listsList) {
+		this.listsList = listsList;
+	}
+	
 	
 	
 	
