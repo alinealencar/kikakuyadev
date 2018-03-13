@@ -67,12 +67,14 @@
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
 		   		</div>
-		   		<div class="col-3">
+		   	</div>
+		   	<div class="row">
+				<div class="col-12 text-right">
 					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
-	      				Save
-	      			</button>
-	      		</div>
-			</div>
+		    			Save
+		    		</button>
+		    	</div>
+	      	</div>
 			<hr>
 			
 		<!-- All lists body -->
