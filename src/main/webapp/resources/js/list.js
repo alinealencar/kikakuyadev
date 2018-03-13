@@ -29,9 +29,26 @@ function closeEditAllLists(){
 }
 
 /***** delete button *****/
-function onClickDelete(){
-	confirm("Are you sure you want to delete this list ?");
+function onClickDelete(listId){
+	var result = confirm("Are you sure you want to delete this list ?");
+	if (result){
+		//$('#formDeleteList').submit();
+	}
 }
+
+//submit edit all lists form
+$(document).ready(function(){
+	$( "#btnSaveEditList" ).click(function() {
+		$('#formEditList').submit();
+	});
+});
+
+//submit edit items form
+$(document).ready(function(){
+	$( "#btnSaveEditItem" ).click(function() {
+		$('#formEditItem').submit();
+	});
+});
 
 
 /***** all lists list decoration *****/

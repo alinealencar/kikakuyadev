@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
-
+<script src="resources/js/list.js"></script>
 <div class="container"><!-- body contents start -->
 	<div class="row">
 		<!-- Show All lists -->
@@ -71,33 +71,25 @@
 		   	</div>
 		   	<div class="row">
 				<div class="col-12 text-right">
-					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 		    			Save
 		    		</button>
 		    	</div>
 	      	</div>
+
 			<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
-				<c:forEach var="list" items="${lists}" >
-					<li>					
-		   				<div class="row">
-		   					<div class="col-2 btnListDelete">
-	   							<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
-	   						</div>
-		   					<div class="col-10">
-		   						<input name="" value="${list.listTitle}" class="form-control">
-		   					</div>
-		   				</div>							
-					</li>	
-				</c:forEach>
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
 						<li>					
 		   					<div class="row">
-		   						<div class="col-12">
+		   						<div class="col-2 btnListDelete">
+	   								<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							</div>
+		   						<div class="col-10">
 		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
 		   						</div>
 		   					</div>							
@@ -255,22 +247,7 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-<script>
-//submit edit all lists form
-$(document).ready(function(){
-	$( "#btnSaveEditList" ).click(function() {
-		$('#formEditList').submit();
-	});
-});
 
-//submit edit items form
-$(document).ready(function(){
-	$( "#btnSaveEditItem" ).click(function() {
-		$('#formEditItem').submit();
-	});
-});
-</script>
-<script src="resources/js/list.js"></script>
 <script src="resources/js/jquery-foggy.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
