@@ -57,7 +57,7 @@ public class ItemDaoImpl implements ItemDao{
 	@Override
 	public boolean updateItem(Item item) throws SQLException {
 		String query = "UPDATE item SET itemName = '" + item.getItemName() + 
-				" WHERE itemId=" + item.getItemId();
+				"' WHERE itemId=" + item.getItemId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		

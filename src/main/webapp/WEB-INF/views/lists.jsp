@@ -5,6 +5,7 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
@@ -68,7 +69,7 @@
 		   			</button>  
 		   		</div>
 		   		<div class="col-3">
-					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				Save
 	      			</button>
 	      		</div>
@@ -109,16 +110,18 @@
 						<div class="col-7">
 							<h3>${selectedList.listTitle}</h3>
 						</div>
-						<div class="col-5 text-right d-none d-sm-block">
-							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      					<span><i class="fas fa-edit"></i></span>
-		   					</button>  
-		   				</div>	   		
-						<div class="col-4 text-right d-block d-sm-none">
-							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      					<span><i class="fas fa-edit"></i></span>
-		   					</button>  
-		   				</div>	   									
+						<c:if test="${not empty items}">
+							<div class="col-5 text-right d-none d-sm-block">
+								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+		      						<span><i class="fas fa-edit"></i></span>
+		   						</button>  
+		   					</div>	   		
+							<div class="col-4 text-right d-block d-sm-none">
+								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+		      						<span><i class="fas fa-edit"></i></span>
+		   						</button>  
+		   					</div>	   	
+		   				</c:if>								
 					</div>
 					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
 					<div class="row">
@@ -137,7 +140,11 @@
 
 			<hr>
 			<!-- item list body -->
+			<c:if test="${not empty noItemsMsg}">
+				<h5>${noItemsMsg}</h5>
+			</c:if>
 			<ul id="itemList">
+			<c:if test="${fn:length(items) > 0}">
 				<c:forEach var="item" items="${items}">
 					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
 						<c:choose>
@@ -153,6 +160,7 @@
 						<form:hidden path="itemId" value="${item.itemId}"/>
 					</form:form>
 				</c:forEach>
+				</c:if>
 			</ul>
 		</div>
 		</c:when>
@@ -182,7 +190,7 @@
 						<h3>${selectedList.listTitle}</h3>
 					</div>
 	      			<div class="col-2">
-						<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+						<button type="button" id="btnSaveEditItem" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      					Save
 	      				</button>
 	      			</div>
@@ -214,15 +222,18 @@
 			<hr>
 		<!-- All lists body -->
 			<ul id="editItemListBody">
-				<c:forEach var="item" items="${items}">
-					<li>
-						<div class="row">
-		   					<div class="col-12">
-		   						<input name="" value="${item.itemName}" class="form-control">
+				<form:form id="formEditItem" action="editItem" method="post" modelAttribute="item">
+					<c:forEach var="item" items="${items}" varStatus="loop">
+						<form:hidden path="itemsList[${loop.index}].itemId" value="${item.itemId}" />
+						<li>
+							<div class="row">
+		   						<div class="col-12">
+		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="form-control" />
+		   						</div>
 		   					</div>
-		   				</div>
-	   				</li>
-				</c:forEach>
+	   					</li>
+					</c:forEach>
+				</form:form>
 			</ul>
 		   						
 		</div>
@@ -233,8 +244,15 @@
 <script>
 //submit edit all lists form
 $(document).ready(function(){
-	$( "#btnSaveEdit" ).click(function() {
+	$( "#btnSaveEditList" ).click(function() {
 		$('#formEditList').submit();
+	});
+});
+
+//submit edit items form
+$(document).ready(function(){
+	$( "#btnSaveEditItem" ).click(function() {
+		$('#formEditItem').submit();
 	});
 });
 </script>
