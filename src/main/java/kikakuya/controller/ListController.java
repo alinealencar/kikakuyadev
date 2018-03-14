@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kikakuya.delegate.ListDelegate;
 import kikakuya.model.BudgetForm;
@@ -41,6 +43,7 @@ public class ListController {
 		try {
 			//show all lists
 			lists = listDelegate.getLists(event);
+			
 			//show first list when page is loaded
 			if(lists.size() > 0){
 				if( selectedList == null){
@@ -49,20 +52,35 @@ public class ListController {
 					//show items of first list
 					items = listDelegate.getItems(firstList);
 					session.setAttribute("selectedList", firstList);
-					request.setAttribute("items", items);
-				}
-				//show selected list by user
-				else{
-					items = listDelegate.getItems(selectedList);
+					//check if list contains items
 					if(items.size() == 0)
 						request.setAttribute("noItemsMsg", "No items found.");
 					else
 						request.setAttribute("items", items);
+				}
+				//show selected list by user
+				else{
+					//check if list exists (after delete)
+					if(listDelegate.checkIfListExists(selectedList.getListId())){
+						items = listDelegate.getItems(selectedList);
+						//check if list contains items
+						if(items.size() == 0)
+							request.setAttribute("noItemsMsg", "No items found.");
+						else
+							request.setAttribute("items", items);
 					
-					request.setAttribute("selectedList", selectedList);
+						request.setAttribute("selectedList", selectedList);
+					}
+					//if deleted, show select first list
+					else{
+						firstList = lists.get(0);
+						//show items of first list
+						items = listDelegate.getItems(firstList);
+						session.setAttribute("selectedList", firstList);
+						request.setAttribute("items", items);
+					}
 				}
 				request.setAttribute("lists", lists);
-				//request.setAttribute("items", items);
 			}
 			else {
 				request.setAttribute("noListMessage", "No list to display. Create one now.");
@@ -142,7 +160,7 @@ public class ListController {
 	
 	//update item status
 	@RequestMapping(value="/updateItemStatus", method = RequestMethod.POST)
-	public String processUpdateItemStatus(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
+	public String processUpdateItemStatus(Model model, HttpServletRequest request, @RequestParam("itemId") int itemId, @ModelAttribute("item") Item item){
 		String redirectTo = "lists";
 		//get selected list
 		Lists list = (Lists)request.getSession().getAttribute("selectedList");
@@ -152,6 +170,7 @@ public class ListController {
 			item.setItemStatus(0);
 		}
 		try {
+			item.setItemId(itemId);
 			//update item status
 			if(listDelegate.editItemStatus(item)){
 				items = listDelegate.getItems(list);
@@ -163,7 +182,7 @@ public class ListController {
 		}
 		return redirectTo;
 		
-		}
+	}
 	
 	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
@@ -204,13 +223,14 @@ public class ListController {
 	
 	@RequestMapping(value="/deleteList", method = RequestMethod.POST)
 	public String deleteList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
-		HttpSession session = request.getSession();
-		Event event = (Event) request.getSession().getAttribute("event");
-		List<Lists> lists = new ArrayList<Lists>();
-		List<Item> items = new ArrayList<>();
-		Lists firstList = new Lists();
+		//HttpSession session = request.getSession();
+		//Event event = (Event) request.getSession().getAttribute("event");
+		//List<Lists> lists = new ArrayList<Lists>();
+		//List<Item> items = new ArrayList<>();
+		//Lists firstList = new Lists();
 		try {
-			System.out.println(list.getListId());
+			//delete a list
+			System.out.println("List id: " + list.getListId());
 			listDelegate.deleteList(list.getListId());
 			//get all lists
 			//lists = listDelegate.getLists(event);
@@ -221,6 +241,18 @@ public class ListController {
 			//request.setAttribute("items", items);
 			viewLists(model,request);
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "lists";
+	}
+	
+	@RequestMapping(value="/deleteItem", method = RequestMethod.POST)
+	public String deleteItem(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
+		try{
+			System.out.println("Item id: " + item.getItemId());
+			listDelegate.deleteItem(item.getItemId());
+			viewLists(model,request);
+		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		return "lists";

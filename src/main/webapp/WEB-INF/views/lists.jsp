@@ -20,11 +20,13 @@
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
-				<div class="col-3 text-right" >
-					<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
-		      			<span><i class="fas fa-edit"></i></span>
-		   			</button>  
-		   		</div>
+				<c:if test="${not empty lists}">
+					<div class="col-3 text-right" >
+						<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
+		      				<span><i class="fas fa-edit"></i></span>
+		   				</button>  
+		   			</div>
+		   		</c:if>
 			</div>
 			<form:form method="post" action="addList" modelAttribute="list">
 			<div class="row">
@@ -32,7 +34,7 @@
 					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
 				</div>
 				<div class="col-3">
-					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;" onclick="newElement()"> 
+					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
 		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
 		   			</button>
 	   			</div>
@@ -47,7 +49,7 @@
 					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 						<form:hidden path="listId" value="${list.listId}" />
 						<li class="showAllListLi">
-							<button id="btnSelectList" class="btn-block" type="submit">
+							<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
 			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
 			   				</button>
 						</li>
@@ -80,12 +82,13 @@
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
+					<form:hidden id="listIdHidden" path="listId" value=""/>
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
 						<li>					
 		   					<div class="row">
 		   						<div class="col-2 btnListDelete">
-	   								<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
 		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
@@ -213,12 +216,13 @@
 		<!-- item list body -->
 			<ul id="editItemListBody">
 				<form:form id="formEditItem" action="editItem" method="post" modelAttribute="item">
+					<form:hidden id="itemIdHidden" path="itemId" value=""/>
 					<c:forEach var="item" items="${items}" varStatus="loop">
 						<form:hidden path="itemsList[${loop.index}].itemId" value="${item.itemId}" />
 						<li>
 							<div class="row">
 								<div class="col-1 btnListDelete">
-	   								<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   								<button onclick="deleteItem(${item.itemId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-11">
 		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="form-control" />
@@ -235,6 +239,6 @@
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
 
-<script src="resources/js/jquery-foggy.js"></script>
-<jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
+<jsp:include page="/WEB-INF/includes/footer.jsp"/>
+<script src="resources/js/jquery-foggy.js"></script>

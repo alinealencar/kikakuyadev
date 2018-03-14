@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-login.jsp"/>
 
-<div id="contents" class="container" style="margin-top: 50px; margin-bottom: 50px;">
+<div id="contents" class="container" style="margin-top: 50px;">
 	<!-- body contents start -->
 	<div class="row">
 		<div class="col-sm-12 text-center"  style="margin-bottom: 30px;">
@@ -61,3 +61,4 @@
   	<!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
+<script src="resources/js/index.js"></script>
