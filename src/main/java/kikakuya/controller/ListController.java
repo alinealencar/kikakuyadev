@@ -41,6 +41,7 @@ public class ListController {
 		try {
 			//show all lists
 			lists = listDelegate.getLists(event);
+			//show first list when page is loaded
 			if(lists.size() > 0){
 				if( selectedList == null){
 					//get first list in db
@@ -50,12 +51,14 @@ public class ListController {
 					session.setAttribute("selectedList", firstList);
 					request.setAttribute("items", items);
 				}
+				//show selected list by user
 				else{
 					items = listDelegate.getItems(selectedList);
 					if(items.size() == 0)
 						request.setAttribute("noItemsMsg", "No items found.");
 					else
 						request.setAttribute("items", items);
+					
 					request.setAttribute("selectedList", selectedList);
 				}
 				request.setAttribute("lists", lists);
@@ -161,13 +164,15 @@ public class ListController {
 		return redirectTo;
 		
 		}
-		
+	
+	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
 	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
 		String redirectTo = "lists";
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
+				System.out.println(list.getListsList().get(i).getListId() + ", ");
 				listDelegate.editList(list.getListsList().get(i));
 			}
 			viewLists(model,request);
@@ -178,6 +183,7 @@ public class ListController {
 		return redirectTo;
 	}
 	
+	//edit item
 	@RequestMapping(value="/editItem", method = RequestMethod.POST)
 	public String processEditItem(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
 		String redirectTo = "lists";
@@ -194,5 +200,29 @@ public class ListController {
 			e.printStackTrace();
 		}
 		return redirectTo;
+	}
+	
+	@RequestMapping(value="/deleteList", method = RequestMethod.POST)
+	public String deleteList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
+		HttpSession session = request.getSession();
+		Event event = (Event) request.getSession().getAttribute("event");
+		List<Lists> lists = new ArrayList<Lists>();
+		List<Item> items = new ArrayList<>();
+		Lists firstList = new Lists();
+		try {
+			System.out.println(list.getListId());
+			listDelegate.deleteList(list.getListId());
+			//get all lists
+			//lists = listDelegate.getLists(event);
+			//firstList = lists.get(0);
+			//show items of first list
+			//items = listDelegate.getItems(firstList);
+			//request.setAttribute("selectedList", firstList);
+			//request.setAttribute("items", items);
+			viewLists(model,request);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return "lists";
 	}
 }

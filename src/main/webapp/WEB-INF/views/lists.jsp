@@ -9,7 +9,7 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
-
+<script src="resources/js/list.js"></script>
 <div class="container"><!-- body contents start -->
 	<div class="row">
 		<div id="allListsDiv" class="col-sm-4" style="border-right:1px solid #cccccc;">
@@ -65,7 +65,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEdit" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 		    			Save
 		    		</button>
 		    	</div>
@@ -75,8 +75,7 @@
 		   			</button>  
 		   		</div>
 		   	</div>
-		   
-			<hr>
+		   	<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
@@ -235,22 +234,7 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-<script>
-//submit edit all lists form
-$(document).ready(function(){
-	$( "#btnSaveEditList" ).click(function() {
-		$('#formEditList').submit();
-	});
-});
 
-//submit edit items form
-$(document).ready(function(){
-	$( "#btnSaveEditItem" ).click(function() {
-		$('#formEditItem').submit();
-	});
-});
-</script>
-<script src="resources/js/list.js"></script>
 <script src="resources/js/jquery-foggy.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
