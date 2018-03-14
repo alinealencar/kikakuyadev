@@ -94,21 +94,21 @@
 						<form:hidden path="eventId"/>
 			
 						<div>
-							<label> Event Name<label>*</>: </label> 
+							<label> Event Name<span style="font-size:22px;color:red">*</span>: </label> 
 							<form:input path="eventName" class="eventName form-control" oninput="validateEventName()" maxlength="20"/>
 							<span id="eventNameError" class="formError"></span>
 							<br>
 						</div>
 						<div>
-							<label>Location*: </label>
-							<form:input path="location" class="location form-control" oninput="validateLocation()"/>
+							<label>Location<span style="font-size:22px;color:red">*</span>: </label>
+							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="20"/>
 								<span id="locationError" class="formError"></span>
 							<br>
 							<!--form:input type="text" name="eventLocation" path="location"/>
 							<div id="eventLocationError" class="inputError"></div-->
 						</div>
 						<div>
-							<label>Date: </label>
+							<label>Date<span style="font-size:22px;color:red">*</span>: </label>
 							<form:input path="eventDate" type="date" class="eventDate form-control" oninput="validateDate()"/>
 								<span id="eventDateError" class="formError"></span>
 							<br>
