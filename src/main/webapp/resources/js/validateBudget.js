@@ -10,7 +10,7 @@ var validAddress = false;
 var phoneNo = false;
 
 function validateBudget(){
-	if (validCategory && validVendor){
+	if (validCategory && validVendor && validItem && validPrice){
 		form.submit();
 		form.reset();
 	}
@@ -34,7 +34,7 @@ function validateAddVendor(){
 function validateCategory(){	
 	var category = document.getElementsByClassName("category")[0].value;
 	
-	if (category === "--- Select Category ---"){
+	if (category == "--- Select Category ---"){
 		document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
 		validCategory = false;
 	}
@@ -61,7 +61,8 @@ function validateItem(){
 	var item = document.getElementsByClassName("item")[0].value;
 	
 	if (item == ""){
-		document.getElementById("itemError").innerHTML = "<i class='fas fa-times'></i>  Please enter an item";
+		document.getElementById("itemError").style.borderColor = "red";
+		//.innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
 		validItem = false;
 	}
 	else{
@@ -74,11 +75,11 @@ function validatePrice(){
 	var price = document.getElementsByClassName("price")[0].value;
 	
 	if(isNaN(price)){
-		document.getElementById("priceError").innerHTML = "<i class='fas fa-times'></i> Please enter numbers only.";
+		document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter numbers only.";
 		validPrice = false;
 	}
 	else if(price == ""){
-		document.getElementById("priceError").innerHTML = "<i class='fas fa-times'></i> Please enter price";
+		document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
 		validPrice = false;
 	}
 	else{

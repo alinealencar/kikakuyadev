@@ -201,7 +201,7 @@
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onclick="return validateBudget();">
 				<div class="form-group">
       				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
@@ -361,8 +361,8 @@ $(document).ready(function(){
 $(document).ready(function(){
 	var counter = 1;
 	$("#btnAddItemPrice").click(function () {
-		$('#txtItem').append('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
-		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
+		$('#txtItem').append('<input type="text" class="item form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
+		$('#txtPrice').append('<input type="text" class="price form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
 		counter++;
 	});
 });
