@@ -41,7 +41,7 @@ public class BudgetController {
 		}
 		
 		//Show budget
-		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
+		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(event.getEventId());
 		request.setAttribute("budgetInfo", budgetInfo);
 		
 		//Get list of all goods
