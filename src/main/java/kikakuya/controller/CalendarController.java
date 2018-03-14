@@ -45,7 +45,9 @@ public class CalendarController {
 		try {
 			User user = (User) session.getAttribute("user");
 			appt.setUserId(user.getUserId());
+			
 			apptAdded = calendarDelegate.addAppt(appt);
+			
 			if(apptAdded) {
 				//TODO Show success/error message for add appt
 				redirectAtt.addFlashAttribute("addApptSuccess", "Appointment added");
@@ -66,6 +68,7 @@ public class CalendarController {
 	@ResponseBody
 	public MonthPresentation Submit(ModelMap model, HttpServletRequest request, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
 		MonthPresentation monthPresentation = new MonthPresentation();
+		System.out.println("Month from the form: " + month);
 		Calendar monthCal = Calendar.getInstance();
 		if(action.equals("loadMonth")){
 			monthCal = HelperUtilities.getLoadMonth(month, year);
@@ -94,7 +97,7 @@ public class CalendarController {
 		monthPresentation.setNumOfDays(HelperUtilities.getNumOfDays(monthCal));
 		
 		try {
-			monthPresentation.setAppointments(calendarDelegate.findAppt(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR)));
+			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR)));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -102,5 +105,20 @@ public class CalendarController {
 		System.out.println(monthPresentation);
 		
 		return monthPresentation;
+	}
+	
+	@RequestMapping(value = "/showAppt", method = RequestMethod.POST)
+	@ResponseBody
+	public Appointment showAppt(@RequestParam("apptId") int apptId){
+		Appointment appt = new Appointment();
+
+		try {
+			//Get appointment by Id received with the AJAX request
+			appt = calendarDelegate.findAppt(apptId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return appt;
 	}
 }

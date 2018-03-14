@@ -10,7 +10,7 @@ CREATE TABLE Appointment (
   apptNotes    varchar(255), 
   UseruserId   int(10) NOT NULL,
   location    varchar(255),
-  color varchar(6) NOT NULL,
+  color varchar(16) NOT NULL,
   PRIMARY KEY (apptId));
 CREATE TABLE Email (
 	emailId            int(10) NOT NULL AUTO_INCREMENT, 

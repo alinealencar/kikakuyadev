@@ -7,11 +7,13 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.UUID;
 
 import org.springframework.util.DigestUtils;
+import org.springframework.util.StringUtils;
 
 
 public class HelperUtilities {
@@ -44,10 +46,19 @@ public class HelperUtilities {
 	
 	public static Timestamp stringToTimestamp(String year, String month, String day, String hour, String minute, String ampm) 
 			throws ParseException{
-		if(ampm.equals("pm"))
-			hour += 12;
+		if(ampm.equals("PM")) {
+			int hourInt = Integer.valueOf(hour);
+			hourInt += 12;
+			hour = String.valueOf(hourInt);
+		}
 		
-		String strDate = year + "-" + getMonthNumber(month)+1 + "-" + day + " " + hour + ":" + minute;
+		String strDate;
+		
+		if(isNumeric(month))
+			strDate = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+		else
+			strDate = year + "-" + getMonthNumber(month) + "-" + day + " " + hour + ":" + minute;
+		
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	    Date parsedDate = dateFormat.parse(strDate);
@@ -58,11 +69,7 @@ public class HelperUtilities {
 
 	public static int getMonthNumber(String month){
 		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
-		for(int i = 0; i < monthNames.length; i++){
-			if(monthNames[i].equals(month))
-				return i+1;
-		}
-		return 1;
+		return Arrays.asList(monthNames).indexOf(month) + 1;
 	}
 	
 	public static Calendar getLoadMonth(String curMonth, String curYear) {
@@ -148,5 +155,9 @@ public class HelperUtilities {
 	
 	public static int getNumOfDays(Calendar c){
 		return c.getActualMaximum(Calendar.DAY_OF_MONTH);
+	}
+	
+	public static boolean isNumeric(String number){
+		return number != null && number.matches("[-+]?\\d*\\.?\\d+");  
 	}
 }

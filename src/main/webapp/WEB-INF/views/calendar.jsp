@@ -20,7 +20,7 @@
 			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
 			<br>
 			<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curMonth">March</span>
+			<span id="curMonth">November</span>
 			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
 			
 			<table id="calendar" class="table table-bordered">
@@ -41,8 +41,9 @@
 			</table>
 		</div>
 		
-		<!-- Forms -->
+		<!-- Right side -->
 		<div class="col-sm-3">
+			<!-- Add appointment -->
 			<div id="addAppt">
 				<c:if test="${not empty addApptSuccess}">
 					<div class="successAlert">${addApptSuccess}</div>
@@ -68,7 +69,7 @@
 	        			<option value="9">September</option>
 	        			<option value="10">October</option>
 	        			<option value="11">November</option>
-	        			<option value="12">October</option>
+	        			<option value="12">December</option>
       				</form:select>
       				<form:select id="year" class="form-control" path="year">
 	        			<option value="" disabled="disabled" selected="true">Year</option>
@@ -117,17 +118,52 @@
 					<label>Location*: </label>
 					<form:input path="location" type="text" class="item form-control"/>
 					
-					<label>Color*: </label>
-					<form:input path="color" type="text" class="item form-control"/>
+					<label>Color*: </label><br>
+					<label class="selectColor">
+						<form:radiobutton path="color" value="rgb(255,153,255)"/>
+						<div class="circle" style="background-color:rgb(255,153,255)"></div>
+					</label>
+					<label class="selectColor">
+						<form:radiobutton path="color" value="rgb(255,255,153)"/>
+						<div class="circle" style="background-color:rgb(255,255,153)"></div>
+					</label>
+					<label class="selectColor">
+						<form:radiobutton path="color" value="rgb(102,255,255)"/>
+						<div class="circle" style="background-color:rgb(102,255,255)"></div>
+					</label>
+					<label class="selectColor">
+						<form:radiobutton path="color" value="rgb(153,255,153)"/>
+						<div class="circle" style="background-color:rgb(153,255,153)"></div>
+					</label>
+					<label class="selectColor">
+						<form:radiobutton path="color" value="rgb(204,153,255)"/>
+						<div class="circle" style="background-color:rgb(204,153,255)"></div>
+					</label>
+
 					
+					<br>
 					<label>Notes:</label>
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
 					
 					<input type="submit" value="Add"/>
 				</form:form>
 			</div>
+			
+			<!-- Show appointment -->
 			<div id="showAppt">
+				<div id="bannerColor"></div>
+				<div id="apptDetails">
+					<span id="apptTitle"></span>
+					<span id="apptDate"></span>
+					<span>@</span>
+					<span id="apptTime"></span>
+					<span id="apptLocation"></span>
+					<span>Notes:</span>
+					<span id="apptNotes"></span>
+				</div>
 			</div>
+			
+			<!-- Edit appointment -->
 			<div id="editAppt">
 			</div>
 		</div>
