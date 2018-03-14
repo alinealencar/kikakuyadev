@@ -237,6 +237,6 @@
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
 
-<script src="resources/js/jquery-foggy.js"></script>
-<jsp:include page="/WEB-INF/includes/footer.jsp"/>
 
+<jsp:include page="/WEB-INF/includes/footer.jsp"/>
+<script src="resources/js/jquery-foggy.js"></script>

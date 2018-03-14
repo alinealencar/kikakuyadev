@@ -9,30 +9,30 @@
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<script src="resources/js/calendar.js"></script>
 <div class="container">
 	<!-- body contents start -->
 	<div class="row">
 		<!-- Calendar -->
 		<div class="col-sm-9">
 			
-			<button id="prevYear"><i class="fas fa-chevron-left"></i></button>
+			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 			<span id="curYear">2018</span>
-			<button id="nextYear"><i class="fas fa-chevron-right"></i></button>
+			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
 			<br>
-			<button id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+			<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
 			<span id="curMonth">March</span>
-			<button id="nextMonth"><i class="fas fa-chevron-right"></i></button>
-			<table id="calendar">
+			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
+			
+			<table id="calendar" class="table table-bordered">
 				<thead>
 					<tr>
-						<th>Sun</th>
-						<th>Mon</th>
-						<th>Tue</th>
-						<th>Wed</th>
-						<th>Thu</th>
-						<th>Fri</th>
-						<th>Sat</th>
+						<th scope="col">Sun</th>
+						<th scope="col">Mon</th>
+						<th scope="col">Tue</th>
+						<th scope="col">Wed</th>
+						<th scope="col">Thu</th>
+						<th scope="col">Fri</th>
+						<th scope="col">Sat</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -133,5 +133,5 @@
 		</div>
 	</div>
 </div>
-
+<script src="resources/js/calendar.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

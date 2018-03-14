@@ -41,6 +41,12 @@ ul#showAllListBody li:focus, ul#showAllListBody li:active {
     background-color: #888;
     color: #fff;
 }
+ul#showAllListBody li{
+	padding: 0;
+}
+button#btnSelectList{
+	height: 52px;
+}
 
 
 /***** item list *****/

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.util.Calendar;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kikakuya.delegate.CalendarDelegate;
 import kikakuya.model.Appointment;
@@ -38,18 +40,19 @@ public class CalendarController {
 	}
 	
 	@RequestMapping(value="/addAppt", method = RequestMethod.POST)
-	public String addAppt(Model model, HttpServletRequest request, @ModelAttribute("appt") Appointment appt){
+	public String addAppt(Model model, HttpSession session, RedirectAttributes redirectAtt, @ModelAttribute("appt") Appointment appt){
 		boolean apptAdded;
 		try {
-			User user = (User) request.getSession(false).getAttribute("user");
+			User user = (User) session.getAttribute("user");
 			appt.setUserId(user.getUserId());
 			apptAdded = calendarDelegate.addAppt(appt);
 			if(apptAdded) {
-				request.setAttribute("addApptSuccess", "The appointment was added succesfully.");
+				//TODO Show success/error message for add appt
+				redirectAtt.addFlashAttribute("addApptSuccess", "Appointment added");
 				System.out.println("Appt added");
 			}
 			else {
-				request.setAttribute("addApptError", "The appointment was not added.");
+				redirectAtt.addFlashAttribute("addApptError", "The appointment was not added.");
 				System.out.println("Add appt error");
 			}
 		} catch (SQLException | ParseException e) {
@@ -85,10 +88,18 @@ public class CalendarController {
 			monthCal = HelperUtilities.getPrevYear(month, year);
 		}
 
-		monthPresentation.setName(HelperUtilities.getMonthName(monthCal));
+		monthPresentation.setName(HelperUtilities.getMonthName(monthCal.get(Calendar.MONTH)));
 		monthPresentation.setYear(monthCal.get(Calendar.YEAR));
 		monthPresentation.setFirstDay(HelperUtilities.getDayOfWeek(monthCal));
 		monthPresentation.setNumOfDays(HelperUtilities.getNumOfDays(monthCal));
+		
+		try {
+			monthPresentation.setAppointments(calendarDelegate.findAppt(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR)));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		System.out.println(monthPresentation);
 		
 		return monthPresentation;
 	}
