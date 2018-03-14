@@ -61,3 +61,4 @@
   	<!-- body contents end -->
 </div>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
+<script src="resources/js/index.js"></script>
