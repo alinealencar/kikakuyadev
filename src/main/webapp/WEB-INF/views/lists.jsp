@@ -20,11 +20,13 @@
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
-				<div class="col-3 text-right" >
-					<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
-		      			<span><i class="fas fa-edit"></i></span>
-		   			</button>  
-		   		</div>
+				<c:if test="${not empty lists}">
+					<div class="col-3 text-right" >
+						<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
+		      				<span><i class="fas fa-edit"></i></span>
+		   				</button>  
+		   			</div>
+		   		</c:if>
 			</div>
 			<form:form method="post" action="addList" modelAttribute="list">
 			<div class="row">
@@ -32,7 +34,7 @@
 					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
 				</div>
 				<div class="col-3">
-					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;" onclick="newElement()"> 
+					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
 		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
 		   			</button>
 	   			</div>
