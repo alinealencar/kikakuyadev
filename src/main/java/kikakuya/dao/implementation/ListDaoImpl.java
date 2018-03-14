@@ -11,6 +11,7 @@ import javax.sql.DataSource;
 import kikakuya.dao.ListDao;
 import kikakuya.model.Event;
 import kikakuya.model.Lists;
+import kikakuya.model.Vendor;
 
 public class ListDaoImpl implements ListDao{
 
@@ -80,5 +81,17 @@ public class ListDaoImpl implements ListDao{
 			list.setListTitle(rs.getString(2));
 		}
 		return list;
+	}
+	
+	public boolean isListFound(int listId) throws SQLException{
+		String query = "SELECT COUNT(*) FROM list WHERE listId=" + listId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		if(rs.next())
+			rs.getInt(1);
+		if(rs.getInt(1) > 0)
+			return true;
+		else
+			return false;
 	}
 }

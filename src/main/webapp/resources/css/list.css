@@ -3,12 +3,10 @@
     box-sizing: border-box;
 }
 
-
 /***** lists page *****/
 ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody{ 
     margin: 0;
-    padding: 0;
-    
+    padding: 0;   
 }
 
 .btnListDelete{
@@ -36,8 +34,6 @@ ul#showAllListBody li, ul#itemList li, ul#editAllListBody li,  ul#editItemListBo
 ul#showAllListBody li:hover, ul#itemList li:hover {
     background: #ddd;
 }
-
-
 
 /***** all lists *****/
 /* When clicked on, add a background color*//**********************************focus doesn't work********/

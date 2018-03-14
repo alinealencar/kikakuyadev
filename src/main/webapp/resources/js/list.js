@@ -28,13 +28,22 @@ function closeEditAllLists(){
 }
 
 /***** delete button *****/
-function onClickDelete(listId){
-	var result = confirm("Are you sure you want to delete this list ?");
+function deleteList(listId){
+	var result = confirm("Are you sure you want to delete this list?");
 	if (result){
-		//$('#formDeleteList').submit();
+		$('#listIdHidden').val(listId);
+		
+		$("#formEditList").attr("action", "deleteList");
 	}
 }
 
+function deleteItem(itemId){
+	$('#itemIdHidden').val(itemId);
+		
+	$("#formEditItem").attr("action", "deleteItem");
+}
+
+/***** save after edit *****/
 //submit edit all lists form
 $(document).ready(function(){
 	$( "#btnSaveEditList" ).click(function() {
@@ -204,7 +213,15 @@ function newElement() {
   }
 }*/
 
-
-
+/*$("#itemStatusChk").click(function (event){
+	$.ajax({
+		type: "POST",
+	     url: "updateItemStatus",
+	     data: { itemId: $('#itemId').html()} // parameters
+	})
+	.done(function(response) {
+	
+	});
+});*/
 
 
