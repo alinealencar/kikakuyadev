@@ -23,7 +23,7 @@ $('#year, #month').change(function() {
 
 });
 
-/** CALENDAR **/ 
+/** CALENDAR NAVIGATION**/ 
 
 $(document).ready(function(){
 	//load calendar when page is opened for the first time
