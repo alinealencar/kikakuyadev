@@ -5,22 +5,24 @@
 <% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header.jsp"/>
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
-
+<script src="resources/js/list.js"></script>
 <div class="container"><!-- body contents start -->
 	<div class="row">
+		<div id="allListsDiv" class="col-sm-4" style="border-right:1px solid #cccccc;">
 		<!-- Show All lists -->
-		<!-- All lists header-->
-		<div id="showAllLists" class="col-sm-4" style="border-right:1px solid #cccccc;">
+		<!-- All lists header-->		
+		<div id="showAllLists">
 			<div class="row">
 				<div class="col-9">
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right" >
-					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openEditAllLists()">
-		      			<span onclick="openEditAllLists()"><i class="fas fa-edit"></i></span>
+					<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllLists()">
+		      			<span><i class="fas fa-edit"></i></span>
 		   			</button>  
 		   		</div>
 			</div>
@@ -57,53 +59,45 @@
 		
 		<!-- Edit All lists  -->
 		<!-- All lists header-->
-		<div id="editAllLists" class="col-sm-4" style="display: none; border-right:1px solid #cccccc;">
+		<div id="editAllLists" style="display:none;">
 			<div class="row">
 				<div class="col-6">
 					<h3>All lists</h3>
 				</div>
-				<div class="col-3">
-					<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
-	      				Save
-	      			</button>
-	      		</div>
+				<div class="col-3 text-right">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+		    			Save
+		    		</button>
+		    	</div>
 				<div class="col-3">
 					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="closeEditAllLists()">
 		      			<span onclick="closeEditAllLists()"><i class="fas fa-times"></i></span>
 		   			</button>  
 		   		</div>
-			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
-			<div class="row">
-				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
-				</div>
-				<div class="col-3">
-					<button type="submit" class="btn btn-link img-fluid" style="padding:0px;" onclick="newElement()"> 
-		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
-		   			</button>
-	   			</div>
-   			</div> 
-   			</form:form> 		
-			<hr>
+		   	</div>
+		   	<hr>
 			
 		<!-- All lists body -->
 			<ul id="editAllListBody">	
-				<c:forEach var="list" items="${lists}" >
-					<li>					
-		   				<div class="row">
-		   					<div class="col-12">
-		   						<input name="" value="${list.listTitle}" class="form-control">
-		   					</div>
-		   				</div>							
-					</li>	
-				</c:forEach>
-			</ul>	
-		   					
-				
-		   						
+				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
+					<c:forEach var="list" items="${lists}" varStatus="loop">
+						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
+						<li>					
+		   					<div class="row">
+		   						<div class="col-2 btnListDelete">
+	   								<button onclick="onClickDelete()" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							</div>
+		   						<div class="col-10">
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   						</div>
+		   					</div>							
+						</li>
+					</c:forEach>
+				</form:form>	
+			</ul>							
 		</div>
 		<!-- End of Edit All lists -->
+		</div>
 		<!-- *****************************************************************************************************column change -->
 		<!-- Show item list  -->
 		<!-- item list header -->
@@ -118,16 +112,18 @@
 						<div class="col-7">
 							<h3>${selectedList.listTitle}</h3>
 						</div>
-						<div class="col-5 text-right d-none d-sm-block">
-							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      					<span><i class="fas fa-edit"></i></span>
-		   					</button>  
-		   				</div>	   		
-						<div class="col-4 text-right d-block d-sm-none">
-							<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      					<span><i class="fas fa-edit"></i></span>
-		   					</button>  
-		   				</div>	   									
+						<c:if test="${not empty items}">
+							<div class="col-5 text-right d-none d-sm-block">
+								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+		      						<span><i class="fas fa-edit"></i></span>
+		   						</button>  
+		   					</div>	   		
+							<div class="col-4 text-right d-block d-sm-none">
+								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+		      						<span><i class="fas fa-edit"></i></span>
+		   						</button>  
+		   					</div>	   	
+		   				</c:if>								
 					</div>
 					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
 					<div class="row">
@@ -146,7 +142,11 @@
 
 			<hr>
 			<!-- item list body -->
+			<c:if test="${not empty noItemsMsg}">
+				<h5>${noItemsMsg}</h5>
+			</c:if>
 			<ul id="itemList">
+			<c:if test="${fn:length(items) > 0}">
 				<c:forEach var="item" items="${items}">
 					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
 						<c:choose>
@@ -162,6 +162,7 @@
 						<form:hidden path="itemId" value="${item.itemId}"/>
 					</form:form>
 				</c:forEach>
+				</c:if>
 			</ul>
 		</div>
 		</c:when>
@@ -191,7 +192,7 @@
 						<h3>${selectedList.listTitle}</h3>
 					</div>
 	      			<div class="col-2">
-						<button type="button" id="" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+						<button type="button" id="btnSaveEditItem" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      					Save
 	      				</button>
 	      			</div>
@@ -206,32 +207,26 @@
 			   			</button>  
 			   		</div>	   			   									
 				</div>
-				<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
-				<div class="row">
-					<div class="col-10">
-						<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
-					</div>
-					<div class="col-2">
-		  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
-	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
-	   					</button>
-					</div>
-				</div>	
-				</form:form>
  			</div>		
 				
 			<hr>
-		<!-- All lists body -->
+		<!-- item list body -->
 			<ul id="editItemListBody">
-				<c:forEach var="item" items="${items}">
-					<li>
-						<div class="row">
-		   					<div class="col-12">
-		   						<input name="" value="${item.itemName}" class="form-control">
+				<form:form id="formEditItem" action="editItem" method="post" modelAttribute="item">
+					<c:forEach var="item" items="${items}" varStatus="loop">
+						<form:hidden path="itemsList[${loop.index}].itemId" value="${item.itemId}" />
+						<li>
+							<div class="row">
+								<div class="col-1 btnListDelete">
+	   								<button onclick="" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							</div>
+		   						<div class="col-11">
+		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="form-control" />
+		   						</div>
 		   					</div>
-		   				</div>
-	   				</li>
-				</c:forEach>
+	   					</li>
+					</c:forEach>
+				</form:form>
 			</ul>
 		   						
 		</div>
@@ -239,6 +234,7 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-<script src="resources/js/list.js"></script>
+
+<script src="resources/js/jquery-foggy.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 

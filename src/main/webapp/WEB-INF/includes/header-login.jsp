@@ -26,9 +26,9 @@
 								</div>
 							</div>
 						</div>
-					</div>
+					</div><br>
 					<c:if test="${not empty loginError}">
-						<span class="signUpError">${loginError}</span>
+						<span class="signupError">${loginError}</span>
 					</c:if>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>
@@ -52,7 +52,7 @@
 						<h1 style="margin-top: 10px;">Sign Up</h1>
 						<form:form action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
 							<label for="userName" class="sr-only">Name: </label>
-							<form:input path="userName" class="signUpName form-control" oninput="validateName('signUpName')" placeholder="User Name"/>
+							<form:input path="userName" class="signUpName form-control" oninput="validateName('signUpName')" placeholder="Name"/>
 							<span id="nameError" class="formError"></span>
 							<br>
 							<label for="userEmail" class="sr-only">Email: </label>

@@ -8,16 +8,50 @@
 function openEditAllLists(){
 	$('#editAllLists').show();
 	$('#showAllLists').hide();
+	$('#itemsDiv').foggy({blurRadius: 3,          // In pixels.
+						opacity: 0.8,           // Falls back to a filter for IE.
+						cssFilterSupport: true  // Use "-webkit-filter" where available.
+						});
+	$("#itemsDiv :input").attr("disabled", true);
+	$("ul#itemList li").hover(function(){
+        $(this).css("background-color", "#F1E9DA");
+        });
+
 }
 
 //when click x button in all lists, hide edit and show show
 function closeEditAllLists(){
 	$('#editAllLists').hide();
 	$('#showAllLists').show();
+	$('#itemsDiv').foggy(false);
+	$("#itemsDiv :input").attr("disabled", false);
 }
 
-/***** all lists list decoration *****/
+/***** delete button *****/
+function onClickDelete(listId){
+	var result = confirm("Are you sure you want to delete this list ?");
+	if (result){
+		//$('#formDeleteList').submit();
+	}
+}
 
+//submit edit all lists form
+$(document).ready(function(){
+	$( "#btnSaveEditList" ).click(function() {
+		$('#formEditList').submit();
+	});
+});
+
+//submit edit items form
+$(document).ready(function(){
+	$( "#btnSaveEditItem" ).click(function() {
+		$('#formEditItem').submit();
+	});
+});
+
+
+/***** all lists list decoration *****/
+/*
 //Create a "close" button and append it to each list item
 var list = document.getElementsByTagName("UL")[1];
 var myNodelist = list.getElementsByTagName("LI");
@@ -89,15 +123,28 @@ for (i = 0; i < close.length; i++) {
 function openEditItemList(){
 	$('#editItemList').show();
 	$('#itemsDiv').hide();
+	$('#allListsDiv').foggy({blurRadius: 3,          // In pixels.
+		opacity: 0.8,           // Falls back to a filter for IE.
+		cssFilterSupport: true  // Use "-webkit-filter" where available.
+		});
+	$("#allListsDiv :input").attr("disabled", true);
+	$('button#btnSelectList').prop('disabled', true);
+	$('button#btnSelectList').css('color', '#2E294E');
+	$("ul#showAllListBody li").hover(function(){
+	$(this).css("background-color", "#F1E9DA");
+	});
 }
 
 //when click edit button in item list, hide edit and show show
 function closeEditItemList(){
 	$('#editItemList').hide();
 	$('#itemsDiv').show();
+	$('#allListsDiv').foggy(false);
+	$("#allListsDiv :input").attr("disabled", false);
+	$('#allListsDiv :input[type="submit"]').prop('disabled', false);
 }
 /***** item list list decoration *****/
-
+/*
 // Create a "close" button and append it to each list item
 var list = document.getElementsByTagName("UL")[3];
 var myNodelist = list.getElementsByTagName("LI");
@@ -156,6 +203,8 @@ function newElement() {
     }
   }
 }*/
+
+
 
 
 

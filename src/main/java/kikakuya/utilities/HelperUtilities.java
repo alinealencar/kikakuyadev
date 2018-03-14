@@ -47,7 +47,7 @@ public class HelperUtilities {
 		if(ampm.equals("pm"))
 			hour += 12;
 		
-		String strDate = year + "-" + month + "-" + day + " " + hour + ":" + minute;
+		String strDate = year + "-" + getMonthNumber(month)+1 + "-" + day + " " + hour + ":" + minute;
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
 	    Date parsedDate = dateFormat.parse(strDate);
@@ -55,8 +55,17 @@ public class HelperUtilities {
 	    
 	    return timestamp;
 	}
+
+	public static int getMonthNumber(String month){
+		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+		for(int i = 0; i < monthNames.length; i++){
+			if(monthNames[i].equals(month))
+				return i+1;
+		}
+		return 1;
+	}
 	
-public static Calendar getLoadMonth(String curMonth, String curYear) {
+	public static Calendar getLoadMonth(String curMonth, String curYear) {
 		
 		Calendar c = getMonth(curMonth, curYear);
 	    c.set(Calendar.DAY_OF_MONTH, 1);
@@ -128,8 +137,7 @@ public static Calendar getLoadMonth(String curMonth, String curYear) {
 		return c;
 	}
 	
-	public static String getMonthName(Calendar c){
-		int month = c.get(Calendar.MONTH);
+	public static String getMonthName(int month){
 		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
 	    return monthNames[month];
 	}

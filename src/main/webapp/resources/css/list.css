@@ -11,6 +11,10 @@ ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody{
     
 }
 
+.btnListDelete{
+	padding-top: 7px;
+}
+
 /* Style the list items */
 ul#showAllListBody li, ul#itemList li, ul#editAllListBody li,  ul#editItemListBody li{
     cursor: pointer;
@@ -40,6 +44,12 @@ ul#showAllListBody li:hover, ul#itemList li:hover {
 ul#showAllListBody li:focus, ul#showAllListBody li:active {
     background-color: #888;
     color: #fff;
+}
+ul#showAllListBody li{
+	padding: 0;
+}
+button#btnSelectList{
+	height: 52px;
 }
 
 
@@ -97,7 +107,6 @@ button#btnSelectList {
      padding:1px!important;
      font: inherit;
      cursor: pointer;
-     /*width: 300px;*/
      text-align: left;
 }
 
@@ -110,7 +119,7 @@ li.showAllListLi{
     text-decoration: line-through;
 }*/
 
-/* Style the close button */
+/* Style the close button *//*
 .close {
     position: absolute;
     right: 0;
@@ -122,7 +131,7 @@ li.showAllListLi{
     background-color: #D90368;
     color: white;
 }
-
+*/
 /* Clear floats after the header *//*
 .listHeader:after {
     content: "";

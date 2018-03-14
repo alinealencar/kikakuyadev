@@ -62,7 +62,7 @@ public class ListDaoImpl implements ListDao{
 	@Override
 	public boolean updateList(Lists list) throws SQLException {
 		String query = "UPDATE list SET listTitle = '" + list.getListTitle() +
-				" WHERE listId=" + list.getListId();
+				"' WHERE listId=" + list.getListId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		

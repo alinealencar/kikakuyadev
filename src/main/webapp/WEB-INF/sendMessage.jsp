@@ -16,6 +16,7 @@
 		<div class="${(sendRSVPSuccess != null) ? 'successAlert':''}">${sendRSVPSuccess}</div>
 		<div class="${(sendRSVPError != null) ? 'errorAlert':''}">${sendRSVPError}</div>
 		<div class="${(sendBroadcastSuccess != null) ? 'successAlert':''}">${sendBroadcastSuccess}</div>
+		<div class="${(sendBroadcastError != null) ? 'errorAlert':''}">${sendBroadcastError}</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-sm-4">

@@ -40,33 +40,37 @@ public class MessageController {
 		try {
 			List<Guest> allGuests = new ArrayList<Guest>();
 			allGuests = messageDelegate.findGuests(event);
-					
-			if(email.getStatus().equals("all")){
-				guestList = messageDelegate.findGuests(event);
-			}
-			else if(email.getStatus().equals("attending")){
-				statusId = 0;
-				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
-			}
-			else if(email.getStatus().equals("absent")){
-				statusId = 2;
-				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
-			}
-			else if(email.getStatus().equals("noReply")){
-				statusId = 1;
-				guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
-			}
-			else{
-				for(int i=0; i<email.getRecipients().length; i++){
-					Guest guest = new Guest();
-					guest = messageDelegate.findGuestById(email.getRecipients()[i]);
-					guestList.add(guest);
+				if(email.getStatus().equals("all")){
+					guestList = messageDelegate.findGuests(event);
 				}
+				else if(email.getStatus().equals("attending")){
+					statusId = 0;
+					guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
+				}
+				else if(email.getStatus().equals("absent")){
+					statusId = 2;
+					guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
+				}
+				else if(email.getStatus().equals("noReply")){
+					statusId = 1;
+					guestList = messageDelegate.findGuestByStatus(statusId, event.getEventId());
+				}
+				else{
+					for(int i=0; i<email.getRecipients().length; i++){
+						Guest guest = new Guest();
+						guest = messageDelegate.findGuestById(email.getRecipients()[i]);
+						guestList.add(guest);
+					}
+				}
+			if(guestList.size() > 0) {
+				messageDelegate.sendBroadcast(email, guestList);
+				request.setAttribute("guests", allGuests);
+				request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
 			}
-			messageDelegate.sendBroadcast(email, guestList);
-			request.setAttribute("guests", allGuests);
-			request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
-		} catch (Exception e) {
+			else {
+				request.setAttribute("sendBroadcastError", "No guests found. Please add a guest first.");
+			}
+			} catch (Exception e) {
 				e.printStackTrace();
 				request.setAttribute("sendBroadcastError", "Error! Message sending failed.");
 			}
