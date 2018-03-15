@@ -122,13 +122,13 @@
 					<div class="form-check">
 					  	<form:radiobutton class="form-check-input" name="recipients" id="attending" value="attending" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="attending">
-					    	Attending guests
+					    	Guests who accepted
 					  	</label>
 					</div>
 					<div class="form-check">
 					  	<form:radiobutton class="form-check-input" name="recipients" id="absent" value="absent" path="status" onclick="hideSelectGuests()" />
 					  	<label class="form-check-label" for="absent">
-					    	Absent guests
+					    	Guests who declined
 					  	</label>
 					</div>
 					<div class="form-check">

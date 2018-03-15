@@ -81,4 +81,9 @@ public class ListServiceImpl implements ListService{
 		return itemDao.deleteItem(itemId);
 	}
 
+	@Override
+	public boolean checkIfListIsFound(Lists list) throws SQLException {
+		return listDao.isListFound(list);
+	}
+
 }

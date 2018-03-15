@@ -41,7 +41,7 @@ public class BudgetController {
 		}
 		
 		//Show budget
-		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(1);
+		Map<String, Map<Vendor, List<Good>>> budgetInfo = budgetDelegate.showBudget(event.getEventId());
 		request.setAttribute("budgetInfo", budgetInfo);
 		
 		//Get list of all goods
@@ -55,16 +55,15 @@ public class BudgetController {
 	
 	@RequestMapping(value="/addSearchVendor", method = RequestMethod.POST)
 	public String processAddSearchVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
-		
+		String redirectTo = "redirect:/budget";
 		Event event = (Event) request.getSession().getAttribute("event");
 		
-		String redirectTo = "budget";
 		try {
 			//add new vendor from search
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
-					redirectTo = "budget";	
+					redirectTo = "redirect:/budget";	
 			}
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
@@ -80,7 +79,7 @@ public class BudgetController {
 	@RequestMapping(value="/addVendor", method = RequestMethod.POST)
 	public String processAddVendor(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 		
-		String redirectTo = "budget";
+		String redirectTo = "redirect:/budget";
 		
 		Event event = (Event) request.getSession().getAttribute("event");
 		
@@ -89,7 +88,7 @@ public class BudgetController {
 			if(budgetDelegate.addVendor(vendor)){
 				vendor.setVendorId(budgetDelegate.findLastInserted());
 				if(budgetDelegate.addVendorEvent(vendor, event))
-					redirectTo = "budget";	
+					redirectTo = "redirect:/budget";	
 			} 
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
@@ -104,7 +103,7 @@ public class BudgetController {
 	@RequestMapping(value="/addToBudget", method = RequestMethod.POST)
 	public String processAddToBudget(Model model, HttpServletRequest request, @ModelAttribute("vendor") Vendor vendor){
 				
-		String redirectTo = "budget";
+		String redirectTo = "redirect:/budget";
 		Event event = (Event) request.getSession().getAttribute("event");
 				
 		try {
@@ -119,7 +118,7 @@ public class BudgetController {
 			for(int i=0; i<vendor.getGoodsList().size(); i++){
 				budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
 			}
-			redirectTo = "budget";
+			redirectTo = "redirect:/budget";
 			List vendorList = budgetDelegate.getVendors(event);
 			request.setAttribute("vendors", vendorList);
 			viewBudget(model,request);

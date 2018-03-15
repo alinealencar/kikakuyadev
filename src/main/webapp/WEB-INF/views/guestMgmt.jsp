@@ -190,7 +190,7 @@
 						<label>Special Requests:</label>
 						<div> ${selectedGuest.specialRequests}</div>
 						<hr>
-						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 							<span class="info"><i class="fas fa-question-circle"></i></span>
 						</a></i></h5>
 						<div class="row">
@@ -261,7 +261,7 @@
 							</form:select>
 						</div>
 					</div>
-					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
@@ -344,7 +344,7 @@
 					<!--span id="emailError" class="formError"></span--> <br/>
 				<label>
 					Plus ones
-					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+					<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 						<span class="info">
 							<i class="fas fa-question-circle"></i>
 						</span>
@@ -402,51 +402,6 @@
 	</div>
 </div>
 
-
-<!-- Script to make rows clickable -->
 <script src="resources/js/guestMgmt.js"></script>
-<script>
-//open side form
-function openAddGuest() {
-    document.getElementById("addGuestSection").style.width = "360px";
-}
-
-function openShowGuest() {
-    document.getElementById("showGuestSection").style.width = "360px";
-}
-
-function openEditGuest() {
-    document.getElementById("editGuestSection").style.width = "360px";
-    document.getElementById("editGuestSection").style.display = "block";
-}
-
-//close side form
-function closeAddGuest() {
-    document.getElementById("addGuestSection").style.width = "0";
-}
-
-function closeShowGuest() {
-    document.getElementById("showGuestSection").style.width = "0";
-}
-
-function closeEditGuest() {
-    document.getElementById("editGuestSection").style.display = "none";
-}
-
-
-//show help bubbles
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();   
-});
-</script>
-<script>
-//add guest clear form when it is submited
-
-$(".showAddGuest").click(function() {
-	$("input[type=text], textarea").val("");
-	$("select").val("0");
-});
-
-</script>
 <script src="resources/js/validateGuest.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

@@ -228,3 +228,50 @@ function descStatus() {
     	}
   	}
 }
+
+/******************************************
+ * slide in form
+ ******************************************/
+//open side form
+function openAddGuest() {
+  document.getElementById("addGuestSection").style.width = "360px";
+}
+
+function openShowGuest() {
+  document.getElementById("showGuestSection").style.width = "360px";
+}
+
+function openEditGuest() {
+  document.getElementById("editGuestSection").style.width = "360px";
+  document.getElementById("editGuestSection").style.display = "block";
+}
+
+//close side form
+function closeAddGuest() {
+  document.getElementById("addGuestSection").style.width = "0";
+}
+
+function closeShowGuest() {
+  document.getElementById("showGuestSection").style.width = "0";
+}
+
+function closeEditGuest() {
+  document.getElementById("editGuestSection").style.display = "none";
+}
+
+/******************************************
+ * bubbles
+ ******************************************/
+//show help bubbles
+$(document).ready(function(){
+	$('[data-toggle="tooltip"]').tooltip();   
+});
+
+/******************************************
+ *clear form
+ ******************************************/
+//add guest clear form when it is submited
+$(".showAddGuest").click(function() {
+	$("input[type=text], textarea").val("");
+	$("select").val("0");
+});

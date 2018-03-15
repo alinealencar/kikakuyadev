@@ -22,7 +22,19 @@ public class CalendarDelegate {
 		return calendarService.addAppointment(anAppt);
 	}
 	
-	public List<Appointment> findAppt(int month, int year) throws SQLException {
-		return calendarService.findAppointment(month, year);
+	public List<Appointment> findAppts(int month, int year, int userId) throws SQLException {
+		return calendarService.findAppointments(month, year, userId);
+	}
+	
+	public Appointment findAppt(int apptId) throws SQLException {
+		return calendarService.findAppointment(apptId);
+	}
+	
+	public boolean editAppt(Appointment appt) throws SQLException, ParseException {
+		return calendarService.editAppointment(appt);
+	}
+	
+	public boolean deleteAppt(int apptId) throws SQLException {
+		return calendarService.deleteAppointment(apptId);
 	}
 }

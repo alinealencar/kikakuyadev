@@ -60,6 +60,8 @@ public class ListDelegate {
 		return listService.deleteItem(itemId);
 	}
 	
-	
+	public boolean checkIfListExists(Lists list) throws SQLException {
+		return listService.checkIfListIsFound(list);
+	}
 
 }

@@ -33,7 +33,7 @@ public class Appointment {
 		this.month = HelperUtilities.getMonthName(ddd.getMonthValue() - 1);
 		this.year = String.valueOf(ddd.getYear());
 		
-		if(ddd.getHour() > 1 && ddd.getHour() < 12){
+		if(ddd.getHour() >= 1 && ddd.getHour() < 12){
 			this.hour = String.valueOf(ddd.getHour());
 			this.ampm = "am";
 		}
