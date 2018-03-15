@@ -58,6 +58,7 @@ function showAppt(id){
 		url: "showAppt",
 		data: {apptId: id}
 	}).done(function(response){
+		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
 		$("#apptDate").html(response.day + "/" + getMonthInt(response.month) + "/" + response.year);
 		$("#apptTime").html(response.hour + ":" + response.minute + " " + response.ampm.toUpperCase());

@@ -171,11 +171,17 @@
 				<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
 				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<div id="apptDetails">
+					<div id="apptColor" style="height: 30px"></div>
 					<span id="apptTitle"></span>
+					<br>
 					<span id="apptDate"></span>
+					<br>
 					<span>@</span>
+					<br>
 					<span id="apptTime"></span>
+					<br>
 					<span id="apptLocation"></span>
+					<br>
 					<span>Notes:</span>
 					<span id="apptNotes"></span>
 				</div>
