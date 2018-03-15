@@ -27,26 +27,22 @@ function addEditAppt(action){
              url: action,
              data:$("#appt").serialize(),
              success: function(response) {
-            	 if(response.indexOf("Error") == -1){
-            		 $(".successAlert").html(response);
-            		 $(".successAlert").show();
-            		 $(".errorAlert").hide();
-            	 }
-            	 else {
-            		 $(".errorAlert").html(response);
-            		 $(".errorAlert").show();
-            		 $(".successAlert").hide();
-            	 }	
-            	
-            	 console.log("year submitted: " + $("#year").val());
-            	 console.log("month submitted: " + $("#month").val());
+            	 
+            	 //Show appt after update
+                 if(action === "editAppt") {
+                	 var apptId = $("#apptId").val();
+                	 showAppt(apptId);
+                 }
+                 
+                 //Feedback messages
+         		showFeedbackMessages(response);	
             	 
             	 //Change the month and year to show the calendar with the appointment recently added
             	 $("#curYear").html($("#year").val());
             	 $("#curMonth").html(getMonthName($("#month").val() - 1));
             	 
             	//Reload calendar
-            	 calendarNav("loadMonth");
+            	 calendarNav("loadMonth"); 	
              }
          });
 }
@@ -81,6 +77,8 @@ function showAppt(id){
 function openEditAppt(id){
 	$("#showAppt").hide();
 	$("#btnAddAppt").hide();
+	$(".successAlert").hide();
+	$(".errorAlert").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -104,6 +102,23 @@ function openEditAppt(id){
 	});
 
 	$("#addAppt").show();
+	$("#btnSaveAppt").show();
+}
+
+/** DELETE APPOINTMENT **/
+
+function deleteAppt(id){
+	$.post({
+		url: "deleteAppt",
+		data: {apptId: id}
+	}).done(function(response){
+		showFeedbackMessages(response);
+	});
+	
+	$("#showAppt").hide();
+	//Reload calendar
+	 calendarNav("loadMonth"); 
+	
 }
 
 /** CALENDAR NAVIGATION**/ 
@@ -217,5 +232,25 @@ function getMonthName(monthInt){
 function closeAppt(){
 	$("#showAppt").hide();
 	$("#addAppt").hide();
+}
+
+function openAddAppt(){
+	$("#appt")[0].reset();
+	$("#addAppt").show();
+	$("#btnSaveAppt").hide();
+}
+
+function showFeedbackMessages(response){
+	//Feedback messages
+	 if(response.indexOf("Error") == -1){
+		 $(".successAlert").html(response);
+		 $(".successAlert").show();
+		 $(".errorAlert").hide();
+	 }
+	 else {
+		 $(".errorAlert").html(response);
+		 $(".errorAlert").show();
+		 $(".successAlert").hide();
+	 }	
 }
 

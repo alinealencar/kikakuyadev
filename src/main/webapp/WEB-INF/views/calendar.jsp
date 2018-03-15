@@ -12,9 +12,17 @@
 <div class="container">
 	<!-- body contents start -->
 	<div class="row">
-		<!-- Calendar -->
+		<!-- Left -->
 		<div class="col-sm-9">
+			<!-- Add new appointment circle button-->
+			<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
+      			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   			</button>  		
+   			
+   			<!-- Loading gif -->			
 			<img id="loading" src="resources/images/calendar/loading.gif"/>
+			
+			<!-- Calendar -->
 			<div id="showCalendar" style="display:none;">
 			
 			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
@@ -44,12 +52,13 @@
 			</div>
 		</div>
 		
-		<!-- Right side -->
+		<!-- Right -->
 		<div class="col-sm-3">
+			<div class="successAlert" style="display:none;"></div>
+			<div class="errorAlert" style="display:none;"></div>
 			<!-- Add and Edit appointment (Same form) -->
 			<div id="addAppt" style="display:none;">
-				<div class="successAlert" style="display:none;"></div>
-				<div class="errorAlert" style="display:none;"></div>
+				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
 					<form:hidden path="apptId"/>
 					<label>Title*: </label>
@@ -158,6 +167,7 @@
 			<!-- Show appointment -->
 			<div id="showAppt" style="display:none;">
 				<div id="bannerColor"></div>
+				<span class="editAppt" onclick="deleteAppt(this.id)"><i class="far fa-trash-alt"></i></span>
 				<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
 				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<div id="apptDetails">

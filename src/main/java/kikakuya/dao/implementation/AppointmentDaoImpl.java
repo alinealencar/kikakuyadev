@@ -102,4 +102,12 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		return(rowsAffected > 0);
 	}
 
+	@Override
+	public boolean deleteAppointment(int apptId) throws SQLException {
+		String query = "DELETE FROM appointment WHERE apptId=" + apptId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
+	}
+
 }

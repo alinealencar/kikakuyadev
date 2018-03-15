@@ -41,4 +41,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return apptDao.updateAppointment(appt);
 	}
 
+	@Override
+	public boolean deleteAppointment(int apptId) throws SQLException {
+		return apptDao.deleteAppointment(apptId);
+	}
+
 }

@@ -34,14 +34,13 @@ public class CalendarController {
 	
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
 	public String viewAddEvent(Model model, HttpServletRequest request){
-		//model.addAttribute("event", new Event());
 		model.addAttribute("appt", new Appointment());
 		return "calendar";
 	}
 	
 	@RequestMapping(value="/addAppt", method = RequestMethod.POST)
 	@ResponseBody
-	public String addAppt(Model model, HttpSession session, @ModelAttribute("appt") Appointment appt){
+	public String addAppt(HttpSession session, @ModelAttribute("appt") Appointment appt){
 		boolean apptAdded;
 		String message ="";
 		try {
@@ -64,7 +63,7 @@ public class CalendarController {
 	
 	@RequestMapping(value = "/calendarNav", method = RequestMethod.POST)
 	@ResponseBody
-	public MonthPresentation Submit(ModelMap model, HttpSession session, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
+	public MonthPresentation Submit(HttpSession session, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
 		//Get user Id from the session
 		User user = (User) session.getAttribute("user");
 		
@@ -124,7 +123,7 @@ public class CalendarController {
 	
 	@RequestMapping(value="/editAppt", method = RequestMethod.POST)
 	@ResponseBody
-	public String editAppt(Model model, HttpSession session, @ModelAttribute("appt") Appointment appt){
+	public String editAppt(@ModelAttribute("appt") Appointment appt){
 		boolean apptEdited;
 		String message ="";
 		try {
@@ -137,6 +136,26 @@ public class CalendarController {
 		} catch (SQLException | ParseException e) {
 			e.printStackTrace();
 			message = "Error! The appointment was not updated!";
+		}
+
+		return message;
+	}
+	
+	@RequestMapping(value="/deleteAppt", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteAppt(@RequestParam("apptId") int apptId){
+		boolean apptDeleted;
+		String message ="";
+		try {
+			apptDeleted = calendarDelegate.deleteAppt(apptId);
+		
+			if(apptDeleted)
+				message = "Appointment was deleted!";
+			else
+				message = "Error! The appointment was not deleted!";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			message = "Error! The appointment was not deleted!";
 		}
 
 		return message;
