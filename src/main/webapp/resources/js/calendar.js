@@ -60,8 +60,35 @@ function showAppt(id){
 	}).done(function(response){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
-		$("#apptDate").html(response.day + "/" + getMonthInt(response.month) + "/" + response.year);
-		$("#apptTime").html(response.hour + ":" + response.minute + " " + response.ampm.toUpperCase());
+		
+		//Format date with the 0 for days and months with one digit only
+		var date = "";
+		
+		if((response.day).length < 2)
+			date += "0";
+		
+		date += response.day + "/"; 
+		
+		if(getMonthInt(response.month) < 10)
+			date += "0";
+		
+		date += getMonthInt(response.month) + "/" + response.year;
+		
+		$("#apptDate").html(date);
+		
+		//Format hour if it doesn't have 2 digits
+		var time = "";
+		if(response.hour < 10)
+			time += "0";
+		
+		time += response.hour + ":";
+		
+		if(response.minute < 10)
+			time += "0";
+		
+		time += response.minute + " " + response.ampm.toUpperCase();
+		
+		$("#apptTime").html(time);
 		$("#apptLocation").html(response.location);
 		$("#apptNotes").html(response.notes);
 	});
