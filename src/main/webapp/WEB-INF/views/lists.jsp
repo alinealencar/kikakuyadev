@@ -146,7 +146,12 @@
 			<hr>
 			<!-- item list body -->
 			<c:if test="${not empty noItemsMsg}">
-				<h5>${noItemsMsg}</h5>
+				<div class="text-center">
+					<h5>${noItemsMsg}</h5>
+				</div>
+				<div class="text-center">
+					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+				</div>
 			</c:if>
 			<ul id="itemList">
 			<c:if test="${fn:length(items) > 0}">
