@@ -183,18 +183,17 @@ public class ListController {
 	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
 	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
-		System.out.println("edit list");
+		HttpSession session = request.getSession();
 		Lists firstList = new Lists();
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
-				System.out.println(list.getListsList().get(i).getListId() + ", ");
 				listDelegate.editList(list.getListsList().get(i));
-					
 			}
-			viewLists(model,request);
 			firstList = list.getListsList().get(0);
-			request.setAttribute("selectedList", firstList);
+			session.setAttribute("selectedList", firstList);
+			viewLists(model,request);
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
