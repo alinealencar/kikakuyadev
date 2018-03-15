@@ -190,7 +190,7 @@
 						<label>Special Requests:</label>
 						<div> ${selectedGuest.specialRequests}</div>
 						<hr>
-						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+						<h5><i>Plus Ones&nbsp;<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 							<span class="info"><i class="fas fa-question-circle"></i></span>
 						</a></i></h5>
 						<div class="row">
@@ -261,7 +261,7 @@
 							</form:select>
 						</div>
 					</div>
-					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
@@ -344,7 +344,7 @@
 					<!--span id="emailError" class="formError"></span--> <br/>
 				<label>
 					Plus ones
-					<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
+					<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
 						<span class="info">
 							<i class="fas fa-question-circle"></i>
 						</span>
