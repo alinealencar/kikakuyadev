@@ -169,13 +169,13 @@
 			</ul>
 		</div>
 		</c:when>
-				<c:otherwise>
-					<br><br><br>
-					<div class="text-center">
-						<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
-					</div>
-				</c:otherwise>
-			</c:choose>
+		<c:otherwise>
+			<br><br><br>
+			<div class="text-center">
+				<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
+			</div>
+		</c:otherwise>
+	</c:choose>
 
 				
 		<!-- End of Show item list -->	
