@@ -82,8 +82,8 @@ public class ListServiceImpl implements ListService{
 	}
 
 	@Override
-	public boolean checkIfListIsFound(int listId) throws SQLException {
-		return listDao.isListFound(listId);
+	public boolean checkIfListIsFound(Lists list) throws SQLException {
+		return listDao.isListFound(list);
 	}
 
 }

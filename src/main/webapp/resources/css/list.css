@@ -4,7 +4,7 @@
 }
 
 /***** lists page *****/
-ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody{ 
+ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody, ul#showAllListBody-sm, ul#editAllListBody-sm{ 
     margin: 0;
     padding: 0;   
 }
@@ -14,7 +14,7 @@ ul#showAllListBody, ul#itemList, ul#editAllListBody, ul#editItemListBody{
 }
 
 /* Style the list items */
-ul#showAllListBody li, ul#itemList li, ul#editAllListBody li,  ul#editItemListBody li{
+ul#showAllListBody li, ul#itemList li, ul#editAllListBody li,  ul#editItemListBody li, ul#showAllListBody-sm li, ul#editAllListBody-sm li{
     cursor: pointer;
     position: relative;
     padding: 12px 8px 12px 40px;
@@ -37,7 +37,7 @@ ul#showAllListBody li:hover, ul#itemList li:hover {
 
 /***** all lists *****/
 /* When clicked on, add a background color*//**********************************focus doesn't work********/
-ul#showAllListBody li:focus, ul#showAllListBody li:active {
+ul#showAllListBody li:focus, ul#showAllListBody li:active, ul#showAllListBody-sm li:active {
     background-color: #888;
     color: #fff;
 }
@@ -106,7 +106,7 @@ button#btnSelectList {
      text-align: left;
 }
 
-li.showAllListLi{
+li.showAllListLi, li.showAllListLiSm{
 	padding:0;
 }
 
@@ -135,3 +135,55 @@ li.showAllListLi{
     clear: both;
 }
 */
+
+
+/**********************
+slie in all lists
+***********************/
+.sideAllLists {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0px;
+    background-color: #F1E9DA;
+    color: #2E294E;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding: 25px 0;
+    border: 1px solid #cccccc;
+}
+.sideListPad{
+	padding: 0px 25px 0px 25px;	
+}
+#editAllLists-sm {
+	display:none; 
+	width:360px;
+}
+
+/*
+.sidenav a  {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+*//*
+.sideAllLists .closebtn {
+    position: absolute;
+    /*top: 0;*/
+    /*right: 25px;
+    /*font-size: 36px*/
+    /*margin-left: 50px;
+}
+*/
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}

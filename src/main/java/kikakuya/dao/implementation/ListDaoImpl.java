@@ -83,8 +83,9 @@ public class ListDaoImpl implements ListDao{
 		return list;
 	}
 	
-	public boolean isListFound(int listId) throws SQLException{
-		String query = "SELECT COUNT(*) FROM list WHERE listId=" + listId;
+	public boolean isListFound(Lists list) throws SQLException{
+		String query = "SELECT COUNT(*) FROM list WHERE listId=" + list.getListId() 
+				+" OR listTitle='" + list.getListTitle() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		if(rs.next())

@@ -31,12 +31,13 @@
 	</div>
 	<br>
 	<c:if test="${totalGuests > 0}">
-		<h3>${presentGuests} guests of ${totalGuests}</h3>
-		<div class="progress" style="margin-bottom: 50px;">
+		<h3>${presentGuests} guests of ${totalGuests}</h3>	
+		<div class="progress" style="margin-bottom: 25px;">
 			<div class="progress-bar bg-danger" role="progressbar" style="width: ${(absentGuests/totalGuests)*100}%" aria-valuenow="${(absentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${absentGuests}</div>
 	  		<div class="progress-bar bg-success" role="progressbar" style="width: ${(presentGuests/totalGuests)*100}%" aria-valuenow="${(presentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${presentGuests}</div>
-	  		<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>	
+	  		<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>
 		</div>
+		<p><span style="background-color: #dc3545;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Declined&nbsp;&nbsp;&nbsp;<span style="background-color: #28a745;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Accepted&nbsp;&nbsp;&nbsp; <span style="background-color: #ffc107;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;No Reply</p>
 	</c:if>
 <!-- body contents end -->
 </div>

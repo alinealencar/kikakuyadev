@@ -30,6 +30,8 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		
 		System.out.println(anAppt);
 		
+		System.out.println("datetime: " + anAppt.getApptDateTime());
+		
 		pstmt.setTimestamp(1, anAppt.getApptDateTime());
 		pstmt.setString(2, anAppt.getTitle());
 		pstmt.setString(3,  anAppt.getNotes());
@@ -64,6 +66,25 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		}
 		
 		return apptList;
+	}
+
+	@Override
+	public Appointment findAppointmentById(int apptId) throws SQLException {
+		String query = "select * from appointment where apptId=" + apptId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		
+		Appointment appt = new Appointment();
+		if(rs.next()){
+			appt.setApptId(rs.getInt(1));
+			appt.setTitle(rs.getString(2));
+			appt.setDatetime(rs.getTimestamp(3));
+			appt.setNotes(rs.getString(4));
+			appt.setUserId(rs.getInt(5));
+			appt.setLocation(rs.getString(6));
+			appt.setColor(rs.getString(7));
+		}
+		return appt;
 	}
 
 }

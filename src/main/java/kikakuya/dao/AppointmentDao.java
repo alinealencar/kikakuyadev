@@ -9,4 +9,5 @@ import kikakuya.model.Appointment;
 public interface AppointmentDao {
 	public boolean insertAppointment(Appointment anAppointment) throws SQLException, ParseException;
 	public List<Appointment> findAppointmentsByMonth(int month, int year) throws SQLException;
+	public Appointment findAppointmentById(int id) throws SQLException;
 }

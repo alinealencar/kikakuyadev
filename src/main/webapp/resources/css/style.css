@@ -208,6 +208,30 @@ calendar
 #calendar tr {
 	width: 100%;
 }
+
+.circle {
+	width: 30px;
+	height: 30px;
+	-moz-border-radius: 25px;
+	-webkit-border-radius: 25px;
+	border-radius: 25px;
+}
+.selectColor > input {
+	visibility: hidden;
+	position: absolute;
+}
+.selectColor > input + div{ /* IMAGE STYLES */
+ 	cursor:pointer;
+ 	border:2px solid transparent;
+}
+
+.appt {
+	cursor:pointer;
+}
+
+.selectColor > input:checked + div{ /* (RADIO CHECKED) IMAGE STYLES */
+  border:2px solid grey;
+}
 /*********************************
 slide in form
 **********************************/

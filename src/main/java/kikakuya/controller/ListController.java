@@ -62,7 +62,7 @@ public class ListController {
 				//show selected list by user
 				else{
 					//check if list exists (after delete)
-					if(listDelegate.checkIfListExists(selectedList.getListId())){
+					if(listDelegate.checkIfListExists(selectedList)){
 						items = listDelegate.getItems(selectedList);
 						//check if list contains items
 						if(items.size() == 0)
@@ -183,13 +183,18 @@ public class ListController {
 	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
 	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
+		System.out.println("edit list");
+		Lists firstList = new Lists();
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
 				System.out.println(list.getListsList().get(i).getListId() + ", ");
 				listDelegate.editList(list.getListsList().get(i));
+					
 			}
 			viewLists(model,request);
+			firstList = list.getListsList().get(0);
+			request.setAttribute("selectedList", firstList);
 		}
 		catch(Exception e){
 			e.printStackTrace();
@@ -217,6 +222,7 @@ public class ListController {
 	
 	@RequestMapping(value="/deleteList", method = RequestMethod.POST)
 	public String deleteList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
+		System.out.println("delete list");
 		try {
 			//delete a list
 			System.out.println("List id: " + list.getListId());

@@ -30,8 +30,23 @@ $(document).ready(function(){
 	calendarNav("loadMonth");
 });
 
+function showAppt(id){
+	//Send AJAX request with the id of the selected appointment
+	$.ajax({
+		type: "POST",
+		url: "showAppt",
+		data: {apptId: id}
+	}).done(function(response){
+		$("#apptTitle").html(response.title);
+		$("#apptDate").html(response.day + "/" + getMonthInt(response.month) + "/" + response.year);
+		$("#apptTime").html(response.hour + ":" + response.minute + " " + response.ampm.toUpperCase());
+		$("#apptLocation").html(response.location);
+		$("#apptNotes").html(response.notes);
+	});
+}
 
 function calendarNav(actionName){
+	//Send AJAX request to navigate the calendar and show the appointments
 		$.ajax({
 			type: "POST",
 		     url: "calendarNav",
@@ -81,13 +96,17 @@ function calendarNav(actionName){
 	    					.append("<span id=" + monthDay + response.name + response.year +">" + monthDay + "<span>"));
 	    			//console.log(Object.keys(apptDict));
 	    			if(apptDict[monthDay+response.name+response.year] != undefined){
-	    				console.log("there's stuff for this day: " + monthDay+response.name+$('#curYear').html());
-	    				console.log("keys: "+Object.keys(apptDict));
+	    				//console.log("there's stuff for this day: " + monthDay+response.name+$('#curYear').html());
+	    				//console.log("keys: "+Object.keys(apptDict));
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
-	    				console.log("num of appts: " + apptsInTheMonth.length);
+	    				//console.log("num of appts: " + apptsInTheMonth.length);
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
-	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<br>" + apptsInTheMonth[k].title);
-	    					console.log('#' + monthDay + response.name + apptsInTheMonth[k].year);
+	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<br><div id="
+	    							+ apptsInTheMonth[k].apptId + " class='appt' "
+	    							+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    							+ apptsInTheMonth[k].title + "</div>");
+	    					//console.log('#' + monthDay + response.name + apptsInTheMonth[k].year);
 	    				}
 	    			}
 	    			monthDay++;
@@ -108,5 +127,5 @@ function calendarNav(actionName){
 
 function getMonthInt(monthStr){
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-	return months.indexOf(monthStr);
+	return months.indexOf(monthStr) + 1;
 }
