@@ -14,13 +14,15 @@
 	<div class="row">
 		<!-- Calendar -->
 		<div class="col-sm-9">
+			<img id="loading" src="resources/images/calendar/loading.gif"/>
+			<div id="showCalendar" style="display:none;">
 			
 			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 			<span id="curYear"></span>
 			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
 			<br>
 			<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curMonth">November</span>
+			<span id="curMonth"></span>
 			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
 			
 			<table id="calendar" class="table table-bordered">
@@ -39,15 +41,17 @@
 				
 				</tbody>
 			</table>
+			</div>
 		</div>
 		
 		<!-- Right side -->
 		<div class="col-sm-3">
 			<!-- Add and Edit appointment (Same form) -->
-			<div id="addAppt">
-				<div id="addSuccess" class="successAlert"></div>
-				<div id="addError" class="errorAlert"></div>
+			<div id="addAppt" style="display:none;">
+				<div class="successAlert" style="display:none;"></div>
+				<div class="errorAlert" style="display:none;"></div>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
+					<form:hidden path="apptId"/>
 					<label>Title*: </label>
 					<form:input path="title" type="text" class="item form-control"/>
 					
@@ -146,16 +150,16 @@
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
 					
 					<input id="btnCancel" type="button" value="Cancel" onclick=""/>
-					<input id="btnAddAppt" type="button" value="Add" onclick="addAppt();"/>
-					<input id="btnSaveAppt" type="button" value="Save" onclick="editAppt();"/>
+					<input id="btnAddAppt" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
+					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');"/>
 				</form:form>
 			</div>
 			
 			<!-- Show appointment -->
-			<div id="showAppt">
+			<div id="showAppt" style="display:none;">
 				<div id="bannerColor"></div>
 				<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
-				<span onclick="closeShowAppt()" class="closebtn"><i class="fas fa-times"></i></span>
+				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<div id="apptDetails">
 					<span id="apptTitle"></span>
 					<span id="apptDate"></span>
@@ -165,11 +169,6 @@
 					<span>Notes:</span>
 					<span id="apptNotes"></span>
 				</div>
-			</div>
-			
-			<!-- Edit appointment -->
-			<div id="editAppt">
-				
 			</div>
 		</div>
 	</div>

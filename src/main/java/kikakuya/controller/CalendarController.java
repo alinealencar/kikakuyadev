@@ -41,7 +41,7 @@ public class CalendarController {
 	
 	@RequestMapping(value="/addAppt", method = RequestMethod.POST)
 	@ResponseBody
-	public String addAppt(Model model, HttpSession session, RedirectAttributes redirectAtt, @ModelAttribute("appt") Appointment appt){
+	public String addAppt(Model model, HttpSession session, @ModelAttribute("appt") Appointment appt){
 		boolean apptAdded;
 		String message ="";
 		try {
@@ -120,5 +120,25 @@ public class CalendarController {
 		}
 		
 		return appt;
+	}
+	
+	@RequestMapping(value="/editAppt", method = RequestMethod.POST)
+	@ResponseBody
+	public String editAppt(Model model, HttpSession session, @ModelAttribute("appt") Appointment appt){
+		boolean apptEdited;
+		String message ="";
+		try {
+			apptEdited = calendarDelegate.editAppt(appt);
+		
+			if(apptEdited)
+				message = "Appointment was updated!";
+			else
+				message = "Error! The appointment was not updated!";
+		} catch (SQLException | ParseException e) {
+			e.printStackTrace();
+			message = "Error! The appointment was not updated!";
+		}
+
+		return message;
 	}
 }

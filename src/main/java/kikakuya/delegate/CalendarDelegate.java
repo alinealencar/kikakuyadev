@@ -29,4 +29,8 @@ public class CalendarDelegate {
 	public Appointment findAppt(int apptId) throws SQLException {
 		return calendarService.findAppointment(apptId);
 	}
+	
+	public boolean editAppt(Appointment appt) throws SQLException, ParseException {
+		return calendarService.editAppointment(appt);
+	}
 }

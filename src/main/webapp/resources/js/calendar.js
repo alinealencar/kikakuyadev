@@ -20,20 +20,33 @@ $('#year, #month').change(function() {
 
 });
 
-/** ADD APPOINTMENT **/
+/** ADD AND EDIT APPOINTMENT **/
 
-function addAppt(){
-	console.log("clicked in add appt");
-	console.log($("#appt").serialize());
-		console.log("inside ajax");
+function addEditAppt(action){
         $.post({
-             url: 'addAppt',
+             url: action,
              data:$("#appt").serialize(),
              success: function(response) {
-            	 if(response.indexOf("Error") != -1)
-            		 $("#addSuccess").html(response);
-            	 else
-            		 $("#addError").html(response);
+            	 if(response.indexOf("Error") == -1){
+            		 $(".successAlert").html(response);
+            		 $(".successAlert").show();
+            		 $(".errorAlert").hide();
+            	 }
+            	 else {
+            		 $(".errorAlert").html(response);
+            		 $(".errorAlert").show();
+            		 $(".successAlert").hide();
+            	 }	
+            	
+            	 console.log("year submitted: " + $("#year").val());
+            	 console.log("month submitted: " + $("#month").val());
+            	 
+            	 //Change the month and year to show the calendar with the appointment recently added
+            	 $("#curYear").html($("#year").val());
+            	 $("#curMonth").html(getMonthName($("#month").val() - 1));
+            	 
+            	//Reload calendar
+            	 calendarNav("loadMonth");
              }
          });
 }
@@ -42,7 +55,6 @@ function addAppt(){
 
 function showAppt(id){
 	$("#addAppt").hide();
-	$("#editAppt").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -64,9 +76,11 @@ function showAppt(id){
 	$("#showAppt").show();
 }
 
-/** EDIT APPOINTMENT **/
+/** EDIT APPOINTMENT FORM **/
+
 function openEditAppt(id){
 	$("#showAppt").hide();
+	$("#btnAddAppt").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -74,6 +88,7 @@ function openEditAppt(id){
 		url: "showAppt",
 		data: {apptId: id}
 	}).done(function(response){
+		$("#apptId").val(response.apptId);
 		$("#title").val(response.title);
 		$("#day").val(response.day);
 		$("#month").val(getMonthInt(response.month));
@@ -86,10 +101,8 @@ function openEditAppt(id){
 		$("input[name='color'][value='" + response.color + "']").prop('checked', true);
 		$("#color").val(response.color);
 		$("#notes").val(response.notes);
-		console.log(response.color);
 	});
-	
-	
+
 	$("#addAppt").show();
 }
 
@@ -98,8 +111,9 @@ function openEditAppt(id){
 $(document).ready(function(){
 	$("#curYear").html(new Date().getFullYear());
 	$("#curMonth").html(getMonthName(new Date().getMonth()));
-	//load calendar when page is opened for the first time
-	calendarNav("loadMonth");
+	
+	//load calendar when page is opened for the first time (delay to show gif)
+	setTimeout(function(){ calendarNav("loadMonth"); },  1000);
 	
 	for(var i = 1; i <= 31; i++)
 		$('<option>').val(i).text(i).appendTo('#day');
@@ -182,7 +196,10 @@ function calendarNav(actionName){
 		    	else
 		    		curWeekDay++;
 		    }
-	    });
+	    	$("#loading").hide();
+	    	$("#showCalendar").show();
+	    	
+		});
 }
 
 function getMonthInt(monthStr){
@@ -195,14 +212,10 @@ function getMonthName(monthInt){
 	return months[monthInt];
 }
 
-function showAddAppt(){
+/** HIDE AND SHOW **/
+
+function closeAppt(){
 	$("#showAppt").hide();
-	$("#editAppt").hide();
-	$("#addAppt").show();
+	$("#addAppt").hide();
 }
 
-function showEditAppt(){
-	$("#showAppt").hide();
-	$("#editAppt").show();
-	
-}

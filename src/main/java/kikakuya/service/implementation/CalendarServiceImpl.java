@@ -36,4 +36,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return apptDao.findAppointmentById(apptId);
 	}
 
+	@Override
+	public boolean editAppointment(Appointment appt) throws SQLException, ParseException {
+		return apptDao.updateAppointment(appt);
+	}
+
 }

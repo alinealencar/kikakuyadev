@@ -88,4 +88,18 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		return appt;
 	}
 
+	@Override
+	public boolean updateAppointment(Appointment appt) throws SQLException, ParseException {
+		String query = "update appointment set apptTitle='" + appt.getTitle() +
+				"', apptDateTime='" + appt.getApptDateTime() +
+				"', apptNotes='" + appt.getNotes() + 
+				"', location='" + appt.getLocation() + 
+				"', color='" + appt.getColor() +
+				"' where apptId=" + appt.getApptId();
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
+
 }
