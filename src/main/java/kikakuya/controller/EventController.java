@@ -112,6 +112,24 @@ public class EventController {
 		return "event";
 	}
 	
+	//
+	@RequestMapping(value="/edit", method = RequestMethod.POST)
+	public String editEvent(@ModelAttribute("event") Event event, Model model,
+			HttpServletRequest request) throws SQLException{
+		
+		Event selectedEvent = new Event();
+		System.out.println(event.getEventId());
+		try{
+			selectedEvent = eventDelegate.getSelectedEvent(event.getEventId());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		request.setAttribute("event", selectedEvent);
+		//viewEvent(request, model);
+		return "event";
+	}
+	
 	//Delete an event
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
 	public String deleteEvent(@ModelAttribute Event event, Model model,HttpServletRequest request) throws SQLException{
