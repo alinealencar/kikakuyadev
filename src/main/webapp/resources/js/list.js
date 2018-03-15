@@ -58,7 +58,22 @@ $(document).ready(function(){
 	});
 });
 
-
+/***** all lists list small screen *****/
+//open side list
+function openAllLists() {
+  document.getElementById("showAllLists-sm").style.width = "360px";
+}
+function openEditAllListSm() {
+	  document.getElementById("editAllLists-sm").style.width = "360px";
+	  document.getElementById("editAllLists-sm").style.display = "block";
+	}
+//close side list
+function closeAllLists() {
+	  document.getElementById("showAllLists-sm").style.width = "0";
+	}
+function closeEditAllListsSm() {
+	  document.getElementById("editAllLists-sm").style.display = "none";
+	}
 /***** all lists list decoration *****/
 /*
 //Create a "close" button and append it to each list item

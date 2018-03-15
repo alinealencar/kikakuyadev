@@ -12,7 +12,109 @@
 <script src="resources/js/list.js"></script>
 <div class="container"><!-- body contents start -->
 	<div class="row">
-		<div id="allListsDiv" class="col-sm-4" style="border-right:1px solid #cccccc;">
+		<!-- for small screen -->
+		<!-- Show All lists -->
+		<!-- All lists header-->		
+		<div id="showAllLists-sm" class="sideAllLists">
+			<div class="sideListPad">
+			<div class="row ">
+				<div class="col-12 text-right">
+					<span id="closeShowAllLists" class="closebtn" onclick="closeAllLists()"><i class="fas fa-times"></i></span>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-9">
+					<h3>All lists</h3>
+				</div>
+				<c:if test="${not empty lists}">
+					<div class="col-3 text-right" >
+						<button  type="button" class="btn btn-link img-fluid" onclick="openEditAllListSm()">
+		      				<span><i class="fas fa-edit"></i></span>
+		   				</button>  
+		   			</div>
+		   		</c:if>
+			</div>
+			<form:form method="post" action="addList" modelAttribute="list">
+			<div class="row">
+				<div class="col-9">
+					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+				</div>
+				<div class="col-3">
+					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
+		    			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
+		   			</button>
+	   			</div>
+   			</div> 
+   			</form:form> 		
+			<hr>
+			
+			<!-- All lists body -->
+			<!--<c:set var="cat" value="1" scope="page" />-->
+			<ul id="showAllListBody-sm">
+				<c:forEach var="list" items="${lists}" >
+					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
+						<form:hidden path="listId" value="${list.listId}" />
+						<li class="showAllListLiSm">
+							<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
+			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   				</button>
+						</li>
+					</form:form>	
+				</c:forEach>	
+			</ul>
+		</div>	
+		</div>
+		<!-- End of Show All list -->
+		
+		<!-- Edit All lists  -->
+		<!-- All lists header-->
+		<div id="editAllLists-sm" class="sideAllLists" style="display:none;" >
+		<div class="sideListPad">
+			<div class="row ">
+				<div class="col-12 text-right">
+					<button  type="button" class="btn btn-link img-fluid" onclick="closeEditAllListsSm()">
+						<span id="closeEditAllLists"><i class="fas fa-times"></i></span>
+					</button>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-9">
+					<h3>All lists</h3>
+				</div>
+				<div class="col-3 text-right">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+		    			Save
+		    		</button>
+		    	</div>
+		   	</div>
+		   	<hr>
+			
+		<!-- All lists body -->
+			<ul id="editAllListBody-sm">	
+				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
+					<form:hidden id="listIdHidden" path="listId" value=""/>
+					<c:forEach var="list" items="${lists}" varStatus="loop">
+						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
+						<li>					
+		   					<div class="row">
+		   						<div class="col-2 btnListDelete">
+	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   							</div>
+		   						<div class="col-10">
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   						</div>
+		   					</div>							
+						</li>
+					</c:forEach>
+				</form:form>	
+			</ul>
+		</div>							
+		</div>
+		<!-- End of Edit All lists -->
+		<!-- End of for small screen -->
+		
+		<!-- for big screen -->
+		<div id="allListsDiv" class="col-sm-4 d-none d-sm-block" style="border-right:1px solid #cccccc;">
 		<!-- Show All lists -->
 		<!-- All lists header-->		
 		<div id="showAllLists">
@@ -100,6 +202,7 @@
 			</ul>							
 		</div>
 		<!-- End of Edit All lists -->
+		<!-- End of for big screen -->
 		</div>
 		<!-- *****************************************************************************************************column change -->
 		<!-- Show item list  -->
@@ -110,7 +213,7 @@
 				<div id="myDIV" class="listHeader">
 					<div class="row">
 						<div class="col-1 d-block d-sm-none">
-		      				<span onclick=""  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
+		      				<span onclick="openAllLists()"  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
 						</div>
 						<div class="col-7">
 							<h3>${selectedList.listTitle}</h3>
