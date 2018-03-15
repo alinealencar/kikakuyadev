@@ -278,10 +278,14 @@
 		</div>
 		</c:when>
 				<c:otherwise>
-					<br><br><br>
-					<div class="text-center">
-						<h4>&nbsp;&nbsp;&nbsp;${noListMessage}</h4>
+				<div class="row">
+					<div class="col-12 text-center">
+						<h4>${noListMessage}</h4>
 					</div>
+					<div class="col-12 text-center">
+						<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+					</div>
+				</div>
 				</c:otherwise>
 			</c:choose>
 
