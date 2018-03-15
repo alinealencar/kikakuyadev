@@ -45,8 +45,9 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 
 	@Override
-	public List<Appointment> findAppointmentsByMonth(int month, int year) throws SQLException {
-		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'";
+	public List<Appointment> findAppointmentsByMonth(int month, int year, int userId) throws SQLException {
+		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'" +
+						" and useruserId=" + userId;
 		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

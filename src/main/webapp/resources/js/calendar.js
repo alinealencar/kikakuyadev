@@ -3,10 +3,7 @@ function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
 
-$('#year, #month').change(function() {
-
-	console.log("function was called");
-	
+$('#year, #month').change(function() {	
   if ($('#year').val().length > 0 && $('#month').val().length > 0) {
     $('#day').prop('disabled', false);
     $('#day').find('option').remove();
@@ -23,14 +20,30 @@ $('#year, #month').change(function() {
 
 });
 
-/** CALENDAR NAVIGATION**/ 
+/** ADD APPOINTMENT **/
 
-$(document).ready(function(){
-	//load calendar when page is opened for the first time
-	calendarNav("loadMonth");
-});
+function addAppt(){
+	console.log("clicked in add appt");
+	console.log($("#appt").serialize());
+		console.log("inside ajax");
+        $.post({
+             url: 'addAppt',
+             data:$("#appt").serialize(),
+             success: function(response) {
+            	 if(response.indexOf("Error") != -1)
+            		 $("#addSuccess").html(response);
+            	 else
+            		 $("#addError").html(response);
+             }
+         });
+}
+
+/** SHOW APPOINTMENT **/
 
 function showAppt(id){
+	$("#addAppt").hide();
+	$("#editAppt").hide();
+	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
 		type: "POST",
@@ -43,7 +56,54 @@ function showAppt(id){
 		$("#apptLocation").html(response.location);
 		$("#apptNotes").html(response.notes);
 	});
+	
+	//Set the apptId as the id of the element that shows the appt
+	$(".editAppt").attr("id", id);
+	
+	//Show appt 
+	$("#showAppt").show();
 }
+
+/** EDIT APPOINTMENT **/
+function openEditAppt(id){
+	$("#showAppt").hide();
+	
+	//Send AJAX request with the id of the selected appointment
+	$.ajax({
+		type: "POST",
+		url: "showAppt",
+		data: {apptId: id}
+	}).done(function(response){
+		$("#title").val(response.title);
+		$("#day").val(response.day);
+		$("#month").val(getMonthInt(response.month));
+		$("#year").val(response.year);
+		$("#hour").val(response.hour);
+		$("#minute").val(response.minute);
+		$("#ampm").val((response.ampm).toUpperCase());
+		$("#location").val(response.location);
+		$("input[name='color']").removeAttr('checked');
+		$("input[name='color'][value='" + response.color + "']").prop('checked', true);
+		$("#color").val(response.color);
+		$("#notes").val(response.notes);
+		console.log(response.color);
+	});
+	
+	
+	$("#addAppt").show();
+}
+
+/** CALENDAR NAVIGATION**/ 
+
+$(document).ready(function(){
+	$("#curYear").html(new Date().getFullYear());
+	$("#curMonth").html(getMonthName(new Date().getMonth()));
+	//load calendar when page is opened for the first time
+	calendarNav("loadMonth");
+	
+	for(var i = 1; i <= 31; i++)
+		$('<option>').val(i).text(i).appendTo('#day');
+});
 
 function calendarNav(actionName){
 	//Send AJAX request to navigate the calendar and show the appointments
@@ -128,4 +188,21 @@ function calendarNav(actionName){
 function getMonthInt(monthStr){
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	return months.indexOf(monthStr) + 1;
+}
+
+function getMonthName(monthInt){
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	return months[monthInt];
+}
+
+function showAddAppt(){
+	$("#showAppt").hide();
+	$("#editAppt").hide();
+	$("#addAppt").show();
+}
+
+function showEditAppt(){
+	$("#showAppt").hide();
+	$("#editAppt").show();
+	
 }
