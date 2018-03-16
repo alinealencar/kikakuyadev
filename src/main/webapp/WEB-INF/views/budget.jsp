@@ -201,11 +201,11 @@
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onclick="return validateBudget();">
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onsubmit="return validateBudget();">
 				<div class="form-group">
-      				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
+      				<form:select class="category form-control ui-select category" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
-	        			<option value="--- Select Category ---" selected>--- Select Category ---</option>
+	        			<option value="" selected>--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -261,7 +261,6 @@
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
 		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
-		   						
 		   					</div>
 
 		   			</div>
@@ -279,7 +278,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="submit" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -287,7 +286,7 @@
 			</form:form>
 			
 			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor">
+				<form:form action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();">
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>

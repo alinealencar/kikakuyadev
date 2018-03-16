@@ -11,7 +11,7 @@
 	<h2>Search Vendors</h2>
 	<form action="search" method="post" onsubmit="return validateSearch();">
 		<div class="form-group row" style="margin-top: 50px;">		
-			<div class="col-sm-5 text-center">			
+			<div class="col-sm-5 text-center">		
 				<div>
 					<input type="text" class="category form-control" oninput="validateCategory()" name="category" placeholder="Category" class="col-12">
 					<span id="categoryError" class="formError"></span>

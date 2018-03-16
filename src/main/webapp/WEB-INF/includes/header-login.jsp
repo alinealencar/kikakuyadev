@@ -50,6 +50,7 @@
 
 					<div id="SignUp" class="col-sm-6">
 						<h1 style="margin-top: 10px;">Sign Up</h1>
+							<span id="formError" class="formError"></span>
 						<form:form action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
 							<label for="userName" class="sr-only">Name: </label>
 							<a href="#" data-toggle="tooltip" data-placement="left" title="We recommend to input your full name here.">
