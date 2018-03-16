@@ -23,7 +23,7 @@
 			</div>
 		</div>
 	</div>
-<!-- SHOWING THE EVENTS -->
+	<!-- SHOWING THE EVENTS -->
 	<div class="tile row" id="showEventList" >
 		<c:forEach items="${listEvent}" var="event">
 			<div class="col-sm-4">

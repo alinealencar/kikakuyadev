@@ -47,7 +47,7 @@ public class EventController {
 			else {
 				//if user not found in session, redirect them to the login page
 				model.addAttribute("user", new User());
-				redirectTo = "index";
+				redirectTo = "redirect:/logout";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -121,16 +121,16 @@ public class EventController {
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
 				request.setAttribute("deleteEvent", "Successfuly deleted!");
-		} 
-		else {
-			System.out.println("Delete unsuccessful");
+			} 
+			else {
+				System.out.println("Delete unsuccessful");
 			}
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
 		
-		viewEvent (request, model);
+		//viewEvent (request, model);
 		return "redirect:/list";
 	}
 	

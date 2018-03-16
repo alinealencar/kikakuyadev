@@ -22,9 +22,6 @@
    			<!-- Loading gif -->			
 			<img id="loading" src="resources/images/calendar/loading.gif"/>
 			
-			<!-- Calendar -->
-			<div id="showCalendar" style="display:none;">
-			
 			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 			<span id="curYear"></span>
 			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
@@ -33,6 +30,8 @@
 			<span id="curMonth"></span>
 			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
 			
+			<!-- Calendar -->
+			<div id="showCalendar" style="display:none;">
 			<table id="calendar" class="table table-bordered">
 				<thead>
 					<tr>
