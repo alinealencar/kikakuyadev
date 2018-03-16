@@ -89,7 +89,7 @@
 		   	</div>
 		   	<hr>
 			
-		<!-- All lists body -->
+		<!-- All lists body **********************************-->
 			<ul id="editAllListBody-sm">	
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<form:hidden id="listIdHidden" path="listId" value=""/>
