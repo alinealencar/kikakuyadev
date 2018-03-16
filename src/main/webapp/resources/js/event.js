@@ -18,7 +18,7 @@ function validateEventForm(){
 /** Validate event name**/
 
 function validateEventName(){
-	var eventName = document.getElementsByClassName("eventName")[0].value;
+	var eventName = document.getElementsByClassName("eventName").value;
 	if (eventName == ""){
 		document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i> Please enter an event name";
 		validEventName = false;
@@ -30,7 +30,7 @@ function validateEventName(){
 }
 
 function validateLocation(){
-	var location = document.getElementsByClassName("location")[0].value;
+	var location = document.getElementsByClassName("location").value;
 	if (location == ""){
 		document.getElementById("locationError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
 		validLocation = false;
@@ -43,10 +43,11 @@ function validateLocation(){
 
 function validateDate(){
 	var today = new Date();
-	var eventDate = new Date(document.getElementsByClassName("eventDate")[0].value);
+	var eventDate = new Date(document.getElementsByClassName("eventDate").value);
 	
 	if (eventDate.value == ""){
 		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+		console.log("yes!");
 		validDate = false;
 	}
 	else if(eventDate < today){
@@ -61,24 +62,24 @@ function validateDate(){
 
 
 /** EVENT PAGE SHOW AND HIDE **/
-//function showList(){
-//	document.getElementById("showEventList").style.display = 'inline-block';
-//	document.getElementById("showAddForm").style.display = 'none';
-//	document.getElementById("editEvent").style.display = 'none';
-//}
+
+function closeAddForm(){
+	document.getElementById("showEventList").style.display= 'inline-block';
+	document.getElementById("showAddForm").style.display = 'none';
+}
 
 function showForm(){
 	document.getElementById("showEventList").style.display = 'none';
 	document.getElementById("showAddForm").style.display = 'inline-block';
 	document.getElementById("editEvent").style.display = 'none';
-	document.getElementById("noEventMsg").style.display = 'none';
+	document.getElementById("noEvent").style.display = 'none';
 }
 
 function showEditEvent(){
-//	document.getElementById("showEventList").style.display = 'none';
-//	document.getElementById("showAddForm").style.display = 'none';
-//	//document.getElementById("editEvent").style.display = 'inline-block';
-	$('editEvent').modal();
+	document.getElementById("showEventList").style.display = 'none';
+	document.getElementById("showAddForm").style.display = 'none';
+	document.getElementById("editEvent").style.display = 'inline-block';
+	//$('editEvent').modal();
 	$('editButton').submit();
 	
 }

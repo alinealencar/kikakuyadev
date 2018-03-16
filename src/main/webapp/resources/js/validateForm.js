@@ -15,11 +15,10 @@ function validateSignUpForm(){
 		form.submit();
 		form.reset();
 	}
-	else {
+	else if ((name == "") || (email === "") || (password === "") || (passwordConfirm === "")) {
+		document.getElementById("formError").innerHTML = "<i class='fas fa-times'></i>  Please fill in missing fields";
 		return false;
 	}
-	
-	return true;
 }
 	
 /** Validate name */

@@ -36,7 +36,7 @@
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
-					<h5>2. Reply Due</h5>
+					<h5>2. Reply Due <span style="font-size:22px;color:red">*</span></h5>
 				</div>		
   				<label for="replyDue" class="sr-only col-2 col-form-label">Reply Due</label>
   				<div class="col-sm-8">
@@ -99,7 +99,7 @@
 		
 			<div  class="form-group row">
 				<div class="col-sm-4">
-					<h5>2. Subject of the message</h5>
+					<h5>2. Subject of the message <span style="font-size:22px;color:red">*</span></h5>
 				</div>
   				<label for="subject" class="sr-only col-2 col-form-label">Subject</label>
   				<div class="col-sm-8">
@@ -161,7 +161,7 @@
   			
   			<div  class="form-group row">
   				<div class="col-sm-4">
-					<h5>4. Compose message</h5>
+					<h5>4. Compose message <span style="font-size:22px;color:red">*</span></h5>
 				</div>
 				<div class="col-sm-8">
 					<h5><label for="message" class="sr-only">Compose message</label></h5>				

@@ -6,10 +6,10 @@ h4{
 	margin-top: 10px;
 	float:right;
 }	
-*/
+
 hr{
 	border-width: 5px;
-}
+}*/
 
 .addEventBtn{
 	font-size:42px; 
@@ -71,8 +71,6 @@ hr{
 }*/
 
 .noEvent{
-	border: solid;
-	border-radius: 15px;
 	height: 50%;
 	text-align: center;
 	margin-top: 50px;
@@ -80,4 +78,11 @@ hr{
 
 .close:focus{
 	outline: 0;
+}
+
+.notFoundEvent:focus{
+	outline: 0;
+}
+.notFoundEvent{
+	cursor: context-menu;
 }

@@ -9,6 +9,8 @@ function validateBroadcastMsg(){
 		form.reset();
 	}
 	else{
+		document.getElementById("titleError").innerHTML = "<i class='fas fa-times'></i> Please enter a subject of the message";
+		document.getElementById("messageError").innerHTML = "<i class='fas fa-times'></i> Please enter a message";
 		return false;
 	}
 	return true;
