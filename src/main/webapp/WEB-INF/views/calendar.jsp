@@ -12,17 +12,26 @@
 <div class="container">
 	<!-- body contents start -->
 	<div class="row">
-		<!-- Calendar -->
+		<!-- Left -->
 		<div class="col-sm-9">
+			<!-- Add new appointment circle button-->
+			<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
+      			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   			</button>  		
+   			
+   			<!-- Loading gif -->			
+			<img id="loading" src="resources/images/calendar/loading.gif"/>
 			
 			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curYear">2018</span>
+			<span id="curYear"></span>
 			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
 			<br>
 			<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curMonth">November</span>
+			<span id="curMonth"></span>
 			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
 			
+			<!-- Calendar -->
+			<div id="showCalendar" style="display:none;">
 			<table id="calendar" class="table table-bordered">
 				<thead>
 					<tr>
@@ -39,22 +48,25 @@
 				
 				</tbody>
 			</table>
+			</div>
 		</div>
 		
-		<!-- Right side -->
+		<!-- Right -->
 		<div class="col-sm-3">
-			<!-- Add appointment -->
-			<div id="addAppt">
-				<c:if test="${not empty addApptSuccess}">
-					<div class="successAlert">${addApptSuccess}</div>
-				</c:if>
+			<div class="successAlert" style="display:none;"></div>
+			<div class="errorAlert" style="display:none;"></div>
+			<!-- Add and Edit appointment (Same form) -->
+			<div id="addAppt" style="display:none;">
+				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
+					<form:hidden path="apptId"/>
 					<label>Title*: </label>
 					<form:input path="title" type="text" class="item form-control"/>
 					
 					<label>Date*: </label>
 					<form:select id="day" class="form-control" path="day" disabled="disabled">
 	        			<option value="" disabled="disabled" selected="true">Day</option>
+	        			
       				</form:select>
 					<form:select id="month" class="form-control" path="month">
 	        			<option value="" disabled="disabled" selected="true">Month</option>
@@ -81,15 +93,15 @@
 					<label>Time*: </label>
 					<form:select id="hour" class="form-control" path="hour">
 						<option value="" disabled="disabled" selected="true">hh</option>
-						<option value="1">1</option>
-						<option value="2">2</option>
-						<option value="3">3</option>
-						<option value="4">4</option>
-						<option value="5">5</option>
-						<option value="6">6</option>
-						<option value="7">7</option>
-						<option value="8">8</option>
-						<option value="9">9</option>
+						<option value="1">01</option>
+						<option value="2">02</option>
+						<option value="3">03</option>
+						<option value="4">04</option>
+						<option value="5">05</option>
+						<option value="6">06</option>
+						<option value="7">07</option>
+						<option value="8">08</option>
+						<option value="9">09</option>
 						<option value="10">10</option>
 						<option value="11">11</option>
 						<option value="12">12</option>
@@ -97,8 +109,8 @@
 					<span>:</span>
 					<form:select id="minute" class="form-control" path="minute">
 						<option value="" disabled="disabled" selected="true">mm</option>
-						<option value="00">00</option>
-						<option value="05">05</option>
+						<option value="0">00</option>
+						<option value="5">05</option>
 						<option value="10">10</option>
 						<option value="15">15</option>
 						<option value="20">20</option>
@@ -145,26 +157,33 @@
 					<label>Notes:</label>
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
 					
-					<input type="submit" value="Add"/>
+					<input id="btnCancel" type="button" value="Cancel" onclick=""/>
+					<input id="btnAddAppt" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
+					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');"/>
 				</form:form>
 			</div>
 			
 			<!-- Show appointment -->
-			<div id="showAppt">
+			<div id="showAppt" style="display:none;">
 				<div id="bannerColor"></div>
+				<span class="editAppt" onclick="deleteAppt(this.id)"><i class="far fa-trash-alt"></i></span>
+				<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
+				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<div id="apptDetails">
+					<div id="apptColor" style="height: 30px"></div>
 					<span id="apptTitle"></span>
+					<br>
 					<span id="apptDate"></span>
+					<br>
 					<span>@</span>
+					<br>
 					<span id="apptTime"></span>
+					<br>
 					<span id="apptLocation"></span>
+					<br>
 					<span>Notes:</span>
 					<span id="apptNotes"></span>
 				</div>
-			</div>
-			
-			<!-- Edit appointment -->
-			<div id="editAppt">
 			</div>
 		</div>
 	</div>

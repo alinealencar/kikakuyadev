@@ -45,8 +45,9 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 
 	@Override
-	public List<Appointment> findAppointmentsByMonth(int month, int year) throws SQLException {
-		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'";
+	public List<Appointment> findAppointmentsByMonth(int month, int year, int userId) throws SQLException {
+		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'" +
+						" and useruserId=" + userId;
 		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
@@ -85,6 +86,28 @@ public class AppointmentDaoImpl implements AppointmentDao {
 			appt.setColor(rs.getString(7));
 		}
 		return appt;
+	}
+
+	@Override
+	public boolean updateAppointment(Appointment appt) throws SQLException, ParseException {
+		String query = "update appointment set apptTitle='" + appt.getTitle() +
+				"', apptDateTime='" + appt.getApptDateTime() +
+				"', apptNotes='" + appt.getNotes() + 
+				"', location='" + appt.getLocation() + 
+				"', color='" + appt.getColor() +
+				"' where apptId=" + appt.getApptId();
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		return(rowsAffected > 0);
+	}
+
+	@Override
+	public boolean deleteAppointment(int apptId) throws SQLException {
+		String query = "DELETE FROM appointment WHERE apptId=" + apptId;
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
 	}
 
 }

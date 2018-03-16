@@ -222,7 +222,7 @@
 						<form:form action="deleteGuest" method="post" class="text-center">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
 							<button type="submit" class="btn btn-info" style="background-color: #D90368; color: #F1E9DA; border: none;">
-      							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guests</span>
+      							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guest</span>
    							</button>
 						</form:form>
 					</div>
@@ -333,13 +333,13 @@
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest" onsubmit="return validateEventForm();">
-				<label>First Name: </label>
-				<form:input path="firstName" class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;"/>				
+				<label>First Name<span style="font-size:22px;color:red">*</span>: </label>
+				<form:input path="firstName" class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>				
 					<span id="fNameError" class="formError"></span> <br/>
-				<label>Last Name: </label>
-				<form:input path="lastName" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
+				<label>Last Name<span style="font-size:22px;color:red">*</span>: </label>
+				<form:input path="lastName" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>
 					<span id="lNameError" class="formError"></span> <br/>
-				<label>Email: </label>
+				<label>Email<span style="font-size:22px;color:red">*</span>: </label>
 				<form:input path="email" class="email form-control" oninput="validateEmail()" style="margin-bottom:10px;"/>
 					<!--span id="emailError" class="formError"></span--> <br/>
 				<label>

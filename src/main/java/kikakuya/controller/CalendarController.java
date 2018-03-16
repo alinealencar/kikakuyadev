@@ -34,41 +34,40 @@ public class CalendarController {
 	
 	@RequestMapping(value="/calendar", method = RequestMethod.GET)
 	public String viewAddEvent(Model model, HttpServletRequest request){
-		//model.addAttribute("event", new Event());
 		model.addAttribute("appt", new Appointment());
 		return "calendar";
 	}
 	
 	@RequestMapping(value="/addAppt", method = RequestMethod.POST)
-	public String addAppt(Model model, HttpSession session, RedirectAttributes redirectAtt, @ModelAttribute("appt") Appointment appt){
+	@ResponseBody
+	public String addAppt(HttpSession session, @ModelAttribute("appt") Appointment appt){
 		boolean apptAdded;
+		String message ="";
 		try {
 			User user = (User) session.getAttribute("user");
 			appt.setUserId(user.getUserId());
 			
 			apptAdded = calendarDelegate.addAppt(appt);
 			
-			if(apptAdded) {
-				//TODO Show success/error message for add appt
-				redirectAtt.addFlashAttribute("addApptSuccess", "Appointment added");
-				System.out.println("Appt added");
-			}
-			else {
-				redirectAtt.addFlashAttribute("addApptError", "The appointment was not added.");
-				System.out.println("Add appt error");
-			}
+			if(apptAdded)
+				message = "Appointment was added!";
+			else
+				message = "Error! The appointment was not added!";
 		} catch (SQLException | ParseException e) {
 			e.printStackTrace();
+			message = "Error! The appointment was not added!";
 		}
 
-		return "redirect:/calendar";
+		return message;
 	}
 	
 	@RequestMapping(value = "/calendarNav", method = RequestMethod.POST)
 	@ResponseBody
-	public MonthPresentation Submit(ModelMap model, HttpServletRequest request, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
+	public MonthPresentation Submit(HttpSession session, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
+		//Get user Id from the session
+		User user = (User) session.getAttribute("user");
+		
 		MonthPresentation monthPresentation = new MonthPresentation();
-		System.out.println("Month from the form: " + month);
 		Calendar monthCal = Calendar.getInstance();
 		if(action.equals("loadMonth")){
 			monthCal = HelperUtilities.getLoadMonth(month, year);
@@ -97,7 +96,7 @@ public class CalendarController {
 		monthPresentation.setNumOfDays(HelperUtilities.getNumOfDays(monthCal));
 		
 		try {
-			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR)));
+			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR) , user.getUserId()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -120,5 +119,45 @@ public class CalendarController {
 		}
 		
 		return appt;
+	}
+	
+	@RequestMapping(value="/editAppt", method = RequestMethod.POST)
+	@ResponseBody
+	public String editAppt(@ModelAttribute("appt") Appointment appt){
+		boolean apptEdited;
+		String message ="";
+		try {
+			apptEdited = calendarDelegate.editAppt(appt);
+		
+			if(apptEdited)
+				message = "Appointment was updated!";
+			else
+				message = "Error! The appointment was not updated!";
+		} catch (SQLException | ParseException e) {
+			e.printStackTrace();
+			message = "Error! The appointment was not updated!";
+		}
+
+		return message;
+	}
+	
+	@RequestMapping(value="/deleteAppt", method = RequestMethod.POST)
+	@ResponseBody
+	public String deleteAppt(@RequestParam("apptId") int apptId){
+		boolean apptDeleted;
+		String message ="";
+		try {
+			apptDeleted = calendarDelegate.deleteAppt(apptId);
+		
+			if(apptDeleted)
+				message = "Appointment was deleted!";
+			else
+				message = "Error! The appointment was not deleted!";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			message = "Error! The appointment was not deleted!";
+		}
+
+		return message;
 	}
 }

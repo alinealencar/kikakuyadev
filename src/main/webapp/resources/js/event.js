@@ -71,12 +71,15 @@ function showForm(){
 	document.getElementById("showEventList").style.display = 'none';
 	document.getElementById("showAddForm").style.display = 'inline-block';
 	document.getElementById("editEvent").style.display = 'none';
-	document.getElementById("alertMsg").style.display = 'none';
+	document.getElementById("noEventMsg").style.display = 'none';
 }
 
-function editEvent(){
-	document.getElementById("showEventList").style.display = 'none';
-	document.getElementById("showAddForm").style.display = 'none';
-	document.getElementById("editEvent").style.display = 'inline-block';
+function showEditEvent(){
+//	document.getElementById("showEventList").style.display = 'none';
+//	document.getElementById("showAddForm").style.display = 'none';
+//	//document.getElementById("editEvent").style.display = 'inline-block';
+	$('editEvent').modal();
+	$('editButton').submit();
+	
 }
 	
