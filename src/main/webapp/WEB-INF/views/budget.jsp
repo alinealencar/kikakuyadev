@@ -194,7 +194,7 @@
 			</div>
 			</div>
 		</div>
-		<div class="col-sm-4">
+		<div class="col-sm-4 d-none d-md-block">
 			<!-- vendor details  -->			
 			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
