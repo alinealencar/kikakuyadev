@@ -26,9 +26,14 @@
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
-				<div class="col-12">
-				<h2>Budget: <b>$${event.totalBudget}</b></h2>
-				</div>
+					<div class="col-9 col-sm-12" style="padding-top:15px;">
+						<h2>Budget: <b>$${event.totalBudget}</b></h2>
+					</div>	
+					<div class="col-3 d-block d-sm-none">					
+					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
+	      				<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+	   				</button>
+					</div>
 				</div>
 				<hr>
 				<c:set var="cat" value="1" scope="page" />
