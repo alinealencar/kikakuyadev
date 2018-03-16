@@ -172,7 +172,6 @@ public class CommunicationServiceImpl implements CommunicationService{
 	public void sendBroadcast(Email email, List<Guest> guestList)  {
 		//String subject = "Kikakuya - Event Announcement";
 		String from = "kikakuyadev@gmail.com"; //add email address
-		String[] to = {"mavillacete@gmail.com"};//add recipient
 		
 		//email account information
 		final String username = "kikakuyadev@gmail.com";
@@ -187,7 +186,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 		     
 		     String message = "<div style=\"width: 75%; margin: 0 auto;\">"
 			     		+ "<div style=\"background-color: #541388; padding: 15px;\"><img src=\"cid:logo.png\"></img></div>"
-			     		+"<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\"><pre><font face=\"verdana\" size=\"2\">"+email.getMessage()+"</font></pre></div>"
+			     		+"<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\"><pre><font face=\"verdana\" size=\"3\">"+email.getMessage()+"</font></pre></div>"
 			     		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 			     		+ "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
 			     		+ "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a><br></h4></div></div>";

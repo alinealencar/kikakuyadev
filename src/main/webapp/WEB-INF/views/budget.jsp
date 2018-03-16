@@ -204,11 +204,11 @@
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onclick="return validateBudget();">
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
       				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
-	        			<option value="--- Select Category ---" selected>--- Select Category ---</option>
+	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -233,7 +233,7 @@
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
       				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
-	        			<option value="" selected>--- Vendor ---</option>
+	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
@@ -266,7 +266,6 @@
 		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
 		   						
 		   					</div>
-
 		   			</div>
 		   			</c:forEach>
 		   				<span id="itemError" class="formError"></span>
@@ -290,7 +289,7 @@
 			</form:form>
 			
 			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor">
+				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>
@@ -324,7 +323,6 @@ $(document).ready(function(){
 	var valueFromSS = sessionStorage.getItem("selectedCategory");
 	$(".category option[value='" + valueFromSS + "']").prop("selected",true);
 });
-
 /***get selected category and store in SessionStorage***/
 $(document).ready(function(){
 	$('.category').change(function(){
@@ -332,7 +330,6 @@ $(document).ready(function(){
 		sessionStorage.setItem("selectedCategory",selectedCategory);
 	});
 });
-
 /***If true, select vendor. If false, select first option***/
 $(document).ready(function(){
 	var flag = sessionStorage.getItem("flag");
@@ -342,7 +339,6 @@ $(document).ready(function(){
 	}
 	
 });
-
 /***Clear SessionStorage on submit***/
 $(document).ready(function(){
 	$("#addBudget").click(function () {
@@ -352,24 +348,21 @@ $(document).ready(function(){
 		$("#vendor option[value='']").prop("selected",true);
 	});
 });
-
 /***Check if SessionStorage contains flag***/
 $(document).ready(function(){
 	$('#btnEnterVendor').click(function(){
 		sessionStorage.setItem("flag","true");
 	});
 });
-
 /***Show item and price textboxes***/
 $(document).ready(function(){
 	var counter = 1;
 	$("#btnAddItemPrice").click(function () {
-		$('#txtItem').append('<input type="text" class="item form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
-		$('#txtPrice').append('<input type="text" class="price form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
+		$('#txtItem').append('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
+		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
 		counter++;
 	});
 });
-
 /***Remove item and price textboxes***/
 $(document).ready(function(){
 	$('#btnRemoveItemPrice').click(function(){
@@ -379,7 +372,6 @@ $(document).ready(function(){
 			$('#txtPrice :last-child').remove();
 	});
 });
-
 /***Hide add budget and show enter vendor form***/
 $(document).ready(function(){
 	$('.btnAddVendor').click(function(){
@@ -387,7 +379,6 @@ $(document).ready(function(){
 		$('#enterVendor').show();
 	});
 });
-
 /***Show add budget and hide enter vendor form***/
 $(document).ready(function(){
 	$('#btnCancelAddVendor').click(function(){
@@ -395,7 +386,6 @@ $(document).ready(function(){
 		$('#enterVendor').hide();
 	});
 });
-
 /***Amount Remaining color decoration ***/
 $(document).ready(function(){
 	if((calculateAmountRemaining('${event.totalBudget}', calculateTotal())) < 0){
@@ -404,6 +394,5 @@ $(document).ready(function(){
 	}
 });
 </script>
-
 <script src="resources/js/validateBudget.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

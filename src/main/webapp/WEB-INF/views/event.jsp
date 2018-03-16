@@ -6,25 +6,36 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
+
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
 		<div  class="col-sm-10">
 			<div id="alertMsg">
 				<div class="${(insertError != null) ? 'alert alert-danger' :''}" role="alert">${insertError}</div>
 				<div class="${(deleteEvent != null) ? 'alert alert-danger' :''}" role="alert">${deleteEvent}</div>
-				<div class="${(not empty noEvents) ? 'alert alert-danger' :''}" role="alert">${noEvents}</div>
+				
 			</div>
 		</div>
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
-					<i class="fas fa-plus-circle" data-toggle="modal" data-target="#showAddForm"></i>
+					<i class="fas fa-plus-circle" data-toggle="modal" data-target="#showAddForm" onclick="showList()"></i>
 				</span>
 			</div>
 		</div>
+		
 	</div>
+			<c:if test="${not empty noEvents}">
+				<div class="text-center">
+					<h5>${noEvents}</h5>
+				</div>
+				<div class="text-center">
+					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+				</div>
+			</c:if>
+	
 <!-- SHOWING THE EVENTS -->
-	<div class="tile row" id="showEventList" >
+	<div class="tile row text-center" id="showEventList" >
 		<c:forEach items="${listEvent}" var="event">
 			<div class="col-sm-4">
 				<div class="eventTile">
@@ -40,30 +51,29 @@
 							</div>
 							<div class="col-2 text-left" style="padding-left:0; padding-top:5px">
 								<span>
-									<button id="deleteBtn" type="submit" class="fas fa-edit" data-toggle="modal" data-target="#editEvent" style="color: #2E294E; margin-top:2.5px;"></button>
+								<form:form action="edit" method="POST" modelAttribute="event" id="editButton" data-toggle="modal" data-target="editEvent">
+									<form:hidden path="eventId" value="${event.eventId}"/>
+									<button id="deleteBtn" type="submit" class="fas fa-edit"  style="color: #2E294E; margin-top:2.5px;"></button>
+								</form:form>
 								</span>
+								
 							</div>
 							<br/>
 						</div>					
-						<div class="row">
-							<div class="col-1">
-							</div>
-							<div class="col-10">
-								<h4>${event.eventName} </h4>
-							</div>
-							<div class="col-1">
-							</div>
-						</div>
 					</div>
-					<hr>
+					
 					<form:form modelAttribute="event" method="GET" action="showEvent">
 					<form:hidden path="eventId" value="${event.eventId}"/>									
 					<div class="tile-content">						
 						<button class="eventButton" type="submit" class="btn btn-default">
-							<div class="col-12">
+							<div class="col-10">
+								<h4>${event.eventName} </h4>
+							</div>
+							<hr>
+							<div class="col-10">
 								Location: ${event.location}
 							</div>
-							<div class="col-12">
+							<div class="col-10">
 								Event Date: ${event.eventDate}
 							</div>
 						</button>
@@ -130,7 +140,6 @@
 
 <!-- EDIT EVENTS FORM-->
 <div class="container-edit-modal">
-
   <!-- The Modal -->
 	<div class="modal fade" id="editEvent" style="top: 20%;">
     	<div class="modal-dialog">
@@ -143,8 +152,8 @@
 		        </div>
         
        			<!-- Modal body -->
-        		<div class="modal-body">
-    				<form:form modelAttribute="event" method="POST" action="update">
+        		<div class="modal-body" >
+    				<form:form modelAttribute="event" method="POST" action="update" >
 						<form:hidden path="eventId" value="${event.eventId}"/>
 						<div>
 							<label>Event Name: </label>

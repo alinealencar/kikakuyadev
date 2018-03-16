@@ -3,18 +3,15 @@ function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
 
-$('#year, #month').change(function() {
-
-	console.log("function was called");
-	
+$('#year, #month').change(function() {	
   if ($('#year').val().length > 0 && $('#month').val().length > 0) {
-    $('#day').prop('disabled', false);
-    $('#day').find('option').remove();
-
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
-    for (var i = 1; i <= daysInSelectedMonth; i++) {
-      $('#day').append($("<option></option>").attr("value", i).text(i));
+    for (var i = 1; i <= 31; i++) {
+    	if(i > daysInSelectedMonth)
+    		$("#day option[value='" + i + "']").remove();
+    	else if($("#day option:contains('" + i + "')").length == 0)
+    		$('#day').append($("<option></option>").attr("value", i).text(i));
     }
 
   } else {
@@ -23,27 +20,146 @@ $('#year, #month').change(function() {
 
 });
 
-/** CALENDAR NAVIGATION**/ 
+/** ADD AND EDIT APPOINTMENT **/
 
-$(document).ready(function(){
-	//load calendar when page is opened for the first time
-	calendarNav("loadMonth");
-});
+function addEditAppt(action){
+        $.post({
+             url: action,
+             data:$("#appt").serialize(),
+             success: function(response) {
+            	 
+            	 //Show appt after update
+                 if(action === "editAppt") {
+                	 var apptId = $("#apptId").val();
+                	 showAppt(apptId);
+                 }
+                 
+                 //Feedback messages
+         		showFeedbackMessages(response);	
+            	 
+            	 //Change the month and year to show the calendar with the appointment recently added
+            	 $("#curYear").html($("#year").val());
+            	 $("#curMonth").html(getMonthName($("#month").val() - 1));
+            	 
+            	//Reload calendar
+            	 calendarNav("loadMonth"); 	
+             }
+         });
+}
+
+/** SHOW APPOINTMENT **/
 
 function showAppt(id){
+	$("#addAppt").hide();
+	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
 		type: "POST",
 		url: "showAppt",
 		data: {apptId: id}
 	}).done(function(response){
+		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
-		$("#apptDate").html(response.day + "/" + getMonthInt(response.month) + "/" + response.year);
-		$("#apptTime").html(response.hour + ":" + response.minute + " " + response.ampm.toUpperCase());
+		
+		//Format date with the 0 for days and months with one digit only
+		var date = "";
+		
+		if((response.day).length < 2)
+			date += "0";
+		
+		date += response.day + "/"; 
+		
+		if(getMonthInt(response.month) < 10)
+			date += "0";
+		
+		date += getMonthInt(response.month) + "/" + response.year;
+		
+		$("#apptDate").html(date);
+		
+		//Format hour if it doesn't have 2 digits
+		var time = "";
+		if(response.hour < 10)
+			time += "0";
+		
+		time += response.hour + ":";
+		
+		if(response.minute < 10)
+			time += "0";
+		
+		time += response.minute + " " + response.ampm.toUpperCase();
+		
+		$("#apptTime").html(time);
 		$("#apptLocation").html(response.location);
 		$("#apptNotes").html(response.notes);
 	});
+	
+	//Set the apptId as the id of the element that shows the appt
+	$(".editAppt").attr("id", id);
+	
+	//Show appt 
+	$("#showAppt").show();
 }
+
+/** EDIT APPOINTMENT FORM **/
+
+function openEditAppt(id){
+	$("#showAppt").hide();
+	$("#btnAddAppt").hide();
+	$(".successAlert").hide();
+	$(".errorAlert").hide();
+	
+	//Send AJAX request with the id of the selected appointment
+	$.ajax({
+		type: "POST",
+		url: "showAppt",
+		data: {apptId: id}
+	}).done(function(response){
+		$("#apptId").val(response.apptId);
+		$("#title").val(response.title);
+		$("#day").val(response.day);
+		$("#month").val(getMonthInt(response.month));
+		$("#year").val(response.year);
+		$("#hour").val(response.hour);
+		$("#minute").val(response.minute);
+		$("#ampm").val((response.ampm).toUpperCase());
+		$("#location").val(response.location);
+		$("input[name='color']").removeAttr('checked');
+		$("input[name='color'][value='" + response.color + "']").prop('checked', true);
+		$("#color").val(response.color);
+		$("#notes").val(response.notes);
+	});
+
+	$("#addAppt").show();
+	$("#btnSaveAppt").show();
+}
+
+/** DELETE APPOINTMENT **/
+
+function deleteAppt(id){
+	$.post({
+		url: "deleteAppt",
+		data: {apptId: id}
+	}).done(function(response){
+		showFeedbackMessages(response);
+	});
+	
+	$("#showAppt").hide();
+	//Reload calendar
+	 calendarNav("loadMonth"); 
+	
+}
+
+/** CALENDAR NAVIGATION**/ 
+
+$(document).ready(function(){
+	$("#curYear").html(new Date().getFullYear());
+	$("#curMonth").html(getMonthName(new Date().getMonth()));
+	
+	calendarNav("loadMonth");
+	
+	for(var i = 1; i <= 31; i++)
+		$('<option>').val(i).text(i).appendTo('#day');
+});
 
 function calendarNav(actionName){
 	//Send AJAX request to navigate the calendar and show the appointments
@@ -122,10 +238,46 @@ function calendarNav(actionName){
 		    	else
 		    		curWeekDay++;
 		    }
-	    });
+	    	$("#loading").hide();
+	    	$("#showCalendar").show();
+	    	
+		});
 }
 
 function getMonthInt(monthStr){
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	return months.indexOf(monthStr) + 1;
 }
+
+function getMonthName(monthInt){
+	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	return months[monthInt];
+}
+
+/** HIDE AND SHOW **/
+
+function closeAppt(){
+	$("#showAppt").hide();
+	$("#addAppt").hide();
+}
+
+function openAddAppt(){
+	$("#appt")[0].reset();
+	$("#addAppt").show();
+	$("#btnSaveAppt").hide();
+}
+
+function showFeedbackMessages(response){
+	//Feedback messages
+	 if(response.indexOf("Error") == -1){
+		 $(".successAlert").html(response);
+		 $(".successAlert").show();
+		 $(".errorAlert").hide();
+	 }
+	 else {
+		 $(".errorAlert").html(response);
+		 $(".errorAlert").show();
+		 $(".successAlert").hide();
+	 }	
+}
+

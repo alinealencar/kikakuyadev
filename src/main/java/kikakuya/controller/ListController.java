@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kikakuya.delegate.ListDelegate;
 import kikakuya.model.BudgetForm;
@@ -61,7 +62,7 @@ public class ListController {
 				//show selected list by user
 				else{
 					//check if list exists (after delete)
-					if(listDelegate.checkIfListExists(selectedList.getListId())){
+					if(listDelegate.checkIfListExists(selectedList)){
 						items = listDelegate.getItems(selectedList);
 						//check if list contains items
 						if(items.size() == 0)
@@ -83,7 +84,7 @@ public class ListController {
 				request.setAttribute("lists", lists);
 			}
 			else {
-				request.setAttribute("noListMessage", "No list to display. Create one now.");
+				request.setAttribute("noListMessage", "No list to display.");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -93,21 +94,18 @@ public class ListController {
 	
 	//add a list
 	@RequestMapping(value="/addList", method = RequestMethod.POST)
-	public String processAddList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
-		String redirectTo = "lists";
+	public String processAddList(Model model, HttpServletRequest request, RedirectAttributes redirectAtt, @ModelAttribute("list") Lists list){
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		try {
 			//add new list
-			if(listDelegate.addList(list, event)){
-				redirectTo = "lists";
-			} 
+			listDelegate.addList(list, event);
 			viewLists(model,request);
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return redirectTo;
+		return "redirect:/lists";
 	
 	}
 	
@@ -136,7 +134,6 @@ public class ListController {
 	//add an item
 	@RequestMapping(value="/addItem", method = RequestMethod.POST)
 	public String processAddItem(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
-		String redirectTo = "lists";
 		//get selected list
 		Lists list = (Lists)request.getSession().getAttribute("selectedList");
 		List<Item> items = new ArrayList<>();
@@ -154,14 +151,13 @@ public class ListController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return redirectTo;
+		return "redirect:/lists";
 	
 	}
 	
 	//update item status
 	@RequestMapping(value="/updateItemStatus", method = RequestMethod.POST)
 	public String processUpdateItemStatus(Model model, HttpServletRequest request, @RequestParam("itemId") int itemId, @ModelAttribute("item") Item item){
-		String redirectTo = "lists";
 		//get selected list
 		Lists list = (Lists)request.getSession().getAttribute("selectedList");
 		List<Item> items = new ArrayList<>();
@@ -180,32 +176,34 @@ public class ListController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return redirectTo;
+		return "redirect:/lists";
 		
 	}
 	
 	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
 	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
-		String redirectTo = "lists";
+		HttpSession session = request.getSession();
+		Lists firstList = new Lists();
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
-				System.out.println(list.getListsList().get(i).getListId() + ", ");
 				listDelegate.editList(list.getListsList().get(i));
 			}
+			firstList = list.getListsList().get(0);
+			session.setAttribute("selectedList", firstList);
 			viewLists(model,request);
+			
 		}
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return redirectTo;
+		return "redirect:/lists";	
 	}
 	
 	//edit item
 	@RequestMapping(value="/editItem", method = RequestMethod.POST)
 	public String processEditItem(Model model, HttpServletRequest request, @ModelAttribute("item") Item item){
-		String redirectTo = "lists";
 		try{
 			//Update list items
 			if(item.getItemsList() != null && item.getItemsList().size() > 0){
@@ -218,32 +216,21 @@ public class ListController {
 		catch(Exception e){
 			e.printStackTrace();
 		}
-		return redirectTo;
+		return "redirect:/lists";
 	}
 	
 	@RequestMapping(value="/deleteList", method = RequestMethod.POST)
 	public String deleteList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
-		//HttpSession session = request.getSession();
-		//Event event = (Event) request.getSession().getAttribute("event");
-		//List<Lists> lists = new ArrayList<Lists>();
-		//List<Item> items = new ArrayList<>();
-		//Lists firstList = new Lists();
+		System.out.println("delete list");
 		try {
 			//delete a list
 			System.out.println("List id: " + list.getListId());
 			listDelegate.deleteList(list.getListId());
-			//get all lists
-			//lists = listDelegate.getLists(event);
-			//firstList = lists.get(0);
-			//show items of first list
-			//items = listDelegate.getItems(firstList);
-			//request.setAttribute("selectedList", firstList);
-			//request.setAttribute("items", items);
 			viewLists(model,request);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "lists";
+		return "redirect:/lists";
 	}
 	
 	@RequestMapping(value="/deleteItem", method = RequestMethod.POST)
@@ -255,6 +242,6 @@ public class ListController {
 		} catch(SQLException e) {
 			e.printStackTrace();
 		}
-		return "lists";
+		return "redirect:/lists";
 	}
 }

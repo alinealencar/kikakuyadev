@@ -6,10 +6,10 @@ h4{
 	margin-top: 10px;
 	float:right;
 }	
-*/
+
 hr{
 	border-width: 5px;
-}
+}*/
 
 .addEventBtn{
 	font-size:42px; 
@@ -24,10 +24,11 @@ hr{
 	margin-left: 2%;
 	margin-top: 15%;
 	background-color: #00bfa5;
-	margin-top: 15%;*/
-	padding-bottom: 5px;
-	margin-bottom: 15px;
-	background-color: #00bfa5;
+	margin-top: 15%;
+	padding-bottom: 5px;*/
+	margin-bottom: 5px;
+	background-color: rgba(182, 249, 229, 15);
+	border: solid #00bfa5;
 }
 
 
@@ -44,13 +45,44 @@ hr{
   border: none;
   color: #2E294E;
   text-align: left;
-  transition: all 0.5s;
+  /**transition: all 0.5s;**/
   cursor: pointer;
-  margin-top: 0px;
-  width: 325px;
+  /**margin-top: 0px;**/
+  margin-top: none;
+  width: 340px;
+  height: 130px;
 }
 
 .eventButton:focus {
 	outline:0;
 }
 
+.col-8{
+	height: 30px;
+}
+.col-2{
+	height: 30px;
+}
+/*.col-sm-4{
+	position: absolute;
+	top: 40%;
+	left: 50%;
+	transform: translate( -120%, 50%);
+}*/
+
+.noEvent{
+	height: 50%;
+	text-align: center;
+	margin-top: 50px;
+}
+
+.close:focus{
+	outline: 0;
+}
+
+.notFoundEvent:focus{
+	outline: 0;
+}
+.notFoundEvent{
+	cursor: context-menu;
+}

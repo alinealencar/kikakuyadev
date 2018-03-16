@@ -28,6 +28,7 @@ function closeEditAllLists(){
 }
 
 /***** delete button *****/
+//delete list (big)
 function deleteList(listId){
 	var result = confirm("Are you sure you want to delete this list?");
 	if (result){
@@ -37,6 +38,17 @@ function deleteList(listId){
 	}
 }
 
+//delete list (small)
+function deleteListSM(listId){
+	var result = confirm("Are you sure you want to delete this list?");
+	if (result){
+		$('#listIdHidden-sm').val(listId);
+		
+		$("#formEditList-sm").attr("action", "deleteList");
+	}
+}
+
+//delete item
 function deleteItem(itemId){
 	$('#itemIdHidden').val(itemId);
 		
@@ -44,14 +56,21 @@ function deleteItem(itemId){
 }
 
 /***** save after edit *****/
-//submit edit all lists form
+//submit edit all lists form (big)
 $(document).ready(function(){
 	$( "#btnSaveEditList" ).click(function() {
 		$('#formEditList').submit();
 	});
 });
 
-//submit edit items form
+//submit edit all lists form (small)
+$(document).ready(function(){
+	$( "#btnSaveEditList-sm" ).click(function() {
+		$('#formEditList-sm').submit();
+	});
+});
+
+//submit edit items form 
 $(document).ready(function(){
 	$( "#btnSaveEditItem" ).click(function() {
 		$('#formEditItem').submit();

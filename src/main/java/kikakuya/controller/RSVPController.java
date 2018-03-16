@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
@@ -54,10 +55,10 @@ public class RSVPController {
 	}
 	
 	@RequestMapping(value="/rsvp", method = RequestMethod.POST)
-	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, 
+	public String processSendRSVP(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAtt,
 			@ModelAttribute("email") Email email){
 		
-		String redirectTo = "sendMessage";
+		//String redirectTo = "sendMessage";
 		int noReply = 1;
 		User user = (User) request.getSession().getAttribute("user");
 		
@@ -72,13 +73,13 @@ public class RSVPController {
 				if(guestList.size() > 0){
 					if(rsvpDelegate.insertEmail(email, event)){
 						rsvpDelegate.sendRSVP(email, user, event, guestList);
-						request.setAttribute("sendRSVPSuccess", "RSVPs have been successfully sent.");
-						redirectTo = "sendMessage";
+						redirectAtt.addFlashAttribute("sendRSVPSuccess", "RSVPs have been successfully sent.");
+						//redirectTo = "sendMessage";
 					}
 				}
 				else {
 					System.out.println("error in send rsvp");
-					request.setAttribute("sendRSVPError", "Error! No guests found.");
+					redirectAtt.addFlashAttribute("sendRSVPError", "Error! No guests found.");
 				}
 			}
 			else{
@@ -90,7 +91,7 @@ public class RSVPController {
 			e.printStackTrace();
 			request.setAttribute("sendRSVPError", "Error! Message sending failed.");
 		}
-		return redirectTo;	
+		return "redirect:/sendMessage";
 	}
 	
 	/*@RequestMapping(value="/resendRsvp", method = RequestMethod.POST)
@@ -156,7 +157,8 @@ public class RSVPController {
 			Email email = rsvpDelegate.findEmailByEvent(guest);
 			
 			for(int i=0; i<plusOneList.size(); i++){
-				if(plusOneList.get(i).getFullName() != null && !plusOneList.get(i).getMealChoice().equals(""))
+				System.out.println(plusOneList.get(i).getFullName() + ", ");
+				if(!plusOneList.get(i).getFullName().trim().isEmpty())
 					rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
 				else
 					continue;

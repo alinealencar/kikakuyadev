@@ -82,7 +82,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList-sm" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 		    			Save
 		    		</button>
 		    	</div>
@@ -91,14 +91,14 @@
 			
 		<!-- All lists body **********************************-->
 			<ul id="editAllListBody-sm">	
-				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
-					<form:hidden id="listIdHidden" path="listId" value=""/>
+				<form:form id="formEditList-sm" action="editList" method="post" modelAttribute="list">
+					<form:hidden id="listIdHidden-sm" path="listId" value=""/>
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
 						<li>					
 		   					<div class="row">
 		   						<div class="col-2 btnListDelete">
-	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
+	   								<button onclick="deleteListSM(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
 		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
@@ -277,17 +277,17 @@
 			</ul>
 		</div>
 		</c:when>
-				<c:otherwise>
-				<div class="row">
-					<div class="col-12 text-center">
-						<h4>${noListMessage}</h4>
-					</div>
-					<div class="col-12 text-center">
-						<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
-					</div>
+		<c:otherwise>
+		<div class="row">
+				<div class="col-12 text-center">
+					<h4>${noListMessage}</h4>
 				</div>
-				</c:otherwise>
-			</c:choose>
+			<div class="col-12 text-center">
+				<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+			</div>
+		</div>
+		</c:otherwise>
+	</c:choose>
 
 				
 		<!-- End of Show item list -->	

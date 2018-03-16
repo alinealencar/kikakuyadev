@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.model.Email;
@@ -27,10 +28,9 @@ public class MessageController {
 	private MessageDelegate messageDelegate;
 
 	@RequestMapping(value="/broadcast", method = RequestMethod.POST)
-	public String processSendBroadcast(HttpServletRequest request, HttpServletResponse response, 
+	public String processSendBroadcast(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAtt,
 			@ModelAttribute("email") Email email, Model model){
 		
-		String redirectTo = "sendMessage";
 		List<Guest> guestList = new ArrayList<Guest>();
 		
 		int statusId;
@@ -65,17 +65,17 @@ public class MessageController {
 			if(guestList.size() > 0) {
 				messageDelegate.sendBroadcast(email, guestList);
 				request.setAttribute("guests", allGuests);
-				request.setAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
+				redirectAtt.addFlashAttribute("sendBroadcastSuccess", "Success! Your message has been successfully delivered.");
 			}
 			else {
-				request.setAttribute("sendBroadcastError", "No guests found. Please add a guest first.");
+				redirectAtt.addFlashAttribute("sendBroadcastError", "No guests found. Please add a guest first.");
 			}
 			} catch (Exception e) {
 				e.printStackTrace();
-				request.setAttribute("sendBroadcastError", "Error! Message sending failed.");
+				redirectAtt.addFlashAttribute("sendBroadcastError", "Error! Message sending failed.");
 			}
 		
-		return redirectTo;
+		return "redirect:/sendMessage";
 		}
 		
 	}

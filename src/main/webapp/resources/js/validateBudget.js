@@ -10,11 +10,32 @@ var validAddress = false;
 var phoneNo = false;
 
 function validateBudget(){
+	console.log("VALIDATE SIGN UP FORM")
+	console.log("category: " + validCategory);
+	console.log("vendor: " + validVendor);
+	console.log("item: " + validItem);
+	console.log("price:" + validPrice);
 	if (validCategory && validVendor && validItem && validPrice){
 		form.submit();
 		form.reset();
 	}
 	else{
+		if (validCategory == ""){
+			document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
+			validCategory = false;
+		}
+		if (validVendor == ""){
+			document.getElementById("vendorError").innerHTML = "<i class='fas fa-times'></i>  Please select vendor";
+			validVendor = false;
+		}
+		if (validItem == ""){
+			document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+			validItem = false;
+		}
+		if(validPrice == ""){
+			document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
+			validPrice = false;
+		}
 		return false;
 	}
 	return true;
@@ -34,7 +55,7 @@ function validateAddVendor(){
 function validateCategory(){	
 	var category = document.getElementsByClassName("category")[0].value;
 	
-	if (category == "--- Select Category ---"){
+	if (category == ""){
 		document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
 		validCategory = false;
 	}
@@ -47,7 +68,7 @@ function validateCategory(){
 function validateVendor(){
 	var vendor = document.getElementsByClassName("vendor")[0].value;
 	
-	if (vendor === ""){
+	if (vendor == ""){
 		document.getElementById("vendorError").innerHTML = "<i class='fas fa-times'></i>  Please select vendor";
 		validVendor = false;
 	}
@@ -61,8 +82,7 @@ function validateItem(){
 	var item = document.getElementsByClassName("item")[0].value;
 	
 	if (item == ""){
-		document.getElementById("itemError").style.borderColor = "red";
-		//.innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+		document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
 		validItem = false;
 	}
 	else{
