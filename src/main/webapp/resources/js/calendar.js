@@ -155,8 +155,7 @@ $(document).ready(function(){
 	$("#curYear").html(new Date().getFullYear());
 	$("#curMonth").html(getMonthName(new Date().getMonth()));
 	
-	//load calendar when page is opened for the first time (delay to show gif)
-	setTimeout(function(){ calendarNav("loadMonth"); },  1000);
+	calendarNav("loadMonth");
 	
 	for(var i = 1; i <= 31; i++)
 		$('<option>').val(i).text(i).appendTo('#day');

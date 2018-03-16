@@ -52,7 +52,7 @@ public class SearchController {
 		String capitalizedLoc = HelperUtilities.capitalize(vendor.getLocation());
 		ArrayList<Vendor> vendors = new ArrayList<Vendor>();
 		
-		String redirectTo = "redirect:/searchResult";
+		String redirectTo = "searchResult";
 		
 		try {
 			//populate vendors list
