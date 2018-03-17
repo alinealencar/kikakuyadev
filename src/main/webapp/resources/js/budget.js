@@ -34,9 +34,17 @@ function deleteCategory(category) {
 	$("#budgetForm").attr("action", "deleteCategory");
 }
 //for small screen************************************
+//open add budget form slide
+function openAddBudgetForm() {
+  document.getElementById("smBudgetAddForm").style.width = "360px";
+}
 //open vendors detail slide
 function openVendorsInfo() {
   document.getElementById("smBudget").style.width = "360px";
+}
+//close add budget form slide
+function closeAddBudgetForm() {
+  document.getElementById("smBudgetAddForm").style.width = "0px";
 }
 //close vendors detail slide
 function closeVendorsInfo() {

@@ -12,7 +12,7 @@
 <script src="resources/js/list.js"></script>
 <div class="container"><!-- body contents start -->
 	<div class="row">
-		<!-- for small screen -->
+		<!-- for small screen ------------------------------------------------------------------------------>
 		<!-- Show All lists -->
 		<!-- All lists header-->		
 		<div id="showAllLists-sm" class="sideAllLists">
@@ -113,7 +113,7 @@
 		<!-- End of Edit All lists -->
 		<!-- End of for small screen -->
 		
-		<!-- for big screen -->
+		<!-- for big screen ------------------------------------------------------------------------------------------->
 		<div id="allListsDiv" class="col-sm-4 d-none d-sm-block" style="border-right:1px solid #cccccc;">
 		<!-- Show All lists -->
 		<!-- All lists header-->		

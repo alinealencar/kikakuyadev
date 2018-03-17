@@ -29,8 +29,8 @@
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
 						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$${event.totalBudget}</b></span>
 					</div>					
-					<div class="col-3 d-block d-sm-none" onclick="openVendorsInfo()">					
-					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="">
+					<div class="col-3 d-block d-sm-none" onclick="openAddBudgetForm()">					
+					<button  type="button" class="btn btn-link img-fluid" onclick="">
 	      				<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
 	   				</button>
 					</div>
@@ -39,7 +39,7 @@
 				<hr>
 				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
-					<fieldset onclick="openVendorsInfo()" id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+					<fieldset id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 	   				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc"><h3>${category.key}</h3></legend>
 	   				<c:forEach var="vendor" items="${category.value}">
 	   					<div class="row">
@@ -49,7 +49,7 @@
 				   				<!-- Get details of the vendor -->
 				   				<form action="showVendor" method="post">
 				   					<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
-				   					<button type="submit" class="fabutton" >
+				   					<button type="submit" class="fabutton" onclick="openVendorsInfo()">
 				   						<i class="fas fa-address-card" ></i>
 									</button>
 			   					</form>
@@ -195,7 +195,7 @@
 			</div>
 			</div>
 		</div>
-		<!-- for small screen ---------------------------------------------------------------------------->
+		<!-- for small screen vendor's detail---------------------------------------------------------------------------->
 		<div id="smBudget" class="sidenav"> 
 			<div id="vendorsInfoSm" ${selectedVendor != null ? '' : 'style="display:none;"'}>
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
@@ -207,28 +207,13 @@
 				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
 				</fieldset>
 			</div>
-
  		</div>
-  
-		<div class="col-sm-4 d-none d-md-block">
-			<!-- vendor details  -->
-			<!-- for big screen ----------------------------------------------------------------------------->			
-			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
-				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
-				
-				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
-				<h4>${selectedVendor.name} <br></h4>
-				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
-				<b>Address: </b><br> ${selectedVendor.address} <br> 
-				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
-
-				</fieldset>
-			</div>
-
-			
-			<!-- budget form add here -->
+ 		
+ 		<!-- for small screen add budget form ----------------------------------------------------------------------------------->
+		<div id="smBudgetAddForm" class="sidenav d-block d-md-none">
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
+			<span onclick="closeAddBudgetForm();" class="closebtn"><i class="fas fa-times"></i></span> <br>
+
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
       				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
@@ -335,6 +320,134 @@
       			</form:form><br>
       		</div>
 		</div>
+ 		</div>
+ 		
+  
+		<div class="col-sm-4 d-none d-md-block">
+			<!-- vendor details  -->
+			<!-- for big screen vendor's detail ----------------------------------------------------------------------------->			
+			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
+				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+				
+				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
+
+				<h4>${selectedVendor.name} <br></h4>
+				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
+				<b>Address: </b><br> ${selectedVendor.address} <br> 
+				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
+
+				</fieldset>
+			</div>
+			<!-- budget form add here -->		
+			<!-- for big screen budget form ----------------------------------------------------------------------------------->
+			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
+				<div class="form-group">
+      				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
+	        			<!--option selected>--- Select Category ---</option-->
+	        			<option value="--- Select Category ---">--- Select Category ---</option>
+	        			<option value="Accommodation">Accommodation</option>
+	        			<option value="Alcohol">Alcohol</option>
+	       				<option value="Balloon Services">Balloon Services</option>
+	       				<option value="Beauty">Beauty</option>
+	       				<option value="Cake">Cake</option>
+	       				<option value="Cards & Stationery">Cards & Stationery</option>
+	       				<option value="Caterer">Caterer</option>
+	       				<option value="Decorations">Decorations</option>
+	       				<option value="Entertainment">Entertainment</option>
+	       				<option value="Floral Design">Floral Design</option>
+	       				<option value="Music">Music</option>
+	       				<option value="Party Equipment Rental">Party Equipment Rental</option>
+	       				<option value="Party Favors">Party Favors</option>
+	       				<option value="Photography">Photography</option>
+	       				<option value="Staff">Staff</option>
+	       				<option value="Transportation">Transportation</option>
+	       				<option value="Venue">Venue</option>
+	       				<option value="Other">Other</option>
+      				</form:select>
+      				<span id="categoryError" class="formError"></span>
+   				</div>
+   				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+   				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
+      				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
+	        			<option value="">--- Vendor ---</option>
+	       				<c:forEach items="${vendors}" var="vendor">
+	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
+	       				</c:forEach>
+      				</form:select>
+      					<span id="vendorError" class="formError"></span>
+      				<div class="text-center">- or -</div>
+      				<div class="text-center">
+      				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
+      						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
+      				</button>
+      				</div>
+      				<div class="text-center">- or -</div>
+      				<div class="text-center">
+      				<button type="button" class="btn btn-info btnAddVendor">
+      						<span class="material-icons align-bottom" style="font-size: 150%;">create</span><span class="align-text-bottom">Add Vendor</span>
+      				</button>
+      				</div>
+      				
+   				</fieldset>
+   				<fieldset id="goodFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+   				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Items</legend>
+   				<div id="item-price">
+   				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
+	   				<div id="itemTextBoxGroup" class="row">
+		   					<div id="txtItem" class="col-6">
+		   						<form:input type="text" class="item form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   						
+		   					</div>
+		   					<div id="txtPrice" class="col-6">
+		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
+		   						
+		   					</div>
+		   			</div>
+		   			</c:forEach>
+		   				<span id="itemError" class="formError"></span>
+		   				<span id="priceError" class="formError"></span>
+	   				<div class="text-center">
+						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
+      					</button>
+      					<button id="btnRemoveItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">remove_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
+      					</button>
+      				</div>
+      			</div>
+   				</fieldset>
+   				<div class="text-center">
+					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
+	      			</button>
+      			</div>
+      			
+			</form:form>
+			
+			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
+				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
+      				<div class="text-center" id="enterVendor">
+      					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
+      						<span id="nameError" class="formError"></span>
+      					<form:input type="text" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
+      						<span id="addressError" class="formError"></span>
+      					<form:input type="text" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
+      						<span id="phoneNoError" class="formError"></span>
+      					<form:input type="text" class="form-control" placeholder="Website" path="website" />
+      				</div><br>
+      				<div  class="form-group row">
+      					<div class="col-sm-6 text-center">
+      						<button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button>
+      					</div><br>
+      					<div class="col-sm-6 text-center">
+      						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      					</div>
+      				</div>
+      			</form:form><br>
+      		</div>
+		</div><!-- end of budget form add -->
+		
 		</div>
 	</div>
 		
