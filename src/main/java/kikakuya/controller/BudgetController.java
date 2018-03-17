@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import kikakuya.delegate.BudgetDelegate;
 
 import kikakuya.model.Event;
@@ -211,19 +213,18 @@ public class BudgetController {
 	}
 	
 	@RequestMapping(value="/showVendor", method = RequestMethod.POST)
-	public String viewVendor(Model model, HttpServletRequest request) {
+	@ResponseBody
+	public Vendor viewVendor(Model model, HttpServletRequest request) {
 		int vendorId = Integer.parseInt(request.getParameter("vendorId"));
-		System.out.println("vendor id: " + vendorId);
+		Vendor vendor = new Vendor();
 		try {
-			Vendor vendor = budgetDelegate.getVendor(vendorId);
-			request.setAttribute("selectedVendor", vendor);
-			viewBudget(model, request);
+			vendor = budgetDelegate.getVendor(vendorId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
 		
-		return "budget";
+		return vendor;
 	}
 }
 

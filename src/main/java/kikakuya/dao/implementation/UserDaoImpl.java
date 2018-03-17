@@ -54,9 +54,12 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean updateUser(User user) throws SQLException {
-		String query = "update user set userName = '" + user.getUserName() + 
-				"', userPassword = '" + HelperUtilities.toMd5(user.getUserPassword()) + 
-				"', token = '" + user.getToken() + 
+//		String query = "update user set userName = '" + user.getUserName() + 
+//				"', userPassword = '" + HelperUtilities.toMd5(user.getUserPassword()) + 
+//				"', token = '" + user.getToken() + 
+//				"', series = '" + user.getSeries() + 
+//				"' where email = '" + user.getEmail() + "'";
+		String query = "update user set token = '" + user.getToken() + 
 				"', series = '" + user.getSeries() + 
 				"' where email = '" + user.getEmail() + "'";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);

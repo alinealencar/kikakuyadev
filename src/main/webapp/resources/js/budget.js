@@ -39,8 +39,23 @@ function openAddBudgetForm() {
   document.getElementById("smBudgetAddForm").style.width = "360px";
 }
 //open vendors detail slide
-function openVendorsInfo() {
+function openVendorsInfo(id) {
   document.getElementById("smBudget").style.width = "360px";
+  
+  //ajax request
+  $.post({
+      url: "showVendor",
+      data: {vendorId: id},
+      success: function(response) {
+     	 $("#selectedVendorName").html(response.name);
+     	 $("#selectedVendorPhone").html(response.phoneNo);
+     	 $("#selectedVendorAddress").html(response.address);
+     	 $("#selectedVendorWebsite").attr("href", response.website)
+     	 $("#vendorsInfoSm").show();
+      }
+  });
+  
+  
 }
 //close add budget form slide
 function closeAddBudgetForm() {

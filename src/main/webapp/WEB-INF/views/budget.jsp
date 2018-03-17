@@ -47,12 +47,15 @@
 							<div class="row " style="padding-left:20px;">
 		   						<h4 style="margin-right:10px; text-decoration:underline;">${vendor.key.name}</h4>
 				   				<!-- Get details of the vendor -->
-				   				<form action="showVendor" method="post">
+				   				<%-- <form action="showVendor" method="post">
 				   					<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
 				   					<button type="submit" class="fabutton" onclick="openVendorsInfo()">
 				   						<i class="fas fa-address-card" ></i>
 									</button>
-			   					</form>
+			   					</form> --%>
+			   					<button id="${vendor.key.vendorId}" type="submit" class="fabutton" onclick="openVendorsInfo(this.id)">
+				   					<i class="fas fa-address-card" ></i>
+								</button>
 		   					</div>
 							</div>
 	   					</div>
@@ -197,14 +200,14 @@
 		</div>
 		<!-- for small screen vendor's detail---------------------------------------------------------------------------->
 		<div id="smBudget" class="sidenav"> 
-			<div id="vendorsInfoSm" ${selectedVendor != null ? '' : 'style="display:none;"'}>
+			<div id="vendorsInfoSm">
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
 
-				<h4>${selectedVendor.name} <br></h4>
-				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
-				<b>Address: </b><br> ${selectedVendor.address} <br> 
-				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
+				<h4><span id="selectedVendorName"></span></h4> <br>
+				<b>Phone: </b> <span id="selectedVendorPhone"></span> <br>
+				<b>Address: </b><br> <span id="selectedVendorAddress"></span> <br> 
+				<b>Web site: </b><a id="selectedVendorWebsite" href="">Yelp</a>
 				</fieldset>
 			</div>
  		</div>
