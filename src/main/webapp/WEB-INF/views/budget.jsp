@@ -27,18 +27,19 @@
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
-						<h2>Budget: <b>$${event.totalBudget}</b></h2>
-					</div>	
-					<div class="col-3 d-block d-sm-none">					
-					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
+						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$${event.totalBudget}</b></span>
+					</div>					
+					<div class="col-3 d-block d-sm-none" onclick="openVendorsInfo()">					
+					<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="">
 	      				<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
 	   				</button>
 					</div>
+
 				</div>
 				<hr>
 				<c:set var="cat" value="1" scope="page" />
 				<c:forEach var="category" items="${budgetInfo}">
-					<fieldset id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+					<fieldset onclick="openVendorsInfo()" id="categoryBorder" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 	   				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc"><h3>${category.key}</h3></legend>
 	   				<c:forEach var="vendor" items="${category.value}">
 	   					<div class="row">
@@ -48,8 +49,8 @@
 				   				<!-- Get details of the vendor -->
 				   				<form action="showVendor" method="post">
 				   					<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
-				   					<button type="submit" class="fabutton">
-				   						<i class="fas fa-address-card"></i>
+				   					<button type="submit" class="fabutton" >
+				   						<i class="fas fa-address-card" ></i>
 									</button>
 			   					</form>
 		   					</div>
@@ -194,18 +195,37 @@
 			</div>
 			</div>
 		</div>
+		<!-- for small screen ---------------------------------------------------------------------------->
+		<div id="smBudget" class="sidenav"> 
+			<div id="vendorsInfoSm" ${selectedVendor != null ? '' : 'style="display:none;"'}>
+				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
+
+				<h4>${selectedVendor.name} <br></h4>
+				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
+				<b>Address: </b><br> ${selectedVendor.address} <br> 
+				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
+				</fieldset>
+			</div>
+
+ 		</div>
+  
 		<div class="col-sm-4 d-none d-md-block">
-			<!-- vendor details  -->			
+			<!-- vendor details  -->
+			<!-- for big screen ----------------------------------------------------------------------------->			
 			<div id="vendorsInfo" ${selectedVendor != null ? '' : 'style="display:none;"'}>
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
+				
 				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
 
 				<h4>${selectedVendor.name} <br></h4>
 				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
 				<b>Address: </b><br> ${selectedVendor.address} <br> 
 				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
+
+				</fieldset>
 			</div>
-			</fieldset>
+
 			
 			<!-- budget form add here -->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">

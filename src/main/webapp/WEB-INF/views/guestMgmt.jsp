@@ -16,7 +16,7 @@
 			<div class="row">
 				<div class="col-sm-3">
 					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
-					<div class="text-right  float-right  d-block d-sm-none">
+					<div class="text-right  float-right  d-block d-sm-none" >
 						<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
 	      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
 	   					</button>  					

@@ -33,6 +33,15 @@ function deleteCategory(category) {
 	
 	$("#budgetForm").attr("action", "deleteCategory");
 }
+//for small screen************************************
+//open vendors detail slide
+function openVendorsInfo() {
+  document.getElementById("smBudget").style.width = "360px";
+}
+//close vendors detail slide
+function closeVendorsInfo() {
+  document.getElementById("smBudget").style.width = "0px";
+}
 
 // Calculate totals and subtotals
 // global variable
