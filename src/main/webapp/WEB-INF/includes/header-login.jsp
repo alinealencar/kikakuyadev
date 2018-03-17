@@ -28,7 +28,9 @@
 						</div>
 					</div><br>
 					<c:if test="${not empty loginError}">
+					<div class="row">
 						<span class="signupError">${loginError}</span>
+					</div>
 					</c:if>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>
@@ -40,10 +42,14 @@
 			</div>
 			<div class="col-sm-6 text-center" style="margin-top: 10px;">
 				<c:if test="${not empty signUpSuccess}">
-					<span class="isa_success signupSuccess"><i class="fa fa-check"></i>&emsp;${signUpSuccess}</span>
+					<div class="row">
+						<span class="isa_success signupSuccess"><i class="fa fa-check"></i>&emsp;${signUpSuccess}</span>
+					</div>
 				</c:if>
 				<c:if test="${not empty signUpError}">
-					<span class="isa_error signupError"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${signUpError}</span>
+					<div class="row">
+						<span class="isa_error signupError"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${signUpError}</span>
+					</div>
 				</c:if>
 				<div class="row">
 					<div class="col-sm-3"></div>

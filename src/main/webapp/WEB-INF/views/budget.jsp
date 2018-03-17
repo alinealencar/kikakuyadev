@@ -214,9 +214,9 @@
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<span onclick="closeAddBudgetForm();" class="closebtn"><i class="fas fa-times"></i></span> <br>
 
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
+			<form:form id="formAddToBudget-sm" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
-      				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
+      				<form:select id="category" class="category form-control ui-select" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
 	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
@@ -291,7 +291,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="addBudget-sm" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -343,7 +343,7 @@
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
-      				<form:select id="category" class="category form-control ui-select category" oninput="validateCategory()" path="category">
+      				<form:select id="category" class="category form-control ui-select" oninput="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
 	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
@@ -472,20 +472,31 @@ $(document).ready(function(){
 $(document).ready(function(){
 	var flag = sessionStorage.getItem("flag");
 	if(!flag){
-		$("#vendor option").prop("selected", false);
-		$("#vendor option[value='']").prop("selected",true);
+		$(".vendor option").prop("selected", false);
+		$(".vendor option[value='']").prop("selected",true);
 	}
 	
 });
-/***Clear SessionStorage on submit***/
+/***Clear SessionStorage on submit (big form)***/
 $(document).ready(function(){
 	$("#addBudget").click(function () {
 		$( "#formAddToBudget" ).submit();
 		sessionStorage.clear();
-		$("#vendor option").prop("selected", false);
-		$("#vendor option[value='']").prop("selected",true);
+		$(".vendor option").prop("selected", false);
+		$(".vendor option[value='']").prop("selected",true);
 	});
 });
+
+/***Clear SessionStorage on submit (big form)***/
+$(document).ready(function(){
+	$("#addBudget-sm").click(function () {
+		$( "#formAddToBudget-sm" ).submit();
+		sessionStorage.clear();
+		$(".vendor option").prop("selected", false);
+		$(".vendor option[value='']").prop("selected",true);
+	});
+});
+
 /***Check if SessionStorage contains flag***/
 $(document).ready(function(){
 	$('#btnEnterVendor').click(function(){
@@ -532,5 +543,5 @@ $(document).ready(function(){
 	}
 });
 </script>
-<script src="resources/js/validateBudget.js"></script>
+<!-- <script src="resources/js/validateBudget.js"></script> -->
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

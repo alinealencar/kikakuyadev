@@ -45,7 +45,7 @@
 			<li class="row">
 				<div class="col-md-3">
 					<img src="${vendor.imageURL}" alt="Product sample" height="150px" width="150px">
-					<button id="btnAddVendor" type="button" class="btn btn-link float-right d-block d-md-none" name="addVendor">
+					<button id="btnAddVendor" type="submit" class="btn btn-link float-right d-block d-md-none btnAddSearchVendor" name="addVendor">
       					<span class="material-icons" style="font-size: 300%;">add_circle</span>
    					</button>
 				</div>
