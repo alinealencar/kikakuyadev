@@ -257,7 +257,7 @@
       				</div>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info btnAddVendor">
+      				<button type="button" class="btn btn-info btnAddVendor-sm">
       						<span class="material-icons align-bottom" style="font-size: 150%;">create</span><span class="align-text-bottom">Add Vendor</span>
       				</button>
       				</div>
@@ -298,7 +298,7 @@
       			
 			</form:form>
 			
-			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
+			<div id="enterVendor-sm" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
 				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
@@ -425,7 +425,7 @@
       			
 			</form:form>
 			
-			<div id="enterVendor" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
+			<div id="enterVendorBig" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
 				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
@@ -521,11 +521,18 @@ $(document).ready(function(){
 			$('#txtPrice :last-child').remove();
 	});
 });
-/***Hide add budget and show enter vendor form***/
+/***Hide add budget and show enter vendor form (big)***/
 $(document).ready(function(){
 	$('.btnAddVendor').click(function(){
 		$('#formAddToBudget').hide();
-		$('#enterVendor').show();
+		$('#enterVendorBig').show();
+	});
+});
+/***Hide add budget and show enter vendor form (small)***/
+$(document).ready(function(){
+	$('.btnAddVendor-sm').click(function(){
+		$('#formAddToBudget-sm').hide();
+		$('#enterVendor-sm').show();
 	});
 });
 /***Show add budget and hide enter vendor form***/
