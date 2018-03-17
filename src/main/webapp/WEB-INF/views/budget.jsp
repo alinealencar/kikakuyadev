@@ -47,12 +47,6 @@
 							<div class="row " style="padding-left:20px;">
 		   						<h4 style="margin-right:10px; text-decoration:underline;">${vendor.key.name}</h4>
 				   				<!-- Get details of the vendor -->
-				   				<%-- <form action="showVendor" method="post">
-				   					<input type="hidden" name="vendorId" value="${vendor.key.vendorId}"/>
-				   					<button type="submit" class="fabutton" onclick="openVendorsInfo()">
-				   						<i class="fas fa-address-card" ></i>
-									</button>
-			   					</form> --%>
 			   					<button id="${vendor.key.vendorId}" type="submit" class="fabutton" onclick="openVendorsInfo(this.id)">
 				   					<i class="fas fa-address-card" ></i>
 								</button>
