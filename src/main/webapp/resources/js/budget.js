@@ -41,7 +41,6 @@ function openAddBudgetForm() {
 //open vendors detail slide
 function openVendorsInfo(id) {
   document.getElementById("smBudget").style.width = "360px";
-  document.getElementById("vendorsInfo").style.display = "block";
   //ajax request
   $.post({
       url: "showVendor",
@@ -64,7 +63,6 @@ function closeAddBudgetForm() {
 //close vendors detail slide
 function closeVendorsInfo() {
   document.getElementById("smBudget").style.width = "0px";
-  document.getElementById("vendorsInfo").style.display = "none";
 }
 
 // Calculate totals and subtotals

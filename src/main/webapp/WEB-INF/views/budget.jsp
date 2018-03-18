@@ -193,7 +193,7 @@
 			</div>
 		</div>
 		<!-- for small screen vendor's detail---------------------------------------------------------------------------->
-		<div id="smBudget" class="sidenav d-block d-md-none"> 
+		<div id="smBudget" class="sidenav"> 
 			<div id="vendorsInfoSm">
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
@@ -321,32 +321,6 @@
  		
   
 		<div class="col-sm-4 d-none d-md-block">
-			<!-- vendor details  -->
-			<!-- for big screen vendor's detail ----------------------------------------------------------------------------->			
-			<div id="vendorsInfo" style="display:none;">
-				<div id="vendorsInfo">
-				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
-				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
-				<h4><span id="selectedVendorName"></span></h4> <br>
-				<b>Phone: </b> <span id="selectedVendorPhone"></span> <br>
-				<b>Address: </b><br> <span id="selectedVendorAddress"></span> <br> 
-				<b>Web site: </b><a id="selectedVendorWebsite" href="">Yelp</a>
-				</fieldset>
-				</div>
-				
-			<!-- 
-				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
-				
-				<span onclick="openAddVendor();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
-				<h4>${selectedVendor.name} <br></h4>
-				<b>Phone: </b> ${selectedVendor.phoneNo} <br>
-				<b>Address: </b><br> ${selectedVendor.address} <br> 
-				<span ${selectedVendor.website != "" ? 'style="display:block;"' :'style="display:none;"'}><b>Web site: </b><a href="selectedVendor.website">Yelp</a></span>
-
-				</fieldset>-->	
-			</div> 
 			<!-- budget form add here -->		
 			<!-- for big screen budget form ----------------------------------------------------------------------------------->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
