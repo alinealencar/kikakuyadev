@@ -74,4 +74,9 @@ public class GuestServiceImpl implements GuestService {
 	public int countGuests(Event event) throws SQLException {
 		return guestDao.countGuests(event);
 	}
+
+	@Override
+	public int countPlusOnesByCategory(Event event, String category) throws SQLException {
+		return plusOneDao.getPlusOnesTotalByCategory(event, category);
+	}
 }

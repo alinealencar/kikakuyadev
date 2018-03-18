@@ -44,13 +44,24 @@ public class GuestController {
 		try {
 			//get total guest count
 			int guestCount = guestDelegate.countGuests(event);
+			//get plus one count by category
+			int plusOneAdultCount = guestDelegate.countPlusOnesByCategory(event, "Adult");
+			int plusOneKidCount = guestDelegate.countPlusOnesByCategory(event, "Kid");
 			//get guest count by rsvp status
 			int presentCount = guestDelegate.countGuestsByStatus(event,present);
 			int absentCount = guestDelegate.countGuestsByStatus(event,absent);
 			int noReplyCount = guestDelegate.countGuestsByStatus(event,noReply);
+			//total guests including plus ones
+			int totalGuestCount = guestCount + plusOneAdultCount + plusOneKidCount;
+			//total present guest count including plus ones
+			int totalPresentCount = presentCount + plusOneAdultCount + plusOneKidCount;
+			//total adults (all entered guests + adult plus ones)
+			int totalAdultCount = guestCount + plusOneAdultCount;
 			
-			request.setAttribute("totalGuests", guestCount);
-			request.setAttribute("presentGuests", presentCount);
+			request.setAttribute("totalGuests", totalGuestCount);
+			request.setAttribute("totalAdult", totalAdultCount);
+			request.setAttribute("totalKid", plusOneKidCount);
+			request.setAttribute("presentGuests", totalPresentCount);
 			request.setAttribute("absentGuests", absentCount);
 			request.setAttribute("noReplyGuests", noReplyCount);
 		} catch (SQLException e) {
