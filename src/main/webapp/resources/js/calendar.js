@@ -165,6 +165,9 @@ $(document).ready(function(){
 	//Show today's appointments on the right side
 	$("#todaysDate").html(getTodaysDate());
 	
+	//Show help bubbles
+	$('[data-toggle="tooltip"]').tooltip();  
+	
 });
 
 /** CALENDAR NAVIGATION**/ 
