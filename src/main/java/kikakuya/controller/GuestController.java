@@ -56,7 +56,7 @@ public class GuestController {
 			//total present guest count including plus ones
 			int totalPresentCount = presentCount + plusOneAdultCount + plusOneKidCount;
 			//total adults (all entered guests + adult plus ones)
-			int totalAdultCount = guestCount + plusOneAdultCount;
+			int totalAdultCount = totalPresentCount - plusOneKidCount;
 			
 			request.setAttribute("totalGuests", totalGuestCount);
 			request.setAttribute("totalAdult", totalAdultCount);
