@@ -11,6 +11,8 @@ hr{
 	border-width: 5px;
 }*/
 
+
+
 .addEventBtn{
 	font-size:42px; 
 	color:#D90368; 
@@ -26,7 +28,7 @@ hr{
 	background-color: #00bfa5;
 	margin-top: 15%;
 	padding-bottom: 5px;*/
-	margin-bottom: 5px;
+	margin-bottom: 5%;
 	background-color: rgba(182, 249, 229, 15);
 	border: solid #00bfa5;
 }
@@ -49,8 +51,8 @@ hr{
   cursor: pointer;
   /**margin-top: 0px;**/
   margin-top: none;
-  width: 340px;
-  height: 130px;
+  width: 100%;
+  height: 20%;
 }
 
 .eventButton:focus {

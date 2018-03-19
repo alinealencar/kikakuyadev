@@ -5,10 +5,17 @@ var validLastName = false;
 var validEmail = false;
 
 function validateGuestForm(){
+	console.log(validFirstName);
+	console.log(validLastName);
+	console.log(validEmail);
 	if (validFirstName && validLastName && validEmail){
 		form.submit();
 		form.reset();
 	}
+	else{
+		return false;
+	}
+	return true;
 }
 
 function validateName(){

@@ -34,10 +34,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+					<form:input path="listTitle" type="text" id="listInput" class="listTitle form-control" placeholder="Name new list" oninput="validateName()"/>
+					<span id="listTitle" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -350,7 +351,8 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-
-
+<script>
+</script>
+<script src="resources/js/validateList.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 <script src="resources/js/jquery-foggy.js"></script>
