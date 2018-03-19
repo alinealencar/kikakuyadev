@@ -95,5 +95,7 @@ public class GuestDelegate {
 		return guestService.countGuests(event);
 	}
 	
-	
+	public int countPlusOnesByCategory(Event event, String category) throws SQLException{
+		return guestService.countPlusOnesByCategory(event, category);
+	}
 }

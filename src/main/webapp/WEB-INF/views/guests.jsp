@@ -37,7 +37,14 @@
 	  		<div class="progress-bar bg-success" role="progressbar" style="width: ${(presentGuests/totalGuests)*100}%" aria-valuenow="${(presentGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${presentGuests}</div>
 	  		<div class="progress-bar bg-warning" role="progressbar" style="width: ${(noReplyGuests/totalGuests)*100}%" aria-valuenow="${(noReplyGuests/totalGuests)*100}" aria-valuemin="0" aria-valuemax="100">${noReplyGuests}</div>
 		</div>
-		<p><span style="background-color: #dc3545;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Declined&nbsp;&nbsp;&nbsp;<span style="background-color: #28a745;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Accepted&nbsp;&nbsp;&nbsp; <span style="background-color: #ffc107;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;No Reply</p>
+		<div class="row">
+			<div class="col-sm-6">
+				<p><span style="background-color: #dc3545;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Declined&nbsp;&nbsp;&nbsp;<span style="background-color: #28a745;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Accepted&nbsp;&nbsp;&nbsp; <span style="background-color: #ffc107;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;No Reply
+			</div>
+			<div class="col-sm-6 text-right">
+				<span>Total Adults: ${totalAdult}&nbsp;&nbsp;&nbsp;&nbsp;Total Kids: ${totalKid}</span></p>
+			</div>
+		</div>
 	</c:if>
 <!-- body contents end -->
 </div>

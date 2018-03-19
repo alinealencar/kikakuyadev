@@ -97,9 +97,20 @@ ul#itemList li.checked::before {
 
 /* Make button not look like a button */
 button#btnSelectList {
-    background:none!important;
+    background:none;
      color:inherit;
      border:none; 
+     padding:1px!important;
+     font: inherit;
+     cursor: pointer;
+     text-align: left;
+}
+
+/* Selected list */
+#btnSelectedList {
+	background-color: gray!important; 
+	color: #fff;
+	border:none; 
      padding:1px!important;
      font: inherit;
      cursor: pointer;

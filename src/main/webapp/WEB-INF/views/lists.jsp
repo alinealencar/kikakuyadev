@@ -151,11 +151,22 @@
 				<c:forEach var="list" items="${lists}" >
 					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 						<form:hidden path="listId" value="${list.listId}" />
-						<li class="showAllListLi">
-							<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
-			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
-			   				</button>
-						</li>
+						<c:choose>
+							<c:when test="${selectedList.listTitle eq list.listTitle}">
+								<li class="showAllListLi">
+									<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit" style="background-color: #888!important; color: #fff;">
+			   							<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   						</button>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="showAllListLi">
+									<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
+			   							<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   						</button>
+								</li>
+							</c:otherwise>
+						</c:choose>
 					</form:form>	
 				</c:forEach>	
 			</ul>

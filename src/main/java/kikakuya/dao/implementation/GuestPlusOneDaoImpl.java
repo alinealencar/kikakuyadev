@@ -9,6 +9,7 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import kikakuya.dao.GuestPlusOneDao;
+import kikakuya.model.Event;
 import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 
@@ -63,5 +64,19 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		}
 		
 		return plusOnes;
+	}
+	
+	public int getPlusOnesTotalByCategory(Event event, String category) throws SQLException {
+		int count = 0;
+		String query = "SELECT COUNT(*) FROM guest g INNER JOIN guestplusone p"
+				+ " ON g.guestId = p.GuestguestId"
+				+ " WHERE EventeventId=" + event.getEventId()
+				+ " AND category='" + category + "'";
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+            count = rs.getInt(1);
+        }
+		return count;
 	}
 }
