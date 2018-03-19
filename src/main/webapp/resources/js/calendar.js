@@ -149,17 +149,25 @@ function deleteAppt(id){
 	
 }
 
-/** CALENDAR NAVIGATION**/ 
+/** DOCUMENT.READY **/
 
 $(document).ready(function(){
+	//Show today's month and year in the calendar
 	$("#curYear").html(new Date().getFullYear());
 	$("#curMonth").html(getMonthName(new Date().getMonth()));
 	
 	calendarNav("loadMonth");
 	
+	//Load date selection dropdown
 	for(var i = 1; i <= 31; i++)
 		$('<option>').val(i).text(i).appendTo('#day');
+	
+	//Show today's appointments on the right side
+	$("#todaysDate").html(getTodaysDate());
+	
 });
+
+/** CALENDAR NAVIGATION**/ 
 
 function calendarNav(actionName){
 	//Send AJAX request to navigate the calendar and show the appointments
@@ -279,5 +287,22 @@ function showFeedbackMessages(response){
 		 $(".errorAlert").show();
 		 $(".successAlert").hide();
 	 }	
+}
+
+function getTodaysDate() {
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var todayStr = dd+'/'+mm+'/'+yyyy;
+	
+	return todayStr;
 }
 
