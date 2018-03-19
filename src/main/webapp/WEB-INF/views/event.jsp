@@ -71,7 +71,7 @@
 							</div>
 							<hr>
 							<div class="col-10">
-								Location: ${event.location}
+								Address: ${event.location}
 							</div>
 							<div class="col-10">
 								Event Date: ${event.eventDate}
@@ -110,7 +110,7 @@
 							<br>
 						</div>
 						<div>
-							<label>Location<span style="font-size:22px;color:red">*</span>: </label>
+							<label>Address<span style="font-size:22px;color:red">*</span>: </label>
 							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="20"/>
 								<span id="locationError" class="formError"></span>
 							<br>
@@ -162,7 +162,7 @@
 							<br>
 						</div>
 						<div>
-							<label>Location:</label>
+							<label>Address:</label>
 							<form:input path="location" value="${event.location}" class="location form-control" oninput="validateLocation()"/>
 							<span id="locationError" class="formError"></span>
 							<br>

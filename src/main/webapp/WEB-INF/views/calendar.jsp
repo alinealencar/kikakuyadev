@@ -127,7 +127,7 @@
 						<option value="PM">PM</option>
 					</form:select>
 					
-					<label>Location*: </label>
+					<label>Address*: </label>
 					<form:input path="location" type="text" class="item form-control"/>
 					
 					<label>Color*: </label><br>
