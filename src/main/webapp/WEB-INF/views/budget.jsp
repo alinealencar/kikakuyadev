@@ -275,8 +275,12 @@
 		   					</div>
 		   			</div>
 		   			</c:forEach>
-		   				<span id="itemError" class="formError"></span>
-		   				<span id="priceError" class="formError"></span>
+		   			<div class="col-6">
+			   			<span id="itemError" class="formError"></span>
+			   		</div>
+			   		<div id="txtItem" class="col-6">
+			   			<span id="priceError" class="formError"></span>
+					</div>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
@@ -296,7 +300,7 @@
 			</form:form>
 			
 			<div id="enterVendor-sm" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
+				<form:form action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();">
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>
@@ -312,7 +316,7 @@
       					</div><br>
       					<div class="col-sm-6 text-center">
       						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
-      					</div>
+      					</div>s
       				</div>
       			</form:form><br>
       		</div>
@@ -409,19 +413,20 @@
 			</form:form>
 			
 			<div id="enterVendorBig" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor" ><!-- onsubmit="return validateBudget();" -->
+				<form:form id="addBudgetVenForm" class="addBudgetVendorForm" action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();"><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
       					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>
-      					<form:input type="text" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
+      					<form:input type="text" id="address" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
       						<span id="addressError" class="formError"></span>
-      					<form:input type="text" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" id="phone" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
       						<span id="phoneNoError" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
-      						<button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button>
+      						<!--button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button-->
+      						<input class="btn btn-success" type="submit" value="Done"/>
       					</div><br>
       					<div class="col-sm-6 text-center">
       						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
@@ -533,5 +538,5 @@ $(document).ready(function(){
 	}
 });
 </script>
-<!-- <script src="resources/js/validateBudget.js"></script> -->
+<script src="resources/js/validateBudget.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

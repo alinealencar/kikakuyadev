@@ -34,10 +34,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+					<form:input path="listTitle" type="text" id="listInput" class="listTitle form-control" placeholder="Name new list" oninput="validateName()"/>
+					<span id="listTitle" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -150,11 +151,22 @@
 				<c:forEach var="list" items="${lists}" >
 					<form:form class="formSelectList" action="showList" method="post" modelAttribute="list">
 						<form:hidden path="listId" value="${list.listId}" />
-						<li class="showAllListLi">
-							<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
-			   					<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
-			   				</button>
-						</li>
+						<c:choose>
+							<c:when test="${selectedList.listTitle eq list.listTitle}">
+								<li class="showAllListLi">
+									<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit" style="background-color: #888!important; color: #fff;">
+			   							<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   						</button>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li class="showAllListLi">
+									<button id="btnSelectList" class="btn-block btnSelectListClass" type="submit">
+			   							<span><i class="fas fa-list-ul"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;${list.listTitle}</span>
+			   						</button>
+								</li>
+							</c:otherwise>
+						</c:choose>
 					</form:form>	
 				</c:forEach>	
 			</ul>
@@ -350,7 +362,8 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-
-
+<script>
+</script>
+<script src="resources/js/validateList.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 <script src="resources/js/jquery-foggy.js"></script>

@@ -332,15 +332,15 @@
 			<span id="closeAddGuest" class="closebtn" onclick="closeAddGuest()"><i class="fas fa-times"></i></span>
 			<!-- Add guest -->
 			<h2>Add Guest</h2>
-			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest" onsubmit="return validateEventForm();">
+			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest" onsubmit="return validateGuestForm();">
 				<label>First Name<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="firstName" class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>				
+				<form:input path="firstName" class="firstName form-control" name="firstName" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>				
 					<span id="fNameError" class="formError"></span> <br/>
 				<label>Last Name<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="lastName" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>
+				<form:input path="lastName" class="lastName form-control" name="lastName" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>
 					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="email" class="email form-control" oninput="validateEmail()" style="margin-bottom:10px;"/>
+				<form:input path="email" class="email form-control" name="email" oninput="validateEmail()" style="margin-bottom:10px;"/>
 					<!--span id="emailError" class="formError"></span--> <br/>
 				<label>
 					Plus ones

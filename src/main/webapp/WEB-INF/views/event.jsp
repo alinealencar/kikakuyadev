@@ -6,7 +6,6 @@
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
-
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
 		<div  class="col-sm-10">
@@ -19,11 +18,11 @@
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
-					<i class="fas fa-plus-circle" data-toggle="modal" data-target="#showAddForm" onclick="showList()"></i>
+					<!--i class="fas fa-plus-circle" data-toggle="modal" data-target="#showAddForm" onclick="showList()"></i-->
+						<a class="button" href="#addEvent"><i class="fas fa-plus-circle" ></i></a>
 				</span>
 			</div>
 		</div>
-		
 	</div>
 			<c:if test="${not empty noEvents}">
 				<div class="text-center">
@@ -53,7 +52,8 @@
 								<span>
 								<form:form action="edit" method="POST" modelAttribute="event" id="editButton" data-toggle="modal" data-target="editEvent">
 									<form:hidden path="eventId" value="${event.eventId}"/>
-									<button id="deleteBtn" type="submit" class="fas fa-edit"  style="color: #2E294E; margin-top:2.5px;"></button>
+									<!--button id="deleteBtn" type="submit" class="fas fa-edit"  style="color: #2E294E; margin-top:2.5px;"></button-->
+									<a id="deleteBtn" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
 								</form:form>
 								</span>
 								
@@ -84,23 +84,15 @@
 		</c:forEach>
 	</div>	
 <!-- end of showing event -->	
-
 <!-- ADD AN EVENT FORM  -->
-<div class="container-add-modal">
-  <!-- The Modal -->
-	<div class="modal fade" id="showAddForm" style="top: 20%;">
-    	<div class="modal-dialog">
-      		<div class="modal-content">
-      
-        		<!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title">Add Event</h4>
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-        
-       			<!-- Modal body -->
-			    <div class="modal-body">
-			    	<form:form modelAttribute="event" class="eventForm" method="POST" action="add" onsubmit="return validateEventForm();">
+
+<div id="addEvent" class="overlay">
+	<div class="popup">
+		<h2>Add Event</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+		<hr>
+			<form:form modelAttribute="event" class="eventForm" method="POST" action="add" onsubmit="return validateEventForm();">
 						<form:hidden path="eventId"/>
 			
 						<div>
@@ -111,11 +103,13 @@
 						</div>
 						<div>
 							<label>Address<span style="font-size:22px;color:red">*</span>: </label>
+<<<<<<< HEAD
+							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="100"/>
+=======
 							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="20"/>
+>>>>>>> 661e5335c162dd58bb7085e745a209a53deecf2a
 								<span id="locationError" class="formError"></span>
 							<br>
-							<!--form:input type="text" name="eventLocation" path="location"/>
-							<div id="eventLocationError" class="inputError"></div-->
 						</div>
 						<div>
 							<label>Date<span style="font-size:22px;color:red">*</span>: </label>
@@ -126,34 +120,25 @@
 							<div id="eventDateError" class="inputError"></div-->
 						</div>
 						
-						<!-- Modal footer -->
 				        <div class="text-right">
-							<input class="btn btn-success" type="submit" value="Done"/>
+							<button type="submit" class="btn btn-success">Done</button>
 						</div>
-					</form:form>
-			    </div>
-    		</div>
-    	</div>
+			</form:form>
+		</div>
 	</div>
 </div>
+
 <!-- end of add event form-->
 
 <!-- EDIT EVENTS FORM-->
-<div class="container-edit-modal">
-  <!-- The Modal -->
-	<div class="modal fade" id="editEvent" style="top: 20%;">
-    	<div class="modal-dialog">
-      		<div class="modal-content">
-      
-		        <!-- Modal Header -->
-		        <div class="modal-header">
-		          <h4 class="modal-title">Edit Event</h4>
-		          <button type="button" class="close" data-dismiss="modal">&times;</button>
-		        </div>
-        
-       			<!-- Modal body -->
-        		<div class="modal-body" >
-    				<form:form modelAttribute="event" method="POST" action="update" >
+
+<div id="editEvent" class="overlay">
+	<div class="popup">
+		<h2>Edit Event</h2>
+		<a class="close" href="#">&times;</a>
+		<div class="content">
+		<hr>
+			<form:form modelAttribute="event" method="POST" action="update" >
 						<form:hidden path="eventId" value="${event.eventId}"/>
 						<div>
 							<label>Event Name: </label>
@@ -175,18 +160,93 @@
 							<!--form:input type="date" name="eventDate" path="eventDate"/>
 							<div id="eventDateError" class="inputError"></div-->
 						</div>
-						
-						<!-- Modal footer -->
+						<hr>
 	        			<div>
 							<input class="btn btn-success" type="submit" value="Save" style="float: right;"/>
 						</div>
 					</form:form>
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
 
 </div>
-<script src="resources/js/event.js"></script>
+<style>
+    body {
+  font-family: Arial, sans-serif;
+  background: url(http://www.shukatsu-note.com/wp-content/uploads/2014/12/computer-564136_1280.jpg) no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+a:visited, hover {
+    color: #D90368;
+}
+
+h1 {
+  text-align: center;
+  font-family: Tahoma, Arial, sans-serif;
+  color: #06D85F;
+  margin: 80px 0;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  transition: opacity 500ms;
+  visibility: hidden;
+  opacity: 0;
+}
+.overlay:target {
+  visibility: visible;
+  opacity: 1;
+}
+
+.popup {
+  margin: 70px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  width: 70%;
+  position: relative;
+  transition: all 5s ease-in-out;
+}
+
+.popup h2 {
+  margin-top: 0;
+  color: #333;
+  font-family: Tahoma, Arial, sans-serif;
+}
+.popup .close {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  transition: all 200ms;
+  font-size: 30px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333;
+}
+.popup .close:hover {
+  color: #06D85F;
+}
+.popup .content {
+  max-height: 70%;
+  overflow: auto;
+}
+
+@media screen and (max-width: 1000px){
+  .box{
+    width: 70%;
+  }
+  .popup{
+    width: 70%;
+  }
+}
+</style>
+
+<script src="resources/js/validateEvent.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

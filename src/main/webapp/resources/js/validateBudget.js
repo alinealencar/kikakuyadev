@@ -1,15 +1,15 @@
 /** VALIDATION **/
 
-var validCategory = false;
+/*var validCategory = false;
 var validVendor = false;
 var validItem = false;
 var validPrice = false;
-
+*/
 var validName = false;
 var validAddress = false;
 var phoneNo = false;
 
-function validateBudget(){
+/*function validateBudget(){
 	console.log("VALIDATE SIGN UP FORM")
 	console.log("category: " + validCategory);
 	console.log("vendor: " + validVendor);
@@ -20,29 +20,29 @@ function validateBudget(){
 		form.reset();
 	}
 	else{
-		if (validCategory == ""){
-			document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
-			validCategory = false;
-		}
-		if (validVendor == ""){
-			document.getElementById("vendorError").innerHTML = "<i class='fas fa-times'></i>  Please select vendor";
-			validVendor = false;
-		}
-		if (validItem == ""){
-			document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
-			validItem = false;
-		}
-		if(validPrice == ""){
-			document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
-			validPrice = false;
-		}
+//		if (validCategory == ""){
+//			document.getElementById("categoryError").innerHTML = "<i class='fas fa-times'></i>  Please select category";
+//			validCategory = false;
+//		}
+//		if (validVendor == ""){
+//			document.getElementById("vendorError").innerHTML = "<i class='fas fa-times'></i>  Please select vendor";
+//			validVendor = false;
+//		}
+//		if (validItem == ""){
+//			document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+//			validItem = false;
+//		}
+//		if(validPrice == ""){
+//			document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
+//			validPrice = false;
+//		}
 		return false;
 	}
 	return true;
-}
+}*/
 
 function validateAddVendor(){
-	if (validName && validAddress && phoneNo && website){
+	if (validName && validAddress && phoneNo){
 		form.submit();
 		form.reset();
 	}
@@ -52,7 +52,7 @@ function validateAddVendor(){
 	return true;
 }
 
-function validateCategory(){	
+/*function validateCategory(){	
 	var category = document.getElementsByClassName("category")[0].value;
 	
 	if (category == ""){
@@ -106,7 +106,7 @@ function validatePrice(){
 		document.getElementById("priceError").innerHTML = "";
 		validPrice = true;
 	}
-}
+}*/
 
 function validateName(){
 	var name = document.getElementsByClassName("name")[0].value;
