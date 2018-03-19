@@ -22,16 +22,24 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-12 text-center">
-							<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
+							<a href="#" data-toggle="tooltip" data-placement="left" title="previous year">
+								<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
+							</a>
 							<span id="curYear"></span>
-							<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
+							<a href="#" data-toggle="tooltip" data-placement="right" title="next year">
+								<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
+							</a>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-12 text-center">
-							<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
+							<a href="#" data-toggle="tooltip" data-placement="left" title="previous month">
+								<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
+							</a>
 							<span id="curMonth"></span>
-							<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
+							<a href="#" data-toggle="tooltip" data-placement="right" title="next month">
+								<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
+							</a>
 						</div>
 					</div>
 				</div>
