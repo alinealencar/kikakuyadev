@@ -197,6 +197,23 @@ Form validation
 /*********************************
 calendar
 **********************************/
+.calNav {
+	background-color: #F1E9DA;
+    border: none;
+    color: #2E294E;
+    padding: 4px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius:25px;
+}
+.calNav:hover{
+	background-color: #ddd;
+}
+
 #calendar tbody tr {
 	cursor: default;	
 }

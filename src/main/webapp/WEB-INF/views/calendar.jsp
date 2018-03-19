@@ -14,22 +14,42 @@
 	<div class="row">
 		<!-- Left -->
 		<div class="col-sm-9">
-			<!-- Add new appointment circle button-->
-			<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
-      			<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
-   			</button>  		
+			
    			
    			<!-- Loading gif -->			
 			<img id="loading" src="resources/images/calendar/loading.gif"/>
-			
-			<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curYear"></span>
-			<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
-			<br>
-			<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
-			<span id="curMonth"></span>
-			<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
-			
+			<div class="row">
+				<div class="col-9">
+					<div class="row">
+						<div class="col-12 text-center">
+							<a href="#" data-toggle="tooltip" data-placement="left" title="previous year">
+								<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
+							</a>
+							<span id="curYear"></span>
+							<a href="#" data-toggle="tooltip" data-placement="right" title="next year">
+								<button class="calNav" onclick="calendarNav('nextYear')"><i class="fas fa-chevron-right"></i></button>
+							</a>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12 text-center">
+							<a href="#" data-toggle="tooltip" data-placement="left" title="previous month">
+								<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
+							</a>
+							<span id="curMonth"></span>
+							<a href="#" data-toggle="tooltip" data-placement="right" title="next month">
+								<button  class="calNav" onclick="calendarNav('nextMonth')"><i class="fas fa-chevron-right"></i></button>
+							</a>
+						</div>
+					</div>
+				</div>
+				<div class="col-3 text-right">
+					<!-- Add new appointment circle button-->
+					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   					</button>  		
+				</div>
+			</div>
 			<!-- Calendar -->
 			<div id="showCalendar" style="display:none;">
 			<table id="calendar" class="table table-bordered">
