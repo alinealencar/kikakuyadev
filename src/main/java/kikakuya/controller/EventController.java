@@ -36,7 +36,7 @@ public class EventController {
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
-				System.out.println("no of events: " + event.size());
+//				System.out.println("no of events: " + event.size());
 				if (event.size() <= 0){
 					request.setAttribute("noEvents", "No events created yet! Create one!");
 				}
@@ -161,7 +161,7 @@ public class EventController {
 				Event eventName = eventDelegate.getSelectedEvent(event.getEventId());
 				//System.out.println(event.getEventId());
 				
-				System.out.println(eventName);
+//				System.out.println(eventName);
 
 				//Calculate remaining days
 				DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");

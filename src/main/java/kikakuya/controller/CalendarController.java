@@ -3,6 +3,7 @@ package kikakuya.controller;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Calendar;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -100,9 +101,7 @@ public class CalendarController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-		System.out.println(monthPresentation);
-		
+				
 		return monthPresentation;
 	}
 	
@@ -159,5 +158,20 @@ public class CalendarController {
 		}
 
 		return message;
+	}
+	
+	@RequestMapping(value="/todaysAppts", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Appointment> showTodaysAppts(){
+		List<Appointment> apptList = null;
+		try {
+			Calendar date = Calendar.getInstance();
+			apptList = calendarDelegate.findApptsByDay(date);
+			System.out.println("TODAYS APPTS: " + apptList.size());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return apptList;
 	}
 }

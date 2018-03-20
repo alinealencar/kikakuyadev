@@ -42,7 +42,13 @@ function addEditAppt(action){
             	 $("#curMonth").html(getMonthName($("#month").val() - 1));
             	 
             	//Reload calendar
-            	 calendarNav("loadMonth"); 	
+            	 calendarNav("loadMonth");
+            	 
+            	 //Reload today's appts
+            	 getTodaysAppts();
+            	 
+            	 closeAppt();
+
              }
          });
 }
@@ -98,6 +104,8 @@ function showAppt(id){
 	
 	//Show appt 
 	$("#showAppt").show();
+	
+	$("#todaysAppts").hide();
 }
 
 /** EDIT APPOINTMENT FORM **/
@@ -107,6 +115,7 @@ function openEditAppt(id){
 	$("#btnAddAppt").hide();
 	$(".successAlert").hide();
 	$(".errorAlert").hide();
+	$("#todaysAppts").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -145,8 +154,8 @@ function deleteAppt(id){
 	
 	$("#showAppt").hide();
 	//Reload calendar
-	 calendarNav("loadMonth"); 
-	
+	calendarNav("loadMonth");
+	$("#todaysAppts").show();
 }
 
 /** DOCUMENT.READY **/
@@ -164,11 +173,30 @@ $(document).ready(function(){
 	
 	//Show today's appointments on the right side
 	$("#todaysDate").html(getTodaysDate());
+	getTodaysAppts();
 	
 	//Show help bubbles
 	$('[data-toggle="tooltip"]').tooltip();  
 	
+	
+	
 });
+
+/** GET TODAYS APPTS **/
+function getTodaysAppts(){
+	$("#todaysApptList").empty();
+	$.post({
+		url: "todaysAppts",
+		success: function(response) {
+			console.log("inside get todays appts");
+			for(var i = 0; i < response.length; i++){
+				console.log(response.title);
+				$("#todaysApptList").append("<div class='appt' style='background-color: " + response[i].color + "' " +
+						"onclick='showAppt(" + response[i].apptId + ")'>" + response[i].title + "</div>")
+			}
+        }
+	});
+}
 
 /** CALENDAR NAVIGATION**/ 
 
@@ -270,12 +298,14 @@ function getMonthName(monthInt){
 function closeAppt(){
 	$("#showAppt").hide();
 	$("#addAppt").hide();
+	$("#todaysAppts").show();
 }
 
 function openAddAppt(){
 	$("#appt")[0].reset();
 	$("#addAppt").show();
 	$("#btnSaveAppt").hide();
+	$("#todaysAppts").hide();
 }
 
 function showFeedbackMessages(response){
@@ -284,11 +314,21 @@ function showFeedbackMessages(response){
 		 $(".successAlert").html(response);
 		 $(".successAlert").show();
 		 $(".errorAlert").hide();
+		 
+		 //show alert for 5 seconds and fade out
+		 setTimeout(function() {
+			 $(".successAlert").fadeOut();
+		 }, 5000);
 	 }
 	 else {
 		 $(".errorAlert").html(response);
 		 $(".errorAlert").show();
 		 $(".successAlert").hide();
+		 
+		 //show alert for 5 seconds and fade out
+		 setTimeout(function() {
+			 $(".errorAlert").fadeOut();
+		 }, 5000);
 	 }	
 }
 

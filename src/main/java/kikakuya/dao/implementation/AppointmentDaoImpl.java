@@ -3,8 +3,10 @@ package kikakuya.dao.implementation;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -108,6 +110,36 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
+	}
+
+	@Override
+	public List<Appointment> findAppointmentByDay(Calendar date) throws SQLException {
+		//Build day string
+		String day = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + date.get(Calendar.DATE) + " 00:00:00";
+		String dayEnd = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + (Integer.valueOf(date.get(Calendar.DATE)) + 1) + " 00:00:00";
+		String query = "SELECT * FROM appointment WHERE apptDateTime >= '" + day 
+				+ "' and apptDateTime < '" + dayEnd + "'"; 
+		
+		System.out.println(query);
+		
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		
+		List<Appointment> apptList = new ArrayList<Appointment>();
+		while(rs.next()){
+			Appointment appt = new Appointment();
+			appt.setApptId(rs.getInt(1));
+			appt.setTitle(rs.getString(2));
+			appt.setDatetime(rs.getTimestamp(3));
+			appt.setNotes(rs.getString(4));
+			appt.setUserId(rs.getInt(5));
+			appt.setLocation(rs.getString(6));
+			appt.setColor(rs.getString(7));
+
+			apptList.add(appt);
+		}
+		
+		return apptList;
 	}
 
 }

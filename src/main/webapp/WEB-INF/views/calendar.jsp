@@ -187,7 +187,7 @@
 			<div id="todaysAppts">
 				<h4>Today</h4>
 				<span id="todaysDate"></span>
-				<ul id="todaysApptList"></ul>
+				<div id="todaysApptList"></div>
 			</div>
 			
 			<!-- Show appointment -->
