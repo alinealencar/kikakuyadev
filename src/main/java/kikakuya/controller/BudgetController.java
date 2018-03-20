@@ -34,7 +34,6 @@ public class BudgetController {
 		model.addAttribute("good", new Good());
 		model.addAttribute("budgetForm", new BudgetForm());
 		Event event = (Event) request.getSession(false).getAttribute("event");
-		System.out.println(event);
 		try{
 			if(event != null) {
 				List<Vendor> vendorList = budgetDelegate.getVendors(event);
@@ -234,14 +233,6 @@ public class BudgetController {
 		}
 
 		return vendor;
-	}
-	
-	@RequestMapping(value="/checkBudget", method = RequestMethod.POST)
-	@ResponseBody
-	public double checkBudget(){
-		//check budget
-		//return budget
-		return 0.0;
 	}
 	
 	@RequestMapping(value="/enterTotalBudget", method = RequestMethod.POST)
