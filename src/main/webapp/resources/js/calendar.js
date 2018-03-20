@@ -217,7 +217,7 @@ function calendarNav(actionName){
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
 	    				//console.log("num of appts: " + apptsInTheMonth.length);
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
-	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<br><div id="
+	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    							+ apptsInTheMonth[k].apptId + " class='appt' "
 	    							+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
 	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
