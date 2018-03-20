@@ -231,8 +231,6 @@ function calendarNav(actionName){
 	    	 var weekNum = 1;
 	    	 var startPrintingDays = false;
 	    	 var monthDay = 1;
-	    		
-	    		
 	    	 
 	    	 //Add row for the first week
 	    	 $("#calendar").find('tbody')
@@ -249,19 +247,16 @@ function calendarNav(actionName){
 	    		else {
 	    			$("#calendar").find('#week' + weekNum).append($('<td>')
 	    					.append("<span id=" + monthDay + response.name + response.year +">" + monthDay + "<span>"));
-	    			//console.log(Object.keys(apptDict));
-	    			if(apptDict[monthDay+response.name+response.year] != undefined){
-	    				//console.log("there's stuff for this day: " + monthDay+response.name+$('#curYear').html());
-	    				//console.log("keys: "+Object.keys(apptDict));
+	    				    			if(apptDict[monthDay+response.name+response.year] != undefined){
+
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
-	    				//console.log("num of appts: " + apptsInTheMonth.length);
+
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
 	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    							+ apptsInTheMonth[k].apptId + " class='appt' "
 	    							+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
 	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    							+ apptsInTheMonth[k].title + "</div>");
-	    					//console.log('#' + monthDay + response.name + apptsInTheMonth[k].year);
 	    				}
 	    			}
 	    			monthDay++;
@@ -277,6 +272,15 @@ function calendarNav(actionName){
 		    	else
 		    		curWeekDay++;
 		    }
+	    	
+	    	//Add events happening this month
+	    	if(response.events.length > 0){
+	    		for(var i = 0; i < response.events.length; i++){
+	    			//STYLE EVENT IN THE SPAN BELOW
+	    			$("#" + convertFromDateToIdFormat(response.events[i].eventDate)).append("<br><span>" + response.events[i].eventName + "</span>");
+	    		}
+	    	}
+	    	
 	    	$("#loading").hide();
 	    	$("#showCalendar").show();
 	    	
@@ -291,6 +295,15 @@ function getMonthInt(monthStr){
 function getMonthName(monthInt){
 	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	return months[monthInt];
+}
+
+function convertFromDateToIdFormat(date){
+	var dateSplit = date.split("-");
+	var day = dateSplit[2].split(" ")[0];
+	var month = getMonthName(dateSplit[1] - 1);
+	var year = dateSplit[0];
+	
+	return day+month+year;
 }
 
 /** HIDE AND SHOW **/

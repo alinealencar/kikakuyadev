@@ -9,6 +9,7 @@
    
    <bean id="calendarDelegate" class="kikakuya.delegate.CalendarDelegate">
 		<property name="calendarService" ref="calendarService"></property>
+		<property name="eventService" ref="eventService"></property>
 	</bean>
 	
 	<bean id="calendarService" class="kikakuya.service.implementation.CalendarServiceImpl">

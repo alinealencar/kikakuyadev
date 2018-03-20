@@ -1,6 +1,8 @@
 package kikakuya.service.implementation;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 import kikakuya.dao.EventDao;
 import kikakuya.model.Event;
@@ -28,12 +30,12 @@ public class EventServiceImpl implements EventService{
 		return eventDao.listEventsByUser(user);
 	}
 
-	public boolean insertEvent(Event event, User user) throws SQLException{
+	public boolean insertEvent(Event event, User user) throws SQLException, ParseException{
 		return eventDao.insertEvent(event, user);
 		
 	}
 
-	public boolean updateEvent(Event event) throws SQLException{
+	public boolean updateEvent(Event event) throws SQLException, ParseException{
 		return eventDao.updateEvent(event);
 	}
 
@@ -53,5 +55,10 @@ public class EventServiceImpl implements EventService{
 	@Override
 	public boolean editTotalBudget(int eventId, double totalBudget) throws SQLException {
 		return eventDao.updateTotalBudget(eventId, totalBudget);
+	}
+
+	@Override
+	public List<Event> findEventsByMonth(Calendar date, int userId) throws SQLException {
+		return eventDao.findEventsByMonth(date, userId);
 	}
 }

@@ -1,6 +1,7 @@
 package kikakuya.delegate;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.List;
 
 import kikakuya.service.EventService;
@@ -21,11 +22,11 @@ public class EventDelegate {
 		return eventService.listEventsByUser(user);
 	}
 	
-	public boolean insertEvent(Event event, User user) throws SQLException{
+	public boolean insertEvent(Event event, User user) throws SQLException, ParseException{
 		return eventService.insertEvent(event, user);
 	}
 	
-	public boolean updateEvent(Event event)throws SQLException{
+	public boolean updateEvent(Event event)throws SQLException, ParseException{
 		return eventService.updateEvent(event);
 	}
 	

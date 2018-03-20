@@ -69,7 +69,7 @@ public class CalendarController {
 		User user = (User) session.getAttribute("user");
 		
 		MonthPresentation monthPresentation = new MonthPresentation();
-		Calendar monthCal = Calendar.getInstance();
+		Calendar monthCal = null;
 		if(action.equals("loadMonth")){
 			monthCal = HelperUtilities.getLoadMonth(month, year);
 		}
@@ -98,6 +98,7 @@ public class CalendarController {
 		
 		try {
 			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR) , user.getUserId()));
+			monthPresentation.setEvents(calendarDelegate.findEventsByMonth(monthCal, user.getUserId()));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

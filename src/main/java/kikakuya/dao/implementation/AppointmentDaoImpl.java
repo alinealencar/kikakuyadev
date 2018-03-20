@@ -119,9 +119,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		String dayEnd = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + (Integer.valueOf(date.get(Calendar.DATE)) + 1) + " 00:00:00";
 		String query = "SELECT * FROM appointment WHERE apptDateTime >= '" + day 
 				+ "' and apptDateTime < '" + dayEnd + "'"; 
-		
-		System.out.println(query);
-		
+				
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		

@@ -8,6 +8,7 @@ public class MonthPresentation {
 	private int firstDay; //1: Sunday, 2: Monday, ..., 7: Saturday
 	private int numOfDays;
 	private List<Appointment> appointments;
+	private List<Event> events;
 	
 	public MonthPresentation() {
 	
@@ -43,11 +44,22 @@ public class MonthPresentation {
 	public void setYear(int year) {
 		this.year = year;
 	}
+	
+
+	public List<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<Event> events) {
+		this.events = events;
+	}
 
 	@Override
 	public String toString() {
 		return "MonthPresentation [name=" + name + ", year=" + year + ", firstDay=" + firstDay + ", numOfDays="
-				+ numOfDays + ", appointments=" + appointments + "]";
+				+ numOfDays + ", appointments=" + appointments + ", events=" + events + "]";
 	}
+
+	
 	
 }
