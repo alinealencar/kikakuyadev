@@ -21,13 +21,23 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} >
+			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'}>
+				<span>It looks like you haven't added a budget for your event yet!</span><br>
+				<span>Estimate the budget for your event below.</span><br> 
+				<span>Don't worry about this step, you can always change your budget later!</span><br>
+				<form:form action="enterTotalBudget" modelAttribute="eventForm">
+					<form:hidden path="eventId" value="1"/>
+					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget"/>
+					<input type="submit" value="Enter"/>
+				</form:form> 
+			</div> 
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
-						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$${event.totalBudget}</b></span>
+						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$ ${event.totalBudget}</b></span>
 					</div>					
 					<div class="col-3 d-block d-sm-none" onclick="openAddBudgetForm()">					
 					<button  type="button" class="btn btn-link img-fluid" onclick="">

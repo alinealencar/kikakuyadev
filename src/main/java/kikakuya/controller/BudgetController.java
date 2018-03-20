@@ -29,13 +29,17 @@ public class BudgetController {
 	
 	@RequestMapping(value="/budget", method = RequestMethod.GET)
 	public String viewBudget(Model model, HttpServletRequest request) throws SQLException{
+		model.addAttribute("eventForm", new Event());
 		model.addAttribute("vendor", new Vendor());
 		model.addAttribute("good", new Good());
 		model.addAttribute("budgetForm", new BudgetForm());
 		Event event = (Event) request.getSession(false).getAttribute("event");
+		System.out.println(event);
 		try{
-			List vendorList = budgetDelegate.getVendors(event);
-			request.setAttribute("vendors", vendorList);
+			if(event != null) {
+				List<Vendor> vendorList = budgetDelegate.getVendors(event);
+				request.setAttribute("vendors", vendorList);
+			}
 			
 		}
 		catch(SQLException e){
@@ -49,9 +53,14 @@ public class BudgetController {
 		//Get list of all goods
 		BudgetForm budgetForm = new BudgetForm();
 		request.setAttribute("budgetForm", budgetForm);
-		
+
 		//Show budget as default
 		request.setAttribute("goodDeleted", "");
+		
+		if(!(event.getTotalBudget() > 0))
+			request.setAttribute("noBudget", true);
+		
+		request.getSession(false).setAttribute("event", event);		
 		return "budget";
 	}
 	
@@ -136,6 +145,8 @@ public class BudgetController {
 		String redirectTo = "budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
+		Event event = (Event) request.getSession().getAttribute("event");
+
 		try {
 			//Update goods
 			if(goodsList != null && goodsList.size() > 0) {
@@ -145,12 +156,11 @@ public class BudgetController {
 			}
 				
 			//Update total budget
-			budgetDelegate.editTotalBudget(1, newTotalBudget);
+			budgetDelegate.editTotalBudget(event.getEventId(), newTotalBudget);
 			
 			//Update event object in the session scope
-			Event event = (Event) request.getSession().getAttribute("event");
 			event.setTotalBudget(newTotalBudget);
-			request.getSession().setAttribute("event", event);
+			request.getSession(false).setAttribute("event", event);
 			request.setAttribute("editSuccess", "Budget was updated successfully.");
 			viewBudget(model, request);
 		} catch(Exception e){
@@ -224,6 +234,32 @@ public class BudgetController {
 		}
 
 		return vendor;
+	}
+	
+	@RequestMapping(value="/checkBudget", method = RequestMethod.POST)
+	@ResponseBody
+	public double checkBudget(){
+		//check budget
+		//return budget
+		return 0.0;
+	}
+	
+	@RequestMapping(value="/enterTotalBudget", method = RequestMethod.POST)
+	public String enterTotalBudget(Model model, HttpServletRequest request, @ModelAttribute Event eventForm){
+		double newTotalBudget = eventForm.getTotalBudget();
+		//Update total budget
+		try {
+			Event event = (Event) request.getSession().getAttribute("event");
+			budgetDelegate.editTotalBudget(event.getEventId(), newTotalBudget);
+			
+			//Update event object in the session scope
+			event.setTotalBudget(newTotalBudget);
+			request.getSession(false).setAttribute("event", event);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return "redirect:/budget";
 	}
 }
 
