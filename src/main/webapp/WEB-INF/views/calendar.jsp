@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<!-- Calendar -->
-			<div id="showCalendar" style="display:none;">
+			<div id="showCalendar" class="table-responsive" style="display:none;">
 			<table id="calendar" class="table table-bordered">
 				<thead>
 					<tr>
