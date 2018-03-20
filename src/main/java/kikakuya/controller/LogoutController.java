@@ -30,8 +30,7 @@ public class LogoutController {
 		if(session != null) {
 			session.invalidate();
 		}
-		System.out.println("logout");
 		model.addAttribute("user", new User());
-		return "index";
+		return "redirect:/";
 	}
 }
