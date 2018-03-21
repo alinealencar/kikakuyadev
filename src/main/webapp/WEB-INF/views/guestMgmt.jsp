@@ -238,16 +238,16 @@
 				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
 				<h2>Edit Guest</h2>
-				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" >
+				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return evalidateGuestForm();">
 					<form:hidden path="token" value="${selectedGuest.token}"/>
 					<label>First Name:</label>
-					<form:input path="firstName" value="${selectedGuest.firstName}"  class="firstName form-control" style="margin-bottom:10px;"/>
-						
+					<form:input path="firstName" value="${selectedGuest.firstName}"  class="efName form-control" oninput="evalidateFirstName()" style="margin-bottom:10px;"/>
+						<span id="efNameError" class="formError"></span> <br/>
 					<label>Last Name: </label>
-					<form:input path="lastName" value="${selectedGuest.lastName}" class="lastName form-control" style="margin-bottom:10px;"/>
-						
+					<form:input path="lastName" value="${selectedGuest.lastName}" class="elName form-control" oninput="evalidateLastName()" style="margin-bottom:10px;"/>
+						<span id="elNameError" class="formError"></span> <br/>
 					<label>Email: </label>
-					<form:input path="email" value="${selectedGuest.email}" class="email form-control" style="margin-bottom:10px;"/>
+					<form:input path="email" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"/>
 						
 					<div class="form-group row">
 						<div class="col-6">

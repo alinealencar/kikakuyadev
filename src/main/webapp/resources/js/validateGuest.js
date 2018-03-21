@@ -1,4 +1,4 @@
-/** VALIDATION **/
+/** VALIDATION FOR ADD GUEST**/
 
 var validFirstName = false;
 var validLastName = false;
@@ -63,3 +63,51 @@ function validateLastName(){
 //		validEmail = true;
 //	}
 //}
+
+/**VALIDATION FOR EDIT GUEST**/
+
+var evalidFirstName = false;
+var evalidLastName = false;
+//var evalidEmail = false;
+
+function evalidateGuestForm(){
+	console.log(evalidFirstName);
+	console.log(evalidLastName);
+	//console.log(evalidEmail);
+	if (evalidFirstName && evalidLastName){
+		form.submit();
+		form.reset();
+	}
+	else{
+		return false;
+	}
+	return true;
+}
+
+function evalidateFirstName(){
+	var efName = document.getElementsByClassName("efName")[0].value;
+	
+	if (efName == ""){
+		document.getElementById("efNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
+		evalidFirstName = false;
+	}
+	else{
+		document.getElementById("efNameError").innerHTML = "";
+		evalidFirstName = true;
+	}
+}
+
+function evalidateLastName(){
+	var elName = document.getElementsByClassName("elName")[0].value;
+	
+	if (elName == ""){
+		document.getElementById("elNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
+		evalidLastName = false;
+	}
+	else{
+		document.getElementById("elNameError").innerHTML = "";
+		evalidLastName = true;
+	}
+}
+
+
