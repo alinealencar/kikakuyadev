@@ -319,6 +319,7 @@ function openAddAppt(){
 	$("#addAppt").show();
 	$("#btnSaveAppt").hide();
 	$("#todaysAppts").hide();
+	$("#showAppt").hide();
 }
 
 function showFeedbackMessages(response){

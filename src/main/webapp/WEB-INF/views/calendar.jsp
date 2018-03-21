@@ -15,9 +15,6 @@
 		<!-- Left -->
 		<div class="col-sm-9">
 			
-   			
-   			<!-- Loading gif -->			
-			<img id="loading" src="resources/images/calendar/loading.gif"/>
 			<div class="row">
 				<div class="col-9">
 					<div class="row">
