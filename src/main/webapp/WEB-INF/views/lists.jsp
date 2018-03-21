@@ -182,7 +182,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateListTitleE()">
 		    			Save
 		    		</button>
 		    	</div>
@@ -200,13 +200,15 @@
 					<form:hidden id="listIdHidden" path="listId" value=""/>
 					<c:forEach var="list" items="${lists}" varStatus="loop">
 						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}"/>
+						
 						<li>					
 		   					<div class="row">
 		   						<div class="col-2 btnListDelete">
 	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE()" />
+		   							<span id="titleErrorE" class="formError"></span>
 		   						</div>
 		   					</div>							
 						</li>
@@ -259,32 +261,6 @@
 					</div>
 			
 				<hr>
-							
-				<!-- item list body -->
-				<c:if test="${not empty noItemsMsg}">
-					<div class="row">
-						<div class="col-12 text-center">
-							<h5>${noItemsMsg}</h5>
-						</div>
-						<div class="col-12 text-center">
-							<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
-						</div>
-					</div>
-					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item" onsubmit="return validateItemName();">
-					<div class="row">
-						<div class="col-10">
-							<form:input path="itemName" id="itemInput" class="validItemName form-control" placeholder="Add item" oninput="validateItem()"/>
-							<span id="itemNameError" class="formError"></span>
-						</div>						
-						<div class="col-2">
-			  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
-		      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
-		   					</button>
-	   					</div>
-   					</div>	
-   					</form:form>	
-				</div>
-			<hr>
 			<!-- item list body -->
 			<c:if test="${not empty noItemsMsg}">
 				<div class="text-center">
@@ -311,8 +287,6 @@
 						<form:hidden path="itemId" value="${item.itemId}"/>
 					</form:form>
 				</c:forEach>
-=======
->>>>>>> efc3b3e5a8b08789f3aae25fba3949d630ec4390
 				</c:if>
 				<ul id="itemList">
 					<c:if test="${fn:length(items) > 0}">
