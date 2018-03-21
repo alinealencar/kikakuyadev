@@ -2,6 +2,7 @@ package kikakuya.service;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 import kikakuya.model.Appointment;
@@ -12,4 +13,5 @@ public interface CalendarService {
 	public Appointment findAppointment(int apptId) throws SQLException;
 	public boolean editAppointment(Appointment appt) throws SQLException, ParseException;
 	public boolean deleteAppointment(int apptId) throws SQLException;
+	public List<Appointment> findAppointmentsByDay(Calendar date) throws SQLException;
 }

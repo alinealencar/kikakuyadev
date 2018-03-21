@@ -2,6 +2,7 @@ package kikakuya.service.implementation;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.List;
 
 import kikakuya.dao.AppointmentDao;
@@ -44,6 +45,11 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public boolean deleteAppointment(int apptId) throws SQLException {
 		return apptDao.deleteAppointment(apptId);
+	}
+
+	@Override
+	public List<Appointment> findAppointmentsByDay(Calendar date) throws SQLException {
+		return apptDao.findAppointmentByDay(date);
 	}
 
 }

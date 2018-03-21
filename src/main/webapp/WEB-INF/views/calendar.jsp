@@ -51,7 +51,7 @@
 				</div>
 			</div>
 			<!-- Calendar -->
-			<div id="showCalendar" style="display:none;">
+			<div id="showCalendar" class="table-responsive" style="display:none;">
 			<table id="calendar" class="table table-bordered">
 				<thead>
 					<tr>
@@ -181,6 +181,13 @@
 					<input id="btnAddAppt" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
 					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');"/>
 				</form:form>
+			</div>
+			
+			<!-- Today's appointments -->
+			<div id="todaysAppts">
+				<h4>Today</h4>
+				<span id="todaysDate"></span>
+				<div id="todaysApptList"></div>
 			</div>
 			
 			<!-- Show appointment -->

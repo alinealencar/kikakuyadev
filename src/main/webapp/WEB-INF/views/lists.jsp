@@ -219,30 +219,56 @@
 		</div>
 		<!-- *****************************************************************************************************column change -->
 		<!-- Show item list  -->
-		<!-- item list header -->
-		<c:choose>
-			<c:when test="${empty noListMessage}">
-				<div class="col-sm-8" id="itemsDiv">
-				<div id="myDIV" class="listHeader">
+		<div class="col-sm-8" id="itemsDiv">
+		<!-- item list header -->		
+			<c:choose>
+				<c:when test="${empty noListMessage}">									
+					<div id="myDIV" class="listHeader">
+						<div class="row">
+							<div class="col-1 d-block d-sm-none">
+			      				<span onclick="openAllLists()"  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
+							</div>
+							<div class="col-7">
+								<h3>${selectedList.listTitle}</h3>
+							</div>
+							<c:if test="${not empty items}">
+								<div class="col-5 text-right d-none d-sm-block">
+									<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+			      						<span><i class="fas fa-edit"></i></span>
+			   						</button>  
+			   					</div>	   		
+								<div class="col-4 text-right d-block d-sm-none">
+									<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
+			      						<span><i class="fas fa-edit"></i></span>
+			   						</button>  
+			   					</div>	   	
+			   				</c:if>								
+						</div>
+						<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
+							<div class="row">
+								<div class="col-10">
+									<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
+								</div>						
+								<div class="col-2">
+					  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
+				      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 250%; padding:0px;">add_circle</span>
+				   					</button>
+			   					</div>
+		   					</div>	
+	   					</form:form>	
+					</div>
+			
+				<hr>
+							
+				<!-- item list body -->
+				<c:if test="${not empty noItemsMsg}">
 					<div class="row">
-						<div class="col-1 d-block d-sm-none">
-		      				<span onclick="openAllLists()"  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
+						<div class="col-12 text-center">
+							<h5>${noItemsMsg}</h5>
 						</div>
-						<div class="col-7">
-							<h3>${selectedList.listTitle}</h3>
+						<div class="col-12 text-center">
+							<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 						</div>
-						<c:if test="${not empty items}">
-							<div class="col-5 text-right d-none d-sm-block">
-								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      						<span><i class="fas fa-edit"></i></span>
-		   						</button>  
-		   					</div>	   		
-							<div class="col-4 text-right d-block d-sm-none">
-								<button  type="button" class="btn btn-link img-fluid" onclick="openEditItemList()">
-		      						<span><i class="fas fa-edit"></i></span>
-		   						</button>  
-		   					</div>	   	
-		   				</c:if>								
 					</div>
 					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item" onsubmit="return validateItemName();">
 					<div class="row">
@@ -258,8 +284,6 @@
    					</div>	
    					</form:form>	
 				</div>
-				
-
 			<hr>
 			<!-- item list body -->
 			<c:if test="${not empty noItemsMsg}">
@@ -287,21 +311,44 @@
 						<form:hidden path="itemId" value="${item.itemId}"/>
 					</form:form>
 				</c:forEach>
+=======
+>>>>>>> efc3b3e5a8b08789f3aae25fba3949d630ec4390
 				</c:if>
-			</ul>
+				<ul id="itemList">
+					<c:if test="${fn:length(items) > 0}">
+						<c:forEach var="item" items="${items}">
+								<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
+										<c:choose>
+											<c:when test="${item.itemStatus eq 0}">
+												<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()"/>
+												&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+											</c:when>
+											<c:otherwise>
+												<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()" checked="true"/>
+												&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+											</c:otherwise>
+										</c:choose>
+									<form:hidden path="itemId" value="${item.itemId}"/>
+								</form:form>
+							</c:forEach>
+						</c:if>
+					</ul>
+				</c:when>
+				<c:otherwise>
+					<div class="row">
+						<div class="col-1 d-block d-sm-none">
+		      				<span onclick="openAllLists()"  style="color:#2E294E; font-size: 150%; padding:0px;"><i class="fas fa-bars"></i></span>
+						</div>
+						<div class="col-11 text-center">
+							<h4>${noListMessage}</h4>
+						</div>
+						<div class="col-12 text-center">
+							<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+						</div>
+					</div>					
+				</c:otherwise>
+			</c:choose>
 		</div>
-		</c:when>
-		<c:otherwise>
-		<div class="row">
-				<div class="col-12 text-center">
-					<h4>${noListMessage}</h4>
-				</div>
-			<div class="col-12 text-center">
-				<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
-			</div>
-		</div>
-		</c:otherwise>
-	</c:choose>
 
 				
 		<!-- End of Show item list -->	

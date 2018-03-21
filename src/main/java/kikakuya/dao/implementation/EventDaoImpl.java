@@ -3,7 +3,9 @@ package kikakuya.dao.implementation;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -11,6 +13,7 @@ import javax.sql.DataSource;
 import kikakuya.dao.EventDao;
 import kikakuya.model.Event;
 import kikakuya.model.User;
+import kikakuya.utilities.HelperUtilities;
 
 public class EventDaoImpl implements EventDao {
 	
@@ -34,7 +37,7 @@ public class EventDaoImpl implements EventDao {
 			Event event = new Event();
 			event.setEventId(rs.getInt(1));
 			event.setEventName(rs.getString(2));
-			event.setEventDate(rs.getString(3));
+			event.setEventDate(HelperUtilities.timestampToString(rs.getTimestamp(3)));
 			event.setLocation(rs.getString(5));
 			event.setTotalBudget(rs.getDouble(6));
 			
@@ -46,11 +49,11 @@ public class EventDaoImpl implements EventDao {
 	}
 	
 	
-	public boolean insertEvent(Event event, User user) throws SQLException {
+	public boolean insertEvent(Event event, User user) throws SQLException, ParseException {
 		String query = "INSERT INTO event (eventName, eventDate, location, UseruserId) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, event.getEventName());
-		pstmt.setString(2,event.getEventDate());
+		pstmt.setTimestamp(2, HelperUtilities.stringToTimestamp(event.getEventDate()));
 		pstmt.setString(3,event.getLocation());
 		pstmt.setInt(4, user.getUserId());
 		int rowsAffected = pstmt.executeUpdate();
@@ -58,9 +61,9 @@ public class EventDaoImpl implements EventDao {
 		return rowsAffected > 0;
 	}
 	
-	public boolean updateEvent(Event event)throws SQLException {
+	public boolean updateEvent(Event event)throws SQLException, ParseException {
 		String query = "UPDATE event SET eventName = '" + event.getEventName() + 
-				"', eventDate = '" + event.getEventDate() + 
+				"', eventDate = '" + HelperUtilities.stringToTimestamp(event.getEventDate()) + 
 				"', location = '" + event.getLocation() + 
 				"' where eventId = '" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
@@ -84,7 +87,7 @@ public class EventDaoImpl implements EventDao {
 		while(rs.next()){
 			event.setEventId(rs.getInt(1));
 			event.setEventName(rs.getString(2));
-			event.setEventDate(rs.getString(3));
+			event.setEventDate(HelperUtilities.timestampToString(rs.getTimestamp(3)));
 			event.setLocation(rs.getString(5));
 			event.setTotalBudget(rs.getDouble(6));
 		}
@@ -99,5 +102,32 @@ public class EventDaoImpl implements EventDao {
 		int rowsAffected = pstmt.executeUpdate();
 		
 		return(rowsAffected > 0);
+	}
+
+	@Override
+	public List<Event> findEventsByMonth(Calendar date, int userId) throws SQLException {
+		String day = date.get(Calendar.YEAR) + "-" + HelperUtilities.formatMonthInt(date.get(Calendar.MONTH) + 1) + "-01 00:00:00";
+		String dayEnd = date.get(Calendar.YEAR) + "-" + HelperUtilities.formatMonthInt(date.get(Calendar.MONTH) + 2) + "-01 00:00:00";
+		String query = "select * from event where eventDate >= '" + day +
+				"' and eventDate < '" + dayEnd + "' and UseruserId=" + userId;
+		
+		System.out.println(query);
+		
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		
+		List<Event> eventsList = new ArrayList<Event>();
+		while(rs.next()){
+			Event event = new Event();
+			event.setEventId(rs.getInt(1));
+			event.setEventName(rs.getString(2));
+			event.setEventDate(HelperUtilities.timestampToString(rs.getTimestamp(3)));
+			event.setLocation(rs.getString(5));
+			event.setTotalBudget(rs.getDouble(6));
+			eventsList.add(event);
+		}
+		
+		return eventsList;
+		
 	}
 }

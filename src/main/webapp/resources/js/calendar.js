@@ -42,7 +42,13 @@ function addEditAppt(action){
             	 $("#curMonth").html(getMonthName($("#month").val() - 1));
             	 
             	//Reload calendar
-            	 calendarNav("loadMonth"); 	
+            	 calendarNav("loadMonth");
+            	 
+            	 //Reload today's appts
+            	 getTodaysAppts();
+            	 
+            	 closeAppt();
+
              }
          });
 }
@@ -98,6 +104,8 @@ function showAppt(id){
 	
 	//Show appt 
 	$("#showAppt").show();
+	
+	$("#todaysAppts").hide();
 }
 
 /** EDIT APPOINTMENT FORM **/
@@ -107,6 +115,7 @@ function openEditAppt(id){
 	$("#btnAddAppt").hide();
 	$(".successAlert").hide();
 	$(".errorAlert").hide();
+	$("#todaysAppts").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -145,21 +154,51 @@ function deleteAppt(id){
 	
 	$("#showAppt").hide();
 	//Reload calendar
-	 calendarNav("loadMonth"); 
-	
+	calendarNav("loadMonth");
+	$("#todaysAppts").show();
 }
 
-/** CALENDAR NAVIGATION**/ 
+/** DOCUMENT.READY **/
 
 $(document).ready(function(){
+	//Show today's month and year in the calendar
 	$("#curYear").html(new Date().getFullYear());
 	$("#curMonth").html(getMonthName(new Date().getMonth()));
 	
 	calendarNav("loadMonth");
 	
+	//Load date selection dropdown
 	for(var i = 1; i <= 31; i++)
 		$('<option>').val(i).text(i).appendTo('#day');
+	
+	//Show today's appointments on the right side
+	$("#todaysDate").html(getTodaysDate());
+	getTodaysAppts();
+	
+	//Show help bubbles
+	$('[data-toggle="tooltip"]').tooltip();  
+	
+	
+	
 });
+
+/** GET TODAYS APPTS **/
+function getTodaysAppts(){
+	$("#todaysApptList").empty();
+	$.post({
+		url: "todaysAppts",
+		success: function(response) {
+			console.log("inside get todays appts");
+			for(var i = 0; i < response.length; i++){
+				console.log(response.title);
+				$("#todaysApptList").append("<div class='appt' style='background-color: " + response[i].color + "' " +
+						"onclick='showAppt(" + response[i].apptId + ")'>" + response[i].title + "</div>")
+			}
+        }
+	});
+}
+
+/** CALENDAR NAVIGATION**/ 
 
 function calendarNav(actionName){
 	//Send AJAX request to navigate the calendar and show the appointments
@@ -192,8 +231,6 @@ function calendarNav(actionName){
 	    	 var weekNum = 1;
 	    	 var startPrintingDays = false;
 	    	 var monthDay = 1;
-	    		
-	    		
 	    	 
 	    	 //Add row for the first week
 	    	 $("#calendar").find('tbody')
@@ -210,19 +247,16 @@ function calendarNav(actionName){
 	    		else {
 	    			$("#calendar").find('#week' + weekNum).append($('<td>')
 	    					.append("<span id=" + monthDay + response.name + response.year +">" + monthDay + "<span>"));
-	    			//console.log(Object.keys(apptDict));
-	    			if(apptDict[monthDay+response.name+response.year] != undefined){
-	    				//console.log("there's stuff for this day: " + monthDay+response.name+$('#curYear').html());
-	    				//console.log("keys: "+Object.keys(apptDict));
+	    				    			if(apptDict[monthDay+response.name+response.year] != undefined){
+
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
-	    				//console.log("num of appts: " + apptsInTheMonth.length);
+
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
-	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<br><div id="
+	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    							+ apptsInTheMonth[k].apptId + " class='appt' "
 	    							+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
 	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    							+ apptsInTheMonth[k].title + "</div>");
-	    					//console.log('#' + monthDay + response.name + apptsInTheMonth[k].year);
 	    				}
 	    			}
 	    			monthDay++;
@@ -238,6 +272,15 @@ function calendarNav(actionName){
 		    	else
 		    		curWeekDay++;
 		    }
+	    	
+	    	//Add events happening this month
+	    	if(response.events.length > 0){
+	    		for(var i = 0; i < response.events.length; i++){
+	    			//STYLE EVENT IN THE SPAN BELOW
+	    			$("#" + convertFromDateToIdFormat(response.events[i].eventDate)).append("<br><span>" + response.events[i].eventName + "</span>");
+	    		}
+	    	}
+	    	
 	    	$("#loading").hide();
 	    	$("#showCalendar").show();
 	    	
@@ -254,17 +297,28 @@ function getMonthName(monthInt){
 	return months[monthInt];
 }
 
+function convertFromDateToIdFormat(date){
+	var dateSplit = date.split("-");
+	var day = dateSplit[2].split(" ")[0];
+	var month = getMonthName(dateSplit[1] - 1);
+	var year = dateSplit[0];
+	
+	return day+month+year;
+}
+
 /** HIDE AND SHOW **/
 
 function closeAppt(){
 	$("#showAppt").hide();
 	$("#addAppt").hide();
+	$("#todaysAppts").show();
 }
 
 function openAddAppt(){
 	$("#appt")[0].reset();
 	$("#addAppt").show();
 	$("#btnSaveAppt").hide();
+	$("#todaysAppts").hide();
 }
 
 function showFeedbackMessages(response){
@@ -273,15 +327,38 @@ function showFeedbackMessages(response){
 		 $(".successAlert").html(response);
 		 $(".successAlert").show();
 		 $(".errorAlert").hide();
+		 
+		 //show alert for 5 seconds and fade out
+		 setTimeout(function() {
+			 $(".successAlert").fadeOut();
+		 }, 5000);
 	 }
 	 else {
 		 $(".errorAlert").html(response);
 		 $(".errorAlert").show();
 		 $(".successAlert").hide();
+		 
+		 //show alert for 5 seconds and fade out
+		 setTimeout(function() {
+			 $(".errorAlert").fadeOut();
+		 }, 5000);
 	 }	
 }
 
-//show help bubbles
-$(document).ready(function(){
-	$('[data-toggle="tooltip"]').tooltip();   
-});
+function getTodaysDate() {
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+
+	var yyyy = today.getFullYear();
+	if(dd<10){
+	    dd='0'+dd;
+	} 
+	if(mm<10){
+	    mm='0'+mm;
+	} 
+	var todayStr = dd+'/'+mm+'/'+yyyy;
+	
+	return todayStr;
+}
+

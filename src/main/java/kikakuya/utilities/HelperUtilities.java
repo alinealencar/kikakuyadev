@@ -66,6 +66,19 @@ public class HelperUtilities {
 	    
 	    return timestamp;
 	}
+	
+	public static Timestamp stringToTimestamp(String dateStr) throws ParseException{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	    Date parsedDate = dateFormat.parse(dateStr);
+	    Timestamp timestamp = new java.sql.Timestamp(parsedDate.getTime());
+	    
+	    return timestamp;
+	}
+	
+	public static String timestampToString(Timestamp timestamp){
+		return new SimpleDateFormat("yyyy-MM-dd").format(timestamp);
+		
+	}
 
 	public static int getMonthNumber(String month){
 		String[] monthNames = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
@@ -159,5 +172,15 @@ public class HelperUtilities {
 	
 	public static boolean isNumeric(String number){
 		return number != null && number.matches("[-+]?\\d*\\.?\\d+");  
+	}
+	
+	public static String formatMonthInt(int monthInt){
+		String monthNumber = "";
+		if(monthInt + 1 < 10)
+			monthNumber ="0";
+		monthNumber += monthInt;
+		
+		return monthNumber;
+		
 	}
 }
