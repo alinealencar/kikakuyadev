@@ -320,6 +320,7 @@ function openAddAppt(){
 	$("#btnSaveAppt").hide();
 	$("#todaysAppts").hide();
 	$("#showAppt").hide();
+	$("#btnAddAppt").show();
 }
 
 function showFeedbackMessages(response){

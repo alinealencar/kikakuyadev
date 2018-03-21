@@ -38,8 +38,6 @@ public class RememberMeFilter implements Filter {
 		HttpSession session = request.getSession();
 		
 		if(session != null) {
-			System.out.println("session nao e null");
-		
 			try{
 				// Check if user has the RememberMe cookies (uuid and user) or if the user is currently logged in
 				User user = AuthenticationUtilities.isRememberMe(request, dataSource);

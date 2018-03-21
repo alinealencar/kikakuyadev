@@ -302,28 +302,28 @@
    					<hr>
 				</form:form>
 				<br>
-				<!-- Edit Plus Ones -->
 				<h2>Edit Plus Ones</h2>
-				<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm">
-					<c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
-						<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
-						<label>Name: </label>
-						<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
-						<label>Meal Choice: </label>
-						<select name="plusOnes[${status.index}].mealChoice" class="form-control" style="margin-bottom:10px;">
-							<c:forEach items="${meals}" var="meal">
-								<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
-							</c:forEach>	
-						</select>
-						<br>
-					</c:forEach>
-					<div class="text-right">
-						<button type="submit" class="btn btn-info">
-	      					Save
-	   					</button>
-   					</div>
-				</form:form>
-			</div>
+				<!-- Edit Plus Ones -->		
+					<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm" >
+						<c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
+							<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
+							<label>Name: </label>
+							<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
+							<label>Meal Choice: </label>
+							<select name="plusOnes[${status.index}].mealChoice" class="form-control" style="margin-bottom:10px;">
+								<c:forEach items="${meals}" var="meal">
+									<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
+								</c:forEach>	
+							</select>
+							<br>
+						</c:forEach>
+						<div class="text-right">
+							<button type="submit" class="btn btn-info">
+		      					Save
+		   					</button>
+	   					</div>
+					</form:form>
+ 			</div>
 			</div>
 			
 			
