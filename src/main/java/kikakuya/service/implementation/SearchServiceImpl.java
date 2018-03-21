@@ -22,7 +22,7 @@ public class SearchServiceImpl implements SearchService{
 		
 		//send request to Yelp API
 		Request request = new Builder()
-                .url("https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location + "&limit=20")
+                .url("https://api.yelp.com/v3/businesses/search?term=" + term + "&location=" + location + "&limit=50")
                 .get()
                 .addHeader("authorization", "Bearer"+" "+API_KEY)
                 .build();

@@ -270,24 +270,6 @@
 					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 				</div>
 			</c:if>
-			<ul id="itemList">
-			<c:if test="${fn:length(items) > 0}">
-				<c:forEach var="item" items="${items}">
-					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
-						<c:choose>
-							<c:when test="${item.itemStatus eq 0}">
-								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()"/>
-								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
-							</c:when>
-							<c:otherwise>
-								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()" checked="true"/>
-								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
-							</c:otherwise>
-						</c:choose>
-						<form:hidden path="itemId" value="${item.itemId}"/>
-					</form:form>
-				</c:forEach>
-				</c:if>
 				<ul id="itemList">
 					<c:if test="${fn:length(items) > 0}">
 						<c:forEach var="item" items="${items}">
