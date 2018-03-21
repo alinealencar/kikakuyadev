@@ -77,6 +77,7 @@ function validateNameSM(){
 	}		
 }
 /** EDIT ON BIGSCREEN**/
+
 function validateListTitleE(){
 	console.log(validListTitleE);
 	if (validListTitleE){

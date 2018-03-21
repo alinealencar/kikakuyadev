@@ -66,8 +66,8 @@ function validateLastName(){
 
 /**VALIDATION FOR EDIT GUEST**/
 
-var evalidFirstName = false;
-var evalidLastName = false;
+//var evalidFirstName = false;
+//var evalidLastName = false;
 //var evalidEmail = false;
 
 function evalidateGuestForm(){
@@ -87,27 +87,27 @@ function evalidateGuestForm(){
 function evalidateFirstName(){
 	var efName = document.getElementsByClassName("efName")[0].value;
 	
-	if (efName == ""){
-		document.getElementById("efNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
-		evalidFirstName = false;
-	}
-	else{
+	if (efName != ""){
 		document.getElementById("efNameError").innerHTML = "";
 		evalidFirstName = true;
 	}
+//	else{
+//		document.getElementById("efNameError").innerHTML = "";
+//		evalidFirstName = true;
+//	}
 }
 
 function evalidateLastName(){
 	var elName = document.getElementsByClassName("elName")[0].value;
 	
-	if (elName == ""){
-		document.getElementById("elNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
-		evalidLastName = false;
-	}
-	else{
+	if (elName != ""){
 		document.getElementById("elNameError").innerHTML = "";
 		evalidLastName = true;
 	}
+//	else{
+//		document.getElementById("elNameError").innerHTML = "";
+//		evalidLastName = true;
+//	}
 }
 
 

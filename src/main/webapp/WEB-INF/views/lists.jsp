@@ -182,7 +182,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateListTitleE()">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateNameE()">
 		    			Save
 		    		</button>
 		    	</div>
@@ -246,10 +246,11 @@
 			   					</div>	   	
 			   				</c:if>								
 						</div>
-						<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
+						<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item" onsubmit="return validateItemName();">
 							<div class="row">
 								<div class="col-10">
-									<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
+									<form:input path="itemName" id="itemInput" class="validItemName form-control" oninput="validateItem()" placeholder="Add item" />
+									<span id="itemNameError" class="formError"></span>
 								</div>						
 								<div class="col-2">
 					  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
@@ -270,24 +271,6 @@
 					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 				</div>
 			</c:if>
-			<ul id="itemList">
-			<c:if test="${fn:length(items) > 0}">
-				<c:forEach var="item" items="${items}">
-					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
-						<c:choose>
-							<c:when test="${item.itemStatus eq 0}">
-								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()"/>
-								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
-							</c:when>
-							<c:otherwise>
-								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()" checked="true"/>
-								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
-							</c:otherwise>
-						</c:choose>
-						<form:hidden path="itemId" value="${item.itemId}"/>
-					</form:form>
-				</c:forEach>
-				</c:if>
 				<ul id="itemList">
 					<c:if test="${fn:length(items) > 0}">
 						<c:forEach var="item" items="${items}">
