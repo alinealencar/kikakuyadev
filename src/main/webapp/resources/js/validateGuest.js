@@ -8,7 +8,7 @@ function validateGuestForm(){
 	console.log(validFirstName);
 	console.log(validLastName);
 	console.log(validEmail);
-	if (validFirstName && validLastName && validEmail){
+	if (validFirstName && validLastName){
 		form.submit();
 		form.reset();
 	}
@@ -18,11 +18,10 @@ function validateGuestForm(){
 	return true;
 }
 
-function validateName(){
-	var firstName = document.getElementsByClassName("firstName")[0].value;
-	var lastName = document.getElementsByClassName("lastName")[0].value;
+function validateFirstName(){
+	var fName = document.getElementsByClassName("fName")[0].value;
 	
-	if (firstName == ""){
+	if (fName == ""){
 		document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
 		validFirstName = false;
 	}
@@ -30,8 +29,12 @@ function validateName(){
 		document.getElementById("fNameError").innerHTML = "";
 		validFirstName = true;
 	}
+}
+
+function validateLastName(){
+	var lName = document.getElementsByClassName("lName")[0].value;
 	
-	if (lastName == ""){
+	if (lName == ""){
 		document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
 		validLastName = false;
 	}
@@ -41,20 +44,22 @@ function validateName(){
 	}
 }
 
-function validateEmail(){
-	var email = document.getElementsByClassName("email")[0].value;
-	var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
-	
-	if (email === ""){
-		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Please enter an email";
-		validEmail = false;
-	}
-	if(emailRegEx.test("email") === false){
-		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
-		validEmail = false;
-	}
-	else {
-		document.getElementById("emailError").innerHTML = "";
-		validEmail = true;
-	}
-}
+
+
+//function validateEmail(){
+//	var eAdd = document.getElementsByClassName("eAdd")[0].value;
+//	var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
+//	
+//	if (eAdd === ""){
+//		document.getElementById("eAddError").innerHTML = "<i class='fas fa-times'></i>  Please enter an email";
+//		validEmail = false;
+//	}
+//	if(emailRegEx.test("eAdd") === false){
+//		document.getElementById("eAddError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
+//		validEmail = false;
+//	}
+//	else {
+//		document.getElementById("eAddError").innerHTML = "";
+//		validEmail = true;
+//	}
+//}
