@@ -95,6 +95,8 @@ public class EventController {
 	public String updateEvent(@ModelAttribute("event") Event event, Model model,
 			HttpServletRequest request) throws SQLException{
 		
+		System.out.println(event);
+		
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
