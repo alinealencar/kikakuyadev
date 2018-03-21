@@ -34,7 +34,7 @@
 			</c:if>
 	
 <!-- SHOWING THE EVENTS -->
-	<div class="tile row text-center" id="showEventList" >
+	<div class="tile row text-center" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
 			<div class="col-sm-4">
 				<div class="eventTile">
