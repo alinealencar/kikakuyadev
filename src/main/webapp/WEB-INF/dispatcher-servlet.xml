@@ -9,7 +9,7 @@ http://www.springframework.org/schema/beans/spring-beans.xsd
 http://www.springframework.org/schema/context
 http://www.springframework.org/schema/context/spring-context.xsd
 http://www.springframework.org/schema/mvc 
-http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
+http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	<mvc:annotation-driven />
 	<context:component-scan base-package="kikakuya.controller" />
 	<context:component-scan base-package="kikakuya.utilities"/>
@@ -39,6 +39,16 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd">
 		<property name="username" value="admin" />
 		<property name="password" value="admin" />
 	</bean>
+	
+	<mvc:interceptors>
+		<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/login"/>
+    		<mvc:exclude-mapping path="/"/>
+    		<mvc:exclude-mapping path="/logout"/>
+			<bean class="kikakuya.interceptors.AuthInterceptor" /> 
+		</mvc:interceptor>   	
+	</mvc:interceptors>
 	
 	<!-- Specifying the Resource location to load images -->
     <mvc:resources mapping="/resources/**" location="/resources/" />

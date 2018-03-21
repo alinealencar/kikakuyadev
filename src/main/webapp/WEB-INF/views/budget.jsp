@@ -21,13 +21,23 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} >
+			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'}>
+				<span>It looks like you haven't added a budget for your event yet!</span><br>
+				<span>Estimate the budget for your event below.</span><br> 
+				<span>Don't worry about this step, you can always change your budget later!</span><br>
+				<form:form action="enterTotalBudget" modelAttribute="eventForm">
+					<form:hidden path="eventId" value="1"/>
+					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget"/>
+					<input type="submit" value="Enter"/>
+				</form:form> 
+			</div> 
+			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<!-- show budget -->
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
-						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$${event.totalBudget}</b></span>
+						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$ ${event.totalBudget}</b></span>
 					</div>					
 					<div class="col-3 d-block d-sm-none" onclick="openAddBudgetForm()">					
 					<button  type="button" class="btn btn-link img-fluid" onclick="">
@@ -213,7 +223,7 @@
 
 			<form:form id="formAddToBudget-sm" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
-      				<form:select id="category" class="category form-control ui-select" oninput="validateCategory()" path="category">
+      				<form:select id="category" class=" form-control ui-select" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
 	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
@@ -235,17 +245,15 @@
 	       				<option value="Venue">Venue</option>
 	       				<option value="Other">Other</option>
       				</form:select>
-      				<span id="categoryError" class="formError"></span>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
+      				<form:select id="vendor" class="form-control" path="vendorId">
 	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
-      					<span id="vendorError" class="formError"></span>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
       				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
@@ -302,11 +310,11 @@
 			<div id="enterVendor-sm" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
 				<form:form action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();">
       				<div class="text-center" id="enterVendor">
-      					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
+      					<form:input type="text" class="addName form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
       						<span id="nameError" class="formError"></span>
-      					<form:input type="text" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
+      					<form:input type="text" class="addAddress form-control" oninput="validateAddress()" placeholder="Address" path="address" />
       						<span id="addressError" class="formError"></span>
-      					<form:input type="text" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" class="addPhoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
       						<span id="phoneNoError" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
@@ -316,7 +324,7 @@
       					</div><br>
       					<div class="col-sm-6 text-center">
       						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
-      					</div>s
+      					</div>
       				</div>
       			</form:form><br>
       		</div>
@@ -328,9 +336,9 @@
 			<!-- budget form add here -->		
 			<!-- for big screen budget form ----------------------------------------------------------------------------------->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onsubmit="return validateBudget();">
 				<div class="form-group">
-      				<form:select id="category" class="category form-control ui-select" oninput="validateCategory()" path="category">
+      				<form:select id="category" class="chooseCat form-control ui-select" onchange="validateCategory()" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
 	        			<option value="--- Select Category ---">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
@@ -356,7 +364,7 @@
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="vendor" class="vendor form-control" oninput="validateVendor()" path="vendorId">
+      				<form:select id="vendor" class="chooseVen form-control" onchange="validateVendor()" path="vendorId">
 	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
@@ -383,12 +391,12 @@
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem" class="col-6">
-		   						<form:input type="text" class="item form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
-		   						
+		   						<form:input type="text" class="enterItem form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   						<span id="itemError" class="formError"></span>
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
 		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
-		   						
+		   						<span id="priceError" class="formError"></span>
 		   					</div>
 		   			</div>
 		   			</c:forEach>
@@ -405,7 +413,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="submit" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368;">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -413,14 +421,14 @@
 			</form:form>
 			
 			<div id="enterVendorBig" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form id="addBudgetVenForm" class="addBudgetVendorForm" action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();"><!-- onsubmit="return validateBudget();" -->
+				<form:form id="addBudgetVenForm" class="addBudgetVendorForm" action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor(B);"><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
-      					<form:input type="text" class="name form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
-      						<span id="nameError" class="formError"></span>
-      					<form:input type="text" id="address" class="address form-control" oninput="validateAddress()" placeholder="Address" path="address" />
-      						<span id="addressError" class="formError"></span>
-      					<form:input type="text" id="phone" class="phoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
-      						<span id="phoneNoError" class="formError"></span>
+      					<form:input type="text" class="addNameB form-control" oninput="validateNameB()" placeholder="Vendor Name" path="name" />
+      						<span id="nameErrorB" class="formError"></span>
+      					<form:input type="text" id="address" class="addAddressB form-control" oninput="validateAddressB()" placeholder="Address" path="address" />
+      						<span id="addressErrorB" class="formError"></span>
+      					<form:input type="text" id="phone" class="addPhoneNoB form-control" oninput="validatePhoneNoB()" placeholder="Phone Number" path="phoneNo" />
+      						<span id="phoneNoErrorB" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
       				<div  class="form-group row">
