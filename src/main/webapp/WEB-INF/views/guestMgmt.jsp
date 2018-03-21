@@ -238,17 +238,17 @@
 				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
 				<h2>Edit Guest</h2>
-				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return validateEventForm();">
+				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return evalidateGuestForm();">
 					<form:hidden path="token" value="${selectedGuest.token}"/>
 					<label>First Name:</label>
-					<form:input path="firstName" value="${selectedGuest.firstName}"  class="firstName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
-						<span id="fNameError" class="formError"></span> <br/>
+					<form:input path="firstName" value="${selectedGuest.firstName}"  class="efName form-control" oninput="evalidateFirstName()" style="margin-bottom:10px;"/>
+						<span id="efNameError" class="formError"></span> <br/>
 					<label>Last Name: </label>
-					<form:input path="lastName" value="${selectedGuest.lastName}" class="lastName form-control" oninput="validateName()" style="margin-bottom:10px;"/>
-						<span id="lNameError" class="formError"></span> <br/>
+					<form:input path="lastName" value="${selectedGuest.lastName}" class="elName form-control" oninput="evalidateLastName()" style="margin-bottom:10px;"/>
+						<span id="elNameError" class="formError"></span> <br/>
 					<label>Email: </label>
-					<form:input path="email" value="${selectedGuest.email}" class="email form-control" oninput="validateName()" style="margin-bottom:10px;"/>
-						<!--span id="emailError" class="formError"></span-->
+					<form:input path="email" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"/>
+						
 					<div class="form-group row">
 						<div class="col-6">
 							<label>RSVP Status: </label>
@@ -334,14 +334,14 @@
 			<h2>Add Guest</h2>
 			<form:form id="addGuest" action="addGuest" method="post" modelAttribute="guest" onsubmit="return validateGuestForm();">
 				<label>First Name<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="firstName" class="firstName form-control" name="firstName" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>				
+				<form:input path="firstName" class="fName form-control" oninput="validateFirstName()" style="margin-bottom:10px;" maxlength="20"/>				
 					<span id="fNameError" class="formError"></span> <br/>
 				<label>Last Name<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="lastName" class="lastName form-control" name="lastName" oninput="validateName()" style="margin-bottom:10px;" maxlength="20"/>
+				<form:input path="lastName" class="lName form-control" oninput="validateLastName()" style="margin-bottom:10px;" maxlength="20"/>
 					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="email" class="email form-control" name="email" oninput="validateEmail()" style="margin-bottom:10px;"/>
-					<!--span id="emailError" class="formError"></span--> <br/>
+				<form:input path="email" class="guestEmail form-control" style="margin-bottom:10px;" oninput="validateEmail('email')"/>
+					<span id="emailError" class="formError"></span> <br/>
 				<label>
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">

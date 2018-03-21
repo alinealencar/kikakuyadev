@@ -34,11 +34,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitleSM();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="listTitle form-control" placeholder="Name new list" oninput="validateName()"/>
-					<span id="listTitle" class="formError"></span>
+					<form:input path="listTitle" type="text" id="listInput" class="titleListSM form-control" placeholder="Name new list" oninput="validateNameSM()"/>
+					<span id="titleErrorSM" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -131,10 +131,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+					<form:input path="listTitle" type="text" id="listInput" class="titleList form-control" oninput="validateName()" placeholder="Name new list" />
+					<span id="titleError" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -181,7 +182,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; ">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateListTitleE()">
 		    			Save
 		    		</button>
 		    	</div>
@@ -198,14 +199,16 @@
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<form:hidden id="listIdHidden" path="listId" value=""/>
 					<c:forEach var="list" items="${lists}" varStatus="loop">
-						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
+						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}"/>
+						
 						<li>					
 		   					<div class="row">
 		   						<div class="col-2 btnListDelete">
 	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE()" />
+		   							<span id="titleErrorE" class="formError"></span>
 		   						</div>
 		   					</div>							
 						</li>
@@ -258,17 +261,32 @@
 					</div>
 			
 				<hr>
-							
-				<!-- item list body -->
-				<c:if test="${not empty noItemsMsg}">
-					<div class="row">
-						<div class="col-12 text-center">
-							<h5>${noItemsMsg}</h5>
-						</div>
-						<div class="col-12 text-center">
-							<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
-						</div>
-					</div>
+			<!-- item list body -->
+			<c:if test="${not empty noItemsMsg}">
+				<div class="text-center">
+					<h5>${noItemsMsg}</h5>
+				</div>
+				<div class="text-center">
+					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
+				</div>
+			</c:if>
+			<ul id="itemList">
+			<c:if test="${fn:length(items) > 0}">
+				<c:forEach var="item" items="${items}">
+					<form:form id="formUpdateItemStatus" action="updateItemStatus" method="post" modelAttribute="item">
+						<c:choose>
+							<c:when test="${item.itemStatus eq 0}">
+								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()"/>
+								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+							</c:when>
+							<c:otherwise>
+								<li><form:checkbox path="itemStatus" class=".checkbox-info itemStatusChk" value="1" onClick="this.form.submit()" checked="true"/>
+								&nbsp;&nbsp;&nbsp;${item.itemName}</li>
+							</c:otherwise>
+						</c:choose>
+						<form:hidden path="itemId" value="${item.itemId}"/>
+					</form:form>
+				</c:forEach>
 				</c:if>
 				<ul id="itemList">
 					<c:if test="${fn:length(items) > 0}">
@@ -367,8 +385,7 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-<script>
-</script>
+
 <script src="resources/js/validateList.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 <script src="resources/js/jquery-foggy.js"></script>
