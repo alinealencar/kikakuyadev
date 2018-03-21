@@ -34,11 +34,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitleSM();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="listTitle form-control" placeholder="Name new list" oninput="validateName()"/>
-					<span id="listTitle" class="formError"></span>
+					<form:input path="listTitle" type="text" id="listInput" class="titleListSM form-control" placeholder="Name new list" oninput="validateNameSM()"/>
+					<span id="titleErrorSM" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -131,10 +131,11 @@
 		   			</div>
 		   		</c:if>
 			</div>
-			<form:form method="post" action="addList" modelAttribute="list">
+			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitle();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="form-control" placeholder="Name new list" />
+					<form:input path="listTitle" type="text" id="listInput" class="titleList form-control" oninput="validateName()" placeholder="Name new list" />
+					<span id="titleError" class="formError"></span>
 				</div>
 				<div class="col-3">
 					<button type="submit" class="btn btn-link img-fluid showAddGuest" style="padding:0px;"> 
@@ -198,7 +199,7 @@
 				<form:form id="formEditList" action="editList" method="post" modelAttribute="list">
 					<form:hidden id="listIdHidden" path="listId" value=""/>
 					<c:forEach var="list" items="${lists}" varStatus="loop">
-						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}" />
+						<form:hidden path="listsList[${loop.index}].listId" value="${list.listId}"/>
 						<li>					
 		   					<div class="row">
 		   						<div class="col-2 btnListDelete">
@@ -243,10 +244,11 @@
 		   					</div>	   	
 		   				</c:if>								
 					</div>
-					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
+					<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item" onsubmit="return validateItemName();">
 					<div class="row">
 						<div class="col-10">
-							<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
+							<form:input path="itemName" id="itemInput" class="validItemName form-control" placeholder="Add item" oninput="validateItem()"/>
+							<span id="itemNameError" class="formError"></span>
 						</div>						
 						<div class="col-2">
 			  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->
@@ -362,8 +364,7 @@
 			
 	</div> <!-- .row for all contents -->	
 </div><!-- body contents end -->
-<script>
-</script>
+
 <script src="resources/js/validateList.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
 <script src="resources/js/jquery-foggy.js"></script>

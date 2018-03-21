@@ -103,11 +103,7 @@
 						</div>
 						<div>
 							<label>Address<span style="font-size:22px;color:red">*</span>: </label>
-<<<<<<< HEAD
 							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="100"/>
-=======
-							<form:input path="location" class="location form-control" oninput="validateLocation()" maxlength="20"/>
->>>>>>> 661e5335c162dd58bb7085e745a209a53deecf2a
 								<span id="locationError" class="formError"></span>
 							<br>
 						</div>
