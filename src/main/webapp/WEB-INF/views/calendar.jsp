@@ -81,69 +81,77 @@
 					<form:input path="title" type="text" class="item form-control"/>
 					
 					<label>Date*: </label>
-					<form:select id="day" class="form-control" path="day" disabled="disabled">
-	        			<option value="" disabled="disabled" selected="true">Day</option>
-	        			
-      				</form:select>
-					<form:select id="month" class="form-control" path="month">
-	        			<option value="" disabled="disabled" selected="true">Month</option>
-	        			<option value="1">January</option>
-	        			<option value="2">February</option>
-	        			<option value="3">March</option>
-	        			<option value="4">April</option>
-	        			<option value="5">May</option>
-	        			<option value="6">June</option>
-	        			<option value="7">July</option>
-	        			<option value="8">August</option>
-	        			<option value="9">September</option>
-	        			<option value="10">October</option>
-	        			<option value="11">November</option>
-	        			<option value="12">December</option>
-      				</form:select>
-      				<form:select id="year" class="form-control" path="year">
-	        			<option value="" disabled="disabled" selected="true">Year</option>
-	        			<option value="2018">2018</option>
-  						<option value="2019">2019</option>
-  						<option value="2020">2020</option>
-  						<option value="2021">2021</option>
-      				</form:select>
+					<div class="row" style="padding:0 15px 0 15px;">
+
+						<form:select id="day" class="form-control-sm col-4" path="day" disabled="disabled">
+			        		<option value="" disabled="disabled" selected="true">dd</option>
+			        	</form:select>	
+
+
+   						<form:select id="month" class="form-control-sm col-4" path="month">
+			       			<option value="" disabled="disabled" selected="true">mm</option>
+			      			<option value="1">Jan</option>
+			       			<option value="2">Feb</option>
+			       			<option value="3">Mar</option>
+			       			<option value="4">Apr</option>
+			       			<option value="5">May</option>
+			       			<option value="6">Jun</option>
+			       			<option value="7">Jul</option>
+			       			<option value="8">Aug</option>
+			       			<option value="9">Sep</option>
+			       			<option value="10">Oct</option>
+			       			<option value="11">Nov</option>
+			       			<option value="12">Dec</option>
+		      			</form:select>
+
+
+	      				<form:select id="year" class="form-control-sm col-4" path="year">
+		        			<option value="" disabled="disabled" selected="true">yyyy</option>
+		        			<option value="2018">2018</option>
+							<option value="2019">2019</option>
+							<option value="2020">2020</option>
+							<option value="2021">2021</option>
+		   				</form:select>
+
+      				</div>
+      				
 					<label>Time*: </label>
-					<form:select id="hour" class="form-control" path="hour">
-						<option value="" disabled="disabled" selected="true">hh</option>
-						<option value="1">01</option>
-						<option value="2">02</option>
-						<option value="3">03</option>
-						<option value="4">04</option>
-						<option value="5">05</option>
-						<option value="6">06</option>
-						<option value="7">07</option>
-						<option value="8">08</option>
-						<option value="9">09</option>
-						<option value="10">10</option>
-						<option value="11">11</option>
-						<option value="12">12</option>
-					</form:select>
-					<span>:</span>
-					<form:select id="minute" class="form-control" path="minute">
-						<option value="" disabled="disabled" selected="true">mm</option>
-						<option value="0">00</option>
-						<option value="5">05</option>
-						<option value="10">10</option>
-						<option value="15">15</option>
-						<option value="20">20</option>
-						<option value="25">25</option>
-						<option value="30">30</option>
-						<option value="35">35</option>
-						<option value="40">40</option>
-						<option value="45">45</option>
-						<option value="50">50</option>
-						<option value="55">55</option>
-					</form:select>
-					<form:select id="ampm" class="form-control" path="ampm">
-						<option value="AM" selected="true">AM</option>
-						<option value="PM">PM</option>
-					</form:select>
-					
+					<div class="row" style="padding:0 15px 0 15px;">
+						<form:select id="hour" class="form-control-sm col-4" path="hour">
+							<option value="" disabled="disabled" selected="true">hh</option>
+							<option value="1">01</option>
+							<option value="2">02</option>
+							<option value="3">03</option>
+							<option value="4">04</option>
+							<option value="5">05</option>
+							<option value="6">06</option>
+							<option value="7">07</option>
+							<option value="8">08</option>
+							<option value="9">09</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</form:select>
+						<form:select id="minute" class="form-control-sm col-4" path="minute">
+							<option value="" disabled="disabled" selected="true">mm</option>
+							<option value="0">00</option>
+							<option value="5">05</option>
+							<option value="10">10</option>
+							<option value="15">15</option>
+							<option value="20">20</option>
+							<option value="25">25</option>
+							<option value="30">30</option>
+							<option value="35">35</option>
+							<option value="40">40</option>
+							<option value="45">45</option>
+							<option value="50">50</option>
+							<option value="55">55</option>
+						</form:select>
+						<form:select id="ampm" class="form-control-sm col-4" path="ampm">
+							<option value="AM" selected="true">AM</option>
+							<option value="PM">PM</option>
+						</form:select>
+					</div>
 					<label>Address*: </label>
 					<form:input path="location" type="text" class="item form-control"/>
 					
@@ -174,8 +182,8 @@
 					<label>Notes:</label>
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
 					
-					<input id="btnCancel" type="button" value="Cancel" onclick=""/>
-					<input id="btnAddAppt" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
+					<input id="btnCancel" class="btn" type="button" value="Cancel" onclick=""/>
+					<input id="btnAddAppt" class="btn" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
 					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');"/>
 				</form:form>
 			</div>
