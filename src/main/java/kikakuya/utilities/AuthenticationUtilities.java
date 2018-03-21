@@ -18,9 +18,9 @@ import kikakuya.service.implementation.UserServiceImpl;
 public class AuthenticationUtilities {
 	
 	public static boolean isLoggedIn(HttpSession session){
-		return !(session == null || session.getAttribute("userName") == null);
+		return !(session == null || session.getAttribute("user") == null);
 	}
-	public static boolean isRememberMe(HttpServletRequest request, DataSource dataSource) throws Exception{
+	public static User isRememberMe(HttpServletRequest request, DataSource dataSource) throws Exception{
 		
 		Cookie[] cookies = request.getCookies();
 
@@ -41,23 +41,25 @@ public class AuthenticationUtilities {
 			if(rememberMeCookies[0] != null && rememberMeCookies[1] != null) {
 				System.out.println("DATASOURCE: " + dataSource);
 				User user = new User();
-				String query = "Select userName, email, token, series from user where series = ?";
+				String query = "Select userId, userName, email, token, series from user where series = ?";
 				PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 				pstmt.setString(1, rememberMeCookies[1].getValue());
 				ResultSet resultSet = pstmt.executeQuery();
 				if(resultSet.next()){
-					user.setUserName(resultSet.getString(1));
-					user.setEmail(resultSet.getString(2));
-					user.setToken(resultSet.getString(3));
-					user.setSeries(resultSet.getString(4));
+					user.setUserId(resultSet.getInt(1));
+					user.setUserName(resultSet.getString(2));
+					user.setEmail(resultSet.getString(3));
+					user.setToken(resultSet.getString(4));
+					user.setSeries(resultSet.getString(5));
 				}
 				
-				return (user.getToken().equals(rememberMeCookies[0].getValue()));
+				if (user.getToken().equals(rememberMeCookies[0].getValue()))
+					return user;
 			}
 			
 		}
 		
-		return false;
+		return null;
 
 		
 	}
