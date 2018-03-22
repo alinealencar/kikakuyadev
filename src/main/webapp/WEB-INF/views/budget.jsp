@@ -11,6 +11,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ page isELIgnored="false" %>
 <script src="resources/js/budget.js"></script>
+<script src="resources/js/validateBudget.js"></script>
 <div class="container">
 <!-- body contents start -->
 	<div class="row">
@@ -223,9 +224,9 @@
 
 			<form:form id="formAddToBudget-sm" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
-      				<form:select id="category" class=" form-control ui-select" path="category">
+      				<form:select id="category-sm" class="category form-control ui-select" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
-	        			<option value="--- Select Category ---">--- Select Category ---</option>
+	        			<option value="">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -245,15 +246,17 @@
 	       				<option value="Venue">Venue</option>
 	       				<option value="Other">Other</option>
       				</form:select>
+      				<span id="categoryError-sm" class="formError"></span>
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="vendor" class="form-control" path="vendorId">
+      				<form:select id="vendor-sm" class="form-control vendor" path="vendorId">
 	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
 	       				</c:forEach>
       				</form:select>
+      				<span id="vendorError-sm" class="formError"></span>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
       				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
@@ -262,7 +265,7 @@
       				</div>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info btnAddVendor-sm">
+      				<button type="button" id="btnAddVendor-sm" class="btn btn-info">
       						<span class="material-icons align-bottom" style="font-size: 150%;">create</span><span class="align-text-bottom">Add Vendor</span>
       				</button>
       				</div>
@@ -273,27 +276,27 @@
    				<div id="item-price">
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
 	   				<div id="itemTextBoxGroup" class="row">
-		   					<div id="txtItem" class="col-6">
-		   						<form:input type="text" class="item form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   					<div id="txtItem-sm" class="col-6">
+		   						<form:input type="text" class="item-sm form-control" oninput="validateItemSM(this)" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
 		   						
 		   					</div>
-		   					<div id="txtPrice" class="col-6">
-		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
+		   					<div id="txtPrice-sm" class="col-6">
+		   						<form:input type="text" class="price-sm form-control" oninput="validatePriceSM(this)" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
 		   						
 		   					</div>
 		   			</div>
 		   			</c:forEach>
 		   			<div class="col-6">
-			   			<span id="itemError" class="formError"></span>
+			   			<span id="itemError-sm" class="formError"></span>
 			   		</div>
-			   		<div id="txtItem" class="col-6">
-			   			<span id="priceError" class="formError"></span>
+			   		<div id="priceErrorSM" class="col-6">
+			   			<span id="priceError-sm" class="formError"></span>
 					</div>
 	   				<div class="text-center">
-						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+						<button id="btnAddItemPrice-sm" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
       					</button>
-      					<button id="btnRemoveItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
+      					<button id="btnRemoveItemPrice-sm" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">remove_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
       					</button>
       				</div>
@@ -308,22 +311,22 @@
 			</form:form>
 			
 			<div id="enterVendor-sm" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor();">
+				<form:form id="addBudgetVenForm-sm" action="addVendor" method="post" modelAttribute="vendor">
       				<div class="text-center" id="enterVendor">
-      					<form:input type="text" class="addName form-control" oninput="validateName()" placeholder="Vendor Name" path="name" />
-      						<span id="nameError" class="formError"></span>
-      					<form:input type="text" class="addAddress form-control" oninput="validateAddress()" placeholder="Address" path="address" />
+      					<form:input type="text" id="vendorName-sm" class="addName form-control" oninput="validateNameSM(this)" placeholder="Vendor Name" path="name" />
+      						<span id="nameError-sm" class="formError"></span>
+      					<form:input type="text" class="addAddress form-control" placeholder="Address" path="address" />
       						<span id="addressError" class="formError"></span>
-      					<form:input type="text" class="addPhoneNo form-control" oninput="validatePhoneNo()" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" class="addPhoneNo form-control" placeholder="Phone Number" path="phoneNo" />
       						<span id="phoneNoError" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
-      						<button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button>
+      						<button type="button" class="btn btn-success" id="btnEnterVendor-sm">Submit</button>
       					</div><br>
       					<div class="col-sm-6 text-center">
-      						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
+      						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor-sm">Cancel</button>
       					</div>
       				</div>
       			</form:form><br>
@@ -336,11 +339,11 @@
 			<!-- budget form add here -->		
 			<!-- for big screen budget form ----------------------------------------------------------------------------------->
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
-			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor" onsubmit="return validateBudget();">
+			<form:form id="formAddToBudget" action="addToBudget" method="post" modelAttribute="vendor">
 				<div class="form-group">
-      				<form:select id="category" class="chooseCat form-control ui-select" onchange="validateCategory()" path="category">
+      				<form:select id="category-big" class="category form-control ui-select" path="category">
 	        			<!--option selected>--- Select Category ---</option-->
-	        			<option value="--- Select Category ---">--- Select Category ---</option>
+	        			<option value="">--- Select Category ---</option>
 	        			<option value="Accommodation">Accommodation</option>
 	        			<option value="Alcohol">Alcohol</option>
 	       				<option value="Balloon Services">Balloon Services</option>
@@ -364,7 +367,7 @@
    				</div>
    				<fieldset id="vendorFieldSet" class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Vendor</legend>
-      				<form:select id="vendor" class="chooseVen form-control" onchange="validateVendor()" path="vendorId">
+      				<form:select id="vendor-big" class="vendor form-control" path="vendorId">
 	        			<option value="">--- Vendor ---</option>
 	       				<c:forEach items="${vendors}" var="vendor">
 	       					<option value="${vendor.vendorId}" selected>${vendor.name}</option>
@@ -379,7 +382,7 @@
       				</div>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info btnAddVendor">
+      				<button type="button" id="btnAddVendor-big" class="btn btn-info btnAddVendor">
       						<span class="material-icons align-bottom" style="font-size: 150%;">create</span><span class="align-text-bottom">Add Vendor</span>
       				</button>
       				</div>
@@ -391,17 +394,23 @@
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem" class="col-6">
-		   						<form:input type="text" class="enterItem form-control" oninput="validateItem()" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+		   						<form:input type="text" class="item-big form-control" oninput="validateItem(this)" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
 		   						<span id="itemError" class="formError"></span>
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
-		   						<form:input type="text" class="price form-control" oninput="validatePrice()" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
+		   						<form:input type="text" class="price-big form-control" oninput="validatePrice(this)" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
 		   						<span id="priceError" class="formError"></span>
 		   					</div>
 		   			</div>
 		   			</c:forEach>
-		   				<span id="itemError" class="formError"></span>
-		   				<span id="priceError" class="formError"></span>
+		   				<!-- <span id="itemError" class="formError"></span>
+		   				<span id="priceError" class="formError"></span>-->
+		   				<div class="col-6">
+			   				<span id="itemError" class="formError"></span>
+			   			</div>
+			   			<div id="priceErrorSM" class="col-6">
+			   				<span id="priceError" class="formError"></span>
+						</div>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
@@ -413,7 +422,7 @@
       			</div>
    				</fieldset>
    				<div class="text-center">
-					<button type="submit" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368;">
+					<button type="button" id="addBudget" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368;">
 	      				<span class="material-icons" style="font-size: 110%; background-color: #D90368; color: #F1E9DA;">add_circle</span><span class="align-text-bottom">Add</span>
 	      			</button>
       			</div>
@@ -421,20 +430,20 @@
 			</form:form>
 			
 			<div id="enterVendorBig" class="col-sm-12" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: none;">
-				<form:form id="addBudgetVenForm" class="addBudgetVendorForm" action="addVendor" method="post" modelAttribute="vendor" onsubmit="return validateAddVendor(B);"><!-- onsubmit="return validateBudget();" -->
+				<form:form id="addBudgetVenForm" class="addBudgetVendorForm" action="addVendor" method="post" modelAttribute="vendor"><!-- onsubmit="return validateBudget();" -->
       				<div class="text-center" id="enterVendor">
-      					<form:input type="text" class="addNameB form-control" oninput="validateNameB()" placeholder="Vendor Name" path="name" />
-      						<span id="nameErrorB" class="formError"></span>
-      					<form:input type="text" id="address" class="addAddressB form-control" oninput="validateAddressB()" placeholder="Address" path="address" />
+      					<form:input type="text" id="vendorName" class="addNameB form-control" oninput="validateName(this)" placeholder="Vendor Name" path="name" />
+      						<span id="nameError" class="formError"></span>
+      					<form:input type="text" id="address" class="addAddressB form-control" placeholder="Address" path="address" />
       						<span id="addressErrorB" class="formError"></span>
-      					<form:input type="text" id="phone" class="addPhoneNoB form-control" oninput="validatePhoneNoB()" placeholder="Phone Number" path="phoneNo" />
+      					<form:input type="text" id="phone" class="addPhoneNoB form-control" placeholder="Phone Number" path="phoneNo" />
       						<span id="phoneNoErrorB" class="formError"></span>
       					<form:input type="text" class="form-control" placeholder="Website" path="website" />
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
       						<!--button type="submit" class="btn btn-success" id="btnEnterVendor">Submit</button-->
-      						<input class="btn btn-success" type="submit" value="Done"/>
+      						<input id="btnEnterVendor" class="btn btn-success" type="button" value="Done"/>
       					</div><br>
       					<div class="col-sm-6 text-center">
       						<button type="reset" class="btn btn-danger" id="btnCancelAddVendor">Cancel</button>
@@ -451,100 +460,8 @@
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
 <script type="text/javascript">
-/*** Sticky form ***/
-$(document).ready(function(){
-	//show selected value
-	var valueFromSS = sessionStorage.getItem("selectedCategory");
-	$(".category option[value='" + valueFromSS + "']").prop("selected",true);
-});
-/***get selected category and store in SessionStorage***/
-$(document).ready(function(){
-	$('.category').change(function(){
-		var selectedCategory = $('.category').val();
-		sessionStorage.setItem("selectedCategory",selectedCategory);
-	});
-});
-/***If true, select vendor. If false, select first option***/
-$(document).ready(function(){
-	var flag = sessionStorage.getItem("flag");
-	if(!flag){
-		$(".vendor option").prop("selected", false);
-		$(".vendor option[value='']").prop("selected",true);
-	}
-	
-});
-/***Clear SessionStorage on submit (big form)***/
-$(document).ready(function(){
-	$("#addBudget").click(function () {
-		$( "#formAddToBudget" ).submit();
-		sessionStorage.clear();
-		$(".vendor option").prop("selected", false);
-		$(".vendor option[value='']").prop("selected",true);
-	});
-});
 
-/***Clear SessionStorage on submit (big form)***/
-$(document).ready(function(){
-	$("#addBudget-sm").click(function () {
-		$( "#formAddToBudget-sm" ).submit();
-		sessionStorage.clear();
-		$(".vendor option").prop("selected", false);
-		$(".vendor option[value='']").prop("selected",true);
-	});
-});
 
-/***Check if SessionStorage contains flag***/
-$(document).ready(function(){
-	$('#btnEnterVendor').click(function(){
-		sessionStorage.setItem("flag","true");
-	});
-});
-/***Show item and price textboxes***/
-$(document).ready(function(){
-	var counter = 1;
-	$("#btnAddItemPrice").click(function () {
-		$('#txtItem').append('<input type="text" class="form-control" id="item' + counter + '" placeholder="Item" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodName">');
-		$('#txtPrice').append('<input type="text" class="form-control" id="price' + counter + '" placeholder="Price" style="margin-bottom: 5px;" name="goodsList['+ counter + '].goodPrice">');
-		counter++;
-	});
-});
-/***Remove item and price textboxes***/
-$(document).ready(function(){
-	$('#btnRemoveItemPrice').click(function(){
-		if($('#txtItem').children().length > 1)
-			$('#txtItem :last-child').remove();
-		if($('#txtPrice').children().length > 1)
-			$('#txtPrice :last-child').remove();
-	});
-});
-/***Hide add budget and show enter vendor form (big)***/
-$(document).ready(function(){
-	$('.btnAddVendor').click(function(){
-		$('#formAddToBudget').hide();
-		$('#enterVendorBig').show();
-	});
-});
-/***Hide add budget and show enter vendor form (small)***/
-$(document).ready(function(){
-	$('.btnAddVendor-sm').click(function(){
-		$('#formAddToBudget-sm').hide();
-		$('#enterVendor-sm').show();
-	});
-});
-/***Show add budget and hide enter vendor form***/
-$(document).ready(function(){
-	$('#btnCancelAddVendor').click(function(){
-		$('#formAddToBudget').show();
-		$('#enterVendor').hide();
-	});
-});
-/***Amount Remaining color decoration ***/
-$(document).ready(function(){
-	if((calculateAmountRemaining('${event.totalBudget}', calculateTotal())) < 0){
-		$('#amountRemaining').css("color", "#D90368");
-		$('#amountRemainingEdit').css("color", "#D90368");
-	}
-});
 </script>
-<script src="resources/js/validateBudget.js"></script>
+
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
