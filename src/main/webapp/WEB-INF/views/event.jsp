@@ -34,7 +34,7 @@
 			</c:if>
 	
 <!-- SHOWING THE EVENTS -->
-	<div class="tile row text-center" id="showEventList" >
+	<div class="tile row text-center" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
 			<div class="col-sm-4">
 				<div class="eventTile">
@@ -49,14 +49,7 @@
 								</form:form>
 							</div>
 							<div class="col-2 text-left" style="padding-left:0; padding-top:5px">
-								<span>
-								<form:form action="edit" method="POST" modelAttribute="event" id="editButton" data-toggle="modal" data-target="editEvent">
-									<form:hidden path="eventId" value="${event.eventId}"/>
-									<!--button id="deleteBtn" type="submit" class="fas fa-edit"  style="color: #2E294E; margin-top:2.5px;"></button-->
-									<a id="deleteBtn" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
-								</form:form>
-								</span>
-								
+								<a id="deleteBtn editEventBtn" onclick="updateEvent('${event.eventId}', '${event.eventName}', '${event.eventDate}', '${event.location}');" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
 							</div>
 							<br/>
 						</div>					
@@ -135,32 +128,30 @@
 		<div class="content">
 		<hr>
 			<form:form modelAttribute="event" method="POST" action="update" >
-						<form:hidden path="eventId" value="${event.eventId}"/>
-						<div>
-							<label>Event Name: </label>
-							<form:input path="eventName" value="${event.eventName}" class="eventName form-control" oninput="validateEventName()"/>
-							<span id="eventNameError" class="formError"></span>
-							<br>
-						</div>
-						<div>
-							<label>Address:</label>
-							<form:input path="location" value="${event.location}" class="location form-control" oninput="validateLocation()"/>
-							<span id="locationError" class="formError"></span>
-							<br>
-						</div>
-						<div>
-							<label>Date: </label>
-							<form:input path="eventDate" type="date" value="${event.eventDate}" class="eventDate form-control" oninput="validateDate()"/>
-							<span id="eventDateError" class="formError"></span>
-							<br>
-							<!--form:input type="date" name="eventDate" path="eventDate"/>
-							<div id="eventDateError" class="inputError"></div-->
-						</div>
-						<hr>
-	        			<div>
-							<input class="btn btn-success" type="submit" value="Save" style="float: right;"/>
-						</div>
-					</form:form>
+				<form:hidden id="editEventId" path="eventId" />
+				<div>
+					<label>Event Name: </label>
+					<form:input id="editEventName" path="eventName" class="eventName form-control" oninput="validateEventName()"/>
+					<span id="eventNameError" class="formError"></span>
+					<br>
+				</div>
+				<div>
+					<label>Address:</label>
+					<form:input id="editLocation" path="location" class="location form-control" oninput="validateLocation()"/>
+					<span id="locationError" class="formError"></span>
+					<br>
+				</div>
+				<div>
+					<label>Date: </label>
+					<form:input id="editEventDate" path="eventDate" type="date" class="eventDate form-control" oninput="validateDate()"/>
+					<span id="eventDateError" class="formError"></span>
+					<br>
+				</div>
+				<hr>
+	        	<div>
+					<input class="btn btn-success" type="submit" value="Save" style="float: right;"/>
+				</div>
+			</form:form>
 		</div>
 	</div>
 </div>
@@ -245,4 +236,5 @@ h1 {
 </style>
 
 <script src="resources/js/validateEvent.js"></script>
+<script src="resources/js/events.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

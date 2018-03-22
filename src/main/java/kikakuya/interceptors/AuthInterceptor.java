@@ -16,15 +16,11 @@ public class AuthInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
-    	
-        if(AuthenticationUtilities.isLoggedIn(request.getSession()))
-            return true;
-        else {
+        if(!AuthenticationUtilities.isLoggedIn(request.getSession()))
         	//Redirect user to login page
         	response.sendRedirect(request.getContextPath());
-            return true;
-
-        }
+        
+        return true;
     }
 
 	@Override

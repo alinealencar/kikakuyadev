@@ -258,6 +258,11 @@ calendar
 .selectColor > input:checked + div{ /* (RADIO CHECKED) IMAGE STYLES */
   border:2px solid grey;
 }
+
+#addAppt{
+	 border:1px solid #999999;
+	 padding: 15px;
+}
 /*********************************
 slide in form
 **********************************/

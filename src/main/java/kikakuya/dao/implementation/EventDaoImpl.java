@@ -65,7 +65,7 @@ public class EventDaoImpl implements EventDao {
 		String query = "UPDATE event SET eventName = '" + event.getEventName() + 
 				"', eventDate = '" + HelperUtilities.stringToTimestamp(event.getEventDate()) + 
 				"', location = '" + event.getLocation() + 
-				"' where eventId = '" + event.getEventId();
+				"' where eventId = " + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		

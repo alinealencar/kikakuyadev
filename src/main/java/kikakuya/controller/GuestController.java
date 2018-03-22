@@ -93,12 +93,9 @@ public class GuestController {
 		try {
 			guest.setToken(HelperUtilities.newUUID());
 			Event event = (Event) request.getSession(false).getAttribute("event");
-			System.out.println("EVENT ID: " + event.getEventId());
 			guest.setEventId(event.getEventId());
 			boolean addSuccessful = guestDelegate.addGuest(guest);
-			if(addSuccessful){
-				System.out.println("Add guest successful");
-				
+			if(addSuccessful){				
 				//Add success message to the request scope
 				request.setAttribute("addGuestSuccess", "add sucessful");
 				//Update guest list

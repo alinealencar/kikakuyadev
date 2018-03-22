@@ -288,12 +288,12 @@ function calendarNav(actionName){
 }
 
 function getMonthInt(monthStr){
-	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	return months.indexOf(monthStr) + 1;
 }
 
 function getMonthName(monthInt){
-	var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	return months[monthInt];
 }
 
@@ -320,6 +320,7 @@ function openAddAppt(){
 	$("#btnSaveAppt").hide();
 	$("#todaysAppts").hide();
 	$("#showAppt").hide();
+	$("#btnAddAppt").show();
 }
 
 function showFeedbackMessages(response){

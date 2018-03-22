@@ -182,7 +182,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateListTitleE()">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateNameE()">
 		    			Save
 		    		</button>
 		    	</div>
@@ -246,10 +246,11 @@
 			   					</div>	   	
 			   				</c:if>								
 						</div>
-						<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item">
+						<form:form id="formAddItem" action="addItem" method="post" modelAttribute="item" onsubmit="return validateItemName();">
 							<div class="row">
 								<div class="col-10">
-									<form:input path="itemName" id="itemInput" class="form-control" placeholder="Add item" />
+									<form:input path="itemName" id="itemInput" class="validItemName form-control" oninput="validateItem()" placeholder="Add item" />
+									<span id="itemNameError" class="formError"></span>
 								</div>						
 								<div class="col-2">
 					  				<button type="submit" class="btn btn-link img-fluid" style="padding:0px;"> <!-- onclick="newElement()"> -->

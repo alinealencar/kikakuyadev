@@ -1,9 +1,11 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,18 +29,19 @@ public class EventController {
 	@Autowired
 	EventDelegate eventDelegate;
 	
-	//List all the event by user
+	//List all the events by user
 	@RequestMapping(value="/list", method = RequestMethod.GET)
-	public String viewEvent(HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
+	public String viewEvent(HttpServletResponse response, HttpServletRequest request, Model model)/*, HttpServletRequest session*/ throws SQLException{
 		String redirectTo = "event";
 		
 		User user = (User) request.getSession(false).getAttribute("user");
 		try {
 			if(user != null) {
 				List<Event> event = eventDelegate.listEventsByUser(user);
-//				System.out.println("no of events: " + event.size());
+
 				if (event.size() <= 0){
 					request.setAttribute("noEvents", "No events created yet! Create one!");
+					request.setAttribute("listEvent", new ArrayList<Event>());
 				}
 				else{
 					request.setAttribute("listEvent", event);
@@ -95,6 +98,8 @@ public class EventController {
 	public String updateEvent(@ModelAttribute("event") Event event, Model model,
 			HttpServletRequest request) throws SQLException{
 		
+		System.out.println(event);
+		
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
@@ -108,7 +113,6 @@ public class EventController {
 			e.printStackTrace();
 		}
 		
-		viewEvent(request, model);
 		return "event";
 	}
 	
@@ -148,7 +152,6 @@ public class EventController {
 			e.printStackTrace();
 		}
 		
-		//viewEvent (request, model);
 		return "redirect:/list";
 	}
 	
