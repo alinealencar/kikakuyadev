@@ -97,9 +97,7 @@ public class EventController {
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String updateEvent(@ModelAttribute("event") Event event, Model model,
 			HttpServletRequest request) throws SQLException{
-		
-		System.out.println(event);
-		
+				
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
@@ -122,7 +120,6 @@ public class EventController {
 			HttpServletRequest request) throws SQLException{
 		
 		Event selectedEvent = new Event();
-		System.out.println(event.getEventId());
 		try{
 			selectedEvent = eventDelegate.getSelectedEvent(event.getEventId());
 		}

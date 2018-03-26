@@ -28,8 +28,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List<Appointment> findAppointments(int month, int year, int userId) throws SQLException {
-		return apptDao.findAppointmentsByMonth(month, year, userId);
+	public List<Appointment> findAppointments(int month, int year, int eventId) throws SQLException {
+		return apptDao.findAppointmentsByMonth(month, year, eventId);
 	}
 
 	@Override

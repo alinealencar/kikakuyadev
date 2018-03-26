@@ -23,6 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import kikakuya.delegate.CalendarDelegate;
 import kikakuya.model.Appointment;
+import kikakuya.model.Event;
 import kikakuya.model.MonthPresentation;
 import kikakuya.model.User;
 import kikakuya.utilities.HelperUtilities;
@@ -45,8 +46,9 @@ public class CalendarController {
 		boolean apptAdded;
 		String message ="";
 		try {
-			User user = (User) session.getAttribute("user");
-			appt.setUserId(user.getUserId());
+			//User user = (User) session.getAttribute("user");
+			Event event = (Event) session.getAttribute("event");
+			appt.setEventId(event.getEventId());
 			
 			apptAdded = calendarDelegate.addAppt(appt);
 			
@@ -67,6 +69,8 @@ public class CalendarController {
 	public MonthPresentation Submit(HttpSession session, @RequestParam("month") String month, @RequestParam("year") String year, @RequestParam("action") String action) {	
 		//Get user Id from the session
 		User user = (User) session.getAttribute("user");
+		
+		Event event = (Event) session.getAttribute("event");
 		
 		MonthPresentation monthPresentation = new MonthPresentation();
 		Calendar monthCal = null;
@@ -97,7 +101,7 @@ public class CalendarController {
 		monthPresentation.setNumOfDays(HelperUtilities.getNumOfDays(monthCal));
 		
 		try {
-			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR) , user.getUserId()));
+			monthPresentation.setAppointments(calendarDelegate.findAppts(monthCal.get(Calendar.MONTH), monthCal.get(Calendar.YEAR) , event.getEventId()));
 			monthPresentation.setEvents(calendarDelegate.findEventsByMonth(monthCal, user.getUserId()));
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -114,6 +118,7 @@ public class CalendarController {
 		try {
 			//Get appointment by Id received with the AJAX request
 			appt = calendarDelegate.findAppt(apptId);
+			System.out.println(appt);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
