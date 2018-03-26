@@ -69,7 +69,6 @@ function validateTime(val){
 }
 
 //Validate color
-
 function validateColor(val){
 	var color = val.value;
 	

@@ -23,7 +23,7 @@
 			<div class="col-sm-10">
 				<table>
 					<tr>
-					<td class="align-middle text-center"><h3 class="font-weight-light"> ${event.eventName}  in  <b>${remainingDays}  days</b></h3></td>
+					<td class="align-middle text-center" style="cursor: context-menu;"><h3 class="font-weight-light"> ${event.eventName}  in  <b>${remainingDays}  days</b></h3></td>
 					</tr>
 				</table>
 			</div>

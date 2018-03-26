@@ -21,7 +21,7 @@
 				</div>
 			</div>
 			<div class="col-sm-10">
-					<div class="align-middle text-center" style="margin-top: 20px;">
+					<div class="align-middle text-center" style="margin-top: 20px; cursor: context-menu;">
 						<h3 class="font-weight-light"><b>My Events</b></h3>
 					</div>
 			</div>
