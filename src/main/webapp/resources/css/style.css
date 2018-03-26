@@ -241,9 +241,10 @@ table#calendar{
 	width: 14.2%;
 }
 div.calendarDay{
-	height: 120px;
+	height: 100px;
 	width:100%;
 	overflow: hidden;
+	font-size:small;
 }
 
 .circle {

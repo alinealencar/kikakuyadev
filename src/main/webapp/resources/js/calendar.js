@@ -253,7 +253,7 @@ function calendarNav(actionName){
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
 
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
-	    					if($("#"+ monthDay + response.name + apptsInTheMonth[k].year).children().length <= 3)
+	    					if($("#"+ monthDay + response.name + apptsInTheMonth[k].year).children().length <= 2){
 	    						if((apptsInTheMonth[k].title).length > 10)
 	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
@@ -267,8 +267,10 @@ function calendarNav(actionName){
 	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    									+ apptsInTheMonth[k].title + "</div>");
 	    						}
+	    					}
 	    					else{
 	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("more");
+	    						break;
 	    					}
 	    				}
 	    				
