@@ -9,6 +9,7 @@
 <jsp:include page="/WEB-INF/includes/menu.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<script src="resources/js/validateAppointment.js"></script>
 <div class="container">
 	<!-- body contents start -->
 	<div class="row">
@@ -19,6 +20,7 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-12 text-center">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous year">
 								<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 							</a>
@@ -29,7 +31,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 text-center">
+						<div class="col-12 text-center">	
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous month">
 								<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
 							</a>
@@ -42,9 +45,16 @@
 				</div>
 				<div class="col-3 text-right">
 					<!-- Add new appointment circle button-->
+					<a href="#" class="d-none d-lg-block">
 					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
-   					</button>  		
+   					</button>
+   					</a>
+					<a href="#sectionAddAppt" class="d-block d-lg-none">
+					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   					</button>
+   					</a>  		
 				</div>
 			</div>
 			<!-- Calendar -->
@@ -73,22 +83,22 @@
 			<div class="successAlert" style="display:none;"></div>
 			<div class="errorAlert" style="display:none;"></div>
 			<!-- Add and Edit appointment (Same form) -->
+			<div id="sectionAddAppt">
 			<div id="addAppt" style="display:none;">
 				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
 					<form:hidden path="apptId"/>
-					<label>Title*: </label>
-					<form:input path="title" type="text" class="item form-control"/>
-					
-					<label>Date*: </label>
+					<label>Title<span style="font-size:22px;color:red">*</span>: </label>
+					<form:input path="title" type="text" class="item form-control" maxlength="30" oninput="validateTitle(this)"/>
+					<div><span id="titleError" class="formError"></span></div>
+					<label>Date<span style="font-size:22px;color:red">*</span>: </label>
 					<div class="row" style="padding:0 15px 0 15px;">
 
-						<form:select id="day" class="form-control-sm col-4" path="day" disabled="disabled">
+						<form:select id="day" class="form-control-sm col-4" path="day" disabled="disabled" onchange="validateDate(this)">
 			        		<option value="" disabled="disabled" selected="true">dd</option>
 			        	</form:select>	
 
-
-   						<form:select id="month" class="form-control-sm col-4" path="month">
+   						<form:select id="month" class="form-control-sm col-4" path="month" onchange="validateDate(this)">
 			       			<option value="" disabled="disabled" selected="true">mm</option>
 			      			<option value="1">Jan</option>
 			       			<option value="2">Feb</option>
@@ -105,19 +115,19 @@
 		      			</form:select>
 
 
-	      				<form:select id="year" class="form-control-sm col-4" path="year">
+	      				<form:select id="year" class="form-control-sm col-4" path="year" onchange="validateDate(this)">
 		        			<option value="" disabled="disabled" selected="true">yyyy</option>
 		        			<option value="2018">2018</option>
 							<option value="2019">2019</option>
 							<option value="2020">2020</option>
 							<option value="2021">2021</option>
 		   				</form:select>
-
       				</div>
+      				<div><span id="dateError" class="formError"></span></div>
       				
-					<label>Time*: </label>
+					<label>Time<span style="font-size:22px;color:red">*</span>: </label>
 					<div class="row" style="padding:0 15px 0 15px;">
-						<form:select id="hour" class="form-control-sm col-4" path="hour">
+						<form:select id="hour" class="form-control-sm col-4" path="hour" onchange="validateTime(this)">
 							<option value="" disabled="disabled" selected="true">hh</option>
 							<option value="1">01</option>
 							<option value="2">02</option>
@@ -132,7 +142,7 @@
 							<option value="11">11</option>
 							<option value="12">12</option>
 						</form:select>
-						<form:select id="minute" class="form-control-sm col-4" path="minute">
+						<form:select id="minute" class="form-control-sm col-4" path="minute" onchange="validateTime(this)">
 							<option value="" disabled="disabled" selected="true">mm</option>
 							<option value="0">00</option>
 							<option value="5">05</option>
@@ -147,36 +157,39 @@
 							<option value="50">50</option>
 							<option value="55">55</option>
 						</form:select>
-						<form:select id="ampm" class="form-control-sm col-4" path="ampm">
+						<form:select id="ampm" class="form-control-sm col-4" path="ampm" onchange="validateTime(this)">
 							<option value="AM" selected="true">AM</option>
 							<option value="PM">PM</option>
 						</form:select>
 					</div>
-					<label>Address*: </label>
-					<form:input path="location" type="text" class="item form-control"/>
+					<div><span id="timeError" class="formError"></span></div>
 					
-					<label>Color*: </label><br>
+					<label>Address<span style="font-size:22px;color:red">*</span>: </label>
+					<form:input path="location" type="text" class="item form-control" maxlength="100" oninput="validateAdd(this)"/>
+					<div><span id="addressError" class="formError"></span></div>
+					
+					<label>Color<span style="font-size:22px;color:red">*</span>: </label><br>
 					<label class="selectColor">
-						<form:radiobutton path="color" value="rgb(255,153,255)"/>
+						<form:radiobutton path="color" value="rgb(255,153,255)" onclick="validateColor(this)"/>
 						<div class="circle" style="background-color:rgb(255,153,255)"></div>
 					</label>
 					<label class="selectColor">
-						<form:radiobutton path="color" value="rgb(255,255,153)"/>
+						<form:radiobutton path="color" value="rgb(255,255,153)" onclick="validateColor(this)"/>
 						<div class="circle" style="background-color:rgb(255,255,153)"></div>
 					</label>
 					<label class="selectColor">
-						<form:radiobutton path="color" value="rgb(102,255,255)"/>
+						<form:radiobutton path="color" value="rgb(102,255,255)" onclick="validateColor(this)"/>
 						<div class="circle" style="background-color:rgb(102,255,255)"></div>
 					</label>
 					<label class="selectColor">
-						<form:radiobutton path="color" value="rgb(153,255,153)"/>
+						<form:radiobutton path="color" value="rgb(153,255,153)" onclick="validateColor(this)"/>
 						<div class="circle" style="background-color:rgb(153,255,153)"></div>
 					</label>
 					<label class="selectColor">
-						<form:radiobutton path="color" value="rgb(204,153,255)"/>
+						<form:radiobutton path="color" value="rgb(204,153,255)" onclick="validateColor(this)"/>
 						<div class="circle" style="background-color:rgb(204,153,255)"></div>
 					</label>
-
+					<div><span id="colorError" class="formError"></span></div>
 					
 					<br>
 					<label>Notes:</label>
@@ -190,7 +203,7 @@
 					</div>
 				</form:form>
 			</div>
-			
+			</div>
 			<!-- Today's appointments -->
 			<div id="todaysAppts">
 				<h4>Today</h4>
