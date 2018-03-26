@@ -215,3 +215,31 @@ $(document).ready(function(){
 		}
 	});
 });
+
+/***Clear SessionStorage***/
+
+$('#btnCalendar').click(function(){
+	sessionStorage.clear();
+});
+
+$('#btnGuest').click(function(){
+	sessionStorage.clear();
+});
+
+$('#btnList').click(function(){
+	sessionStorage.clear();
+});
+
+$('#btnSearch').click(function(){
+	sessionStorage.clear();
+});
+
+$('a').click(function(){
+	sessionStorage.clear();
+});
+
+$('#logout').click(function(){
+	sessionStorage.clear();
+});
+
+
