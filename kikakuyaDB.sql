@@ -8,7 +8,7 @@ CREATE TABLE Appointment (
   apptTitle		varchar(50) NOT NULL,
   apptDateTime datetime NOT NULL, 
   apptNotes    varchar(255), 
-  UseruserId   int(10) NOT NULL,
+  EventeventId   int(10) NOT NULL,
   location    varchar(255),
   color varchar(16) NOT NULL,
   PRIMARY KEY (apptId));
@@ -29,7 +29,7 @@ CREATE TABLE Event (
   eventDate   varchar(255), 
   UseruserId  int(10),
   location    varchar(255) NOT NULL,
-  totalBudget decimal(8,2) DEFAULT 0.0, 
+  totalBudget decimal(9,2) DEFAULT 0.0, 
   PRIMARY KEY (eventId));
 CREATE TABLE VendorEvent (
   vendorEventId   int(10) NOT NULL AUTO_INCREMENT,
@@ -102,6 +102,6 @@ ALTER TABLE Item ADD INDEX FKItemList (ListlistId), ADD CONSTRAINT FKItemList FO
 ALTER TABLE List ADD INDEX FKListEvent (EventeventId), ADD CONSTRAINT FKListEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT FKGuestPlusOne FOREIGN KEY (GuestguestId) REFERENCES Guest(guestId);
 ALTER TABLE Event ADD INDEX FKEventUser (UseruserId), ADD CONSTRAINT FKEventUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
-ALTER TABLE Appointment ADD INDEX FKAppointmentUser (UseruserId), ADD CONSTRAINT FKAppointmentUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
+ALTER TABLE Appointment ADD INDEX FKAppointmentEvent (EventeventId), ADD CONSTRAINT FKAppointmentEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE Guest ADD INDEX FKEventGuest (EventeventId), ADD CONSTRAINT FKEventGuest FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE Email ADD INDEX FKEmailEvent (EventeventId), ADD CONSTRAINT FKEmailEvent FOREIGN KEY (EventeventId) REFERENCES `Event` (eventId);

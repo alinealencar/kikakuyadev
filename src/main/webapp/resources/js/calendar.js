@@ -69,6 +69,8 @@ function showAppt(id){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
 		
+		//console.log("month is: " + getMonthInt(response.month));
+		
 		//Format date with the 0 for days and months with one digit only
 		var date = "";
 		
@@ -80,7 +82,7 @@ function showAppt(id){
 		if(getMonthInt(response.month) < 10)
 			date += "0";
 		
-		date += getMonthInt(response.month) + "/" + response.year;
+		date += getMonthInt((response.month).substring(0,3)) + "/" + response.year;
 		
 		$("#apptDate").html(date);
 		
@@ -133,7 +135,7 @@ function openEditAppt(id){
 		$("#apptId").val(response.apptId);
 		$("#title").val(response.title);
 		$("#day").val(response.day);
-		$("#month").val(getMonthInt(response.month));
+		$("#month").val(getMonthInt((response.month).substring(0,3)));
 		$("#year").val(response.year);
 		$("#hour").val(response.hour);
 		$("#minute").val(response.minute);
@@ -394,6 +396,34 @@ function getTodaysDate() {
 	return todayStr;
 }
 
+
+//scroll down to form 
+$(document).ready(function(){
+	  // Add smooth scrolling to all links
+	if ($(window).width() < 768) {
+	  $("a").on('click', function(event) {
+
+	    // Make sure this.hash has a value before overriding default behavior
+	    if (this.hash !== "") {
+	      // Prevent default anchor click behavior
+	      event.preventDefault();
+
+	      // Store hash
+	      var hash = this.hash;
+
+	      // Using jQuery's animate() method to add smooth page scroll
+	      // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+	      $('html, body').animate({
+	        scrollTop: $(hash).offset().top
+	      }, 1000, function(){
+	   
+	        // Add hash (#) to URL when done scrolling (default click behavior)
+	        window.location.hash = hash;
+	      });
+	    } // End if
+	  });
+	}});	
+
 function validateForm(){
 	var title = $("#title").val();
 	var address = $("#location").val();
@@ -424,3 +454,4 @@ function validateForm(){
 			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
 	}
 }
+

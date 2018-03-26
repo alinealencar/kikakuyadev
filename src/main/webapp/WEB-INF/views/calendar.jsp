@@ -20,6 +20,7 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-12 text-center">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous year">
 								<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 							</a>
@@ -30,7 +31,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 text-center">
+						<div class="col-12 text-center">	
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous month">
 								<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
 							</a>
@@ -43,9 +45,16 @@
 				</div>
 				<div class="col-3 text-right">
 					<!-- Add new appointment circle button-->
+					<a href="#" class="d-none d-lg-block">
 					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
-   					</button>  		
+   					</button>
+   					</a>
+					<a href="#sectionAddAppt" class="d-block d-lg-none">
+					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
+      					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
+   					</button>
+   					</a>  		
 				</div>
 			</div>
 			<!-- Calendar -->
@@ -74,6 +83,7 @@
 			<div class="successAlert" style="display:none;"></div>
 			<div class="errorAlert" style="display:none;"></div>
 			<!-- Add and Edit appointment (Same form) -->
+			<div id="sectionAddAppt">
 			<div id="addAppt" style="display:none;">
 				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
@@ -193,7 +203,7 @@
 					</div>
 				</form:form>
 			</div>
-			
+			</div>
 			<!-- Today's appointments -->
 			<div id="todaysAppts">
 				<h4>Today</h4>
