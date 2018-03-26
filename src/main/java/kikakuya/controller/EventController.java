@@ -172,7 +172,16 @@ public class EventController {
 				LocalDate today = LocalDate.now();
 				
 				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
-				session.setAttribute("remainingDays", daysBetween);
+				
+				String headerMessage = "";
+				if(daysBetween > 1)
+					headerMessage = eventName.getEventName() + " in " + daysBetween + " days";
+				else if(daysBetween == 1)
+					headerMessage = eventName.getEventName() + " in " + daysBetween + " day";
+				else
+					headerMessage = eventName.getEventName() + " has already passed. Hope you had a great time!";
+				
+				session.setAttribute("headerMessage", headerMessage);
 				//Send the event to the session scope
 				session.setAttribute("event", eventName);
 				
