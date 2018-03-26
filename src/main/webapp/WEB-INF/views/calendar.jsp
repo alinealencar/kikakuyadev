@@ -13,7 +13,7 @@
 	<!-- body contents start -->
 	<div class="row">
 		<!-- Left -->
-		<div class="col-sm-9">
+		<div class="col-lg-9">
 			
 			<div class="row">
 				<div class="col-9">
@@ -69,7 +69,7 @@
 		</div>
 		
 		<!-- Right -->
-		<div class="col-sm-3">
+		<div class="col-lg-3">
 			<div class="successAlert" style="display:none;"></div>
 			<div class="errorAlert" style="display:none;"></div>
 			<!-- Add and Edit appointment (Same form) -->
@@ -181,18 +181,21 @@
 					<br>
 					<label>Notes:</label>
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
-					
+					<div class="row" style="margin-top:20px;">
+						<div class= "col-12 text-center">
 					<input id="btnCancel" class="btn" type="button" value="Cancel" onclick=""/>
-					<input id="btnAddAppt" class="btn" type="button" value="Add" onclick="addEditAppt('addAppt');"/>
-					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');"/>
+					<input id="btnAddAppt" class="btn" type="button" value="Add" onclick="addEditAppt('addAppt');" style="background-color:#D90368; color:#F1E9DA;"/>
+					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');" />
+						</div>
+					</div>
 				</form:form>
 			</div>
 			
 			<!-- Today's appointments -->
 			<div id="todaysAppts">
 				<h4>Today</h4>
-				<span id="todaysDate"></span>
-				<div id="todaysApptList"></div>
+				<h3><span id="todaysDate"></span></h3>
+				<h4><div id="todaysApptList"></div></h4>
 			</div>
 			
 			<!-- Show appointment -->

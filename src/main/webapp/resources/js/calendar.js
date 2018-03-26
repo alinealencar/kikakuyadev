@@ -153,6 +153,7 @@ function deleteAppt(id){
 	});
 	
 	$("#showAppt").hide();
+	
 	//Reload calendar
 	calendarNav("loadMonth");
 	$("#todaysAppts").show();
@@ -242,22 +243,35 @@ function calendarNav(actionName){
 	    			startPrintingDays = true;
 	    		
 	    		if(!startPrintingDays) //Print empty days
-	    			$("#calendar").find('#week' + weekNum).append($('<td>')
+	    			$("#calendar").find('#week' + weekNum).append($('<td><div class="calendarDay">')
 	    	            .append(""));
 	    		else {
 	    			$("#calendar").find('#week' + weekNum).append($('<td>')
-	    					.append("<span id=" + monthDay + response.name + response.year +">" + monthDay + "<span>"));
+	    					.append("<div class='calendarDay'><span id=" + monthDay + response.name + response.year +">" + monthDay + "</span>"));
 	    				    			if(apptDict[monthDay+response.name+response.year] != undefined){
 
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
 
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
-	    					$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
-	    							+ apptsInTheMonth[k].apptId + " class='appt' "
-	    							+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-	    							+ apptsInTheMonth[k].title + "</div>");
+	    					if($("#"+ monthDay + response.name + apptsInTheMonth[k].year).children().length <= 3)
+	    						if((apptsInTheMonth[k].title).length > 10)
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
+	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div>");
+	    						else {
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
+	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ apptsInTheMonth[k].title + "</div>");
+	    						}
+	    					else{
+	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("more");
+	    					}
 	    				}
+	    				
 	    			}
 	    			monthDay++;
 	    			
