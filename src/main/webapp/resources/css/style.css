@@ -197,6 +197,9 @@ Form validation
 /*********************************
 calendar
 **********************************/
+table#calendar{
+	table-layout: fixed;
+}
 .calNav {
 	background-color: #F1E9DA;
     border: none;
@@ -233,6 +236,14 @@ calendar
 }
 #calendar tr {
 	width: 100%;
+}
+#calendar td{
+	width: 14.2%;
+}
+div.calendarDay{
+	height: 120px;
+	width:100%;
+	overflow: hidden;
 }
 
 .circle {

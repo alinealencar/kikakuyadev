@@ -242,11 +242,11 @@ function calendarNav(actionName){
 	    			startPrintingDays = true;
 	    		
 	    		if(!startPrintingDays) //Print empty days
-	    			$("#calendar").find('#week' + weekNum).append($('<td>')
+	    			$("#calendar").find('#week' + weekNum).append($('<td><div class="calendarDay">')
 	    	            .append(""));
 	    		else {
 	    			$("#calendar").find('#week' + weekNum).append($('<td>')
-	    					.append("<span id=" + monthDay + response.name + response.year +">" + monthDay + "<span>"));
+	    					.append("<div class='calendarDay'><span id=" + monthDay + response.name + response.year +">" + monthDay + "</span>"));
 	    				    			if(apptDict[monthDay+response.name+response.year] != undefined){
 
 	    				var apptsInTheMonth = apptDict[monthDay+response.name+$('#curYear').html()];
@@ -258,6 +258,7 @@ function calendarNav(actionName){
 	    							+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    							+ apptsInTheMonth[k].title + "</div>");
 	    				}
+	    				
 	    			}
 	    			monthDay++;
 	    			
