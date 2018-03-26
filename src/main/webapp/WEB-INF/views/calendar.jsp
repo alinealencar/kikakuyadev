@@ -19,6 +19,7 @@
 				<div class="col-9">
 					<div class="row">
 						<div class="col-12 text-center">
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous year">
 								<button class="calNav" onclick="calendarNav('prevYear')"><i class="fas fa-chevron-left"></i></button>
 							</a>
@@ -29,7 +30,8 @@
 						</div>
 					</div>
 					<div class="row">
-						<div class="col-12 text-center">
+						<div class="col-12 text-center">	
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;			
 							<a href="#" data-toggle="tooltip" data-placement="left" title="previous month">
 								<button class="calNav" onclick="calendarNav('prevMonth')"><i class="fas fa-chevron-left"></i></button>
 							</a>
