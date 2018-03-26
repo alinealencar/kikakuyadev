@@ -111,7 +111,7 @@ public class EventController {
 			e.printStackTrace();
 		}
 		
-		return "event";
+		return "redirect:/list";
 	}
 	
 	//
@@ -128,7 +128,7 @@ public class EventController {
 		}
 		request.setAttribute("event", selectedEvent);
 		//viewEvent(request, model);
-		return "event";
+		return "redirect:/list";
 	}
 	
 	//Delete an event
