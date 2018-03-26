@@ -10,6 +10,40 @@ function validateEventForm(){
 		form.reset();
 	}
 	else{
+		var eventName = document.getElementsByClassName("eventName")[0].value;
+		if (eventName == ""){
+			document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+			validEventName = false;
+		}
+		else{
+			document.getElementById("eventNameError").innerHTML = "";
+			validEventName = true;
+		}
+		var location = document.getElementsByClassName("location")[0].value;
+		if (location == ""){
+			document.getElementById("locationError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
+			validLocation = false;
+		}
+		else{
+			document.getElementById("locationError").innerHTML = "";
+			validLocation = true;
+		}
+		var today = new Date();
+		var eventDate = new Date(document.getElementsByClassName("eventDate")[0].value);
+		
+		if (eventDate.value == null){
+			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+			console.log("yes!");
+			validDate = false;
+		}
+		else if(eventDate < today){
+			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+			validDate = false;
+		}
+		else{
+			document.getElementById("eventDateError").innerHTML = "";
+			validDate = true;
+		}
 		return false;
 	}
 	return true;
@@ -50,7 +84,7 @@ function validateDate(){
 		console.log("yes!");
 		validDate = false;
 	}
-	else if(eventDate < today){
+	else if(eventDate < null){
 		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 		validDate = false;
 	}
