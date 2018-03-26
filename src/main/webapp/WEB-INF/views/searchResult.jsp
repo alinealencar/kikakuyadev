@@ -11,17 +11,19 @@
 <div class="container">
 <!-- body contents start -->
 	<h2>Search Results</h2>
-	<form action="search" method="post" >
+	<form action="search" method="post" onsubmit="return validateSearch();">
 		<div class="form-group row" style="margin-top: 50px;">		
 			<div class="col-sm-5 text-center">			
 				<div>
-					<input type="text" class="form-control" name="category" placeholder="Category" value="${category}" class="col-12" required>
+					<input type="text" class="category form-control" name="category" placeholder="Category" oninput="validateCategoryR()" value="${category}" class="col-12">
+					<span id="categoryError" class="formError"></span>
 					<br><br>
 				</div>
 			</div>
 			<div class="col-sm-5 text-center">
 				<div>
-					<input type="text" class="form-control" name="location" placeholder="Location" value="${location}" class="col-12" required>
+					<input type="text" class="location form-control" name="location" placeholder="Location" oninput="validateLocationR()" value="${location}" class="col-12">
+					<span id="locationError" class="formError"></span>
 					<br><br>
 				</div>
 			</div>
@@ -113,4 +115,5 @@ $(document).ready(function(){
 	});
 });
 </script>
+<script src="resources/js/validateSearch.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
