@@ -69,6 +69,8 @@ function showAppt(id){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
 		
+		//console.log("month is: " + getMonthInt(response.month));
+		
 		//Format date with the 0 for days and months with one digit only
 		var date = "";
 		
@@ -80,7 +82,7 @@ function showAppt(id){
 		if(getMonthInt(response.month) < 10)
 			date += "0";
 		
-		date += getMonthInt(response.month) + "/" + response.year;
+		date += getMonthInt((response.month).substring(0,3)) + "/" + response.year;
 		
 		$("#apptDate").html(date);
 		
@@ -133,7 +135,7 @@ function openEditAppt(id){
 		$("#apptId").val(response.apptId);
 		$("#title").val(response.title);
 		$("#day").val(response.day);
-		$("#month").val(getMonthInt(response.month));
+		$("#month").val(getMonthInt((response.month).substring(0,3)));
 		$("#year").val(response.year);
 		$("#hour").val(response.hour);
 		$("#minute").val(response.minute);

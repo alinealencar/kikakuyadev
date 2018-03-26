@@ -118,7 +118,6 @@ public class CalendarController {
 		try {
 			//Get appointment by Id received with the AJAX request
 			appt = calendarDelegate.findAppt(apptId);
-			System.out.println(appt);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
