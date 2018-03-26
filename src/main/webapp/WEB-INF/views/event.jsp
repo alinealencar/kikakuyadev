@@ -18,8 +18,7 @@
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
-					<!--i class="fas fa-plus-circle" data-toggle="modal" data-target="#showAddForm" onclick="showList()"></i-->
-						<a class="button" href="#addEvent"><i class="fas fa-plus-circle" ></i></a>
+						<a class="button" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
 				</span>
 			</div>
 		</div>
@@ -197,7 +196,7 @@ h1 {
   padding: 20px;
   background: #fff;
   border-radius: 5px;
-  width: 70%;
+  width: 50%;
   position: relative;
   transition: all 5s ease-in-out;
 }
@@ -230,7 +229,7 @@ h1 {
     width: 70%;
   }
   .popup{
-    width: 70%;
+    width: 60%;
   }
 }
 </style>

@@ -28,6 +28,8 @@ function addEditAppt(action){
              data:$("#appt").serialize(),
              success: function(response) {
             	 
+            	 validateForm()
+            	 
             	 //Show appt after update
                  if(action === "editAppt") {
                 	 var apptId = $("#apptId").val();
@@ -47,7 +49,7 @@ function addEditAppt(action){
             	 //Reload today's appts
             	 getTodaysAppts();
             	 
-            	 closeAppt();
+            	 //closeAppt();
 
              }
          });
@@ -116,6 +118,11 @@ function openEditAppt(id){
 	$(".successAlert").hide();
 	$(".errorAlert").hide();
 	$("#todaysAppts").hide();
+	$("#titleError").hide();
+	$("#addressError").hide();
+	$("#dateError").hide();
+	$("#timeError").hide();
+	$("#colorError").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -312,6 +319,11 @@ function closeAppt(){
 	$("#showAppt").hide();
 	$("#addAppt").hide();
 	$("#todaysAppts").show();
+	$("#titleError").hide();
+	$("#addressError").hide();
+	$("#dateError").hide();
+	$("#timeError").hide();
+	$("#colorError").hide();
 }
 
 function openAddAppt(){
@@ -329,22 +341,24 @@ function showFeedbackMessages(response){
 		 $(".successAlert").html(response);
 		 $(".successAlert").show();
 		 $(".errorAlert").hide();
+		 $("#addAppt").hide();
 		 
 		 //show alert for 5 seconds and fade out
 		 setTimeout(function() {
 			 $(".successAlert").fadeOut();
 		 }, 5000);
 	 }
-	 else {
+	 /*else {
 		 $(".errorAlert").html(response);
 		 $(".errorAlert").show();
 		 $(".successAlert").hide();
+		 $("#addAppt").show();
 		 
 		 //show alert for 5 seconds and fade out
 		 setTimeout(function() {
 			 $(".errorAlert").fadeOut();
 		 }, 5000);
-	 }	
+	 }	*/
 }
 
 function getTodaysDate() {
@@ -364,3 +378,33 @@ function getTodaysDate() {
 	return todayStr;
 }
 
+function validateForm(){
+	var title = $("#title").val();
+	var address = $("#location").val();
+	var day = $("#day").val();
+	var month = $("#month").val();
+	var year = $("#year").val();
+	var hour = $("#hour").val();
+	var minute = $("#minute").val();
+	var ampm = $("#ampm").val();
+	
+	if(title == ""){
+		 document.getElementById("titleError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an appointment title";
+	}
+	
+	if (address == ""){
+		 document.getElementById("addressError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter the address";
+	}
+	
+	if (!$("input:radio[name='color']:checked").val()){
+		 document.getElementById("colorError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a color";
+	}
+	
+	if (day == "" || month == "" || year == "" || day == null || month == null || year == null){
+			document.getElementById("dateError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select date";
+	}
+	
+	if (hour == "" || minute == "" || ampm == "" || hour == null || minute == null || ampm == null){
+			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
+	}
+}
