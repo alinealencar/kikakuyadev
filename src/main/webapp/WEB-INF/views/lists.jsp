@@ -102,7 +102,8 @@
 	   								<button onclick="deleteListSM(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleErrorESM form-control" oninput="validateNameEditSM(this)"/>
+		   							<span class="titleErrorESM formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter a list title</span>
 		   						</div>
 		   					</div>							
 						</li>
