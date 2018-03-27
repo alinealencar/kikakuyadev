@@ -157,12 +157,19 @@ function openEditAppt(id){
 /** DELETE APPOINTMENT **/
 
 function deleteAppt(id){
+	var result = confirm("Are you sure you want to delete this appointment?");
+	if (result){
 	$.post({
 		url: "deleteAppt",
 		data: {apptId: id}
 	}).done(function(response){
 		showFeedbackMessages(response);
 	});
+	//Reload calendar
+	calendarNav("loadMonth");
+	$("#todaysAppts").show();
+	$("#showDay").hide();
+	}
 	
 	$("#showAppt").hide();
 	
