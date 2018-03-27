@@ -266,8 +266,13 @@ div.calendarDay{
  	border:2px solid transparent;
 }
 
-.appt {
+.appt, u{
 	cursor:pointer;
+	text-decoration: none !important;
+	color: #2E294E;
+}
+.appt:visited{
+	text-decoration: none !important;
 }
 
 .selectColor > input:checked + div{ /* (RADIO CHECKED) IMAGE STYLES */
@@ -303,6 +308,7 @@ div.calendarDay{
 	font-size: 15px;
 }
 
+
 /*for small size screen decolation*/
 @media only screen and (max-width: 576px) {
 	div .calendarDay{
@@ -319,6 +325,10 @@ div.calendarDay{
 
     }
 }
+/*
+@media only screen and (min-width: 992px) {
+	.scrollable {display:none;}
+}*/
 /*********************************
 slide in form
 **********************************/

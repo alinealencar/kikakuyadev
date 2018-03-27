@@ -274,23 +274,34 @@ function calendarNav(actionName){
 
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
 	    					if($("#"+ monthDay + response.name + apptsInTheMonth[k].year).children().length <= 2){
-	    						if((apptsInTheMonth[k].title).length > 10)
-	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
+	    						if((apptsInTheMonth[k].title).length > 10){
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='scrollable'><div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
-	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</a></div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div></a>");
+//		    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div class='nonScrollable'><div id="
+//	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+//	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+//	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+//	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div></div>");
+	    						}
 	    						else {
-	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='scrollable'><div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
-	    									+ apptsInTheMonth[k].title + "</a></div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ apptsInTheMonth[k].title + "</div></a>");
+//	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div class='nonScrollable'><div id="
+//	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+//	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+//	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+//	    									+ apptsInTheMonth[k].title + "</div></div>");
 	    						}
 	    					}
 	    					else{
 	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append(
-	    								"<span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span>");
+	    								"<a href='#sectionShowAppt' class='scrollable'><span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span></a>");
 	    						break;
 	    					}
 	    				}
@@ -445,7 +456,7 @@ function getTodaysDate() {
 //scroll down to form 
 $(document).ready(function(){
 	  // Add smooth scrolling to all links
-	  $("a").on('click', function(event) {
+	  $('a.scrollable, div.calendarDay a.scrollable').on('click', function(event) {
 
 	    // Make sure this.hash has a value before overriding default behavior
 	    if (this.hash !== "") {
