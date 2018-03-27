@@ -275,6 +275,13 @@ div.calendarDay{
 	 border:1px solid #999999;
 	 padding: 15px;
 }
+#moreAppts{
+	cursor: pointer;
+	float: right;
+}
+#moreAppts:hover{
+	font-size: 15px;
+}
 /*********************************
 slide in form
 **********************************/

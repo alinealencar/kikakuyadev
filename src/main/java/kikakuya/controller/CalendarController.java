@@ -1,7 +1,9 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -174,6 +176,24 @@ public class CalendarController {
 			apptList = calendarDelegate.findApptsByDay(date);
 			System.out.println("TODAYS APPTS: " + apptList.size());
 		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return apptList;
+	}
+	
+	@RequestMapping(value="/showApptsByDay", method = RequestMethod.POST)
+	@ResponseBody
+	public List<Appointment> showApptsByDay(@RequestParam("day") int day, @RequestParam("month") int month, @RequestParam("year") int year){
+		List<Appointment> apptList = null;
+		try {
+			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+			Calendar date  = Calendar.getInstance();
+			date.setTime(df.parse(day + "-" + month + "-" + year));
+			apptList = calendarDelegate.findApptsByDay(date);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 		
