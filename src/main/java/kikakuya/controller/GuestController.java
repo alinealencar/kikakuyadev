@@ -1,6 +1,7 @@
 package kikakuya.controller;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,8 +15,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kikakuya.delegate.GuestDelegate;
+import kikakuya.model.Appointment;
 import kikakuya.model.Email;
 import kikakuya.model.Event;
 import kikakuya.model.Guest;
@@ -204,5 +207,23 @@ public class GuestController {
 		}
 		
 		return "guestMgmt";
+	}
+	
+	@RequestMapping(value="/getPlusOnes", method = RequestMethod.POST)
+	@ResponseBody
+	public GuestPlusOneForm getPlusOnes(@ModelAttribute("guestId") int guestId){
+		GuestPlusOneForm plusOnesList = new GuestPlusOneForm();
+		try {
+			Guest guest = guestDelegate.getSelectedGuest(guestId);
+
+			//get plus ones
+			plusOnesList.setPlusOnes(guestDelegate.getAllPlusOnes(guest));
+			plusOnesList.setGuest(guestDelegate.getSelectedGuest(guestId));
+			plusOnesList.setMeals(guestDelegate.getMealOptions(guest.getEventId()));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return plusOnesList;
 	}
 }

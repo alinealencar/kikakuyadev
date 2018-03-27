@@ -175,6 +175,7 @@ function deleteAppt(id){
 	
 	//Reload calendar
 	calendarNav("loadMonth");
+	getTodaysAppts();
 	$("#todaysAppts").show();
 	$("#showDay").hide();
 }

@@ -125,7 +125,7 @@
 				<div class="guestFormPad">
 					<!-- Show guest -->
 					<div id="guestDetails">
-						<span onclick="openEditGuest()"><i class="fas fa-edit"></i></span>
+						<span onclick="openEditGuest(${selectedGuest.guestId})"><i class="fas fa-edit"></i></span>
 						<span onclick="closeShowGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 						<h2>${selectedGuest.firstName} ${selectedGuest.lastName}</h2>
 						<label>Email:</label>
@@ -305,7 +305,7 @@
 				<h2>Edit Plus Ones</h2>
 				<!-- Edit Plus Ones -->		
 					<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm" >
-						<c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
+						<%-- <c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
 							<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
 							<label>Name: </label>
 							<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
@@ -316,7 +316,10 @@
 								</c:forEach>	
 							</select>
 							<br>
-						</c:forEach>
+						</c:forEach> --%>
+						
+						<div id="plusOnesDiv"></div>
+						
 						<div class="text-right">
 							<button type="submit" class="btn btn-info">
 		      					Save
