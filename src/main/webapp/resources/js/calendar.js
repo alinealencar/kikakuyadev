@@ -48,7 +48,7 @@ function addEditAppt(action){
             	 
             	 //Reload today's appts
             	 getTodaysAppts();
-            	 
+            	 $("#todaysAppts").show();
             	 //closeAppt();
 
              }
