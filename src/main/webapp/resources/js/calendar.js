@@ -59,6 +59,7 @@ function addEditAppt(action){
 
 function showAppt(id){
 	$("#addAppt").hide();
+	$("#showDay").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -69,6 +70,8 @@ function showAppt(id){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
 
+		
+		//console.log("month is: " + getMonthInt(response.month));
 		
 		//Format date with the 0 for days and months with one digit only
 		var date = "";
@@ -81,7 +84,7 @@ function showAppt(id){
 		if(getMonthInt(response.month) < 10)
 			date += "0";
 		
-		date += getMonthInt(response.month) + "/" + response.year;
+		date += getMonthInt((response.month).substring(0,3)) + "/" + response.year;
 		
 		$("#apptDate").html(date);
 		
@@ -124,6 +127,7 @@ function openEditAppt(id){
 	$("#dateError").hide();
 	$("#timeError").hide();
 	$("#colorError").hide();
+	$("#showDay").hide();
 	
 	//Send AJAX request with the id of the selected appointment
 	$.ajax({
@@ -134,7 +138,7 @@ function openEditAppt(id){
 		$("#apptId").val(response.apptId);
 		$("#title").val(response.title);
 		$("#day").val(response.day);
-		$("#month").val(getMonthInt(response.month));
+		$("#month").val(getMonthInt((response.month).substring(0,3)));
 		$("#year").val(response.year);
 		$("#hour").val(response.hour);
 		$("#minute").val(response.minute);
@@ -165,6 +169,7 @@ function deleteAppt(id){
 	//Reload calendar
 	calendarNav("loadMonth");
 	$("#todaysAppts").show();
+	$("#showDay").hide();
 }
 
 /** DOCUMENT.READY **/
@@ -197,7 +202,6 @@ function getTodaysAppts(){
 	$.post({
 		url: "todaysAppts",
 		success: function(response) {
-			console.log("inside get todays appts");
 			for(var i = 0; i < response.length; i++){
 				console.log(response.title);
 				$("#todaysApptList").append("<div class='appt' style='background-color: " + response[i].color + "' " +
@@ -277,7 +281,8 @@ function calendarNav(actionName){
 	    						}
 	    					}
 	    					else{
-	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("more");
+	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append(
+	    								"<span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span>");
 	    						break;
 	    					}
 	    				}
@@ -311,6 +316,37 @@ function calendarNav(actionName){
 		});
 }
 
+/** SHOW APPTS FOR DAYS WITH MORE THAN 3 APPTS **/
+function showThisDaysAppts(dayInput, monthInput, yearInput) {
+	$("#selectedDate").empty();
+	$("#selectedDateApptList").empty();
+	$.post({
+		url: "showApptsByDay",
+		data: {day: dayInput, month: monthInput, year: yearInput}
+	}).done(function(response){
+		var date = "";
+		if(dayInput < 10)
+			date += "0";
+		date += dayInput + "/";
+		if(monthInput < 10)
+			date += "0";
+		date += monthInput + "/";
+		date += yearInput;
+		
+		$("#selectedDate").html(date);
+		
+		for(var i = 0; i < response.length; i++){
+			$("#selectedDateApptList").append("<div class='appt' style='background-color: " + response[i].color + "' " +
+					"onclick='showAppt(" + response[i].apptId + ")'>" + response[i].title + "</div>")
+		}
+		
+		//hide todays appts
+		closeAppt();
+		$("#todaysAppts").hide();
+		$("#showDay").show();
+	});
+}
+
 function getMonthInt(monthStr){
 	var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	return months.indexOf(monthStr) + 1;
@@ -341,6 +377,7 @@ function closeAppt(){
 	$("#dateError").hide();
 	$("#timeError").hide();
 	$("#colorError").hide();
+	$("#showDay").hide();
 }
 
 function openAddAppt(){
@@ -350,6 +387,7 @@ function openAddAppt(){
 	$("#todaysAppts").hide();
 	$("#showAppt").hide();
 	$("#btnAddAppt").show();
+	$("#showDay").hide();
 }
 
 function showFeedbackMessages(response){

@@ -10,8 +10,12 @@ var validPrice = false;
 function validateItemSM(val){
 	var item = val.value;
 	if (item == "" || item == null){
-		document.getElementById("itemError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+		document.getElementById("itemError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter item";
 		$('#itemError-sm').show();
+		validItem = false;
+	}
+	else if(!isNaN(item)){
+		document.getElementById("itemError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Please enter the right item</span>";
 		validItem = false;
 	}
 	else{
@@ -28,7 +32,7 @@ function validatePriceSM(val){
 			$('#priceError-sm').show();
 			validPrice = false;
 		}
-		else if(price == "" || price == null){
+		else if(price == "" || price == null || price <= 0){
 			document.getElementById("priceError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
 			$('#priceError-sm').show();
 			validPrice = false;
@@ -47,6 +51,10 @@ function validateItem(val){
 		$('#itemError').show();
 		validItem = false;
 	}
+	else if(!isNaN(item)){
+		document.getElementById("itemError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Please enter an item</span>";
+		validItem = false;
+	}
 	else{
 		document.getElementById("itemError").innerHTML = "";
 		validItem = true;
@@ -61,7 +69,7 @@ function validatePrice(val){
 			$('#priceError').show();
 			validPrice = false;
 		}
-		else if(price == "" || price == null){
+		else if(price == "" || price == null || price <= 0){
 			document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
 			$('#priceError').show();
 			validPrice = false;
@@ -194,8 +202,8 @@ $(document).ready(function(){
 		}
 		for(i=0;i<prices.length;i++){
 			var price = prices[i].value;
-			if(!price){
-				document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+			if(!price || price <= 0){
+				document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter price";
 				$('#priceError').show();
 				validPrice = false;
 			}
@@ -242,8 +250,8 @@ $(document).ready(function(){
 		}
 		for(i=0;i<prices.length;i++){
 			var price = prices[i].value;
-			if(!price){
-				document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+			if(!price || price <= 0){
+				document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter price";
 				$('#priceError').show();
 				validPrice = false;
 			}

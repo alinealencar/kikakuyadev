@@ -245,6 +245,12 @@
 					<span id="apptNotes"></span>
 				</div>
 			</div>
+			
+			<!-- Show appointments for days with 3+ appointments scheduled -->
+			<div id="showDay">
+				<h3><span id="selectedDate"></span></h3>
+				<h4><div id="selectedDateApptList"></div></h4>
+			</div>
 		</div>
 	</div>
 </div>

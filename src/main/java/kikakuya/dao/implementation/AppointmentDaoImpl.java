@@ -26,7 +26,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 	@Override
 	public boolean insertAppointment(Appointment anAppt) throws SQLException, ParseException {
-		String query = "insert into appointment (apptDateTime, apptTitle, apptNotes, UseruserId, location, color) "
+		String query = "insert into appointment (apptDateTime, apptTitle, apptNotes, EventeventId, location, color) "
 				+ "values (?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
@@ -37,7 +37,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		pstmt.setTimestamp(1, anAppt.getApptDateTime());
 		pstmt.setString(2, anAppt.getTitle());
 		pstmt.setString(3,  anAppt.getNotes());
-		pstmt.setInt(4, anAppt.getUserId());
+		pstmt.setInt(4, anAppt.getEventId());
 		pstmt.setString(5, anAppt.getLocation());
 		pstmt.setString(6, anAppt.getColor());
 		
@@ -47,9 +47,9 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 
 	@Override
-	public List<Appointment> findAppointmentsByMonth(int month, int year, int userId) throws SQLException {
+	public List<Appointment> findAppointmentsByMonth(int month, int year, int eventId) throws SQLException {
 		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'" +
-						" and useruserId=" + userId;
+						" and eventeventId=" + eventId;
 		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
@@ -61,7 +61,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 			appt.setTitle(rs.getString(2));
 			appt.setDatetime(rs.getTimestamp(3));
 			appt.setNotes(rs.getString(4));
-			appt.setUserId(rs.getInt(5));
+			appt.setEventId(rs.getInt(5));
 			appt.setLocation(rs.getString(6));
 			appt.setColor(rs.getString(7));
 
@@ -83,7 +83,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 			appt.setTitle(rs.getString(2));
 			appt.setDatetime(rs.getTimestamp(3));
 			appt.setNotes(rs.getString(4));
-			appt.setUserId(rs.getInt(5));
+			appt.setEventId(rs.getInt(5));
 			appt.setLocation(rs.getString(6));
 			appt.setColor(rs.getString(7));
 		}
@@ -130,7 +130,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 			appt.setTitle(rs.getString(2));
 			appt.setDatetime(rs.getTimestamp(3));
 			appt.setNotes(rs.getString(4));
-			appt.setUserId(rs.getInt(5));
+			appt.setEventId(rs.getInt(5));
 			appt.setLocation(rs.getString(6));
 			appt.setColor(rs.getString(7));
 

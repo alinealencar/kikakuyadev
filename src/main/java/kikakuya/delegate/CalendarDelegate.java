@@ -34,8 +34,8 @@ public class CalendarDelegate {
 		return calendarService.addAppointment(anAppt);
 	}
 	
-	public List<Appointment> findAppts(int month, int year, int userId) throws SQLException {
-		return calendarService.findAppointments(month, year, userId);
+	public List<Appointment> findAppts(int month, int year, int eventId) throws SQLException {
+		return calendarService.findAppointments(month, year, eventId);
 	}
 	
 	public Appointment findAppt(int apptId) throws SQLException {

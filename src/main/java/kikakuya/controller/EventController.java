@@ -97,9 +97,7 @@ public class EventController {
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String updateEvent(@ModelAttribute("event") Event event, Model model,
 			HttpServletRequest request) throws SQLException{
-		
-		System.out.println(event);
-		
+				
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
@@ -113,7 +111,7 @@ public class EventController {
 			e.printStackTrace();
 		}
 		
-		return "event";
+		return "redirect:/list";
 	}
 	
 	//
@@ -122,7 +120,6 @@ public class EventController {
 			HttpServletRequest request) throws SQLException{
 		
 		Event selectedEvent = new Event();
-		System.out.println(event.getEventId());
 		try{
 			selectedEvent = eventDelegate.getSelectedEvent(event.getEventId());
 		}
@@ -131,7 +128,7 @@ public class EventController {
 		}
 		request.setAttribute("event", selectedEvent);
 		//viewEvent(request, model);
-		return "event";
+		return "redirect:/list";
 	}
 	
 	//Delete an event
@@ -172,7 +169,16 @@ public class EventController {
 				LocalDate today = LocalDate.now();
 				
 				long daysBetween = ChronoUnit.DAYS.between(today, eventsDate);
-				session.setAttribute("remainingDays", daysBetween);
+				
+				String headerMessage = "";
+				if(daysBetween > 1)
+					headerMessage = eventName.getEventName() + " in " + daysBetween + " days";
+				else if(daysBetween == 1)
+					headerMessage = eventName.getEventName() + " in " + daysBetween + " day";
+				else
+					headerMessage = eventName.getEventName() + " has already passed. Hope you had a great time!";
+				
+				session.setAttribute("headerMessage", headerMessage);
 				//Send the event to the session scope
 				session.setAttribute("event", eventName);
 				

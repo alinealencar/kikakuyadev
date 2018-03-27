@@ -18,7 +18,7 @@ public class Appointment {
 	private String minute;
 	private String ampm;
 	private String notes;
-	private int userId;
+	private int eventId;
 	private String location;
 	private String color;
 	
@@ -103,12 +103,15 @@ public class Appointment {
 	public void setNotes(String notes) {
 		this.notes = notes;
 	}
-	public int getUserId() {
-		return userId;
+	
+	public int getEventId() {
+		return eventId;
 	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+
+	public void setEventId(int eventId) {
+		this.eventId = eventId;
 	}
+
 	public String getLocation() {
 		return location;
 	}
@@ -133,12 +136,9 @@ public class Appointment {
 
 	@Override
 	public String toString() {
-		return "Appointment [apptId=" + apptId + ", title=" + title + ", day=" + day
-				+ ", month=" + month + ", year=" + year + ", hour=" + hour + ", minute=" + minute + ", ampm=" + ampm
-				+ ", notes=" + notes + ", userId=" + userId + ", location=" + location + ", color=" + color + "]";
+		return "Appointment [apptId=" + apptId + ", title=" + title + ", day=" + day + ", month=" + month + ", year="
+				+ year + ", hour=" + hour + ", minute=" + minute + ", ampm=" + ampm + ", notes=" + notes + ", eventId="
+				+ eventId + ", location=" + location + ", color=" + color + "]";
 	}
-	
-	
-	
 	
 }
