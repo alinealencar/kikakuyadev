@@ -278,14 +278,14 @@ function calendarNav(actionName){
 	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
+	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</a></div>");
 	    						else {
 	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-	    									+ apptsInTheMonth[k].title + "</div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
+	    									+ apptsInTheMonth[k].title + "</a></div>");
 	    						}
 	    					}
 	    					else{
