@@ -22,13 +22,16 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'}>
+			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'} class="text-center">
 				<span>It looks like you haven't added a budget for your event yet!</span><br>
 				<span>Estimate the budget for your event below.</span><br> 
 				<span>Don't worry about this step, you can always change your budget later!</span><br>
-				<form:form action="enterTotalBudget" modelAttribute="eventForm">
+				<br>
+				<form:form action="enterTotalBudget" modelAttribute="eventForm" class="form-inline row text-center">
+					<div class="col-12">
 					<form:hidden path="eventId" value="1"/>
-					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget" oninput="validateEnterTotalBudget(this)"/>
+					<label>Total budget for the event: $ </label>
+					<form:input type="number" path="totalBudget" oninput="validateEnterTotalBudget(this)"/>
 					<input id="btnEnterTotalBudget" type="button" value="Enter"/>
 					<div id="enterTotalBudgetError" class="formError" style='font-size: 14px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget<br>Max Amount: $999,999,999.99</div>
 				</form:form> 

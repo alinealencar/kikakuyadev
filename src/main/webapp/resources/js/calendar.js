@@ -48,7 +48,7 @@ function addEditAppt(action){
             	 
             	 //Reload today's appts
             	 getTodaysAppts();
-            	 
+            	 $("#todaysAppts").show();
             	 //closeAppt();
 
              }
@@ -69,6 +69,7 @@ function showAppt(id){
 	}).done(function(response){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
+
 		
 		//console.log("month is: " + getMonthInt(response.month));
 		
@@ -156,17 +157,25 @@ function openEditAppt(id){
 /** DELETE APPOINTMENT **/
 
 function deleteAppt(id){
+	var result = confirm("Are you sure you want to delete this appointment?");
+	if (result){
 	$.post({
 		url: "deleteAppt",
 		data: {apptId: id}
 	}).done(function(response){
 		showFeedbackMessages(response);
 	});
+	//Reload calendar
+	calendarNav("loadMonth");
+	$("#todaysAppts").show();
+	$("#showDay").hide();
+	}
 	
 	$("#showAppt").hide();
 	
 	//Reload calendar
 	calendarNav("loadMonth");
+	getTodaysAppts();
 	$("#todaysAppts").show();
 	$("#showDay").hide();
 }
@@ -269,14 +278,14 @@ function calendarNav(actionName){
 	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
+	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</a></div>");
 	    						else {
 	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-	    									+ apptsInTheMonth[k].title + "</div>");
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'><a href='#sectionAddAppt' class='scrollable'>" 
+	    									+ apptsInTheMonth[k].title + "</a></div>");
 	    						}
 	    					}
 	    					else{
@@ -436,7 +445,6 @@ function getTodaysDate() {
 //scroll down to form 
 $(document).ready(function(){
 	  // Add smooth scrolling to all links
-	if ($(window).width() < 768) {
 	  $("a").on('click', function(event) {
 
 	    // Make sure this.hash has a value before overriding default behavior
@@ -458,7 +466,7 @@ $(document).ready(function(){
 	      });
 	    } // End if
 	  });
-	}});	
+	});	
 
 function validateForm(){
 	var title = $("#title").val();

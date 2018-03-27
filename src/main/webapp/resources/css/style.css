@@ -233,18 +233,21 @@ table#calendar{
 .table-bordered th {
     border: 1px solid #999999;
     background-color: #ddd;
+    text-align: center;
 }
 #calendar tr {
 	width: 100%;
 }
 #calendar td{
 	width: 14.2%;
+	padding: 2px;
 }
 div.calendarDay{
 	height: 100px;
 	width:100%;
 	overflow: hidden;
 	font-size:small;
+	padding: 0px;
 }
 
 .circle {
@@ -271,9 +274,26 @@ div.calendarDay{
   border:2px solid grey;
 }
 
-#addAppt{
+#addAppt, #showAppt{
 	 border:1px solid #999999;
 	 padding: 15px;
+	 height:100%;
+}
+#apptTitle{
+	font-size:2em;
+	text-decoration: underline;
+}
+
+#apptDate{
+	font-size:1.5em;
+	text-align: center;
+}
+#apptTime{
+	font-size:1.5em;
+	text-align: center;
+}
+#apptLocation{
+	font-size:1.5em;
 }
 #moreAppts{
 	cursor: pointer;
@@ -281,6 +301,23 @@ div.calendarDay{
 }
 #moreAppts:hover{
 	font-size: 15px;
+}
+
+/*for small size screen decolation*/
+@media only screen and (max-width: 576px) {
+	div .calendarDay{
+		font-size:x-small;
+	}
+	#calendar th{
+		border-style:none;
+	}
+	#calendar td{
+    	border-style:none;
+    }
+    #calendar tr{
+    	border: 1px solid #999999;
+
+    }
 }
 /*********************************
 slide in form
