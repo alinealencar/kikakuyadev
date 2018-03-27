@@ -68,6 +68,7 @@ function showAppt(id){
 	}).done(function(response){
 		$("#apptColor").css('background-color', response.color);
 		$("#apptTitle").html(response.title);
+
 		
 		//Format date with the 0 for days and months with one digit only
 		var date = "";
@@ -398,7 +399,6 @@ function getTodaysDate() {
 //scroll down to form 
 $(document).ready(function(){
 	  // Add smooth scrolling to all links
-	if ($(window).width() < 768) {
 	  $("a").on('click', function(event) {
 
 	    // Make sure this.hash has a value before overriding default behavior
@@ -420,7 +420,7 @@ $(document).ready(function(){
 	      });
 	    } // End if
 	  });
-	}});	
+	});	
 
 function validateForm(){
 	var title = $("#title").val();

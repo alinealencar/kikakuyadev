@@ -271,9 +271,26 @@ div.calendarDay{
   border:2px solid grey;
 }
 
-#addAppt{
+#addAppt, #showAppt{
 	 border:1px solid #999999;
 	 padding: 15px;
+	 height:100%;
+}
+#apptTitle{
+	font-size:2em;
+	text-decoration: underline;
+}
+
+#apptDate{
+	font-size:1.5em;
+	text-align: center;
+}
+#apptTime{
+	font-size:1.5em;
+	text-align: center;
+}
+#apptLocation{
+	font-size:1.5em;
 }
 /*********************************
 slide in form

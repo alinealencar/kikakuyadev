@@ -85,7 +85,9 @@
 			<!-- Add and Edit appointment (Same form) -->
 			<div id="sectionAddAppt">
 			<div id="addAppt" style="display:none;">
+				<div class="text-right">
 				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
+				</div>
 				<form:form action="addAppt" method="post" modelAttribute="appt">
 					<form:hidden path="apptId"/>
 					<label>Title<span style="font-size:22px;color:red">*</span>: </label>
@@ -214,22 +216,32 @@
 			<!-- Show appointment -->
 			<div id="showAppt" style="display:none;">
 				<div id="bannerColor"></div>
-				<span class="editAppt" onclick="deleteAppt(this.id)"><i class="far fa-trash-alt"></i></span>
-				<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
-				<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
+				<div class="row">
+					<div class="col-6 text-left">
+					<span class="editAppt" onclick="deleteAppt(this.id)"><i class="far fa-trash-alt"></i></span>
+					<span class="editAppt" onclick="openEditAppt(this.id)"><i class="fas fa-edit"></i></span>
+					</div>
+					<div class="col-6 text-right">
+					<span onclick="closeAppt()" class="closebtn"><i class="fas fa-times"></i></span>
+					</div>
+				</div>
 				<div id="apptDetails">
 					<div id="apptColor" style="height: 30px"></div>
+					<div class="col text-center">
 					<span id="apptTitle"></span>
+					</div>
+					<div class="text-center">
 					<br>
 					<span id="apptDate"></span>
 					<br>
-					<span>@</span>
+					@
 					<br>
 					<span id="apptTime"></span>
 					<br>
 					<span id="apptLocation"></span>
 					<br>
-					<span>Notes:</span>
+					</div>
+					<span>Notes:</span><br>
 					<span id="apptNotes"></span>
 				</div>
 			</div>
