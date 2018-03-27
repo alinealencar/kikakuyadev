@@ -182,7 +182,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateNameE()">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " >
 		    			Save
 		    		</button>
 		    	</div>
@@ -207,8 +207,8 @@
 	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE()" />
-		   							<span id="titleErrorE" class="formError"></span>
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE(this)" />
+		   							<span class="titleErrorE formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter a list title</span>
 		   						</div>
 		   					</div>							
 						</li>

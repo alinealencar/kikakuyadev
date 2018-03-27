@@ -3,7 +3,6 @@
 var validListTitle = false;
 var validItemName = false;
 var validListTitleSM = false;
-var validListTitleE = false;
 /** BIG SCREEN **/
 // Validate list's title
 function validateListTitle(){
@@ -78,40 +77,32 @@ function validateNameSM(){
 }
 /** EDIT ON BIGSCREEN**/
 
-function validateListTitleE(){
-	console.log(validListTitleE);
-	if (validListTitleE){
-		form.submit();
-		form.reset();
+var validTitle = false;
+function validateNameE(val){
+	//var listTitle = document.getElementsByClassName("titleList")[0].value;
+	var listTitle = val.value;
+	if (listTitle == ""){
+		//document.getElementById("titleError").innerHTML = "<i class='fas fa-times'></i>  Please enter a list title";
+		$(val).siblings('.titleErrorE').first().show();
+		validTitle = false;
 	}
 	else{
-		var titleListE = document.getElementsByClassName("titleListE")[0].value;
-		
-		if (titleListE == ""){
-			document.getElementById("titleErrorE").innerHTML = "<i class='fas fa-times'></i>  Please enter a list title";
-			validListTitleE = false;
-		}
-		else{
-			document.getElementById("titleErrorE").innerHTML = "";
-			validListTitleE = true;
-		}
-		return false;
-	}
-	return true;
-}
-
-function validateNameE(){
-	var listTitleE = document.getElementsByClassName("titleListE")[0].value;
-	
-	if (listTitleE == ""){
-		document.getElementById("titleErrorE").innerHTML = "<i class='fas fa-times'></i>  Please enter a list title";
-		validListTitleE = false;
-	}
-	else{
-		document.getElementById("titleErrorE").innerHTML = "";
-		validListTitleE = true;
+		//document.getElementById("titleError").innerHTML = "";
+		$(val).siblings('.titleErrorE').first().hide();
+		validTitle = true;
 	}		
 }
+
+/***** save after edit *****/
+//submit edit all lists form (big)
+$(document).ready(function(){
+	$( "#btnSaveEditList" ).click(function() {
+		if(validTitle){
+			$('#formEditList').submit();
+		}
+	});
+});
+
 
 // Validate item name
 function validateItemName(){

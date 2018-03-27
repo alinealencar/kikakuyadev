@@ -76,8 +76,7 @@ CREATE TABLE Item (
   PRIMARY KEY (itemId));
 CREATE TABLE List (
   listId       int(10) NOT NULL AUTO_INCREMENT, 
-  listTitle    varchar(50) NOT NULL UNIQUE, 
-  /*listType     int(1) NOT NULL, */
+  listTitle    varchar(50) NOT NULL, 
   EventeventId int(10) NOT NULL,
   PRIMARY KEY (listId));
 CREATE TABLE `User` (

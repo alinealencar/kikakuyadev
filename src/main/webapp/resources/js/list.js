@@ -55,14 +55,6 @@ function deleteItem(itemId){
 	$("#formEditItem").attr("action", "deleteItem");
 }
 
-/***** save after edit *****/
-//submit edit all lists form (big)
-$(document).ready(function(){
-	$( "#btnSaveEditList" ).click(function() {
-		$('#formEditList').submit();
-	});
-});
-
 //submit edit all lists form (small)
 $(document).ready(function(){
 	$( "#btnSaveEditList-sm" ).click(function() {

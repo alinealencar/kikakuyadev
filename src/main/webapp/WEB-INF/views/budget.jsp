@@ -28,8 +28,9 @@
 				<span>Don't worry about this step, you can always change your budget later!</span><br>
 				<form:form action="enterTotalBudget" modelAttribute="eventForm">
 					<form:hidden path="eventId" value="1"/>
-					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget"/>
-					<input type="submit" value="Enter"/>
+					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget" oninput="validateEnterTotalBudget(this)"/>
+					<input id="btnEnterTotalBudget" type="button" value="Enter"/>
+					<div id="enterTotalBudgetError" class="formError" style='font-size: 14px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget<br>Max Amount: $999,999,999.99</div>
 				</form:form> 
 			</div> 
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
@@ -112,11 +113,12 @@
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<div onclick="openShowBudget()" class="closebtn" style=" position: absolute;right: 25px;"><i class="fas fa-times"></i></div>
 				<br>
-				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
+				<form:form action="editBudget" method="post" modelAttribute="budgetForm" class="editBudgetForm">
 					<!-- Fields for the delete operation -->
 					<form:hidden path="category" value=""/>
 					<form:hidden path="vendorId" value=""/>
 	   				<form:hidden path="goodId" value=""/>
+	   				<span id="editBudgetError" class="formError" style='font-size: 14px; text-align:center; display: none'><i class='fas fa-times'></i>  Please fill in missing fields</span>
 	   				<div class="row">
 		   				<div class="col-sm-9">
 		   					<div class="row">
@@ -124,12 +126,13 @@
 		   							<span style="font-size:25px;">Budget: $</span>
 		   						</div>	
 		   						<div class="col-7">
-		   							<input type="number" class="form-control" name="totalBudget" value="${event.totalBudget}"/>
+		   							<input type="number" class="form-control" id="totalBudgetE" name="totalBudget" value="${event.totalBudget}" oninput="validateEditTotalBudget(this)"/>
+		   							<span id="totalBudgetError" class="formError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a valid budget<br>Max Amount: $999,999,999.99</span>
 		   						</div>
 		   					</div>
 		   				</div>
 		   				<div class="col-sm-3 text-right">
-							<button type="submit" class="btn btn-info"">Save</button>
+							<button id="btnSaveEditBudget" type="button" class="btn btn-info"">Save</button>
 						</div>
 	   				</div>	   				
 					<hr>
@@ -152,7 +155,8 @@
 					   								<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 					   							</div>
 					   							<div class= "col-10" >
-					   								<input name="goodsList[${count}].goodName" value="${good.goodName}" class="form-control">
+					   								<input name="goodsList[${count}].goodName" value="${good.goodName}" class="form-control" oninput="validateEditGood(this)">
+				   									<span class="formError goodError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter an item</span>
 				   								</div>
 				   							</div>
 				   						</div>
@@ -165,7 +169,8 @@
 		   											$
 		   										</div>	
 		   										<div class= "col-10">
-				   									<input class="catEdit${catEdit} form-control" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/>
+				   									<input class="catEdit${catEdit} form-control" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="validateEditPrice(this); calculateSubtotalLive('${event.totalBudget}','${catEdit}');"/>
+													<span class="formError priceError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a price</span>
 												</div>
 											<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 											<c:set var="count" value="${count + 1}" scope="page"/>
