@@ -22,15 +22,21 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'}>
+			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'} class="text-center">
 				<span>It looks like you haven't added a budget for your event yet!</span><br>
 				<span>Estimate the budget for your event below.</span><br> 
 				<span>Don't worry about this step, you can always change your budget later!</span><br>
-				<form:form action="enterTotalBudget" modelAttribute="eventForm">
+				<br>
+				<form:form action="enterTotalBudget" modelAttribute="eventForm" class="form-inline row text-center">
+					<div class="col-12">
 					<form:hidden path="eventId" value="1"/>
-					<label>Total budget for the event: $ </label><form:input type="number" path="totalBudget"/>
-					<input type="submit" value="Enter"/>
-				</form:form> 
+					<label>Total budget for the event: $ </label>
+					<form:input type="number" path="totalBudget" class="form-control"/>
+					<input type="submit" class="btn btn-info text-right" value="Enter"/>
+					</div>
+				</form:form>
+
+
 			</div> 
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
