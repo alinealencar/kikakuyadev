@@ -102,6 +102,6 @@ ALTER TABLE Item ADD INDEX FKItemList (ListlistId), ADD CONSTRAINT FKItemList FO
 ALTER TABLE List ADD INDEX FKListEvent (EventeventId), ADD CONSTRAINT FKListEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT FKGuestPlusOne FOREIGN KEY (GuestguestId) REFERENCES Guest(guestId);
 ALTER TABLE Event ADD INDEX FKEventUser (UseruserId), ADD CONSTRAINT FKEventUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
-ALTER TABLE Appointment ADD INDEX FKAppointmentEvent (EventeventId), ADD CONSTRAINT FKAppointmentEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
+ALTER TABLE Appointment ADD INDEX FKAppointmentEvent (EventeventId), ADD CONSTRAINT FKAppointmentEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId) ON DELETE CASCADE;
 ALTER TABLE Guest ADD INDEX FKEventGuest (EventeventId), ADD CONSTRAINT FKEventGuest FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
 ALTER TABLE Email ADD INDEX FKEmailEvent (EventeventId), ADD CONSTRAINT FKEmailEvent FOREIGN KEY (EventeventId) REFERENCES `Event` (eventId);
