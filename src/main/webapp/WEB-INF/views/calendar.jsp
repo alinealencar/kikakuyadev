@@ -198,7 +198,6 @@
 					<textarea id="notes" name="notes" cols="40" rows="5" class="item form-control"></textarea>
 					<div class="row" style="margin-top:20px;">
 						<div class= "col-12 text-center">
-					<input id="btnCancel" class="btn" type="button" value="Cancel" onclick=""/>
 					<input id="btnAddAppt" class="btn" type="button" value="Add" onclick="addEditAppt('addAppt');" style="background-color:#D90368; color:#F1E9DA;"/>
 					<input id="btnSaveAppt" class="btn btn-info" type="button" value="Save" onclick="addEditAppt('editAppt');" />
 						</div>
