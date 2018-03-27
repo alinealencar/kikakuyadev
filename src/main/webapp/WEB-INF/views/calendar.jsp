@@ -200,7 +200,7 @@
 						<div class= "col-12 text-center">
 					<input id="btnCancel" class="btn" type="button" value="Cancel" onclick=""/>
 					<input id="btnAddAppt" class="btn" type="button" value="Add" onclick="addEditAppt('addAppt');" style="background-color:#D90368; color:#F1E9DA;"/>
-					<input id="btnSaveAppt" type="button" value="Save" onclick="addEditAppt('editAppt');" />
+					<input id="btnSaveAppt" class="btn btn-info" type="button" value="Save" onclick="addEditAppt('editAppt');" />
 						</div>
 					</div>
 				</form:form>
