@@ -237,7 +237,7 @@
 					<span id="apptLocation"></span>
 					<br>
 					</div>
-					<span>Notes:</span><br>
+					<span id="notesLabel">Notes:</span><br>
 					<span id="apptNotes"></span>
 				</div>
 			</div>
