@@ -399,7 +399,13 @@ function validateEditPrice(val){
 /***Validate total budget in edit form***/
 function validateEditTotalBudget(val){
 	var budget = val.value;
-	if (budget == "" || budget <= 0 || budget > 1000000000){
+	if (budget == "" || budget <= 0){
+		$('#totalBudgetError').html("Please enter a budget");
+		$('#totalBudgetError').show();
+		validEditTotalBudget = false;
+	}
+	else if(budget > 1000000000){
+		$('#totalBudgetError').html("Please enter a budget less than $1,000,000,000");
 		$('#totalBudgetError').show();
 		validEditTotalBudget = false;
 	}
@@ -412,7 +418,13 @@ function validateEditTotalBudget(val){
 /***Validate total budget***/
 function validateEnterTotalBudget(val){
 	var budget = val.value;
-	if (budget == "" || budget <= 0 || budget > 1000000000){
+	if (budget == "" || budget <= 0){
+		$('#enterTotalBudgetError').html("Please enter a budget");
+		$('#enterTotalBudgetError').show();
+		validEnterTotalBudget = false;
+	}
+	else if(budget > 1000000000){
+		$('#enterTotalBudgetError').html("Please enter a budget less than $1,000,000,000");
 		$('#enterTotalBudgetError').show();
 		validEnterTotalBudget = false;
 	}

@@ -22,18 +22,18 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'} class="text-center">
+			<div id="addTotalBudget" class="text-center" ${noBudget ? '' :  'style="display:none;"'}>
 				<span>It looks like you haven't added a budget for your event yet!</span><br>
 				<span>Estimate the budget for your event below.</span><br> 
-				<span>Don't worry about this step, you can always change your budget later!</span><br>
-				<br>
+				<span>Don't worry about this step, you can always change your budget later!</span><br><br>
 				<form:form action="enterTotalBudget" modelAttribute="eventForm" class="form-inline row text-center">
 					<div class="col-12">
-					<form:hidden path="eventId" value="1"/>
-					<label>Total budget for the event: $ </label>
-					<form:input type="number" path="totalBudget" oninput="validateEnterTotalBudget(this)"/>
-					<input id="btnEnterTotalBudget" type="button" value="Enter"/>
-					<div id="enterTotalBudgetError" class="formError" style='font-size: 14px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget<br>Max Amount: $999,999,999.99</div>
+						<form:hidden path="eventId" value="1"/>
+						<label>Total budget for the event: $ </label>
+						<form:input type="number" path="totalBudget" class="form-control" oninput="validateEnterTotalBudget(this)"/>
+						<input id="btnEnterTotalBudget" class="btn btn-info text-right" type="button" value="Enter"/>
+						<div id="enterTotalBudgetError" class="formError text-center" style='font-size: 14px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget</div>
+					</div>
 				</form:form> 
 			</div> 
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
@@ -130,7 +130,7 @@
 		   						</div>	
 		   						<div class="col-7">
 		   							<input type="number" class="form-control" id="totalBudgetE" name="totalBudget" value="${event.totalBudget}" oninput="validateEditTotalBudget(this)"/>
-		   							<span id="totalBudgetError" class="formError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a valid budget<br>Max Amount: $999,999,999.99</span>
+		   							<span id="totalBudgetError" class="formError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget</span>
 		   						</div>
 		   					</div>
 		   				</div>
@@ -216,7 +216,6 @@
 			<div id="vendorsInfoSm">
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
 				<h4><span id="selectedVendorName"></span></h4> <br>
 				<b>Phone: </b> <span id="selectedVendorPhone"></span> <br>
 				<b>Address: </b><br> <span id="selectedVendorAddress"></span> <br> 
@@ -229,7 +228,6 @@
 		<div id="smBudgetAddForm" class="sidenav d-block d-md-none">
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<span onclick="closeAddBudgetForm();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
 			<form:form id="formAddToBudget-sm" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
       				<form:select id="category-sm" class="category form-control ui-select" path="category">
@@ -464,8 +462,5 @@
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
 <script type="text/javascript">
-
-
 </script>
-
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
