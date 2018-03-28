@@ -331,8 +331,8 @@
 				<form:input path="lastName" class="lName form-control" oninput="validateLastName()" style="margin-bottom:10px;" maxlength="20"/>
 					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="email" class="guestEmail form-control" style="margin-bottom:10px;" oninput="validateEmail('email')"/>
-					<span id="emailError" class="formError"></span> <br/>
+				<form:input path="email" class="guestEmail form-control" style="margin-bottom:10px;" oninput="validateEmail()"/>
+					<span id=emailError class="formError"></span> <br/>
 				<label>
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">

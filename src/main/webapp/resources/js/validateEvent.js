@@ -31,7 +31,7 @@ function validateEventForm(){
 		var today = new Date();
 		var eventDate = new Date(document.getElementsByClassName("eventDate")[0].value);
 		
-		if (eventDate.value == null){
+		if (eventDate.value == ""){
 			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 			console.log("yes!");
 			validDate = false;
@@ -85,7 +85,7 @@ function validateDate(){
 		validDate = false;
 	}
 	else if(eventDate < today){
-		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
 		validDate = false;
 	}
 	else{
@@ -94,6 +94,104 @@ function validateDate(){
 	}
 }
 
+/**VALIDATE EDIT EVENT**/
+
+var validEditEventName = false;
+var validEditLocation = false;
+var validEditDate = false;
+
+function validateEditEventForm(){
+	if (validEditEventName && validEditLocation && validEditDate){
+		console.log(validEditEventName);
+		console.log(validEditLocation);
+		console.log(validEditDate);
+		form.submit();
+		form.reset();
+	}
+	else{
+		var eventEditName = document.getElementsByClassName("eventName-edit")[0].value;
+		if (eventEditName == "" || eventEditName == null){
+			document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+			validEditEventName = false;
+		}
+		else{
+			document.getElementById("eventEditNameError").innerHTML = "";
+			validEditEventName = true;
+		}
+		var editLocation = document.getElementsByClassName("location-edit")[0].value;
+		if (editLocation == ""){
+			document.getElementById("locationEditError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
+			validEditLocation = false;
+		}
+		else{
+			document.getElementById("locationEditError").innerHTML = "";
+			validEditLocation = true;
+		}
+		var editToday = new Date();
+		var eventEditDate = new Date(document.getElementsByClassName("date-edit")[0].value);
+		
+		if (eventEditDate.value == ""){
+			document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+			console.log("yes!");
+			validEditDate = false;
+		}
+		else if(eventEditDate < editToday){
+			document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
+			validEditDate = false;
+		}
+		else{
+			document.getElementById("eventEditDateError").innerHTML = "";
+			validEditDate = true;
+		}
+		return false;
+	}
+	return true;
+}
+
+/** Validate event name**/
+
+function validateEditEventName(){
+	var eventEditName = document.getElementsByClassName("eventName-edit")[0].value;
+	if (eventEditName == "" || eventEditName == null){
+		document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+		validEditEventName = false;
+	}
+	else{
+		document.getElementById("eventEditNameError").innerHTML = "";
+		validEditEventName = true;
+	}
+}
+
+function validateEditLocation(){
+	var editLocation = document.getElementsByClassName("location-edit")[0].value;
+	if (editLocation == ""){
+		document.getElementById("locationEditError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
+		validEditLocation = false;
+	}
+	else{
+		document.getElementById("locationEditError").innerHTML = "";
+		validEditLocation = true;
+	}
+}
+
+function validateEditDate(){
+	var today = new Date();
+	var eventEditDate = new Date(document.getElementsByClassName("date-edit")[0].value);
+	
+	if (eventEditDate.value == ""){
+		document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+		console.log("yes!");
+		validEditDate = false;
+	}
+	else if(eventEditDate < today){
+		document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i> You chose a past date";
+		validEditDate = false;
+	}
+	else{
+		document.getElementById("eventEditDateError").innerHTML = "";
+		validEditDate = true;
+	}
+}
 
 /** EVENT PAGE SHOW AND HIDE **/
 
