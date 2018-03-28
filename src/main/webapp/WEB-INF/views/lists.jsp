@@ -356,7 +356,8 @@
 	   								<button onclick="deleteItem(${item.itemId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-11">
-		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="form-control" />
+		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="itemError-edit form-control" oninput="validateEditItem(this)"/>
+		   							<span class="itemError-edit formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter item name</span>
 		   						</div>
 		   					</div>
 	   					</li>

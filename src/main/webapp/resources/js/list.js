@@ -62,12 +62,12 @@ function deleteItem(itemId){
 //	});
 //});
 
-//submit edit items form 
-$(document).ready(function(){
-	$( "#btnSaveEditItem" ).click(function() {
-		$('#formEditItem').submit();
-	});
-});
+////submit edit items form 
+//$(document).ready(function(){
+//	$( "#btnSaveEditItem" ).click(function() {
+//		$('#formEditItem').submit();
+//	});
+//});
 
 /***** all lists list small screen *****/
 //open side list
