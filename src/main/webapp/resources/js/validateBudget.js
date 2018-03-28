@@ -230,7 +230,7 @@ $(document).ready(function(){
 		}
 	});
 });
-/***Clear SessionStorage on submit (small form)***/
+/***Validate and clear SessionStorage on submit (small form)***/
 $(document).ready(function(){
 	$("#addBudget-sm").click(function () {
 		var valueFromSS = sessionStorage.getItem("selectedCategory");
@@ -258,12 +258,6 @@ $(document).ready(function(){
 			else
 				validPrice = true;
 		}
-		if(valueFromSS && vendor && validItem && validPrice){
-			$( "#formAddToBudget-sm" ).submit();
-			sessionStorage.clear();
-			$(".vendor option").prop("selected", false);
-			$(".vendor option[value='']").prop("selected",true);
-		}
 		if(!valueFromSS){
 			document.getElementById("categoryError-sm").innerHTML = "<i class='fas fa-times'></i>  Please select category";
 		}
@@ -275,6 +269,12 @@ $(document).ready(function(){
 		}
 		if(!validPrice){
 			document.getElementById("priceError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter price";
+		}
+		if(valueFromSS && vendor && validItem && validPrice){
+			$( "#formAddToBudget-sm" ).submit();
+			sessionStorage.clear();
+			$(".vendor option").prop("selected", false);
+			$(".vendor option[value='']").prop("selected",true);
 		}
 	});
 });
@@ -301,7 +301,6 @@ $(document).ready(function(){
 
 /***Validate vendor name (big)***/
 function validateName(val){
-	//var addName = document.getElementsByClassName("addName")[0].value;
 	var name = val.value;
 	if(name == ""){
 		document.getElementById("nameError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter name</span>";
@@ -348,3 +347,100 @@ function validateNameSM(val){
 		validNameB = true;
 	}
 }
+
+var validEditGood = true;
+var validEditPrice = true;
+var validEditTotalBudget = true;
+var validEnterTotalBudget = true;
+
+$(document).ready(function(){
+	$("#btnSaveEditBudget").click(function () {
+		if (validEditGood && validEditPrice && validEditTotalBudget){
+			$("#budgetForm").submit();
+		}
+		else{
+			$('#editBudgetError').show();
+		}
+	});
+});
+
+/***Validate good in edit form***/
+function validateEditGood(val){
+	var good = val.value;
+	if (good == "" || good == null){
+		$(val).siblings('.goodError').first().show();
+		validEditGood = false;
+	}
+	else if(!isNaN(good)){
+		$(val).siblings('.goodError').first().show();
+		validEditGood = false;
+	}
+	else{
+		$(val).siblings('.goodError').first().hide();
+		$('#editBudgetError').hide();
+		validEditGood = true;
+	}
+}
+
+/***Validate price in edit form***/
+function validateEditPrice(val){
+	var price = val.value;
+	if (price == "" || price <= 0){
+		$(val).siblings('.priceError').first().show();
+		validEditPrice = false;
+	}
+	else{
+		$(val).siblings('.priceError').first().hide();
+		$('#editBudgetError').hide();
+		validEditPrice = true;
+	}
+}
+
+/***Validate total budget in edit form***/
+function validateEditTotalBudget(val){
+	var budget = val.value;
+	if (budget == "" || budget <= 0){
+		$('#totalBudgetError').html("Please enter a budget");
+		$('#totalBudgetError').show();
+		validEditTotalBudget = false;
+	}
+	else if(budget > 1000000000){
+		$('#totalBudgetError').html("Please enter a budget less than $1,000,000,000");
+		$('#totalBudgetError').show();
+		validEditTotalBudget = false;
+	}
+	else{
+		$('#totalBudgetError').hide();
+		validEditTotalBudget = true;
+	}
+}
+
+/***Validate total budget***/
+function validateEnterTotalBudget(val){
+	var budget = val.value;
+	if (budget == "" || budget <= 0){
+		$('#enterTotalBudgetError').html("Please enter a budget");
+		$('#enterTotalBudgetError').show();
+		validEnterTotalBudget = false;
+	}
+	else if(budget > 1000000000){
+		$('#enterTotalBudgetError').html("Please enter a budget less than $1,000,000,000");
+		$('#enterTotalBudgetError').show();
+		validEnterTotalBudget = false;
+	}
+	else{
+		$('#enterTotalBudgetError').hide();
+		validEnterTotalBudget = true;
+	}
+}
+
+$(document).ready(function(){
+	$("#btnEnterTotalBudget").click(function () {
+		if (validEnterTotalBudget){
+			$("#eventForm").submit();
+		}
+		else{
+			$('#enterTotalBudgetError').show();
+		}
+	})
+});

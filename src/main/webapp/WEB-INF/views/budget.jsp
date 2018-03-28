@@ -22,21 +22,19 @@
 		<c:if test="${not empty goodDeleted}">
 			<div class="successAlert">${goodDeleted}</div>
 		</c:if>
-			<div id="addTotalBudget" ${noBudget ? '' :  'style="display:none;"'} class="text-center">
+			<div id="addTotalBudget" class="text-center" ${noBudget ? '' :  'style="display:none;"'}>
 				<span>It looks like you haven't added a budget for your event yet!</span><br>
 				<span>Estimate the budget for your event below.</span><br> 
-				<span>Don't worry about this step, you can always change your budget later!</span><br>
-				<br>
+				<span>Don't worry about this step, you can always change your budget later!</span><br><br>
 				<form:form action="enterTotalBudget" modelAttribute="eventForm" class="form-inline row text-center">
 					<div class="col-12">
-					<form:hidden path="eventId" value="1"/>
-					<label>Total budget for the event: $ </label>
-					<form:input type="number" path="totalBudget" class="form-control"/>
-					<input type="submit" class="btn btn-info text-right" value="Enter"/>
+						<form:hidden path="eventId" value="1"/>
+						<label>Total budget for the event: $ </label>
+						<form:input type="number" path="totalBudget" class="form-control" oninput="validateEnterTotalBudget(this)"/>
+						<input id="btnEnterTotalBudget" class="btn btn-info text-right" type="button" value="Enter"/>
+						<div id="enterTotalBudgetError" class="formError text-center" style='font-size: 14px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget</div>
 					</div>
-				</form:form>
-
-
+				</form:form> 
 			</div> 
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
@@ -118,11 +116,12 @@
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<div onclick="openShowBudget()" class="closebtn" style=" position: absolute;right: 25px;"><i class="fas fa-times"></i></div>
 				<br>
-				<form:form action="editBudget" method="post" modelAttribute="budgetForm">
+				<form:form action="editBudget" method="post" modelAttribute="budgetForm" class="editBudgetForm">
 					<!-- Fields for the delete operation -->
 					<form:hidden path="category" value=""/>
 					<form:hidden path="vendorId" value=""/>
 	   				<form:hidden path="goodId" value=""/>
+	   				<span id="editBudgetError" class="formError" style='font-size: 14px; text-align:center; display: none'><i class='fas fa-times'></i>  Please fill in missing fields</span>
 	   				<div class="row">
 		   				<div class="col-sm-9">
 		   					<div class="row">
@@ -130,12 +129,13 @@
 		   							<span style="font-size:25px;">Budget: $</span>
 		   						</div>	
 		   						<div class="col-7">
-		   							<input type="number" class="form-control" name="totalBudget" value="${event.totalBudget}"/>
+		   							<input type="number" class="form-control" id="totalBudgetE" name="totalBudget" value="${event.totalBudget}" oninput="validateEditTotalBudget(this)"/>
+		   							<span id="totalBudgetError" class="formError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a budget</span>
 		   						</div>
 		   					</div>
 		   				</div>
 		   				<div class="col-sm-3 text-right">
-							<button type="submit" class="btn btn-info"">Save</button>
+							<button id="btnSaveEditBudget" type="button" class="btn btn-info"">Save</button>
 						</div>
 	   				</div>	   				
 					<hr>
@@ -158,7 +158,8 @@
 					   								<button onclick="deleteGood(${vendor.key.vendorId}, ${good.goodId});" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 					   							</div>
 					   							<div class= "col-10" >
-					   								<input name="goodsList[${count}].goodName" value="${good.goodName}" class="form-control">
+					   								<input name="goodsList[${count}].goodName" value="${good.goodName}" class="form-control" oninput="validateEditGood(this)">
+				   									<span class="formError goodError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter an item</span>
 				   								</div>
 				   							</div>
 				   						</div>
@@ -171,7 +172,8 @@
 		   											$
 		   										</div>	
 		   										<div class= "col-10">
-				   									<input class="catEdit${catEdit} form-control" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="calculateSubtotalLive('${event.totalBudget}','${catEdit}')"/>
+				   									<input class="catEdit${catEdit} form-control" type="number" name="goodsList[${count}].goodPrice" value="${good.goodPrice}" oninput="validateEditPrice(this); calculateSubtotalLive('${event.totalBudget}','${catEdit}');"/>
+													<span class="formError priceError" style='font-size: 10px; text-align:left; display: none'><i class='fas fa-times'></i>  Please enter a price</span>
 												</div>
 											<input type="hidden" name="goodsList[${count}].goodId" value="${good.goodId}"/>
 											<c:set var="count" value="${count + 1}" scope="page"/>
@@ -214,7 +216,6 @@
 			<div id="vendorsInfoSm">
 				<fieldset class="form-group" style="width:auto; padding: 10px; border-style: solid; border-width:1px; border-color: #cccccc">
 				<span onclick="closeVendorsInfo();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
 				<h4><span id="selectedVendorName"></span></h4> <br>
 				<b>Phone: </b> <span id="selectedVendorPhone"></span> <br>
 				<b>Address: </b><br> <span id="selectedVendorAddress"></span> <br> 
@@ -227,7 +228,6 @@
 		<div id="smBudgetAddForm" class="sidenav d-block d-md-none">
 			<div id="addVendor" style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; display: ${selectedVendor eq null ? 'inline-block' : 'none'};">
 			<span onclick="closeAddBudgetForm();" class="closebtn"><i class="fas fa-times"></i></span> <br>
-
 			<form:form id="formAddToBudget-sm" action="addToBudget" method="post" modelAttribute="vendor"> <!-- onsubmit="return validateBudget();"> -->
 				<div class="form-group">
       				<form:select id="category-sm" class="category form-control ui-select" path="category">
@@ -462,8 +462,5 @@
 </div>
 <script src="resources/js/jquery-editable-select.js"></script>
 <script type="text/javascript">
-
-
 </script>
-
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

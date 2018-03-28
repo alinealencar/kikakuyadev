@@ -102,7 +102,8 @@
 	   								<button onclick="deleteListSM(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="form-control" />
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleErrorESM form-control" oninput="validateNameEditSM(this)"/>
+		   							<span class="titleErrorESM formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter a list title</span>
 		   						</div>
 		   					</div>							
 						</li>
@@ -182,7 +183,7 @@
 					<h3>All lists</h3>
 				</div>
 				<div class="col-3 text-right">
-					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " onclick="validateNameE()">
+					<button type="button" id="btnSaveEditList" class="btn btn-primary" style="margin: 10px; background-color: #D90368; border-color: #D90368; " >
 		    			Save
 		    		</button>
 		    	</div>
@@ -207,8 +208,8 @@
 	   								<button onclick="deleteList(${list.listId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-10">
-		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE()" />
-		   							<span id="titleErrorE" class="formError"></span>
+		   							<form:input path="listsList[${loop.index}].listTitle" value="${list.listTitle}" class="titleListE form-control" oninput="validateNameE(this)" />
+		   							<span class="titleErrorE formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter a list title</span>
 		   						</div>
 		   					</div>							
 						</li>
@@ -355,7 +356,8 @@
 	   								<button onclick="deleteItem(${item.itemId})" class="fabutton absent"><i class="fas fa-minus-circle"></i></button>
 	   							</div>
 		   						<div class="col-11">
-		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="form-control" />
+		   							<form:input path="itemsList[${loop.index}].itemName" value="${item.itemName}" class="itemError-edit form-control" oninput="validateEditItem(this)"/>
+		   							<span class="itemError-edit formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter item name</span>
 		   						</div>
 		   					</div>
 	   					</li>

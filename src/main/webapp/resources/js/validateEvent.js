@@ -84,7 +84,7 @@ function validateDate(){
 		console.log("yes!");
 		validDate = false;
 	}
-	else if(eventDate < null){
+	else if(eventDate < today){
 		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 		validDate = false;
 	}
