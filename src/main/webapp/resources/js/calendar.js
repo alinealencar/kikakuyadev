@@ -3,7 +3,7 @@ function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
 
-$('#year, #month').change(function() {	
+$('#year, #month').change(function() {
   if ($('#year').val().length > 0 && $('#month').val().length > 0) {
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
@@ -200,8 +200,12 @@ $(document).ready(function(){
 	//Show help bubbles
 	$('[data-toggle="tooltip"]').tooltip();  
 	
-	
-	
+	//populate year dropdown
+	var curYear = new Date().getFullYear();
+	for(var i = 0; i < 5; i++){
+		$("#year").append($("<option></option>").attr("value", curYear).text(curYear));
+		curYear++;
+	}
 });
 
 /** GET TODAYS APPTS **/
