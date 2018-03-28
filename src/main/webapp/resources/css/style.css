@@ -241,6 +241,7 @@ table#calendar{
 #calendar td{
 	width: 14.2%;
 	padding: 2px;
+	white-space: nowrap;
 }
 div.calendarDay{
 	height: 100px;
