@@ -1,3 +1,7 @@
+<%! String feature = "Events" ;%>
+
+<% session.setAttribute("feature", feature); %>
+<% session.setAttribute("title", "KIKAKUYA - " + feature); %>
 <%@ page isELIgnored="false" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>

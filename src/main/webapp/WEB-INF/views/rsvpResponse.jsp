@@ -15,7 +15,7 @@
 	
 	<h4 class="text-center">The favor of reply is required by <b>${email.replyDue}</b></h4>
 	<h1 class="text-center">${guest.firstName} ${guest.lastName}</h1>
-	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest">
+	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest" onsubmit="return validateResponseForm();"> 
 	  	<form:hidden value="${token}" path="token" />
 	  	<form:hidden value="${guest.guestId}" path="guestId" />
 		<div class="form-group row">
@@ -34,17 +34,19 @@
 			</div>
 	   		<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
 	   		<div class="col-sm-2">
-		    	<form:select class="form-control" id="adult" path="adultsWith" onChange="show(this)">
+		    	<form:select class="plusOneError form-control" id="adult" path="adultsWith" onChange="show(this)" oninput="validatePlusOne(this)">
 		    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
 		       		<option value="${loop.index}">${loop.index}</option>
+		       		<span class="plusOneError formError"></span>
 		       	</c:forEach>
 		    	</form:select>
 		    </div>
 	   		<label for="kid" class="col-form-label col-sm-2 text-sm-right">Kids:</label>
 	   		<div class="col-sm-2">
-	      		<form:select class="form-control" id="kid" path="kidsWith">
+	      		<form:select class="plusOneError form-control" id="kid" path="kidsWith" oninput="validatePlusOne(this)">
 	        	<c:forEach begin="0" end="${guest.kidsMax}" varStatus="loop">
 		       		<option value="${loop.index}">${loop.index}</option>
+		       		<span class="plusOneError formError"></span>
 		       	</c:forEach>
 	      		</form:select>
 	      	</div>

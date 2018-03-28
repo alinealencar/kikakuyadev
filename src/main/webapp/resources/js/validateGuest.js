@@ -44,25 +44,23 @@ function validateLastName(){
 	}
 }
 
-
-
-//function validateEmail(){
-//	var eAdd = document.getElementsByClassName("eAdd")[0].value;
-//	var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
-//	
-//	if (eAdd === ""){
-//		document.getElementById("eAddError").innerHTML = "<i class='fas fa-times'></i>  Please enter an email";
-//		validEmail = false;
-//	}
-//	if(emailRegEx.test("eAdd") === false){
-//		document.getElementById("eAddError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
-//		validEmail = false;
-//	}
-//	else {
-//		document.getElementById("eAddError").innerHTML = "";
-//		validEmail = true;
-//	}
-//}
+function validateEmail(){
+	var email = document.getElementsByClassName("guestEmail")[0].value;
+	var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
+	
+	if (!emailRegEx.test(email)){
+		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
+		validEmail = false;
+	}
+	else if (email == "" || email == null){
+		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
+		validEmail = false;
+	}
+	else {
+	document.getElementById("emailError").innerHTML = "";
+	validEmail = true;
+}
+}
 
 /**VALIDATION FOR EDIT GUEST**/
 
