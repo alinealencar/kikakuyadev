@@ -130,20 +130,17 @@
 				<form:hidden id="editEventId" path="eventId" />
 				<div>
 					<label>Event Name: </label>
-					<form:input id="editEventName" path="eventName" class="eventName form-control" oninput="validateEventName()"/>
-					<span id="eventNameError" class="formError"></span>
+					<form:input id="editEventName" path="eventName" class="form-control"/>
 					<br>
 				</div>
 				<div>
 					<label>Address:</label>
-					<form:input id="editLocation" path="location" class="location form-control" oninput="validateLocation()"/>
-					<span id="locationError" class="formError"></span>
+					<form:input id="editLocation" path="location" class="form-control"/>
 					<br>
 				</div>
 				<div>
 					<label>Date: </label>
-					<form:input id="editEventDate" path="eventDate" type="date" class="eventDate form-control" oninput="validateDate()"/>
-					<span id="eventDateError" class="formError"></span>
+					<form:input id="editEventDate" path="eventDate" type="date" class="form-control"/>
 					<br>
 				</div>
 				<hr>
