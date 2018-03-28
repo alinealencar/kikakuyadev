@@ -105,9 +105,12 @@ function showAppt(id){
 		
 		$("#apptTime").html(time);
 		$("#apptLocation").html(response.location);
-		if(response.notes === "")
+		if(response.notes === "") {
 			$("#notesLabel").hide();
+			$("#apptNotes").hide();
+		}
 		else{
+			$("#apptNotes").show();
 			$("#apptNotes").html(response.notes);
 			$("#notesLabel").show();
 		}
