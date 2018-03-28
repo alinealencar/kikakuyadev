@@ -2,11 +2,16 @@
 function openEditBudget() {
 	$('#editBudget').show();
 	$('#showBudget').hide();
+	$('.successAlert').hide();
 }
 
 function openShowBudget() {
 	$('#editBudget').hide();
 	$('#showBudget').show();
+	$('#editBudgetError').hide();
+	$('.goodError').hide();
+	$('.priceError').hide();
+	$('#totalBudgetError').hide();
 }
 
 function openAddVendor() {
@@ -242,4 +247,6 @@ $('#logout').click(function(){
 	sessionStorage.clear();
 });
 
-
+setTimeout(function() {
+    $('.successAlert').fadeOut('fast');
+    }, 3000);

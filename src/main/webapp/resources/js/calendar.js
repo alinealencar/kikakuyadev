@@ -3,7 +3,7 @@ function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
 
-$('#year, #month').change(function() {	
+$('#year, #month').change(function() {
   if ($('#year').val().length > 0 && $('#month').val().length > 0) {
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
@@ -29,11 +29,13 @@ function addEditAppt(action){
              success: function(response) {
             	 
             	 validateForm()
+            	 $("#todaysAppts").show();
             	 
             	 //Show appt after update
                  if(action === "editAppt") {
                 	 var apptId = $("#apptId").val();
                 	 showAppt(apptId);
+                	 $("#todaysAppts").hide();
                  }
                  
                  //Feedback messages
@@ -48,7 +50,8 @@ function addEditAppt(action){
             	 
             	 //Reload today's appts
             	 getTodaysAppts();
-            	 $("#todaysAppts").show();
+            	 
+            	 
             	 //closeAppt();
 
              }
@@ -102,7 +105,15 @@ function showAppt(id){
 		
 		$("#apptTime").html(time);
 		$("#apptLocation").html(response.location);
-		$("#apptNotes").html(response.notes);
+		if(response.notes === "") {
+			$("#notesLabel").hide();
+			$("#apptNotes").hide();
+		}
+		else{
+			$("#apptNotes").show();
+			$("#apptNotes").html(response.notes);
+			$("#notesLabel").show();
+		}
 	});
 	
 	//Set the apptId as the id of the element that shows the appt
@@ -200,8 +211,12 @@ $(document).ready(function(){
 	//Show help bubbles
 	$('[data-toggle="tooltip"]').tooltip();  
 	
-	
-	
+	//populate year dropdown
+	var curYear = new Date().getFullYear();
+	for(var i = 0; i < 5; i++){
+		$("#year").append($("<option></option>").attr("value", curYear).text(curYear));
+		curYear++;
+	}
 });
 
 /** GET TODAYS APPTS **/

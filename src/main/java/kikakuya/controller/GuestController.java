@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kikakuya.delegate.GuestDelegate;
@@ -145,18 +146,50 @@ public class GuestController {
 	
 	//Edit plus ones
 	@RequestMapping(value="/editPlusOnes", method = RequestMethod.POST)
-	public String processEditPlusOnes(HttpServletRequest request, @ModelAttribute("guest") Guest guest, @ModelAttribute("plusOnesForm") GuestPlusOneForm plusOnesList, Model model) {
-		List<GuestPlusOne> plusOnes = plusOnesList.getPlusOnes();
-		
-		for(GuestPlusOne plusOne : plusOnes){
-			try {
+	@ResponseBody
+	public void processEditPlusOnes(@RequestParam(value="editName[]") String[] editName, @RequestParam(value="editId[]") String[] editId, 
+			@RequestParam(value="editMeal[]") String[] editMeal, @RequestParam(value="addAdultName[]") String[] addAdultName, @RequestParam(value="addAdultMeal[]") String[] addAdultMeal,
+			@RequestParam(value="addKidName[]") String[] addKidName, @RequestParam(value="addKidMeal[]") String[] addKidMeal,@RequestParam(value="guestId") int guestId) {
+
+		try {
+			//Edit guests
+			GuestPlusOne plusOne = new GuestPlusOne();
+			int numToEdit = editId.length;
+			for(int i = 1; i < numToEdit; i++) {
+				plusOne.setGuestPlusOneId(Integer.valueOf(editId[i]));
+				plusOne.setFullName(editName[i]);
+				plusOne.setMealChoice(editMeal[i]);
 				guestDelegate.editPlusOne(plusOne);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+			
+			//Add adults
+			GuestPlusOne plusOneAdd = new GuestPlusOne();
+			int numToAdd = addAdultName.length;
+			for(int i = 1; i < numToAdd; i++){
+				plusOneAdd.setFullName(addAdultName[i]);
+				plusOneAdd.setMealChoice(addAdultMeal[i]);
+				plusOneAdd.setCategory("Adult");
+				Guest guest = new Guest();
+				guest.setGuestId(guestId);
+				guestDelegate.addPlusOne(plusOneAdd, guest);
+			}
+			
+			//Add kids
+			plusOneAdd = new GuestPlusOne();
+			numToAdd = addKidName.length;
+			for(int i = 1; i < numToAdd; i++){
+				plusOneAdd.setFullName(addKidName[i]);
+				plusOneAdd.setMealChoice(addKidMeal[i]);
+				plusOneAdd.setCategory("Kid");
+				Guest guest = new Guest();
+				guest.setGuestId(guestId);
+				guestDelegate.addPlusOne(plusOneAdd, guest);
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		
-		return "guestMgmt";
 	}
 	
 	//Remove guest
@@ -225,5 +258,15 @@ public class GuestController {
 		}
 
 		return plusOnesList;
+	}
+	
+	@RequestMapping(value="/deletePlusOne", method = RequestMethod.POST)
+	@ResponseBody
+	public void deletePlusOne(@RequestParam("plusOneId") int plusOneId){
+		try {
+			guestDelegate.removePlusOne(plusOneId);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 }
