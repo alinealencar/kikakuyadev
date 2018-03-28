@@ -79,4 +79,14 @@ public class GuestServiceImpl implements GuestService {
 	public int countPlusOnesByCategory(Event event, String category) throws SQLException {
 		return plusOneDao.getPlusOnesTotalByCategory(event, category);
 	}
+
+	@Override
+	public boolean addGuestPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
+		return plusOneDao.insertPlusOne(plusOne, guest);
+	}
+
+	@Override
+	public boolean deletePlusOne(int plusOneId) throws SQLException {
+		return plusOneDao.deletePlusOne(plusOneId);
+	}
 }

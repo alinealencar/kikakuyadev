@@ -119,10 +119,6 @@
 
 	      				<form:select id="year" class="form-control-sm col-4" path="year" onchange="validateDate(this)">
 		        			<option value="" disabled="disabled" selected="true">yyyy</option>
-		        			<option value="2018">2018</option>
-							<option value="2019">2019</option>
-							<option value="2020">2020</option>
-							<option value="2021">2021</option>
 		   				</form:select>
       				</div>
       				<div><span id="dateError" class="formError"></span></div>
@@ -241,7 +237,7 @@
 					<span id="apptLocation"></span>
 					<br>
 					</div>
-					<span>Notes:</span><br>
+					<span id="notesLabel">Notes:</span><br>
 					<span id="apptNotes"></span>
 				</div>
 			</div>

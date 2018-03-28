@@ -42,6 +42,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		String query = "update guestplusone set fullName = '" + plusOne.getFullName() + 
 				"', mealChoice = '" + plusOne.getMealChoice() +
 				"' where guestPlusOneId = '" + plusOne.getGuestPlusOneId() + "'";
+		System.out.println(query);
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -78,5 +79,14 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
             count = rs.getInt(1);
         }
 		return count;
+	}
+
+	@Override
+	public boolean deletePlusOne(int plusOneId) throws SQLException {
+		String query = "delete from guestplusone where guestplusoneid=" + plusOneId;
+		System.out.println(query);
+		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		return rowsAffected > 0;
 	}
 }

@@ -241,6 +241,7 @@ table#calendar{
 #calendar td{
 	width: 14.2%;
 	padding: 2px;
+	white-space: nowrap;
 }
 div.calendarDay{
 	height: 100px;
@@ -271,6 +272,9 @@ div.calendarDay{
 	text-decoration: none !important;
 	color: #2E294E;
 }
+#calendar a {
+	text-decoration:none !important;
+}
 .appt:visited{
 	text-decoration: none !important;
 }
@@ -287,6 +291,9 @@ div.calendarDay{
 #apptTitle{
 	font-size:2em;
 	text-decoration: underline;
+	display:block;
+    width:100%;
+    word-wrap:break-word;
 }
 
 #apptDate{
@@ -304,13 +311,10 @@ div.calendarDay{
 	cursor: pointer;
 	float: right;
 }
-#moreAppts:hover{
-	font-size: 15px;
-}
 
 
 /*for small size screen decolation*/
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 991px) {
 	div .calendarDay{
 		font-size:x-small;
 	}
@@ -322,13 +326,13 @@ div.calendarDay{
     }
     #calendar tr{
     	border: 1px solid #999999;
-
     }
+    .bg-scrollable {display:none;}
 }
-/*
+
 @media only screen and (min-width: 992px) {
-	.scrollable {display:none;}
-}*/
+	.sm-scrollable {display:none;}
+}
 /*********************************
 slide in form
 **********************************/

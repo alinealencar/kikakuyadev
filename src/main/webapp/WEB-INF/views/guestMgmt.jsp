@@ -261,31 +261,27 @@
 							</form:select>
 						</div>
 					</div>
-					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You cannot change this value to a number smaller than the number of plus ones already registered.">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
 						<div class="col-6">
 							<div class="form-group row">
 								<label class="col-6 col-form-label">Adults:</label>					
-						       	<form:select path="adultsMax" class="form-control col-6">
-						       		<form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
+						       	<form:select id="editAdultsMax" path="adultsMax" class="form-control col-6">
+						       		<%-- <form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
 						       		<form:option value="1" label="1" selected="${(selectedGuest.adultsMax eq 1) ? 'selected' : ''}"/>
 						       		<form:option value="2" label="2" selected="${(selectedGuest.adultsMax eq 2) ? 'selected' : ''}"/>
 					        		<form:option value="3" label="3" selected="${(selectedGuest.adultsMax eq 3) ? 'selected' : ''}"/>
-					        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/>
+					        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/> --%>
 								</form:select>
 							</div>
 						</div>
 						<div class="col-6">	
 							<div class="form-group row">
 						        <label class="col-6 col-form-label">Kids:</label>
-					        	<form:select path="kidsMax"  class="form-control col-6">
-					        		<form:option value="0" label="0" selected="${(selectedGuest.kidsMax eq 0) ? 'selected' : ''}"/>
-					        		<form:option value="1" label="1" selected="${(selectedGuest.kidsMax eq 1) ? 'selected' : ''}" />
-					        		<form:option value="2" label="2" selected="${(selectedGuest.kidsMax eq 2) ? 'selected' : ''}"/>
-					        		<form:option value="3" label="3" selected="${(selectedGuest.kidsMax eq 3) ? 'selected' : ''}" />
-					        		<form:option value="4" label="4" selected="${(selectedGuest.kidsMax eq 4) ? 'selected' : ''}"/>
+					        	<form:select id="editKidsMax" path="kidsMax"  class="form-control col-6">
+					        		
 								</form:select>
 							</div>
 						</div>
@@ -302,30 +298,22 @@
    					<hr>
 				</form:form>
 				<br>
-				<h2>Edit Plus Ones</h2>
-				<!-- Edit Plus Ones -->		
-					<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm" >
-						<%-- <c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
-							<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
-							<label>Name: </label>
-							<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
-							<label>Meal Choice: </label>
-							<select name="plusOnes[${status.index}].mealChoice" class="form-control" style="margin-bottom:10px;">
-								<c:forEach items="${meals}" var="meal">
-									<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
-								</c:forEach>	
-							</select>
-							<br>
-						</c:forEach> --%>
+				<div id="editPlusOnes">
+					<h2>Edit Plus Ones</h2><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a>					
+					<div id="plusOnesDiv">
+						<h4 id="plusOnesAdultsLabel">Adults:</h4>
+						<div id="plusOnesAdults"></div>
+						<h4 id="plusOnesKidsLabel">Kids:</h4>
+						<div id="plusOnesKids"></div>
+					</div>
 						
-						<div id="plusOnesDiv"></div>
-						
-						<div class="text-right">
-							<button type="submit" class="btn btn-info">
-		      					Save
-		   					</button>
-	   					</div>
-					</form:form>
+					<div class="text-right">
+						<button onclick="editPlusOnes(${selectedGuest.guestId})" class="btn btn-info">
+		     				Save
+		   				</button>
+	   				</div>
+	   			</div>
+
  			</div>
 			</div>
 			
@@ -343,8 +331,8 @@
 				<form:input path="lastName" class="lName form-control" oninput="validateLastName()" style="margin-bottom:10px;" maxlength="20"/>
 					<span id="lNameError" class="formError"></span> <br/>
 				<label>Email<span style="font-size:22px;color:red">*</span>: </label>
-				<form:input path="email" class="guestEmail form-control" style="margin-bottom:10px;" oninput="validateEmail('email')"/>
-					<span id="emailError" class="formError"></span> <br/>
+				<form:input path="email" class="guestEmail form-control" style="margin-bottom:10px;" oninput="validateEmail()"/>
+					<span id=emailError class="formError"></span> <br/>
 				<label>
 					Plus ones
 					<a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">

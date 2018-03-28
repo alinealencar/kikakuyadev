@@ -3,7 +3,7 @@ function daysInMonth(month, year) {
   return new Date(year, month, 0).getDate();
 }
 
-$('#year, #month').change(function() {	
+$('#year, #month').change(function() {
   if ($('#year').val().length > 0 && $('#month').val().length > 0) {
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
@@ -29,11 +29,13 @@ function addEditAppt(action){
              success: function(response) {
             	 
             	 validateForm()
+            	 $("#todaysAppts").show();
             	 
             	 //Show appt after update
                  if(action === "editAppt") {
                 	 var apptId = $("#apptId").val();
                 	 showAppt(apptId);
+                	 $("#todaysAppts").hide();
                  }
                  
                  //Feedback messages
@@ -48,7 +50,8 @@ function addEditAppt(action){
             	 
             	 //Reload today's appts
             	 getTodaysAppts();
-            	 $("#todaysAppts").show();
+            	 
+            	 
             	 //closeAppt();
 
              }
@@ -102,7 +105,15 @@ function showAppt(id){
 		
 		$("#apptTime").html(time);
 		$("#apptLocation").html(response.location);
-		$("#apptNotes").html(response.notes);
+		if(response.notes === "") {
+			$("#notesLabel").hide();
+			$("#apptNotes").hide();
+		}
+		else{
+			$("#apptNotes").show();
+			$("#apptNotes").html(response.notes);
+			$("#notesLabel").show();
+		}
 	});
 	
 	//Set the apptId as the id of the element that shows the appt
@@ -200,8 +211,12 @@ $(document).ready(function(){
 	//Show help bubbles
 	$('[data-toggle="tooltip"]').tooltip();  
 	
-	
-	
+	//populate year dropdown
+	var curYear = new Date().getFullYear();
+	for(var i = 0; i < 5; i++){
+		$("#year").append($("<option></option>").attr("value", curYear).text(curYear));
+		curYear++;
+	}
 });
 
 /** GET TODAYS APPTS **/
@@ -275,33 +290,35 @@ function calendarNav(actionName){
 	    				for(var k = 0; k < apptsInTheMonth.length; k++){
 	    					if($("#"+ monthDay + response.name + apptsInTheMonth[k].year).children().length <= 2){
 	    						if((apptsInTheMonth[k].title).length > 10){
-	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='scrollable'><div id="
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='sm-scrollable'><div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
 	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div></a>");
-//		    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div class='nonScrollable'><div id="
-//	    									+ apptsInTheMonth[k].apptId + " class='appt' "
-//	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-//	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-//	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div></div>");
+		    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#container' class='bg-scrollable'><div id="
+	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ (apptsInTheMonth[k].title).substring(0,11) + "...</div></a>");
 	    						}
 	    						else {
-	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='scrollable'><div id="
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#sectionAddAppt' class='sm-scrollable'><div id="
 	    									+ apptsInTheMonth[k].apptId + " class='appt' "
 	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
 	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
 	    									+ apptsInTheMonth[k].title + "</div></a>");
-//	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<div class='nonScrollable'><div id="
-//	    									+ apptsInTheMonth[k].apptId + " class='appt' "
-//	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
-//	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
-//	    									+ apptsInTheMonth[k].title + "</div></div>");
+	    							$('#' + monthDay + response.name + apptsInTheMonth[k].year).append("<a href='#container' class='bg-scrollable'><div id="
+	    									+ apptsInTheMonth[k].apptId + " class='appt' "
+	    									+ "style='background-color: " + apptsInTheMonth[k].color + "' " 
+	    									+ "onclick='showAppt(" + apptsInTheMonth[k].apptId + ")'>" 
+	    									+ apptsInTheMonth[k].title + "</div></a>");
 	    						}
 	    					}
 	    					else{
 	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append(
-	    								"<a href='#sectionShowAppt' class='scrollable'><span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span></a>");
+	    								"<a href='#sectionShowAppt' class='sm-scrollable'><span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span></a>");
+	    						$('#' + monthDay + response.name + apptsInTheMonth[k].year).append(
+	    								"<a href='#container' class='bg-scrollable'><span id='moreAppts' onclick='showThisDaysAppts(" + monthDay + "," + getMonthInt((response.name).substring(0,3)) + "," + apptsInTheMonth[k].year + ")'><u>more...</u></span></a>");
 	    						break;
 	    					}
 	    				}
