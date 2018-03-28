@@ -37,7 +37,7 @@
 			<form:form method="post" action="addList" modelAttribute="list" onsubmit="return validateListTitleSM();">
 			<div class="row">
 				<div class="col-9">
-					<form:input path="listTitle" type="text" id="listInput" class="titleListSM form-control" placeholder="Name new list" oninput="validateNameSM()"/>
+					<form:input path="listTitle" type="text" id="listInput" class="titleListSM form-control" placeholder="List title" oninput="validateNameSM()"/>
 					<span id="titleErrorSM" class="formError"></span>
 				</div>
 				<div class="col-3">
@@ -47,6 +47,9 @@
 	   			</div>
    			</div> 
    			</form:form> 		
+   			<c:if test="${not empty listError}">
+				<div class="errorAlert">${listError}</div>
+			</c:if>
 			<hr>
 			
 			<!-- All lists body -->
@@ -144,7 +147,10 @@
 		   			</button>
 	   			</div>
    			</div> 
-   			</form:form> 		
+   			</form:form> 
+   			<c:if test="${not empty listError}">
+				<div class="errorAlert">${listError}</div>
+			</c:if>		
 			<hr>
 			
 			<!-- All lists body -->

@@ -62,7 +62,7 @@ public class ListController {
 				//show selected list by user
 				else{
 					//check if list exists (after delete)
-					if(listDelegate.checkIfListExists(selectedList)){
+					if(listDelegate.checkIfListExists(selectedList,event.getEventId())){
 						items = listDelegate.getItems(selectedList);
 						//check if list contains items
 						if(items.size() == 0)
@@ -98,8 +98,15 @@ public class ListController {
 		Event event = (Event) request.getSession().getAttribute("event");
 		
 		try {
-			//add new list
-			listDelegate.addList(list, event);
+			if(!listDelegate.checkIfListExists(list, event.getEventId())){
+				System.out.println("add list successful!");
+				//add new list
+				listDelegate.addList(list, event);
+			}
+			else{
+				System.out.println("add list unsuccessful!");
+				redirectAtt.addFlashAttribute("listError", "The list already exists");
+			}
 			viewLists(model,request);
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -182,18 +189,24 @@ public class ListController {
 	
 	//edit list
 	@RequestMapping(value="/editList", method = RequestMethod.POST)
-	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list){
+	public String processEditList(Model model, HttpServletRequest request, @ModelAttribute("list") Lists list, RedirectAttributes redirectAtt){
 		HttpSession session = request.getSession();
 		Lists firstList = new Lists();
+		Event event = (Event) request.getSession().getAttribute("event");
 		try{
 			//Update lists
 			for(int i=0; i<list.getListsList().size(); i++){
-				listDelegate.editList(list.getListsList().get(i));
-			}
+				if(!listDelegate.checkIfListExistsEdit(list.getListsList().get(i), event.getEventId())){
+					listDelegate.editList(list.getListsList().get(i));
+				}
+				else{
+					System.out.println("edit list unsuccessful!");
+					redirectAtt.addFlashAttribute("listError", "A list already exists with the same title. Please use a different title.");
+				}
 			firstList = list.getListsList().get(0);
 			session.setAttribute("selectedList", firstList);
+		}
 			viewLists(model,request);
-			
 		}
 		catch(Exception e){
 			e.printStackTrace();

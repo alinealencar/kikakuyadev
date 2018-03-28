@@ -18,5 +18,6 @@ public interface ListService {
 	public boolean editItem(Item item) throws SQLException;
 	public boolean editItemStatus(Item item) throws SQLException;
 	public boolean deleteItem(int itemId) throws SQLException;
-	public boolean checkIfListIsFound(Lists list) throws SQLException;
+	public boolean checkIfListIsFound(Lists list, int eventId) throws SQLException;
+	public boolean checkIfListFoundEdit(Lists list, int eventId) throws SQLException;
 }
