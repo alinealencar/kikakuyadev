@@ -98,4 +98,12 @@ public class GuestDelegate {
 	public int countPlusOnesByCategory(Event event, String category) throws SQLException{
 		return guestService.countPlusOnesByCategory(event, category);
 	}
+	
+	public boolean addPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException{
+		return guestService.addGuestPlusOne(plusOne, guest);
+	}
+	
+	public boolean removePlusOne(int plusOneId) throws SQLException {
+		return guestService.deletePlusOne(plusOneId);
+	}
 }

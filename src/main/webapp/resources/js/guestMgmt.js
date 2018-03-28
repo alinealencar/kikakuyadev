@@ -255,36 +255,68 @@ function openEditGuest(id) {
 		url: "getPlusOnes",
 		data: {guestId: id},
 		success: function(response){
+			$("#plusOnesAdults").empty();
+			$("#plusOnesKids").empty();
+			
 			var numberOfPlusOnesMax = response.guest.adultsMax + response.guest.kidsMax;
-			var txtBxCount = 0;
+			var txtBxCountAdults = 0;
+			var txtBxCountKids = 0;
+			
 			for(var i = 0; i < response.plusOnes.length; i++){
-				txtBxCount++;
-				var formItem = "<label>Name: </label>" +
-				"<input name='" + response.plusOnes[i].fullName + "' value='" +
-				response.plusOnes[i].fullName + "' class='form-control' style='margin-bottom:10px;'/>" +
-				"<label>Meal Choice: </label>" +
-				"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control' style='margin-bottom:10px;'>";
-				
-				for(var m = 0; m < response.meals.length; m++){
-					if(response.meals[m] === response.plusOnes[i].mealChoice)
-						formItem += "<option selected>" + response.meals[m] + "</option>";
-					else
-						formItem += "<option>" + response.meals[m] + "</option>";
+				if(response.plusOnes[i].category === "Adult") {
+					txtBxCountAdults++;
+					var formItem = "<label>Name: &nbsp;&nbsp;&nbsp;" +
+							"<button onclick='deletePlusOne(" + response.plusOnes[i].guestPlusOneId + ", " + id + ");' class='fabutton absent'><i class='far fa-trash-alt'></i></button></label>" +
+					"<input type='hidden' class='editPlusOneId' value='" + response.plusOnes[i].guestPlusOneId +"'/>"+
+					"<input name='" + response.plusOnes[i].fullName + "' value='" +
+					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;'/>" +
+					"<label>Meal Choice: </label>" +
+					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
+					
+					for(var m = 0; m < response.meals.length; m++){
+						if(response.meals[m] === response.plusOnes[i].mealChoice)
+							formItem += "<option selected>" + response.meals[m] + "</option>";
+						else
+							formItem += "<option>" + response.meals[m] + "</option>";
+					}
+					
+					formItem += "</select>";
+					
+					$("#plusOnesAdults").append(formItem);
+				}
+				else {
+					txtBxCountKids++;
+					var formItem = "<label>Name: &nbsp;&nbsp;&nbsp;" +
+					"<button onclick='deletePlusOne(" + response.plusOnes[i].guestPlusOneId + ", " + id + ");' class='fabutton absent'><i class='far fa-trash-alt'></i></button></label>" +
+					"<input name='" + response.plusOnes[i].fullName + "' value='" +
+					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;'/>" +
+					"<label>Meal Choice: </label>" +
+					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
+					
+					for(var m = 0; m < response.meals.length; m++){
+						if(response.meals[m] === response.plusOnes[i].mealChoice)
+							formItem += "<option selected>" + response.meals[m] + "</option>";
+						else
+							formItem += "<option>" + response.meals[m] + "</option>";
+					}
+					
+					formItem += "</select>";
+					
+					$("#plusOnesKids").append(formItem);
 				}
 				
-				formItem += "</select>";
-				
-				$("#plusOnesDiv").append(formItem);
 			}
 			
-			if(txtBxCount < numberOfPlusOnesMax){
-				var txtBxLeft = numberOfPlusOnesMax - txtBxCount;
-				for(var k = 0; k < txtBxLeft; k++){
+			var adultsLeft = response.guest.adultsMax - txtBxCountAdults;
+			var kidsLeft = response.guest.kidsMax - txtBxCountKids;
+			if(adultsLeft > 0){
+
+				for(var k = 0; k < adultsLeft; k++){
 					var formItem = "<label>Name: </label>" +
-					"<input name='plusOneName' class='form-control' style='margin-bottom:10px;'/>" +
+					"<input name='plusOneName' class='form-control addPlusOneNameAdult' style='margin-bottom:10px;'/>" +
 					"<label>Meal Choice: </label>" +
-					"<select name='mealChoice' class='form-control' style='margin-bottom:10px;'>" +
-					"<option value='' disabled='disabled' selected='true'>Meal Choice</option>"
+					"<select name='mealChoice' class='form-control addPlusOneMealAdult' style='margin-bottom:10px;'>" +
+					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
 						
 					for(var m = 0; m < response.meals.length; m++){
 						formItem += "<option>" + response.meals[m] + "</option>";
@@ -292,9 +324,93 @@ function openEditGuest(id) {
 					
 					formItem += "</select>";
 					
-					$("#plusOnesDiv").append(formItem);
+					$("#plusOnesAdults").append(formItem);
 				}
 			}
+			
+			if (kidsLeft > 0){
+				for(var k = 0; k < kidsLeft; k++){
+					var formItem = "<label>Name: </label>" +
+					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px;'/>" +
+					"<label>Meal Choice: </label>" +
+					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
+					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
+						
+					for(var m = 0; m < response.meals.length; m++){
+						formItem += "<option>" + response.meals[m] + "</option>";
+					}
+					
+					formItem += "</select>";
+					
+					$("#plusOnesKids").append(formItem);
+				}
+			}
+		}
+	});
+}
+
+/** EDIT PLUS ONES **/
+function editPlusOnes(id){
+	//Push data into the arrays
+	var editNameNode = $(".editPlusOneName");
+	var editNameArr = [""];
+	for(var i = 0; i < editNameNode.length; i++)
+		if($(editNameNode[i]).val() != false)
+			editNameArr.push($(editNameNode[i]).val());
+	
+	var editMealNode = $(".editPlusOneMeal");
+	var editMealArr = [""];
+	for(var i = 0; i < editMealNode.length; i++)
+		if($(editMealNode[i]).val() != false)
+		editMealArr.push($(editMealNode[i]).val());
+	
+	var editIdNode = $(".editPlusOneId");
+	var editIdArr = [""];
+	for(var i = 0; i < editIdNode.length; i++)
+		editIdArr.push($(editIdNode[i]).val());
+	
+	var addNameAdultNode = $(".addPlusOneNameAdult");
+	var addNameAdultArr = [""];
+	for(var i = 0; i < addNameAdultNode.length; i++)
+		if($(addNameAdultNode[i]).val() != false)
+			addNameAdultArr.push($(addNameAdultNode[i]).val());
+	
+	var addMealAdultNode = $(".addPlusOneMealAdult");
+	var addMealAdultArr = [""];
+	for(var i = 0; i < addMealAdultNode.length; i++)
+		if($(addMealAdultNode[i]).val() != false)
+		addMealAdultArr.push($(addMealAdultNode[i]).val());
+	
+	var addNameKidNode = $(".addPlusOneNameKid");
+	var addNameKidArr = [""];
+	for(var i = 0; i < addNameKidNode.length; i++)
+		if($(addNameKidNode[i]).val() != false)
+		addNameKidArr.push($(addNameKidNode[i]).val());
+	
+	var addMealKidNode = $(".addPlusOneMealKid");
+	var addMealKidArr = [""];
+	for(var i = 0; i < addMealKidNode.length; i++)
+		if($(addMealKidNode[i]).val() != false)
+		addMealKidArr.push($(addMealKidNode[i]).val());
+	
+	$.post({
+		url:"editPlusOnes",
+		data: {editName: editNameArr, editId: editIdArr, editMeal: editMealArr, addAdultName: addNameAdultArr, addAdultMeal: addMealAdultArr, addKidName: addNameKidArr, addKidMeal: addMealKidArr, guestId: id},
+		success: function(response){
+			console.log(response);
+		}
+	
+	});
+
+}
+
+/** DELETE PLUS ONES **/
+function deletePlusOne(plusOneId, guestId){
+	$.post({
+		url: "deletePlusOne",
+		data: {plusOneId: plusOneId},
+		success: function(response){
+			openEditGuest(guestId)
 		}
 	});
 }

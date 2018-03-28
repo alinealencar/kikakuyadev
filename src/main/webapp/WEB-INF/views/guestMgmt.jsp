@@ -261,7 +261,7 @@
 							</form:select>
 						</div>
 					</div>
-					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="People accompanying the invited guest">
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You can always add, delete and update their plus ones later.">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
@@ -302,30 +302,22 @@
    					<hr>
 				</form:form>
 				<br>
-				<h2>Edit Plus Ones</h2>
-				<!-- Edit Plus Ones -->		
-					<form:form method="post" action="editPlusOnes" modelAttribute="plusOnesForm" >
-						<%-- <c:forEach items="${plusOnesList.plusOnes}" var="person" varStatus="status">
-							<input type="hidden" name="plusOnes[${status.index}].guestPlusOneId" value="${person.guestPlusOneId}"/>
-							<label>Name: </label>
-							<input name="plusOnes[${status.index}].fullName" value="${person.fullName}" class="form-control" style="margin-bottom:10px;"/>
-							<label>Meal Choice: </label>
-							<select name="plusOnes[${status.index}].mealChoice" class="form-control" style="margin-bottom:10px;">
-								<c:forEach items="${meals}" var="meal">
-									<option value="${meal}" ${person.mealChoice eq meal ? 'selected': ''}>${meal}</option>
-								</c:forEach>	
-							</select>
-							<br>
-						</c:forEach> --%>
+				<div id="editPlusOnes">
+					<h2>Edit Plus Ones</h2>						
+					<div id="plusOnesDiv">
+						<h4 id="plusOnesAdultsLabel">Adults:</h4>
+						<div id="plusOnesAdults"></div>
+						<h4 id="plusOnesKidsLabel">Kids:</h4>
+						<div id="plusOnesKids"></div>
+					</div>
 						
-						<div id="plusOnesDiv"></div>
-						
-						<div class="text-right">
-							<button type="submit" class="btn btn-info">
-		      					Save
-		   					</button>
-	   					</div>
-					</form:form>
+					<div class="text-right">
+						<button onclick="editPlusOnes(${selectedGuest.guestId})" class="btn btn-info">
+		     				Save
+		   				</button>
+	   				</div>
+	   			</div>
+
  			</div>
 			</div>
 			

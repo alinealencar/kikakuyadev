@@ -10,6 +10,7 @@ import kikakuya.model.GuestPlusOne;
 public interface GuestPlusOneDao {
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException;
 	public boolean updatePlusOne(GuestPlusOne plusOne) throws SQLException;
+	public boolean deletePlusOne(int plusOneId) throws SQLException;
 	public List<GuestPlusOne> findPlusOne(Guest guest) throws SQLException;
 	public int getPlusOnesTotalByCategory(Event event, String category) throws SQLException;
 }
