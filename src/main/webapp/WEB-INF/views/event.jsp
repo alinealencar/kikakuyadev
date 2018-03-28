@@ -12,12 +12,9 @@
 
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
-		<div  class="col-sm-10">
-			<div id="alertMsg">
+		<div id="alertMsg" class="col-sm-10">
 				<div class="${(insertError != null) ? 'alert alert-danger' :''}" role="alert">${insertError}</div>
-				<div class="${(deleteEvent != null) ? 'alert alert-danger' :''}" role="alert">${deleteEvent}</div>
-				
-			</div>
+				<div class="${(deleteEvent != null) ? 'alert alert-danger' :''}" role="alert">${deleteEvent}</div>				
 		</div>
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">

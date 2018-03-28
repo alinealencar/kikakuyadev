@@ -9,7 +9,7 @@ var aColor = false;
 //Validate title
 function validateTitle(val){
 	var title = val.value;
-	if (title == "" || title == null){
+	if (title == "" ){
 		document.getElementById("titleError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an appointment title";
 		//$('#titleError').show();
 		aTitle = false;
@@ -23,7 +23,7 @@ function validateTitle(val){
 //Validate address
 function validateAdd(val){
 	var address = val.value;
-	if (address == "" || address == null){
+	if (address == ""){
 		document.getElementById("addressError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter the address";
 		//$('#addressError').show();
 		aAddress = false;

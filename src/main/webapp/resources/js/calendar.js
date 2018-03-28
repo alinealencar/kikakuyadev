@@ -146,6 +146,7 @@ function openEditAppt(id){
 		url: "showAppt",
 		data: {apptId: id}
 	}).done(function(response){
+		 validateForm()
 		$("#apptId").val(response.apptId);
 		$("#title").val(response.title);
 		$("#day").val(response.day);
@@ -159,10 +160,28 @@ function openEditAppt(id){
 		$("input[name='color'][value='" + response.color + "']").prop('checked', true);
 		$("#color").val(response.color);
 		$("#notes").val(response.notes);
+		if(validateForm()){
+			$("#titleError").show();
+			$("#addressError").show();
+			$("#dateError").show();
+			$("#timeError").show();
+			$("#colorError").show();
+			$("#showDay").show();
+		}
+		else{
+			$("#titleError").hide();
+			$("#addressError").hide();
+			$("#dateError").hide();
+			$("#timeError").hide();
+			$("#colorError").hide();
+			$("#showDay").hide();
+		}
 	});
-
+	
+	
 	$("#addAppt").show();
 	$("#btnSaveAppt").show();
+	
 }
 
 /** DELETE APPOINTMENT **/
@@ -496,6 +515,18 @@ $(document).ready(function(){
 	  });
 	});	
 
+
+$(document).ready(function(){
+	$("#btnSaveAppt").click(function () {
+		if(validateForm()){
+			addEditAppt('editAppt')
+		}
+		else{
+			$(".errorAlert").html('Please fill in the missing field/s');
+			$(".errorAlert").show();
+		}
+	});
+});
 function validateForm(){
 	var title = $("#title").val();
 	var address = $("#location").val();
@@ -508,22 +539,27 @@ function validateForm(){
 	
 	if(title == ""){
 		 document.getElementById("titleError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an appointment title";
+		 return false;
 	}
 	
 	if (address == ""){
 		 document.getElementById("addressError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter the address";
+		 return false;
 	}
 	
 	if (!$("input:radio[name='color']:checked").val()){
 		 document.getElementById("colorError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a color";
+		 return false;
 	}
 	
 	if (day == "" || month == "" || year == "" || day == null || month == null || year == null){
 			document.getElementById("dateError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select date";
+			return false;
 	}
 	
 	if (hour == "" || minute == "" || ampm == "" || hour == null || minute == null || ampm == null){
 			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
 	}
+	return true;
 }
 

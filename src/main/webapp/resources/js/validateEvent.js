@@ -218,6 +218,9 @@ function showEditEvent(){
 	document.getElementById("editEvent").style.display = 'inline-block';
 	//$('editEvent').modal();
 	$('editButton').submit();
-	
+}
+
+function showList(){
+	var alertMsg = document.getElementById("alertMsg");
 }
 	

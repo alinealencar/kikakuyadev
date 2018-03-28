@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import kikakuya.delegate.EventDelegate;
 import kikakuya.model.Event;
 import kikakuya.model.Guest;
@@ -62,7 +64,7 @@ public class EventController {
 	
 	//Add an event
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public String add(@ModelAttribute("event") Event event, Model model, HttpServletRequest request){ 
+	public String add(@ModelAttribute("event") Event event, Model model, HttpServletRequest request, RedirectAttributes redirectAtt){ 
 		
 		User user = (User) request.getSession().getAttribute("user");
 		
@@ -72,7 +74,7 @@ public class EventController {
 					boolean isValidEvent = eventDelegate.insertEvent(event, user);
 					if(isValidEvent){
 						System.out.println("Insert successful");
-						request.setAttribute("insertError", "Added successfully!");
+						redirectAtt.addFlashAttribute("insertError", "Added successfully!");
 						
 						//Update event list
 						request.getSession().setAttribute("listEvent", list);
@@ -82,12 +84,11 @@ public class EventController {
 				}
 			}
 			else {
-				request.setAttribute("insertError", "You are only allowed to create up to 3 events!");
+				redirectAtt.addFlashAttribute("insertError", "You are only allowed to create up to 3 events!");
 			}
 		}
 		catch(Exception e) {
 				e.printStackTrace();
-				request.setAttribute("insertError", "You are only allowed to create up to 3 events!");
 			}
 		
 		return "redirect:/list";
@@ -133,13 +134,13 @@ public class EventController {
 	
 	//Delete an event
 	@RequestMapping(value="/delete", method=RequestMethod.GET)
-	public String deleteEvent(@ModelAttribute Event event, Model model,HttpServletRequest request) throws SQLException{
+	public String deleteEvent(@ModelAttribute Event event, Model model,HttpServletRequest request, RedirectAttributes redirectAtt) throws SQLException{
 		
 		try{
 			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
-				request.setAttribute("deleteEvent", "Successfuly deleted!");
+				redirectAtt.addFlashAttribute("deleteEvent", "Successfuly deleted!");
 			} 
 			else {
 				System.out.println("Delete unsuccessful");
