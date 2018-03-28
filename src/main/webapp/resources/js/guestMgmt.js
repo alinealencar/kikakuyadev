@@ -1,6 +1,6 @@
 /** DOCUMENT.READY **/
 $(document).ready(function() {
-	
+
 });
 
 /** Make rows in the guest list clickable **/
@@ -345,6 +345,22 @@ function openEditGuest(id) {
 					$("#plusOnesKids").append(formItem);
 				}
 			}
+			
+			//Populate adultsMax and kidsMax dynamically
+			var adultsNow = $("#plusOnesAdults .editPlusOneName").length;
+			var kidsNow = $("#plusOnesKids .editPlusOneName").length;
+			$("#editKidsMax").empty();
+			$("#editAdultsMax").empty();
+			
+			for(var i = kidsNow; i <= 4; i++){
+				if(i === response.guest.kidsMax)
+					$("#editKidsMax").append("<option value=" + i + " selected>"+i+"</option>");
+				else
+					$("#editKidsMax").append("<option value=" + i + ">"+i+"</option>");
+			}
+			
+			for(var i = adultsNow; i <= 4; i++)
+				$("#editAdultsMax").append("<option value=" + i + ">"+i+"</option>");
 		}
 	});
 }
@@ -397,7 +413,7 @@ function editPlusOnes(id){
 		url:"editPlusOnes",
 		data: {editName: editNameArr, editId: editIdArr, editMeal: editMealArr, addAdultName: addNameAdultArr, addAdultMeal: addMealAdultArr, addKidName: addNameKidArr, addKidMeal: addMealKidArr, guestId: id},
 		success: function(response){
-			console.log(response);
+			openEditGuest(id);
 		}
 	
 	});

@@ -21,14 +21,21 @@
 									<label for="userPassword" class="sr-only">Password: </label>
 									<form:password path="userPassword"  class="form-control"  placeholder="Password"/>
 								</div>
-								<div class="col-sm-2" style="margin-top: 10px;">
+								<div class="col-sm-2 row" style="margin-top: 10px;">
+									<div class="col-10">
+									<c:if test="${not empty loginError}">
+										<span class="signupError d-block d-sm-none text-center" style="font-size:small;"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${loginError}</span>
+									</c:if>
+									</div>
+									<div class="col-2">
 									<input type="submit" value="Login" id="btnLogIn" class="btn btn-primary text-right" style="background-color: #D90368; color: #F1E9DA; border-color:#D90368;">
+									</div>
 								</div>
 							</div>
 						</div>
 					</div><br>
 					<c:if test="${not empty loginError}">
-						<span class="signupError"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${loginError}</span>
+						<span class="signupError lg-loginError"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;${loginError}</span>
 					</c:if>
 					<input type="checkbox" name="isRememberMe" value="1"/> Stay signed in
 				</form:form>
