@@ -50,7 +50,7 @@
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>
    					</a>
-					<a href="#sectionAddAppt" class="d-block d-lg-none">
+					<a href="#sectionAddAppt" class="d-block d-lg-none scrollable">
 					<button type="button" class="btn btn-link img-fluid" onclick="openAddAppt()">
       					<span class="material-icons" style="background-color: #F1E9DA; color: #D90368; font-size: 300%;">add_circle</span>
    					</button>
@@ -213,6 +213,7 @@
 			</div>
 			
 			<!-- Show appointment -->
+			<div id="sectionShowAppt">
 			<div id="showAppt" style="display:none;">
 				<div id="bannerColor"></div>
 				<div class="row">
@@ -244,7 +245,7 @@
 					<span id="apptNotes"></span>
 				</div>
 			</div>
-			
+			</div>
 			<!-- Show appointments for days with 3+ appointments scheduled -->
 			<div id="showDay">
 				<h3><span id="selectedDate"></span></h3>

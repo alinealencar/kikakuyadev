@@ -3,6 +3,7 @@
 var validListTitle = false;
 var validItemName = false;
 var validListTitleSM = false;
+
 /** BIG SCREEN **/
 // Validate list's title
 function validateListTitle(){
@@ -103,6 +104,34 @@ $(document).ready(function(){
 	});
 });
 
+/** EDIT ON SMALL SCREEN**/
+
+var validTitleSM = false;
+function validateNameEditSM(val){
+	//var listTitle = document.getElementsByClassName("titleList")[0].value;
+	var listTitleSM = val.value;
+	if (listTitleSM == ""){
+		//document.getElementById("titleError").innerHTML = "<i class='fas fa-times'></i>  Please enter a list title";
+		$(val).siblings('.titleErrorESM').first().show();
+		validTitleSM = false;
+	}
+	else{
+		//document.getElementById("titleError").innerHTML = "";
+		$(val).siblings('.titleErrorESM').first().hide();
+		validTitleSM = true;
+	}		
+}
+
+/***** save after edit *****/
+//submit edit all lists form (small)
+$(document).ready(function(){
+	$( "#btnSaveEditList-sm" ).click(function() {
+		if(validTitleSM){
+			$('#formEditList-sm').submit();
+		}
+	});
+});
+
 
 // Validate item name
 function validateItemName(){
@@ -139,3 +168,30 @@ function validateItem(){
 		validItemName = true;
 	}
 }
+
+/** EDIT ITEM NAME**/
+
+var validEditItem = false;
+function validateEditItem(val){
+	//var listTitle = document.getElementsByClassName("titleList")[0].value;
+	var itemEdit = val.value;
+	if (itemEdit == ""){
+		//document.getElementById("titleError").innerHTML = "<i class='fas fa-times'></i>  Please enter a list title";
+		$(val).siblings('.itemError-edit').first().show();
+		validEditItem = false;
+	}
+	else{
+		//document.getElementById("titleError").innerHTML = "";
+		$(val).siblings('.itemError-edit').first().hide();
+		validEditItem = true;
+	}		
+}
+
+//submit edit items form 
+$(document).ready(function(){
+	$( "#btnSaveEditItem" ).click(function() {
+		if (validEditItem){
+			$('#formEditItem').submit();
+		}
+	});
+});

@@ -56,18 +56,18 @@ function deleteItem(itemId){
 }
 
 //submit edit all lists form (small)
-$(document).ready(function(){
-	$( "#btnSaveEditList-sm" ).click(function() {
-		$('#formEditList-sm').submit();
-	});
-});
+//$(document).ready(function(){
+//	$( "#btnSaveEditList-sm" ).click(function() {
+//		$('#formEditList-sm').submit();
+//	});
+//});
 
-//submit edit items form 
-$(document).ready(function(){
-	$( "#btnSaveEditItem" ).click(function() {
-		$('#formEditItem').submit();
-	});
-});
+////submit edit items form 
+//$(document).ready(function(){
+//	$( "#btnSaveEditItem" ).click(function() {
+//		$('#formEditItem').submit();
+//	});
+//});
 
 /***** all lists list small screen *****/
 //open side list
