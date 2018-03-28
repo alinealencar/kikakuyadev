@@ -13,6 +13,41 @@ function validateGuestForm(){
 		form.reset();
 	}
 	else{
+		var fName = document.getElementsByClassName("fName")[0].value;
+		
+		if (fName == ""){
+			document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
+			validFirstName = false;
+		}
+		else{
+			document.getElementById("fNameError").innerHTML = "";
+			validFirstName = true;
+		}
+		var lName = document.getElementsByClassName("lName")[0].value;
+		
+		if (lName == ""){
+			document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
+			validLastName = false;
+		}
+		else{
+			document.getElementById("lNameError").innerHTML = "";
+			validLastName = true;
+		}
+		var email = document.getElementsByClassName("guestEmail")[0].value;
+		var emailRegEx = /^\w+.\w+@[a-zA-Z0-9]+?\.[a-zA-Z]{2,3}$/;
+		
+		if (!emailRegEx.test(email)){
+			document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
+			validEmail = false;
+		}
+		else if (email == "" || email == null){
+			document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
+			validEmail = false;
+		}
+		else {
+		document.getElementById("emailError").innerHTML = "";
+		validEmail = true;
+		}
 		return false;
 	}
 	return true;
@@ -59,7 +94,7 @@ function validateEmail(){
 	else {
 	document.getElementById("emailError").innerHTML = "";
 	validEmail = true;
-}
+	}
 }
 
 /**VALIDATION FOR EDIT GUEST**/

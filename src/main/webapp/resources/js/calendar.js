@@ -160,22 +160,6 @@ function openEditAppt(id){
 		$("input[name='color'][value='" + response.color + "']").prop('checked', true);
 		$("#color").val(response.color);
 		$("#notes").val(response.notes);
-		if(validateForm()){
-			$("#titleError").show();
-			$("#addressError").show();
-			$("#dateError").show();
-			$("#timeError").show();
-			$("#colorError").show();
-			$("#showDay").show();
-		}
-		else{
-			$("#titleError").hide();
-			$("#addressError").hide();
-			$("#dateError").hide();
-			$("#timeError").hide();
-			$("#colorError").hide();
-			$("#showDay").hide();
-		}
 	});
 	
 	
