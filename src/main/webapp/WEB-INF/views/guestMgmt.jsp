@@ -261,31 +261,27 @@
 							</form:select>
 						</div>
 					</div>
-					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You can always add, delete and update their plus ones later.">
+					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You cannot change this value to a number smaller than the number of plus ones already registered.">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
 					<div class="form-group row">
 						<div class="col-6">
 							<div class="form-group row">
 								<label class="col-6 col-form-label">Adults:</label>					
-						       	<form:select path="adultsMax" class="form-control col-6">
-						       		<form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
+						       	<form:select id="editAdultsMax" path="adultsMax" class="form-control col-6">
+						       		<%-- <form:option value="0" label="0" selected="${(selectedGuest.adultsMax eq 0) ? 'selected' : ''}"/>
 						       		<form:option value="1" label="1" selected="${(selectedGuest.adultsMax eq 1) ? 'selected' : ''}"/>
 						       		<form:option value="2" label="2" selected="${(selectedGuest.adultsMax eq 2) ? 'selected' : ''}"/>
 					        		<form:option value="3" label="3" selected="${(selectedGuest.adultsMax eq 3) ? 'selected' : ''}"/>
-					        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/>
+					        		<form:option value="4" label="4" selected="${(selectedGuest.adultsMax eq 4) ? 'selected' : ''}"/> --%>
 								</form:select>
 							</div>
 						</div>
 						<div class="col-6">	
 							<div class="form-group row">
 						        <label class="col-6 col-form-label">Kids:</label>
-					        	<form:select path="kidsMax"  class="form-control col-6">
-					        		<form:option value="0" label="0" selected="${(selectedGuest.kidsMax eq 0) ? 'selected' : ''}"/>
-					        		<form:option value="1" label="1" selected="${(selectedGuest.kidsMax eq 1) ? 'selected' : ''}" />
-					        		<form:option value="2" label="2" selected="${(selectedGuest.kidsMax eq 2) ? 'selected' : ''}"/>
-					        		<form:option value="3" label="3" selected="${(selectedGuest.kidsMax eq 3) ? 'selected' : ''}" />
-					        		<form:option value="4" label="4" selected="${(selectedGuest.kidsMax eq 4) ? 'selected' : ''}"/>
+					        	<form:select id="editKidsMax" path="kidsMax"  class="form-control col-6">
+					        		
 								</form:select>
 							</div>
 						</div>
@@ -303,7 +299,7 @@
 				</form:form>
 				<br>
 				<div id="editPlusOnes">
-					<h2>Edit Plus Ones</h2>						
+					<h2>Edit Plus Ones</h2><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a>					
 					<div id="plusOnesDiv">
 						<h4 id="plusOnesAdultsLabel">Adults:</h4>
 						<div id="plusOnesAdults"></div>
