@@ -314,7 +314,7 @@ div.calendarDay{
 
 
 /*for small size screen decolation*/
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 991px) {
 	div .calendarDay{
 		font-size:x-small;
 	}
@@ -326,13 +326,13 @@ div.calendarDay{
     }
     #calendar tr{
     	border: 1px solid #999999;
-
     }
+    .bg-scrollable {display:none;}
 }
-/*
+
 @media only screen and (min-width: 992px) {
-	.scrollable {display:none;}
-}*/
+	.sm-scrollable {display:none;}
+}
 /*********************************
 slide in form
 **********************************/
