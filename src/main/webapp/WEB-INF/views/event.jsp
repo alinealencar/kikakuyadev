@@ -130,21 +130,24 @@
 		<a class="close" href="#">&times;</a>
 		<div class="content">
 		<hr>
-			<form:form modelAttribute="event" method="POST" action="update" >
+			<form:form modelAttribute="event" method="POST" action="update" onsubmit="return validateEditEventForm();">
 				<form:hidden id="editEventId" path="eventId" />
 				<div>
 					<label>Event Name: </label>
-					<form:input id="editEventName" path="eventName" class="form-control"/>
+					<form:input id="editEventName" path="eventName" class="eventName-edit form-control" oninput="validateEditEventName()"/>
+					<span id="eventEditNameError" class="formError"></span>
 					<br>
 				</div>
 				<div>
 					<label>Address:</label>
-					<form:input id="editLocation" path="location" class="form-control"/>
+					<form:input id="editLocation" path="location" class="location-edit form-control" oninput="validateEditLocation()"/>
+					<span id="locationEditError" class="formError"></span>
 					<br>
 				</div>
 				<div>
 					<label>Date: </label>
-					<form:input id="editEventDate" path="eventDate" type="date" class="form-control"/>
+					<form:input id="editEventDate" path="eventDate" type="date" class="date-edit form-control" oninput="validateEditDate()"/>
+					<span id="eventEditDateError" class="formError"></span>
 					<br>
 				</div>
 				<hr>
