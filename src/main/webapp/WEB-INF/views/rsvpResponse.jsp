@@ -34,16 +34,15 @@
 			</div>
 	   		<label for="adult" class="col-form-label col-sm-2 text-sm-right">Adults:</label>
 	   		<div class="col-sm-2">
-		    	<form:select class="plusOneError form-control" id="adult" path="adultsWith" onChange="show(this)" oninput="validatePlusOne(this)">
+		    	<form:select class="form-control" id="adult" path="adultsWith" onChange="show(this)">
 		    	<c:forEach begin="0" end="${guest.adultsMax}" varStatus="loop">
 		       		<option value="${loop.index}">${loop.index}</option>
-		       		<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
 		       	</c:forEach>
 		    	</form:select>
 		    </div>
 	   		<label for="kid" class="col-form-label col-sm-2 text-sm-right">Kids:</label>
 	   		<div class="col-sm-2">
-	      		<form:select class="plusOneError form-control" id="kid" path="kidsWith">
+	      		<form:select class="form-control" id="kid" path="kidsWith">
 	        	<c:forEach begin="0" end="${guest.kidsMax}" varStatus="loop">
 		       		<option value="${loop.index}">${loop.index}</option>
 		       	</c:forEach>
@@ -94,9 +93,9 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     			</div>
     			</c:if>
-    			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div>
     		
     			
@@ -166,10 +165,10 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[1].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div>
     		
     		<!-- meal choice for Adult +3 -->
@@ -201,11 +200,11 @@
     					<c:if test="${not empty email.mealChoiceKids}">
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
+    					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
   					</form:select>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[2].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div>
     		
     		<!-- meal choice for Adult +4 -->
@@ -238,10 +237,10 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[3].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div>
     		
     		<!-- meal choice for Kid +1 -->
@@ -274,10 +273,10 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[4].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div>
     		
     		<!-- meal choice for Kid +2 -->
@@ -310,10 +309,11 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[5].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+      			
     		</div>
     		
     		<!-- meal choice for Kid +3 -->
@@ -346,9 +346,9 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[6].category" />
       			
     		</div>
@@ -383,10 +383,10 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[7].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     		</div><br>
     		
 		<div class="form-group">
