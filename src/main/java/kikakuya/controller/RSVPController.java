@@ -155,17 +155,18 @@ public class RSVPController {
 				
 		try {
 			Email email = rsvpDelegate.findEmailByEvent(guest);
-			
-			for(int i=0; i<plusOneList.size(); i++){
-				System.out.println(plusOneList.get(i).getFullName() + ", ");
-				if(!plusOneList.get(i).getFullName().trim().isEmpty())
-					rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
-				else
-					continue;
-			}
+
 			if(rsvpDelegate.updateGuest(guest)){
-				if(rsvpDelegate.deleteGuestToken(guest))
+				if(rsvpDelegate.deleteGuestToken(guest)){
+					for(int i=0; i<plusOneList.size(); i++){
+						System.out.println(plusOneList.get(i).getFullName() + ", ");
+						if(!plusOneList.get(i).getFullName().trim().isEmpty())
+							rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
+						else
+							continue;
+					}
 					request.setAttribute("respondRSVPSuccess", "Your RSVP response was successfully sent.");
+				}
 			}
 			else{
 				request.setAttribute("guest", guest);

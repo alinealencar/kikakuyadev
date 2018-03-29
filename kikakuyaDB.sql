@@ -44,7 +44,7 @@ CREATE TABLE Good (
   PRIMARY KEY (goodId));
 CREATE TABLE Guest (
   guestId   int(10) NOT NULL AUTO_INCREMENT,
-  token varchar(255) NOT NULL UNIQUE,
+  token varchar(255) NOT NULL,
   firstName varchar(50) NOT NULL, 
   lastName  varchar(50) NOT NULL, 
   email     varchar(50) NOT NULL UNIQUE,
