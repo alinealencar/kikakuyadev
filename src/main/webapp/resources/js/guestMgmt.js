@@ -428,8 +428,9 @@ function editPlusOnes(id){
 }
 
 //Validate plus ones
-function validatePlusOne(){
-	var guest = $("#fullName").val();
+$("#btnEditPlusOne").click(function () {
+//function validatePlusOne(){
+	/*var guest = $("#fullName").val();
 	var meal = $("#mealChoice").val();
 	
 	if (guest == ""){
@@ -440,9 +441,30 @@ function validatePlusOne(){
 		document.getElementById("mealError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a meal";
 		 return false;
 	}
-	return true;
-}
-
+	return true;*/
+	var adults = document.getElementsByClassName("addPlusOneNameAdult");
+	var kids = document.getElementsByClassName("addPlusOneNameKid");
+	for(i=0;i<adults.length;i++){
+		var adult = adults[i].value;
+		if(!adult){
+			//document.getElementById("itemError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+			$('#plusOneError').show();
+			return false;
+		}
+		else
+			return true;
+	}
+	for(i=0;i<kids.length;i++){
+		var kid = prices[i].value;
+		if(!kid){
+			//document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter price";
+			$('#plusOneError').show();
+			return false;
+		}
+		else
+			return true;
+	}
+});
 
 
 /** DELETE PLUS ONES **/
