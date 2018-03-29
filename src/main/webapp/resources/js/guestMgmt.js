@@ -411,6 +411,8 @@ function editPlusOnes(id){
 		if($(addMealKidNode[i]).val() != false)
 		addMealKidArr.push($(addMealKidNode[i]).val());
 	
+	//show error - valdiation
+	
 	$('#plusOneError').show();
 	$('#mealError').show();
 	$.post({
@@ -419,6 +421,7 @@ function editPlusOnes(id){
 		success: function(response){
 			openEditGuest(id);
 			
+			//validate
 			validatePlusOne()
 			
 		}
