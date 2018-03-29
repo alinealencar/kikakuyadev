@@ -1,8 +1,7 @@
-DROP DATABASE IF EXISTS KIKAKUYADEV;
-CREATE DATABASE IF NOT EXISTS KIKAKUYADEV;
-USE KIKAKUYADEV;
-grant all on KIKAKUYADEV.* to 'admin'@'localhost' identified by 'admin'; 
-
+DROP DATABASE IF EXISTS kikakuyadb;
+CREATE DATABASE IF NOT EXISTS kikakuyadb;
+USE kikakuyadb;
+grant all on kikakuyadb.* to 'admin'@'localhost' identified by 'admin'; 
 CREATE TABLE Appointment (
   apptId       int(10) NOT NULL AUTO_INCREMENT, 
   apptTitle		varchar(50) NOT NULL,

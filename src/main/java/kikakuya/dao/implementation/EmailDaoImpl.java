@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.EmailDao;
 import kikakuya.model.Email;
@@ -24,8 +25,9 @@ public class EmailDaoImpl implements EmailDao{
 	}
 
 	public Email findEmailByEvent(Guest guest) throws SQLException {
-		String query = "SELECT * FROM email WHERE EventeventId=" + guest.getEventId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "SELECT * FROM Email WHERE EventeventId=" + guest.getEventId();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Email email = new Email();
 		while(rs.next()){
@@ -37,24 +39,31 @@ public class EmailDaoImpl implements EmailDao{
 			email.setMealChoiceFish(rs.getString(7));
 			email.setMealChoiceKids(rs.getString(8));
 		}
+		connection.close();
 		return email;
 	}
 	
 	public boolean countEmailByEvent(Event event) throws SQLException {
-		String query = "SELECT COUNT(*) FROM email WHERE EventeventId=" + event.getEventId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "SELECT COUNT(*) FROM Email WHERE EventeventId=" + event.getEventId();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		if(rs.next())
 			rs.getInt(1);
-		if(rs.getInt(1) > 0)
+		
+		if (rs.getInt(1) > 0){
+			connection.close();
 			return true;
-		else
+		} else {
+			connection.close();
 			return false;
+		}
 	}
 	
 	public boolean insertEmail(Email email, Event event) throws SQLException {
-		String query = "INSERT INTO email (replyDue, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids, EventeventId) VALUES (?,?,?,?,?,?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "INSERT INTO Email (replyDue, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids, EventeventId) VALUES (?,?,?,?,?,?,?,?)";
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		
 		pstmt.setString(1, email.getReplyDue());
 		pstmt.setString(2, email.getMealChoiceBeef());
@@ -67,6 +76,7 @@ public class EmailDaoImpl implements EmailDao{
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 }

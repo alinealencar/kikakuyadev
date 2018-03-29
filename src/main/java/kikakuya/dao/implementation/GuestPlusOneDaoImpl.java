@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.GuestPlusOneDao;
 import kikakuya.model.Event;
@@ -26,33 +27,37 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 	}
 	
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
-		String query = "Insert into guestplusone (fullName, mealChoice, GuestguestId, Category) values (?,?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "Insert into GuestPlusOne (fullName, mealChoice, GuestguestId, Category) values (?,?,?,?)";
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, plusOne.getFullName());
 		pstmt.setString(2, plusOne.getMealChoice());
 		pstmt.setInt(3, guest.getGuestId());
 		pstmt.setString(4, plusOne.getCategory());
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 
 	@Override
 	public boolean updatePlusOne(GuestPlusOne plusOne) throws SQLException {
-		String query = "update guestplusone set fullName = '" + plusOne.getFullName() + 
+		String query = "update GuestPlusOne set fullName = '" + plusOne.getFullName() + 
 				"', mealChoice = '" + plusOne.getMealChoice() +
 				"' where guestPlusOneId = '" + plusOne.getGuestPlusOneId() + "'";
-		System.out.println(query);
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 	}
 
 	@Override
 	public List<GuestPlusOne> findPlusOne(Guest guest) throws SQLException {
-		String query = "select * from guestplusone where GuestguestId=" + guest.getGuestId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "select * from GuestPlusOne where GuestguestId=" + guest.getGuestId();
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		List<GuestPlusOne> plusOnes = new ArrayList<GuestPlusOne>();
 		ResultSet rs = pstmt.executeQuery(query);
 		while(rs.next()){
@@ -64,29 +69,35 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 			plusOnes.add(plusOne);
 		}
 		
+		connection.close();
 		return plusOnes;
 	}
 	
 	public int getPlusOnesTotalByCategory(Event event, String category) throws SQLException {
 		int count = 0;
-		String query = "SELECT COUNT(*) FROM guest g INNER JOIN guestplusone p"
+		String query = "SELECT COUNT(*) FROM Guest g INNER JOIN GuestPlusOne p"
 				+ " ON g.guestId = p.GuestguestId"
 				+ " WHERE EventeventId=" + event.getEventId()
 				+ " AND category='" + category + "'";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		while (rs.next()){
             count = rs.getInt(1);
         }
+		
+		connection.close();
 		return count;
 	}
 
 	@Override
 	public boolean deletePlusOne(int plusOneId) throws SQLException {
-		String query = "delete from guestplusone where guestplusoneid=" + plusOneId;
-		System.out.println(query);
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "delete from GuestPlusOne where guestplusoneid=" + plusOneId;
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
 		return rowsAffected > 0;
 	}
 }

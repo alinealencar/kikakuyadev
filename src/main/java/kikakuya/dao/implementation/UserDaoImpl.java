@@ -1,5 +1,6 @@
 package kikakuya.dao.implementation;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,14 +23,16 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	public boolean insertUser(User user) throws SQLException {
-		String query = "Insert into user (userName, email, userPassword) values (?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "Insert into `User` (userName, email, userPassword) values (?,?,?)";
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, user.getUserName());
 		pstmt.setString(2, user.getEmail());
 		pstmt.setString(3, HelperUtilities.toMd5(user.getUserPassword()));
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 		
 	}
@@ -37,8 +40,12 @@ public class UserDaoImpl implements UserDao {
 	public User findByEmail(String email) throws SQLException {
 		User user = new User();
 		//Using MD5 encryption for the password
-		String query = "Select userId, userName, userPassword, email, token, series from user where email = ?";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "Select userId, userName, userPassword, email, token, series from `User` where email = ?";
+		
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+
+		
 		pstmt.setString(1, email);
 		ResultSet resultSet = pstmt.executeQuery();
 		if(resultSet.next()){
@@ -50,6 +57,7 @@ public class UserDaoImpl implements UserDao {
 			user.setSeries(resultSet.getString(6));
 		}
         
+		connection.close();
 		return user;
 	}
 
@@ -59,20 +67,23 @@ public class UserDaoImpl implements UserDao {
 //				"', token = '" + user.getToken() + 
 //				"', series = '" + user.getSeries() + 
 //				"' where email = '" + user.getEmail() + "'";
-		String query = "update user set token = '" + user.getToken() + 
+		String query = "update `User` set token = '" + user.getToken() + 
 				"', series = '" + user.getSeries() + 
 				"' where email = '" + user.getEmail() + "'";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 		
 	}
 
 	public User findBySeries(String series) throws SQLException {
 		User user = new User();
-		String query = "Select userName, email, token, series from user where series = ?";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		String query = "Select userName, email, token, series from `User` where series = ?";
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, series);
 		ResultSet resultSet = pstmt.executeQuery();
 		if(resultSet.next()){
@@ -81,7 +92,7 @@ public class UserDaoImpl implements UserDao {
 			user.setToken(resultSet.getString(3));
 			user.setSeries(resultSet.getString(4));
 		}
-        
+		connection.close();
 		return user;
 	}
 }
