@@ -333,7 +333,7 @@ function openEditGuest(id) {
 			if (kidsLeft > 0){
 				for(var k = 0; k < kidsLeft; k++){
 					var formItem = "<label>Name: </label>" +
-					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px;'/>" +
+					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px;/>" +
 					"<label>Meal Choice: </label>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
@@ -411,6 +411,8 @@ function editPlusOnes(id){
 		if($(addMealKidNode[i]).val() != false)
 		addMealKidArr.push($(addMealKidNode[i]).val());
 	
+	$('#plusOneError').show();
+	$('#mealError').show();
 	$.post({
 		url:"editPlusOnes",
 		data: {editName: editNameArr, editId: editIdArr, editMeal: editMealArr, addAdultName: addNameAdultArr, addAdultMeal: addMealAdultArr, addKidName: addNameKidArr, addKidMeal: addMealKidArr, guestId: id},
@@ -418,6 +420,7 @@ function editPlusOnes(id){
 			openEditGuest(id);
 			
 			validatePlusOne()
+			
 		}
 	
 	});
@@ -439,6 +442,8 @@ function validatePlusOne(){
 	}
 	return true;
 }
+
+
 
 /** DELETE PLUS ONES **/
 function deletePlusOne(plusOneId, guestId){

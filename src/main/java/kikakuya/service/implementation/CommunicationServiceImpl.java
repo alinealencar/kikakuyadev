@@ -148,11 +148,11 @@ public class CommunicationServiceImpl implements CommunicationService{
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Location: " + event.getLocation() + "<br> Date: " + event.getEventDate() + "</p>"
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Please let us know if you are coming before " + email.getReplyDue() + ".</p><br>"
 			   		+"<div style=\"display: block; width: 160px; height: 25px; line-height: 25px; background: #D90368; text-align: center; padding: 10px; border-radius: 5px; \">"
-			   		+"<a style='text-decoration: none; font-size: 110%; color:#F1E9DA;' href=\"http://localhost:8080/dev/rsvpResponse?token="+guestList.get(i).getToken()+"\">Click here to RSVP</a></div>"
+			   		+"<a style='text-decoration: none; font-size: 110%; color:#F1E9DA;' href=\"http://kikakuya.ca/rsvpResponse?token="+guestList.get(i).getToken()+"\">Click here to RSVP</a></div>"
 			   		+ "<p style=\"font-size: 120%; color: #2E294E;\">Sincerely,<br>" + user.getUserName() +"</p></div>"
 			   		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 				    + "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
-				    + "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a></h4></div></div>";
+				    + "Do you want to plan an event? <a href=\"http://kikakuya.ca\">Try Kikakuya!</a></h4></div></div>";
 				    
 		   		//set email content and information into the MimeMessageHelper
 		   		helper.setText(message, true); //true indicates that the text included is HTML
@@ -189,7 +189,7 @@ public class CommunicationServiceImpl implements CommunicationService{
 			     		+"<div style=\"min-height: 300px; height: auto !important; height: 300px; padding: 15px;\"><pre><font face=\"verdana\" size=\"3\">"+email.getMessage()+"</font></pre></div>"
 			     		+ "<div style=\"background-color: #d9dbdd; padding: 15px;\">"
 			     		+ "</h4>&copy; KIKAKUYA - 2018 All Rights Reserved.<br>"
-			     		+ "Do you want to plan an event? <a href=\"http://localhost:8080/dev\">Try Kikakuya!</a><br></h4></div></div>";
+			     		+ "Do you want to plan an event? <a href=\"http://kikakuya.ca\">Try Kikakuya!</a><br></h4></div></div>";
 		     
 		     //iterate through all the selected guests
 		     for(int i=0; i<guestList.size(); i++){

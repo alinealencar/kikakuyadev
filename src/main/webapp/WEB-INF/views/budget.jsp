@@ -265,7 +265,7 @@
       				<span id="vendorError-sm" class="formError"></span>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
+      				<button type="button" class="btn btn-info" onclick="location.href='/search'">
       						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
       				</button>
       				</div>
@@ -382,7 +382,7 @@
       					<span id="vendorError" class="formError"></span>
       				<div class="text-center">- or -</div>
       				<div class="text-center">
-      				<button type="button" class="btn btn-info" onclick="location.href='/dev/search'">
+      				<button type="button" class="btn btn-info" onclick="location.href='/search'">
       						<span class="material-icons align-bottom" style="font-size: 150%;">search</span><span class="align-text-bottom">Search Vendor</span>
       				</button>
       				</div>
