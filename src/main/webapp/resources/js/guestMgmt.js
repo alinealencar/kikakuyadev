@@ -270,8 +270,10 @@ function openEditGuest(id) {
 					"<input type='hidden' class='editPlusOneId' value='" + response.plusOnes[i].guestPlusOneId +"'/>"+
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;'/>" +
+					"<div><span id='dateError' class='formError'></span></div>" +
 					"<label>Meal Choice: </label>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
+					
 					
 					for(var m = 0; m < response.meals.length; m++){
 						if(response.meals[m] === response.plusOnes[i].mealChoice)
@@ -414,10 +416,28 @@ function editPlusOnes(id){
 		data: {editName: editNameArr, editId: editIdArr, editMeal: editMealArr, addAdultName: addNameAdultArr, addAdultMeal: addMealAdultArr, addKidName: addNameKidArr, addKidMeal: addMealKidArr, guestId: id},
 		success: function(response){
 			openEditGuest(id);
+			
+			validatePlusOne()
 		}
 	
 	});
 
+}
+
+//Validate plus ones
+function validatePlusOne(){
+	var guest = $("#fullName").val();
+	var meal = $("#mealChoice").val();
+	
+	if (guest == ""){
+		document.getElementById("plusOneError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter name";
+		 return false;
+	}
+	if (meal == ""){
+		document.getElementById("mealError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a meal";
+		 return false;
+	}
+	return true;
 }
 
 /** DELETE PLUS ONES **/
