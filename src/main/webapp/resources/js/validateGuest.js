@@ -8,7 +8,7 @@ function validateGuestForm(){
 	console.log(validFirstName);
 	console.log(validLastName);
 	console.log(validEmail);
-	if (validFirstName && validLastName){
+	if (validFirstName && validLastName && validEmail){
 		form.submit();
 		form.reset();
 	}
@@ -40,7 +40,7 @@ function validateGuestForm(){
 			document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
 			validEmail = false;
 		}
-		else if (email == "" || email == null){
+		else if (email === "" || email === null){
 			document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
 			validEmail = false;
 		}
@@ -87,7 +87,7 @@ function validateEmail(){
 		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
 		validEmail = false;
 	}
-	else if (email == "" || email == null){
+	else if (email === "" || email === null){
 		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
 		validEmail = false;
 	}
@@ -99,9 +99,9 @@ function validateEmail(){
 
 /**VALIDATION FOR EDIT GUEST**/
 
-//var evalidFirstName = false;
-//var evalidLastName = false;
-//var evalidEmail = false;
+var evalidFirstName = false;
+var evalidLastName = false;
+var evalidEmail = false;
 
 function evalidateGuestForm(){
 	console.log(evalidFirstName);
