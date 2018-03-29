@@ -269,8 +269,8 @@ function openEditGuest(id) {
 							"<button onclick='deletePlusOne(" + response.plusOnes[i].guestPlusOneId + ", " + id + ");' class='fabutton absent'><i class='far fa-trash-alt'></i></button></label>" +
 					"<input type='hidden' class='editPlusOneId' value='" + response.plusOnes[i].guestPlusOneId +"'/>"+
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
-					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;'/>" +
-					"<div><span id='dateError' class='formError'></span></div>" +
+					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' oninput='validateName()'/>" +
+					"<div><span id='plusOneError' class='formError'></span></div>"+
 					"<label>Meal Choice: </label>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
 					
@@ -291,7 +291,8 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: &nbsp;&nbsp;&nbsp;" +
 					"<button onclick='deletePlusOne(" + response.plusOnes[i].guestPlusOneId + ", " + id + ");' class='fabutton absent'><i class='far fa-trash-alt'></i></button></label>" +
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
-					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;'/>" +
+					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;' oninput='validateName()'/>" +
+					"<div><span id='plusOneError' class='formError'></span></div>"+
 					"<label>Meal Choice: </label>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
 					
@@ -315,7 +316,8 @@ function openEditGuest(id) {
 
 				for(var k = 0; k < adultsLeft; k++){
 					var formItem = "<label>Name: </label>" +
-					"<input name='plusOneName' class='form-control addPlusOneNameAdult' style='margin-bottom:10px;'/>" +
+					"<input name='plusOneName' class='form-control addPlusOneNameAdult' style='margin-bottom:10px;' oninput='validateName()'/>" +
+					"<div><span id='plusOneError' class='formError'></span></div>"+
 					"<label>Meal Choice: </label>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealAdult' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
@@ -333,7 +335,8 @@ function openEditGuest(id) {
 			if (kidsLeft > 0){
 				for(var k = 0; k < kidsLeft; k++){
 					var formItem = "<label>Name: </label>" +
-					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px;/>" +
+					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px; oninput='validateName()'/>" +
+					"<div><span id='plusOneError' class='formError'></span></div>"+
 					"<label>Meal Choice: </label>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"

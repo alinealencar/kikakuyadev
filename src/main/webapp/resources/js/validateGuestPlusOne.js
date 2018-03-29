@@ -4,8 +4,8 @@ var validGuest = false;
 var validMeal = false;
 
 //Validate guest plus one name
-function validateName(val){
-	var guestName = val.value;
+function validateName(){
+	var guestName = document.getElementsByClassName("editPlusOneName")[0].value;
 	
 	if (guestName == "" ){
 		document.getElementById("plusOneError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter name";

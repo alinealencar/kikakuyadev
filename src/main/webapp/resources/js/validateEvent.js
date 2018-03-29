@@ -31,7 +31,7 @@ function validateEventForm(){
 		var today = new Date();
 		var eventDate = new Date(document.getElementsByClassName("eventDate")[0].value);
 		
-		if (eventDate.value == ""){
+		if (eventDate == null){
 			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 			console.log("yes!");
 			validDate = false;
@@ -44,6 +44,7 @@ function validateEventForm(){
 			document.getElementById("eventDateError").innerHTML = "";
 			validDate = true;
 		}
+		
 		return false;
 	}
 	return true;
@@ -130,7 +131,7 @@ function validateEditEventForm(){
 		var editToday = new Date();
 		var eventEditDate = new Date(document.getElementsByClassName("date-edit")[0].value);
 		
-		if (eventEditDate.value == ""){
+		if (eventEditDate == ""){
 			document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 			console.log("yes!");
 			validEditDate = false;
