@@ -144,7 +144,7 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public int findLastInserted() throws SQLException {
-		String query = "SELECT vendorId from Vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
+		String query = "SELECT vendorId from Vendor WHERE vendorId=(SELECT MAX(vendorId) FROM Vendor)";
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

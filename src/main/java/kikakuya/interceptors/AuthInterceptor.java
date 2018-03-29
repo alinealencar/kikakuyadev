@@ -18,7 +18,8 @@ public class AuthInterceptor implements HandlerInterceptor {
             HttpServletResponse response, Object handler) throws Exception {
         if(!AuthenticationUtilities.isLoggedIn(request.getSession()))
         	//Redirect user to login page
-        	response.sendRedirect(request.getContextPath());
+//        	System.out.println(request.getContextPath());
+        	response.sendRedirect("http://kikakuya.ca");
         
         return true;
     }
