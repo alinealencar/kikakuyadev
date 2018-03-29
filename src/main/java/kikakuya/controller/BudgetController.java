@@ -141,7 +141,7 @@ public class BudgetController {
 	
 	@RequestMapping(value="/editBudget", method = RequestMethod.POST)
 	public String processEditBudget(Model model, HttpServletRequest request, @ModelAttribute BudgetForm budgetForm){
-		String redirectTo = "budget";
+		String redirectTo = "redirect:/budget";
 		double newTotalBudget = budgetForm.getTotalBudget();
 		List<Good> goodsList = budgetForm.getGoodsList();
 		Event event = (Event) request.getSession().getAttribute("event");
@@ -187,7 +187,7 @@ public class BudgetController {
 				e.printStackTrace();
 		}
 		
-		return "budget";
+		return "redirect:/budget";
 	}
 	
 	@RequestMapping(value="/deleteVendor", method = RequestMethod.POST)
@@ -202,7 +202,7 @@ public class BudgetController {
 			e.printStackTrace();
 		}
 		
-		return "budget";
+		return "redirect:/budget";
 	}
 	
 	@RequestMapping(value="/deleteCategory", method = RequestMethod.POST)
@@ -218,7 +218,7 @@ public class BudgetController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return "budget";
+		return "redirect:/budget";
 	}
 	
 	@RequestMapping(value="/showVendor", method = RequestMethod.POST)

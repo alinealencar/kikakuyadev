@@ -15,7 +15,7 @@
 					    <h6 class="dropdown-header">Email:</h6>
 					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-						<a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
+						<a class="dropdown-item linked" href="#" onclick="location.href='/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
@@ -38,7 +38,7 @@
 					    <h6 class="dropdown-header">Email:</h6>
 					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
+					    <a class="dropdown-item linked" href="#" onclick="location.href='/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 					    <h6 class="dropdown-header">Email:</h6>
 					    <a class="dropdown-item disabled" href="#">${user.email}</a>
 					    <div class="dropdown-divider"></div>
-					    <a class="dropdown-item linked" href="#" onclick="location.href='/dev/list'">Events</a>
+					    <a class="dropdown-item linked" href="#" onclick="location.href='/list'">Events</a>
 					    <form id="logout" action="logout" method="post"><a class="dropdown-item linked" href="javascript:{}" onclick="console.log('logout'); document.getElementById('logout').submit();">Logout</a></form>
 					</div>
 				 </div>
