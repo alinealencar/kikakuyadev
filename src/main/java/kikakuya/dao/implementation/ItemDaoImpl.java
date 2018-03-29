@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.ItemDao;
 import kikakuya.model.Item;
@@ -27,7 +28,8 @@ public class ItemDaoImpl implements ItemDao{
 	@Override
 	public List<Item> findItems(Lists list) throws SQLException {
 		String query = "SELECT * FROM Item WHERE ListlistId=" + list.getListId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		List<Item> items = new ArrayList<Item>();
 		ResultSet rs = pstmt.executeQuery(query);
 		while(rs.next()){
@@ -38,19 +40,24 @@ public class ItemDaoImpl implements ItemDao{
 			
 			items.add(item);
 		}
+		
+		connection.close();
 		return items;
 	}
 
 	@Override
 	public boolean insertItem(Item item) throws SQLException {
 		String query = "INSERT INTO Item (itemName, itemStatus, ListlistId) VALUES (?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		
 		pstmt.setString(1, item.getItemName());
 		pstmt.setInt(2, item.getItemStatus());
 		pstmt.setInt(3, item.getListIdFK());
 		
 		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
 		return rowsAffected > 0;
 	}
 
@@ -58,9 +65,11 @@ public class ItemDaoImpl implements ItemDao{
 	public boolean updateItem(Item item) throws SQLException {
 		String query = "UPDATE Item SET itemName = '" + item.getItemName() + 
 				"' WHERE itemId=" + item.getItemId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 	
@@ -68,17 +77,22 @@ public class ItemDaoImpl implements ItemDao{
 	public boolean updateItemStatus(Item item) throws SQLException {
 		String query = "UPDATE Item SET itemStatus=" + item.getItemStatus() + 
 				" WHERE itemId=" + item.getItemId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 
 	@Override
 	public boolean deleteItem(int itemId) throws SQLException {
 		String query = "DELETE FROM Item WHERE itemId="+itemId;
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
 		return rowsAffected > 0;
 	}
 

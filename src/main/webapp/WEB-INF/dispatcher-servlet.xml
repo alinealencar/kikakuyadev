@@ -31,13 +31,14 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	<import resource="beans/eventBeans.xml"/>
 	<import resource="beans/listBeans.xml"/>
 	<import resource="beans/calendarBeans.xml"/>
-
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://kikakuyadb.cgcmdgrp6zdp.ca-central-1.rds.amazonaws.com:3306/kikakuyadb" />
-		<property name="username" value="kikakuyaadmin" />
-		<property name="password" value="TechGirls" />
+	
+	<bean id="dataSource" destroy-method="close"
+  		class="org.apache.commons.dbcp.BasicDataSource">
+    	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+    	<property name="url" value="jdbc:mysql://kikakuyadb.cgcmdgrp6zdp.ca-central-1.rds.amazonaws.com:3306/kikakuyadb"/>
+    	<property name="username" value="kikakuyaadmin"/>
+    	<property name="password" value="TechGirls"/>
+    	<property name="initialSize" value="3"/>
 	</bean>
 	
 	<mvc:interceptors>

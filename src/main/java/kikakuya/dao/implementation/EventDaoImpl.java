@@ -9,6 +9,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.EventDao;
 import kikakuya.model.Event;
@@ -30,7 +31,8 @@ public class EventDaoImpl implements EventDao {
 	
 	public List<Event> listEventsByUser(User user) throws SQLException  {
 		String query = "Select * from Event WHERE UseruserId = " + user.getUserId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		List<Event> events = new ArrayList<Event>();
 		ResultSet rs = pstmt.executeQuery(query);
 		while(rs.next()){
@@ -44,19 +46,22 @@ public class EventDaoImpl implements EventDao {
 			events.add(event);
 		}
 		
+		connection.close();
 		return events;
 	}
 	
 	
 	public boolean insertEvent(Event event, User user) throws SQLException, ParseException {
 		String query = "INSERT INTO Event (eventName, eventDate, location, UseruserId) values (?,?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, event.getEventName());
 		pstmt.setTimestamp(2, HelperUtilities.stringToTimestamp(event.getEventDate()));
 		pstmt.setString(3,event.getLocation());
 		pstmt.setInt(4, user.getUserId());
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 	
@@ -65,22 +70,28 @@ public class EventDaoImpl implements EventDao {
 				"', eventDate = '" + HelperUtilities.stringToTimestamp(event.getEventDate()) + 
 				"', location = '" + event.getLocation() + 
 				"' where eventId = " + event.getEventId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 	}
 	
 	public boolean deleteEvent(Event event) throws SQLException{
 		String query = "DELETE FROM Event WHERE eventId="+ event.getEventId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
 		return rowsAffected > 0;
 	}
 	
 	public Event findEventById(int eventId) throws SQLException {
 		String query = "SELECT * FROM Event WHERE eventId="+eventId;
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Event event = new Event();
 		while(rs.next()){
@@ -90,6 +101,8 @@ public class EventDaoImpl implements EventDao {
 			event.setLocation(rs.getString(5));
 			event.setTotalBudget(rs.getDouble(6));
 		}
+		
+		connection.close();
 		return event;
 	}
 
@@ -97,9 +110,11 @@ public class EventDaoImpl implements EventDao {
 	public boolean updateTotalBudget(int eventId, double totalBudget) throws SQLException {
 		String query = "update Event set totalBudget=" + totalBudget + " where eventId=" + eventId;
 		
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 	}
 
@@ -112,7 +127,8 @@ public class EventDaoImpl implements EventDao {
 		
 		System.out.println(query);
 		
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		
 		List<Event> eventsList = new ArrayList<Event>();
@@ -126,6 +142,7 @@ public class EventDaoImpl implements EventDao {
 			eventsList.add(event);
 		}
 		
+		connection.close();
 		return eventsList;
 		
 	}

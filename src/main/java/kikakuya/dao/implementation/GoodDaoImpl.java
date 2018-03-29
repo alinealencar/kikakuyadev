@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.GoodDao;
 import kikakuya.model.Good;
@@ -23,20 +24,25 @@ public class GoodDaoImpl implements GoodDao{
 	
 	public boolean insertGood(Good good, int vendorEventId) throws SQLException {
 		String query = "Insert into Good (goodName, goodPrice, VendorEventvendorEventId) values (?,?,?)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, good.getGoodName());
 		pstmt.setDouble(2, good.getGoodPrice());
 		pstmt.setInt(3, vendorEventId);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return rowsAffected > 0;
 	}
 
 	@Override
 	public boolean deleteGood(int goodId) throws SQLException {
 		String query = "delete from Good where goodId=" + goodId;
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
 		return rowsAffected > 0;
 	}
 	
@@ -46,9 +52,11 @@ public class GoodDaoImpl implements GoodDao{
 	"goodName='" + good.getGoodName() + "', " +
 	"goodPrice=" + good.getGoodPrice() + " " +
 	"where goodId=" + good.getGoodId();
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
+		connection.close();
 		return(rowsAffected > 0);
 	}
 
@@ -56,12 +64,17 @@ public class GoodDaoImpl implements GoodDao{
 	public int goodsByVendor(int vendorId) throws SQLException {
 		String query = "select count(*) as numOfGoods from Good where vendoreventvendoreventId in "
 				+ "(select vendoreventId from VendorEvent where vendorvendorId=" + vendorId + ")";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
-		if(rs.first())
+		if(rs.first()){
+			connection.close();
 			return (rs.getInt(1));
-		else
+		}
+		else {
+			connection.close();
 			return 0;
+		}
 	}
 	
 }

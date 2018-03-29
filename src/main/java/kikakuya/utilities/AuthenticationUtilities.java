@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -42,7 +43,8 @@ public class AuthenticationUtilities {
 				System.out.println("DATASOURCE: " + dataSource);
 				User user = new User();
 				String query = "Select userId, userName, email, token, series from user where series = ?";
-				PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+				Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setString(1, rememberMeCookies[1].getValue());
 				ResultSet resultSet = pstmt.executeQuery();
 				if(resultSet.next()){

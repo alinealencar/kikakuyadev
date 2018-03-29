@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 
 import kikakuya.dao.VendorDao;
 import kikakuya.model.Event;
@@ -34,7 +35,8 @@ public class VendorDaoImpl implements VendorDao{
 				+ "ON Vendor.vendorId = VendorEvent.VendorvendorId "
 				+ "WHERE VendorEvent.EventeventId=" + event.getEventId();
 				//+ " ORDER BY vendor.vendorId ASC";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
 		ResultSet rs = pstmt.executeQuery(query);
 		while(rs.next()){
@@ -47,6 +49,7 @@ public class VendorDaoImpl implements VendorDao{
 			
 			vendors.add(vendor);
 		}
+		connection.close();
 		return vendors;	
 	}
 	
@@ -55,13 +58,14 @@ public class VendorDaoImpl implements VendorDao{
 				+ "WHERE NOT EXISTS(SELECT * FROM vendor WHERE vendorName='"+ vendor.getName() + "'";*/
 		String query = "INSERT INTO Vendor (vendorName, website, phone, address) VALUES(?,?,?,?) "
 				+ "ON DUPLICATE KEY UPDATE vendorName=VALUES(vendorName), website=VALUES(website), phone=VALUES(phone), address=VALUES(address)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		pstmt.setString(1, vendor.getName());
 		pstmt.setString(2, vendor.getWebsite());
 		pstmt.setString(3, vendor.getPhoneNo());
 		pstmt.setString(4, vendor.getAddress());
 		int rowsAffected = pstmt.executeUpdate();
-		
+		connection.close();
 		return rowsAffected > 0;
 	}
 	
@@ -75,7 +79,8 @@ public class VendorDaoImpl implements VendorDao{
 				"and e.eventId = " + eventId +
 				" order by ev.vendorcategory, v.vendorName";
 		
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		Map<String, Map<Vendor, List<Good>>> result = new HashMap<String, Map<Vendor, List<Good>>>();
 		ResultSet rs = pstmt.executeQuery(query);
 		
@@ -134,32 +139,38 @@ public class VendorDaoImpl implements VendorDao{
 			result.put(curCategory, vendorMap);
 		}
 
+		connection.close();
 		return result;
 	}
 	
 	public int findLastInserted() throws SQLException {
 		String query = "SELECT vendorId from Vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		int vendorId=0;
 		while(rs.next()){
 			vendorId = rs.getInt(1);
 		}
+		connection.close();
 		return vendorId;
 	}
 
 	@Override
 	public boolean deleteVendor(int vendorId) throws SQLException {
 		String query = "delete from Vendor where vendorId=" + vendorId;
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
+		connection.close();
 		return rowsAffected > 0;
 	}
 
 	@Override
 	public Vendor findVendor(int vendorId) throws SQLException {
 		String query = "select * from Vendor where vendorId=" + vendorId;
-		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Vendor aVendor = new Vendor();
 		if(rs.next()){
@@ -168,6 +179,7 @@ public class VendorDaoImpl implements VendorDao{
 			aVendor.setPhoneNo(rs.getString(4));
 			aVendor.setAddress(rs.getString(5));
 		}
+		connection.close();
 		return aVendor;
 	}
 }
