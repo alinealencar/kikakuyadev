@@ -22,7 +22,7 @@ public class GoodDaoImpl implements GoodDao{
 	}
 	
 	public boolean insertGood(Good good, int vendorEventId) throws SQLException {
-		String query = "Insert into good (goodName, goodPrice, VendorEventvendorEventId) values (?,?,?)";
+		String query = "Insert into Good (goodName, goodPrice, VendorEventvendorEventId) values (?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, good.getGoodName());
 		pstmt.setDouble(2, good.getGoodPrice());
@@ -34,7 +34,7 @@ public class GoodDaoImpl implements GoodDao{
 
 	@Override
 	public boolean deleteGood(int goodId) throws SQLException {
-		String query = "delete from good where goodId=" + goodId;
+		String query = "delete from Good where goodId=" + goodId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
@@ -42,7 +42,7 @@ public class GoodDaoImpl implements GoodDao{
 	
 	@Override
 	public boolean updateGood(Good good) throws SQLException {
-		String query = "update good set " +
+		String query = "update Good set " +
 	"goodName='" + good.getGoodName() + "', " +
 	"goodPrice=" + good.getGoodPrice() + " " +
 	"where goodId=" + good.getGoodId();
@@ -54,8 +54,8 @@ public class GoodDaoImpl implements GoodDao{
 
 	@Override
 	public int goodsByVendor(int vendorId) throws SQLException {
-		String query = "select count(*) as numOfGoods from good where vendoreventvendoreventId in "
-				+ "(select vendoreventId from vendorevent where vendorvendorId=" + vendorId + ")";
+		String query = "select count(*) as numOfGoods from Good where vendoreventvendoreventId in "
+				+ "(select vendoreventId from VendorEvent where vendorvendorId=" + vendorId + ")";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		if(rs.first())

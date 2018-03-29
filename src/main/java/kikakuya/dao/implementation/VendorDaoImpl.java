@@ -30,9 +30,9 @@ public class VendorDaoImpl implements VendorDao{
 	public List<Vendor> findVendors(Event event) throws SQLException {
 		//String query = "SELECT v.vendorId, v.vendorName, v.address, v.website, v.phone "
 		//		+ "FROM vendor v, vendorevent ev WHERE v.vendorId = ev.VendorvendorId";
-		String query = "SELECT DISTINCT vendor.vendorId, vendor.vendorName FROM vendor INNER JOIN vendorevent "
-				+ "ON vendor.vendorId = vendorevent.VendorvendorId "
-				+ "WHERE vendorevent.EventeventId=" + event.getEventId();
+		String query = "SELECT DISTINCT Vendor.vendorId, Vendor.vendorName FROM Vendor INNER JOIN VendorEvent "
+				+ "ON Vendor.vendorId = VendorEvent.VendorvendorId "
+				+ "WHERE VendorEvent.EventeventId=" + event.getEventId();
 				//+ " ORDER BY vendor.vendorId ASC";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Vendor> vendors = new ArrayList<Vendor>();
@@ -53,7 +53,7 @@ public class VendorDaoImpl implements VendorDao{
 	public boolean insertVendor(Vendor vendor) throws SQLException {
 		/*String query = "INSERT INTO vendor (vendorName, website, phone, address) SELECT ?,?,?,? FROM vendor "
 				+ "WHERE NOT EXISTS(SELECT * FROM vendor WHERE vendorName='"+ vendor.getName() + "'";*/
-		String query = "INSERT INTO vendor (vendorName, website, phone, address) VALUES(?,?,?,?) "
+		String query = "INSERT INTO Vendor (vendorName, website, phone, address) VALUES(?,?,?,?) "
 				+ "ON DUPLICATE KEY UPDATE vendorName=VALUES(vendorName), website=VALUES(website), phone=VALUES(phone), address=VALUES(address)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, vendor.getName());
@@ -68,7 +68,7 @@ public class VendorDaoImpl implements VendorDao{
 	public Map<String, Map<Vendor, List<Good>>> findBudget(int eventId) throws SQLException {
 		String query = "select ev.vendorcategory, ev.vendoreventId," + 
 				" v.vendorId, v.vendorName, v.website, v.address, v.phone, " +
-				"g.goodId, g.goodName, g.goodPrice from event e, vendorevent ev, vendor v, good g " +
+				"g.goodId, g.goodName, g.goodPrice from Event e, VendorEvent ev, Vendor v, Good g " +
 				"where ev.eventEventId = e.eventId " +
 				"and ev.vendorVendorId = v.vendorId " +
 				"and ev.vendorEventId = g.vendorEventVendorEventId " +
@@ -138,7 +138,7 @@ public class VendorDaoImpl implements VendorDao{
 	}
 	
 	public int findLastInserted() throws SQLException {
-		String query = "SELECT vendorId from vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
+		String query = "SELECT vendorId from Vendor WHERE vendorId=(SELECT MAX(vendorId) FROM vendor)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		int vendorId=0;
@@ -150,7 +150,7 @@ public class VendorDaoImpl implements VendorDao{
 
 	@Override
 	public boolean deleteVendor(int vendorId) throws SQLException {
-		String query = "delete from vendor where vendorId=" + vendorId;
+		String query = "delete from Vendor where vendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
@@ -158,7 +158,7 @@ public class VendorDaoImpl implements VendorDao{
 
 	@Override
 	public Vendor findVendor(int vendorId) throws SQLException {
-		String query = "select * from vendor where vendorId=" + vendorId;
+		String query = "select * from Vendor where vendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Vendor aVendor = new Vendor();

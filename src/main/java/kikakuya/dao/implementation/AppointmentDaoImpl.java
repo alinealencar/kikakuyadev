@@ -26,7 +26,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 	@Override
 	public boolean insertAppointment(Appointment anAppt) throws SQLException, ParseException {
-		String query = "insert into appointment (apptDateTime, apptTitle, apptNotes, EventeventId, location, color) "
+		String query = "insert into Appointment (apptDateTime, apptTitle, apptNotes, EventeventId, location, color) "
 				+ "values (?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
@@ -48,7 +48,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 
 	@Override
 	public List<Appointment> findAppointmentsByMonth(int month, int year, int eventId) throws SQLException {
-		String query = "select * from appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'" +
+		String query = "select * from Appointment where apptDateTime between '" +year+"-"+(month+1)+"-01' and '" +year+"-"+(month+2) +"-01'" +
 						" and eventeventId=" + eventId;
 		
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
@@ -73,7 +73,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 
 	@Override
 	public Appointment findAppointmentById(int apptId) throws SQLException {
-		String query = "select * from appointment where apptId=" + apptId;
+		String query = "select * from Appointment where apptId=" + apptId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		
@@ -92,7 +92,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 
 	@Override
 	public boolean updateAppointment(Appointment appt) throws SQLException, ParseException {
-		String query = "update appointment set apptTitle='" + appt.getTitle() +
+		String query = "update Appointment set apptTitle='" + appt.getTitle() +
 				"', apptDateTime='" + appt.getApptDateTime() +
 				"', apptNotes='" + appt.getNotes() + 
 				"', location='" + appt.getLocation() + 
@@ -106,7 +106,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 
 	@Override
 	public boolean deleteAppointment(int apptId) throws SQLException {
-		String query = "DELETE FROM appointment WHERE apptId=" + apptId;
+		String query = "DELETE FROM Appointment WHERE apptId=" + apptId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
@@ -117,7 +117,7 @@ public class AppointmentDaoImpl implements AppointmentDao {
 		//Build day string
 		String day = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + date.get(Calendar.DATE) + " 00:00:00";
 		String dayEnd = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + (Integer.valueOf(date.get(Calendar.DATE)) + 1) + " 00:00:00";
-		String query = "SELECT * FROM appointment WHERE apptDateTime >= '" + day 
+		String query = "SELECT * FROM Appointment WHERE apptDateTime >= '" + day 
 				+ "' and apptDateTime < '" + dayEnd + "'"; 
 				
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);

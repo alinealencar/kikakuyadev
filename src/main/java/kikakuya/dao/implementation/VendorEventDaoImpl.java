@@ -24,7 +24,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 	
 	public boolean insertVendorEvent(Vendor vendor, Event event) throws SQLException {
-		String query = "INSERT INTO vendorEvent (EventeventId, VendorvendorId, vendorCategory) VALUES(?,?,?)";
+		String query = "INSERT INTO VendorEvent (EventeventId, VendorvendorId, vendorCategory) VALUES(?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setInt(1, event.getEventId());
 		pstmt.setInt(2, vendor.getVendorId());
@@ -36,7 +36,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 	
 	public int findVendorEventId(Vendor vendor) throws SQLException {
-		String query = "SELECT vendorEventId from vendorevent WHERE VendorvendorId=" + vendor.getVendorId();
+		String query = "SELECT vendorEventId from VendorEvent WHERE VendorvendorId=" + vendor.getVendorId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		int vendorEventId=0;
@@ -48,7 +48,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 
 	@Override
 	public boolean deleteVendorEvent(int vendorId) throws SQLException {
-		String query = "delete from vendorevent where VendorvendorId=" + vendorId;
+		String query = "delete from VendorEvent where VendorvendorId=" + vendorId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
@@ -56,7 +56,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 
 	@Override
 	public boolean deleteCategory(int eventId, String category) throws SQLException {
-		String query = "delete from vendorevent where EventeventId=" + eventId + 
+		String query = "delete from VendorEvent where EventeventId=" + eventId + 
 				" and vendorCategory='" + category + "'";
 		System.out.println(query);
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
@@ -65,7 +65,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 	
 	public boolean updateCategory(Vendor vendor) throws SQLException {
-		String query = "UPDATE vendorevent SET vendorCategory='" + vendor.getCategory() + "'"
+		String query = "UPDATE VendorEvent SET vendorCategory='" + vendor.getCategory() + "'"
 				+ "WHERE vendorCategory IS NULL";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
@@ -74,7 +74,7 @@ public class VendorEventDaoImpl implements VendorEventDao{
 	}
 	
 	public boolean isVendorFound(Vendor vendor) throws SQLException{
-		String query = "SELECT COUNT(*) FROM vendorevent WHERE VendorvendorId=" + vendor.getVendorId() 
+		String query = "SELECT COUNT(*) FROM VendorEvent WHERE VendorvendorId=" + vendor.getVendorId() 
 				+ " AND (vendorCategory='" + vendor.getCategory() + "' OR vendorCategory IS NULL)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

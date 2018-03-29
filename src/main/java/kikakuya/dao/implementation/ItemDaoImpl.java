@@ -26,7 +26,7 @@ public class ItemDaoImpl implements ItemDao{
 	
 	@Override
 	public List<Item> findItems(Lists list) throws SQLException {
-		String query = "SELECT * FROM item WHERE ListlistId=" + list.getListId();
+		String query = "SELECT * FROM Item WHERE ListlistId=" + list.getListId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Item> items = new ArrayList<Item>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -43,7 +43,7 @@ public class ItemDaoImpl implements ItemDao{
 
 	@Override
 	public boolean insertItem(Item item) throws SQLException {
-		String query = "INSERT INTO item (itemName, itemStatus, ListlistId) VALUES (?,?,?)";
+		String query = "INSERT INTO Item (itemName, itemStatus, ListlistId) VALUES (?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, item.getItemName());
@@ -56,7 +56,7 @@ public class ItemDaoImpl implements ItemDao{
 
 	@Override
 	public boolean updateItem(Item item) throws SQLException {
-		String query = "UPDATE item SET itemName = '" + item.getItemName() + 
+		String query = "UPDATE Item SET itemName = '" + item.getItemName() + 
 				"' WHERE itemId=" + item.getItemId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
@@ -66,7 +66,7 @@ public class ItemDaoImpl implements ItemDao{
 	
 	@Override
 	public boolean updateItemStatus(Item item) throws SQLException {
-		String query = "UPDATE item SET itemStatus=" + item.getItemStatus() + 
+		String query = "UPDATE Item SET itemStatus=" + item.getItemStatus() + 
 				" WHERE itemId=" + item.getItemId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
@@ -76,7 +76,7 @@ public class ItemDaoImpl implements ItemDao{
 
 	@Override
 	public boolean deleteItem(int itemId) throws SQLException {
-		String query = "DELETE FROM item WHERE itemId="+itemId;
+		String query = "DELETE FROM Item WHERE itemId="+itemId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;

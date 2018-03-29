@@ -26,7 +26,7 @@ public class ListDaoImpl implements ListDao{
 	}
 	
 	public List<Lists> findLists(Event event) throws SQLException {
-		String query = "SELECT * FROM list WHERE EventeventId=" + event.getEventId();
+		String query = "SELECT * FROM List WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<Lists> lists = new ArrayList<Lists>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -42,7 +42,7 @@ public class ListDaoImpl implements ListDao{
 
 	@Override
 	public boolean insertList(Lists list, Event event) throws SQLException {
-		String query = "INSERT INTO list (listTitle, EventeventId) VALUES (?,?)";
+		String query = "INSERT INTO List (listTitle, EventeventId) VALUES (?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, list.getListTitle());
@@ -54,7 +54,7 @@ public class ListDaoImpl implements ListDao{
 
 	@Override
 	public boolean deleteList(int listId) throws SQLException {
-		String query = "DELETE FROM list WHERE listId="+listId;
+		String query = "DELETE FROM List WHERE listId="+listId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;
@@ -62,7 +62,7 @@ public class ListDaoImpl implements ListDao{
 
 	@Override
 	public boolean updateList(Lists list) throws SQLException {
-		String query = "UPDATE list SET listTitle = '" + list.getListTitle() +
+		String query = "UPDATE List SET listTitle = '" + list.getListTitle() +
 				"' WHERE listId=" + list.getListId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
@@ -72,7 +72,7 @@ public class ListDaoImpl implements ListDao{
 
 	@Override
 	public Lists findListById(int listId) throws SQLException {
-		String query = "SELECT * FROM list WHERE listId="+listId;
+		String query = "SELECT * FROM List WHERE listId="+listId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Lists list = new Lists();
@@ -84,7 +84,7 @@ public class ListDaoImpl implements ListDao{
 	}
 	
 	public boolean isListFound(Lists list, int eventId) throws SQLException{
-		String query = "SELECT COUNT(*) FROM list WHERE listId=" + list.getListId() 
+		String query = "SELECT COUNT(*) FROM List WHERE listId=" + list.getListId() 
 				+" OR listTitle='" + list.getListTitle() + "' AND EventeventId = " + eventId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
@@ -97,7 +97,7 @@ public class ListDaoImpl implements ListDao{
 	}
 	
 	public boolean isListFoundEdit(Lists list, int eventId) throws SQLException{
-		String query = "SELECT COUNT(*) FROM list WHERE listId=" + list.getListId() 
+		String query = "SELECT COUNT(*) FROM List WHERE listId=" + list.getListId() 
 				+" OR listTitle='" + list.getListTitle() + "' AND EventeventId = " + eventId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

@@ -26,7 +26,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 	}
 	
 	public boolean insertPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException {
-		String query = "Insert into guestplusone (fullName, mealChoice, GuestguestId, Category) values (?,?,?,?)";
+		String query = "Insert into GuestPlusOne (fullName, mealChoice, GuestguestId, Category) values (?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		pstmt.setString(1, plusOne.getFullName());
 		pstmt.setString(2, plusOne.getMealChoice());
@@ -39,10 +39,9 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 
 	@Override
 	public boolean updatePlusOne(GuestPlusOne plusOne) throws SQLException {
-		String query = "update guestplusone set fullName = '" + plusOne.getFullName() + 
+		String query = "update GuestPlusOne set fullName = '" + plusOne.getFullName() + 
 				"', mealChoice = '" + plusOne.getMealChoice() +
 				"' where guestPlusOneId = '" + plusOne.getGuestPlusOneId() + "'";
-		System.out.println(query);
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -51,7 +50,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 
 	@Override
 	public List<GuestPlusOne> findPlusOne(Guest guest) throws SQLException {
-		String query = "select * from guestplusone where GuestguestId=" + guest.getGuestId();
+		String query = "select * from GuestPlusOne where GuestguestId=" + guest.getGuestId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		List<GuestPlusOne> plusOnes = new ArrayList<GuestPlusOne>();
 		ResultSet rs = pstmt.executeQuery(query);
@@ -69,7 +68,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 	
 	public int getPlusOnesTotalByCategory(Event event, String category) throws SQLException {
 		int count = 0;
-		String query = "SELECT COUNT(*) FROM guest g INNER JOIN guestplusone p"
+		String query = "SELECT COUNT(*) FROM Guest g INNER JOIN GuestPlusOne p"
 				+ " ON g.guestId = p.GuestguestId"
 				+ " WHERE EventeventId=" + event.getEventId()
 				+ " AND category='" + category + "'";
@@ -83,8 +82,7 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 
 	@Override
 	public boolean deletePlusOne(int plusOneId) throws SQLException {
-		String query = "delete from guestplusone where guestplusoneid=" + plusOneId;
-		System.out.println(query);
+		String query = "delete from GuestPlusOne where guestplusoneid=" + plusOneId;
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
 		return rowsAffected > 0;

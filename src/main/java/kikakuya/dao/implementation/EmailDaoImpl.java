@@ -24,7 +24,7 @@ public class EmailDaoImpl implements EmailDao{
 	}
 
 	public Email findEmailByEvent(Guest guest) throws SQLException {
-		String query = "SELECT * FROM email WHERE EventeventId=" + guest.getEventId();
+		String query = "SELECT * FROM Email WHERE EventeventId=" + guest.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		Email email = new Email();
@@ -41,7 +41,7 @@ public class EmailDaoImpl implements EmailDao{
 	}
 	
 	public boolean countEmailByEvent(Event event) throws SQLException {
-		String query = "SELECT COUNT(*) FROM email WHERE EventeventId=" + event.getEventId();
+		String query = "SELECT COUNT(*) FROM Email WHERE EventeventId=" + event.getEventId();
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);
 		if(rs.next())
@@ -53,7 +53,7 @@ public class EmailDaoImpl implements EmailDao{
 	}
 	
 	public boolean insertEmail(Email email, Event event) throws SQLException {
-		String query = "INSERT INTO email (replyDue, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids, EventeventId) VALUES (?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO Email (replyDue, mealChoiceBeef, mealChoicePork, mealChoiceChicken, mealChoiceVeg, mealChoiceFish, mealChoiceKids, EventeventId) VALUES (?,?,?,?,?,?,?,?)";
 		PreparedStatement pstmt = dataSource.getConnection().prepareStatement(query);
 		
 		pstmt.setString(1, email.getReplyDue());
