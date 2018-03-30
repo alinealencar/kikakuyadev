@@ -1,10 +1,13 @@
 /** VALIDATION **/
 
-/** Validation for adding budget on big screen **/
 var validCat = false;
 var validVen = false;
 var validItem = false;
 var validPrice = false;
+var validEditGood = true;
+var validEditPrice = true;
+var validEditTotalBudget = true;
+var validEnterTotalBudget = true;
 
 /***Validate item (small)***/
 function validateItemSM(val){
@@ -289,11 +292,40 @@ $(document).ready(function(){
 /***Validate enter vendor form (big)***/
 $(document).ready(function(){
 	$("#btnEnterVendor").click(function () {
+		var valid = true;
 		var name = $('#vendorName').val();
+		var phoneNo = $('#phone').val();
+		var website = $('#website').val();
+		var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+		var phoneRegEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+
+		if(phoneNo != ""){
+			if(phoneRegEx.test(phoneNo) === false){
+				document.getElementById("phoneError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Phone number is not valid</span>";
+				$('#phoneError').show();
+				valid = false;
+			}
+		}
+		else
+			document.getElementById("phoneError").innerHTML = "";
+		
+		if(website != ""){
+			if(urlRegEx.test(website) === false){
+				document.getElementById("websiteError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Website is not valid</span>";
+				$('#websiteError').show();
+				valid = false;
+			}
+		}
+		else
+			document.getElementById("websiteError").innerHTML = "";
+		
 		if(!name){
 			document.getElementById("nameError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter name</span>";
+			$('#nameError').show();
+			valid = false;
 		}
-		else{
+		
+		if(valid){
 			$('#addBudgetVenForm').submit();
 		}
 	});
@@ -304,10 +336,12 @@ function validateName(val){
 	var name = val.value;
 	if(name == ""){
 		document.getElementById("nameError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter name</span>";
+		$('#nameError').show();
 		validName = false;
 	}
 	else if(!isNaN(name)){
 		document.getElementById("nameError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Please enter a valid name</span>";
+		$('#nameError').show();
 		validName = false;
 	}
 	else{
@@ -316,15 +350,79 @@ function validateName(val){
 	}
 }
 
+/***Validate vendor phone (big)***/
+function validatePhoneNo(val) {
+	var phoneNo = val.value; 
+	var phoneRegEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+	
+	if(phoneNo != ""){
+		if(phoneRegEx.test(phoneNo) === false){
+			document.getElementById("phoneError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Phone number is not valid</span>";
+			$('#phoneError').show();
+		}
+		else {
+			document.getElementById("phoneError").innerHTML = "";
+		}
+	}
+	else
+		document.getElementById("phoneError").innerHTML = "";
+}
+
+/***Validate vendor website (big)***/
+function validateWebsite(val) {
+	var website = val.value; 
+	var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+
+	if(website != ""){
+		if(urlRegEx.test(website) === false){
+			document.getElementById("websiteError").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Website is not valid</span>";
+			$('#websiteError').show();
+		}
+		else {
+			document.getElementById("websiteError").innerHTML = "";
+		}
+	}
+	else
+		document.getElementById("websiteError").innerHTML = "";
+}
 
 /***Validate enter vendor form (small)***/
 $(document).ready(function(){
 	$("#btnEnterVendor-sm").click(function () {
+		var valid = true;
 		var name = $('#vendorName-sm').val();
+		var phoneNo = $('#phone-sm').val();
+		var website = $('#website-sm').val();
+		var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+		var phoneRegEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+
+		if(phoneNo != ""){
+			if(phoneRegEx.test(phoneNo) === false){
+				document.getElementById("phoneError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Phone number is not valid</span>";
+				$('#phoneError-sm').show();
+				valid = false;
+			}
+		}
+		else
+			document.getElementById("phoneError-sm").innerHTML = "";
+		
+		if(website != ""){
+			if(urlRegEx.test(website) === false){
+				document.getElementById("websiteError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Website is not valid</span>";
+				$('#websiteError-sm').show();
+				valid = false;
+			}
+		}
+		else
+			document.getElementById("websiteError-sm").innerHTML = "";
+
 		if(!name){
 			document.getElementById("nameError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter name</span>";
+			$('#nameError-sm').show();
+			valid = false;
 		}
-		else{
+		
+		if(valid){
 			$('#addBudgetVenForm-sm').submit();
 		}
 	});
@@ -336,10 +434,12 @@ function validateNameSM(val){
 	
 	if(name == ""){
 		document.getElementById("nameError-sm").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i> Please enter name</span>";
+		$('#nameError-sm').show();
 		validNameB = false;
 	}
 	else if(!isNaN(name)){
 		document.getElementById("nameError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Please enter name</span>";
+		$('#nameError-sm').show();
 		validNameB = false;
 	}
 	else{
@@ -348,11 +448,43 @@ function validateNameSM(val){
 	}
 }
 
-var validEditGood = true;
-var validEditPrice = true;
-var validEditTotalBudget = true;
-var validEnterTotalBudget = true;
+/***Validate vendor phone (small)***/
+function validatePhoneNoSM(val) {
+	var phoneNo = val.value; 
+	var phoneRegEx = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
+	if(phoneNo != ""){
+		if(phoneRegEx.test(phoneNo) === false){
+			document.getElementById("phoneError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Phone number is not valid</span>";
+			$('#phoneError-sm').show();
+		}
+		else {
+			document.getElementById("phoneError-sm").innerHTML = "";
+		}
+	}
+	else
+		document.getElementById("phoneError-sm").innerHTML = "";
+}
+
+/***Validate vendor website (small)***/
+function validateWebsiteSM(val) {
+	var website = val.value; 
+	var urlRegEx = /^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}/;
+
+	if(website != ""){
+		if(urlRegEx.test(website) === false){
+			document.getElementById("websiteError-sm").innerHTML = "<span style='font-size: 10px;'><i class='fas fa-times'></i> Website is not valid</span>";
+			$('#websiteError-sm').show();
+		}
+		else {
+			document.getElementById("websiteError-sm").innerHTML = "";
+		}
+	}
+	else
+		document.getElementById("websiteError-sm").innerHTML = "";
+}
+
+/***Validate edit budget***/
 $(document).ready(function(){
 	$("#btnSaveEditBudget").click(function () {
 		if (validEditGood && validEditPrice && validEditTotalBudget){
@@ -418,7 +550,7 @@ function validateEditTotalBudget(val){
 /***Validate total budget***/
 function validateEnterTotalBudget(val){
 	var budget = val.value;
-	if (budget == "" || budget <= 0){
+	if (budget == "" || budget <= 0 || budget == null){
 		$('#enterTotalBudgetError').html("Please enter a budget");
 		$('#enterTotalBudgetError').show();
 		validEnterTotalBudget = false;
@@ -436,6 +568,11 @@ function validateEnterTotalBudget(val){
 
 $(document).ready(function(){
 	$("#btnEnterTotalBudget").click(function () {
+		var budget = $('#totalBudget').val();
+		if(budget == "" || budget <= 0 || budget == null){
+			validEnterTotalBudget = false;
+		}
+		
 		if (validEnterTotalBudget){
 			$("#eventForm").submit();
 		}

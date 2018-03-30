@@ -159,14 +159,20 @@ $(document).ready(function(){
 		$('#formAddToBudget').show();
 		$('#nameError').hide();
 		$('#enterVendor').hide();
+		$("#nameError").hide();
+		$("#phoneError").hide();
+		$("#websiteError").hide();
 	});
 });
 /***Show add budget and hide enter vendor form (small)***/
 $(document).ready(function(){
 	$('#btnCancelAddVendor-sm').click(function(){
 		$('#formAddToBudget-sm').show();
-		$('#nameError-sm').hide();
 		$('#enterVendor-sm').hide();
+		$("#nameError-sm").hide();
+		$("#phoneError-sm").hide();
+		$("#websiteError-sm").hide();
+
 	});
 });
 /***Amount Remaining color decoration ***/

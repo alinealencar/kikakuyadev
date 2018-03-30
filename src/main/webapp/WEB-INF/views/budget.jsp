@@ -323,9 +323,10 @@
       						<span id="nameError-sm" class="formError"></span>
       					<form:input type="text" class="addAddress form-control" placeholder="Address" path="address" />
       						<span id="addressError" class="formError"></span>
-      					<form:input type="text" class="addPhoneNo form-control" placeholder="Phone Number" path="phoneNo" />
-      						<span id="phoneNoError" class="formError"></span>
-      					<form:input type="text" class="form-control" placeholder="Website" path="website" />
+      					<form:input type="text" id="phone-sm" class="addPhoneNo form-control" oninput="validatePhoneNoSM(this)" placeholder="Phone Number" path="phoneNo" />
+      						<span id="phoneError-sm" class="formError"></span>
+      					<form:input type="text" id="website-sm" class="form-control" oninput="validateWebsiteSM(this)" placeholder="Website" path="website" />
+      						<span id="websiteError-sm" class="formError"></span>
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
@@ -438,9 +439,10 @@
       						<span id="nameError" class="formError"></span>
       					<form:input type="text" id="address" class="addAddressB form-control" placeholder="Address" path="address" />
       						<span id="addressErrorB" class="formError"></span>
-      					<form:input type="text" id="phone" class="addPhoneNoB form-control" placeholder="Phone Number" path="phoneNo" />
-      						<span id="phoneNoErrorB" class="formError"></span>
-      					<form:input type="text" class="form-control" placeholder="Website" path="website" />
+      					<form:input type="text" id="phone" class="addPhoneNoB form-control" placeholder="Phone Number" path="phoneNo" oninput="validatePhoneNo(this)"/>
+      						<span id="phoneError" class="formError"></span>
+      					<form:input type="text" id="website" class="form-control" placeholder="Website" path="website" oninput="validateWebsite(this)"/>
+      						<span id="websiteError" class="formError"></span>
       				</div><br>
       				<div  class="form-group row">
       					<div class="col-sm-6 text-center">
