@@ -299,7 +299,6 @@
 				</form:form>
 				<br>
 				<div id="editPlusOnes">
-					<div id="plusOneError" style="display:none">Please fill in missing field/s</div>
 					<h2>Edit Plus Ones</h2><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a>					
 					<div id="plusOnesDiv">
 						<h4 id="plusOnesAdultsLabel">Adults:</h4>
@@ -309,7 +308,7 @@
 					</div>
 						
 					<div class="text-right">
-						<button id="btnEditPlusOne" onclick="editPlusOnes(${selectedGuest.guestId})" class="btn btn-info">
+						<button onclick="editPlusOnes(${selectedGuest.guestId})" class="btn btn-info">
 		     				Save
 		   				</button>
 	   				</div>
@@ -396,4 +395,5 @@
 
 <script src="resources/js/guestMgmt.js"></script>
 <script src="resources/js/validateGuest.js"></script>
+<script src="resources/js/validateGuestPlusOne.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

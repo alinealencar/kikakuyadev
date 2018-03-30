@@ -19,6 +19,10 @@ function validateGuestForm(){
 			document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
 			validFirstName = false;
 		}
+		else if (!isNaN(fName)){
+			document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Alphabets only";
+			validFirstName = false;
+		}
 		else{
 			document.getElementById("fNameError").innerHTML = "";
 			validFirstName = true;
@@ -27,6 +31,10 @@ function validateGuestForm(){
 		
 		if (lName == ""){
 			document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
+			validLastName = false;
+		}
+		else if(!isNaN(lName)){
+			document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Alphabets only";
 			validLastName = false;
 		}
 		else{
@@ -60,6 +68,10 @@ function validateFirstName(){
 		document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
 		validFirstName = false;
 	}
+	else if (!isNaN(fName)){
+		document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Alphabets only";
+		validFirstName = false;
+	}
 	else{
 		document.getElementById("fNameError").innerHTML = "";
 		validFirstName = true;
@@ -71,6 +83,10 @@ function validateLastName(){
 	
 	if (lName == ""){
 		document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
+		validLastName = false;
+	}
+	else if(!isNaN(lName)){
+		document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Alphabets only";
 		validLastName = false;
 	}
 	else{
