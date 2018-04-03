@@ -48,26 +48,48 @@ public class GuestController {
 		try {
 			//get total guest count
 			int guestCount = guestDelegate.countGuests(event);
-			//get plus one count by category
-			int plusOneAdultCount = guestDelegate.countPlusOnesByCategory(event, "Adult");
-			int plusOneKidCount = guestDelegate.countPlusOnesByCategory(event, "Kid");
+			
+			//get present plus one count by category
+			int presentPlusOneAdultCount = guestDelegate.countPlusOnesByCategory(event, "Adult", 0);
+			int presentPlusOneKidCount = guestDelegate.countPlusOnesByCategory(event, "Kid", 0);
+			
+			//get absent plus one count by category
+			int absentPlusOneAdultCount = guestDelegate.countPlusOnesByCategory(event, "Adult", 2);
+			int absentPlusOneKidCount = guestDelegate.countPlusOnesByCategory(event, "Kid", 2);
+			
+			//get no reply plus one count by category
+			int noReplyPlusOneAdultCount = guestDelegate.countPlusOnesByCategory(event, "Adult", 1);
+			int noReplyPlusOneKidCount = guestDelegate.countPlusOnesByCategory(event, "Kid", 1);
+			
+			//get total plus one count
+			int totalPlusOnes = guestDelegate.countPlusOnes(event);
+			
 			//get guest count by rsvp status
 			int presentCount = guestDelegate.countGuestsByStatus(event,present);
 			int absentCount = guestDelegate.countGuestsByStatus(event,absent);
 			int noReplyCount = guestDelegate.countGuestsByStatus(event,noReply);
+			
 			//total guests including plus ones
-			int totalGuestCount = guestCount + plusOneAdultCount + plusOneKidCount;
+			int totalGuestCount = guestCount + totalPlusOnes;
+			
 			//total present guest count including plus ones
-			int totalPresentCount = presentCount + plusOneAdultCount + plusOneKidCount;
+			int totalPresentCount = presentCount + presentPlusOneAdultCount + presentPlusOneKidCount;
+			
+			//total absent guest count including plus ones
+			int totalAbsentCount = absentCount + absentPlusOneAdultCount + absentPlusOneKidCount;
+			
+			//total no reply guest count including plus ones
+			int totalNoReplyCount = presentCount + noReplyPlusOneAdultCount + noReplyPlusOneKidCount;
+			
 			//total adults (all entered guests + adult plus ones)
-			int totalAdultCount = totalPresentCount - plusOneKidCount;
+			int totalAdultCount = totalPresentCount - presentPlusOneKidCount;
 			
 			request.setAttribute("totalGuests", totalGuestCount);
 			request.setAttribute("totalAdult", totalAdultCount);
-			request.setAttribute("totalKid", plusOneKidCount);
+			request.setAttribute("totalKid", presentPlusOneKidCount);
 			request.setAttribute("presentGuests", totalPresentCount);
-			request.setAttribute("absentGuests", absentCount);
-			request.setAttribute("noReplyGuests", noReplyCount);
+			request.setAttribute("absentGuests", totalAbsentCount);
+			request.setAttribute("noReplyGuests", totalNoReplyCount);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

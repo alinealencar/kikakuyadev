@@ -95,8 +95,8 @@ public class GuestDelegate {
 		return guestService.countGuests(event);
 	}
 	
-	public int countPlusOnesByCategory(Event event, String category) throws SQLException{
-		return guestService.countPlusOnesByCategory(event, category);
+	public int countPlusOnesByCategory(Event event, String category, int isPresent) throws SQLException{
+		return guestService.countPlusOnesByCategory(event, category, isPresent);
 	}
 	
 	public boolean addPlusOne(GuestPlusOne plusOne, Guest guest) throws SQLException{
@@ -105,5 +105,9 @@ public class GuestDelegate {
 	
 	public boolean removePlusOne(int plusOneId) throws SQLException {
 		return guestService.deletePlusOne(plusOneId);
+	}
+	
+	public int countPlusOnes(Event event) throws SQLException {
+		return guestService.countPlusOnes(event);
 	}
 }

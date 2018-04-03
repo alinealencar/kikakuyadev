@@ -73,12 +73,28 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		return plusOnes;
 	}
 	
-	public int getPlusOnesTotalByCategory(Event event, String category) throws SQLException {
+	public int getPlusOnesTotalByCategory(Event event, String category, int isPresent) throws SQLException {
 		int count = 0;
 		String query = "SELECT COUNT(*) FROM Guest g INNER JOIN GuestPlusOne p"
 				+ " ON g.guestId = p.GuestguestId"
 				+ " WHERE EventeventId=" + event.getEventId()
-				+ " AND category='" + category + "'";
+				+ " AND category='" + category + "' AND g.isPresent=" + isPresent;
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+            count = rs.getInt(1);
+        }
+		
+		connection.close();
+		return count;
+	}
+	
+	public int getPlusOnesTotal(Event event) throws SQLException {
+		int count = 0;
+		String query = "SELECT COUNT(*) FROM Guest g INNER JOIN GuestPlusOne p"
+				+ " ON g.guestId = p.GuestguestId"
+				+ " WHERE EventeventId=" + event.getEventId();
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		ResultSet rs = pstmt.executeQuery(query);

@@ -76,8 +76,8 @@ public class GuestServiceImpl implements GuestService {
 	}
 
 	@Override
-	public int countPlusOnesByCategory(Event event, String category) throws SQLException {
-		return plusOneDao.getPlusOnesTotalByCategory(event, category);
+	public int countPlusOnesByCategory(Event event, String category, int isPresent) throws SQLException {
+		return plusOneDao.getPlusOnesTotalByCategory(event, category, isPresent);
 	}
 
 	@Override
@@ -88,5 +88,10 @@ public class GuestServiceImpl implements GuestService {
 	@Override
 	public boolean deletePlusOne(int plusOneId) throws SQLException {
 		return plusOneDao.deletePlusOne(plusOneId);
+	}
+
+	@Override
+	public int countPlusOnes(Event event) throws SQLException {
+		return plusOneDao.getPlusOnesTotal(event);
 	}
 }
