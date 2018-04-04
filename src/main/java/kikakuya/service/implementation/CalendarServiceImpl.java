@@ -48,8 +48,8 @@ public class CalendarServiceImpl implements CalendarService {
 	}
 
 	@Override
-	public List<Appointment> findAppointmentsByDay(Calendar date) throws SQLException {
-		return apptDao.findAppointmentByDay(date);
+	public List<Appointment> findAppointmentsByDay(Calendar date, int eventId) throws SQLException {
+		return apptDao.findAppointmentByDay(date, eventId);
 	}
 
 }
