@@ -115,19 +115,15 @@ function validateEmail(){
 
 /**VALIDATION FOR EDIT GUEST**/
 
-var editFName = false;
-var editLName = false;
-var editEmail = false;
-
 function validateEditForm(){
+	var editFName = false;
+	var editLName = false;
+	var editEmail = false;
+	
 	console.log(editFName);
 	console.log(editLName);
 	console.log(editEmail);
-	if (editFName && editLName && editEmail){
-		form.submit();
-		form.reset();
-	}
-	else{
+//	if (!(editFName && editLName && editEmail)){
 		var editfName = document.getElementsByClassName("editfName")[0].value;
 		
 		if (editfName == ""){
@@ -158,7 +154,7 @@ function validateEditForm(){
 		}
 		var editEadd = document.getElementsByClassName("editEmailAdd")[0].value;
 		var emailRegEx = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
-		
+		console.log("email entered: " + editEadd);
 		if (!emailRegEx.test(editEadd)){
 			document.getElementById("editEmailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
 			editEmail = false;
@@ -171,9 +167,20 @@ function validateEditForm(){
 			document.getElementById("editEmailError").innerHTML = "";
 			editEmail = true;
 		}
+		
+		console.log(editFName);
+		console.log(editLName);
+		console.log(editEmail);
+		if (editFName && editLName && editEmail){
+			form.submit();
+			form.reset();
+			return true;
+		}
 		return false
-	}
-	return true
+//	}
+//	else {
+//		return false;
+//	}
 }
 
 function editFirstName(){
