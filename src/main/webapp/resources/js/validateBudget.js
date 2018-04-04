@@ -185,7 +185,7 @@ $(document).ready(function(){
 	});
  });
  
-/***Clear SessionStorage on submit (big form)***/
+/***Validate and clear SessionStorage on submit (big form)***/
 $(document).ready(function(){
 	$("#addBudget").click(function () {
 		var valueFromSS = sessionStorage.getItem("selectedCategory");

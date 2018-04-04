@@ -33,12 +33,25 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
 	<import resource="beans/calendarBeans.xml"/>
 	
 	<bean id="dataSource" destroy-method="close"
-  		class="org.apache.commons.dbcp.BasicDataSource">
+  		class="org.apache.commons.dbcp.BasicDataSource" scope="singleton">
     	<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
     	<property name="url" value="jdbc:mysql://kikakuyadb.cgcmdgrp6zdp.ca-central-1.rds.amazonaws.com:3306/kikakuyadb"/>
     	<property name="username" value="kikakuyaadmin"/>
     	<property name="password" value="TechGirls"/>
     	<property name="initialSize" value="10"/>
+    	<property name="maxActive" value="50"/>
+    	<property name="maxIdle" value="16"/>
+    	<property name="minIdle" value="8"/>
+    	<property name="timeBetweenEvictionRunsMillis" value="1800"/>
+    	<property name="minEvictableIdleTimeMillis" value="1800"/>
+    	<property name="testOnBorrow" value="true"/>
+    	<property name="testWhileIdle" value="true"/>
+    	<property name="testOnReturn" value="true"/>
+    	<property name="validationQuery" value="SELECT 1"/>
+    	<property name="maxWait"  value="1000"/>
+    	<property name="removeAbandoned" value="true"/>
+    	<property name="logAbandoned" value="true"/>
+    	<property name="removeAbandonedTimeout" value="30000"/>
 	</bean>
 	
 	<mvc:interceptors>
@@ -46,7 +59,11 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
     		<mvc:mapping path="/**"/>
     		<mvc:exclude-mapping path="/login"/>
     		<mvc:exclude-mapping path="/"/>
+    		<mvc:exclude-mapping path="/signup"/>
     		<mvc:exclude-mapping path="/logout"/>
+    		<mvc:exclude-mapping path="/rsvpResponse"/>
+    		<mvc:exclude-mapping path="/sendRsvpResponse"/>
+    		<mvc:exclude-mapping path="/resources/**"/>
 			<bean class="kikakuya.interceptors.AuthInterceptor" /> 
 		</mvc:interceptor>   	
 	</mvc:interceptors>
