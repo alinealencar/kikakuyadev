@@ -100,6 +100,7 @@ public class EventController {
 			HttpServletRequest request) throws SQLException{
 				
 		try{
+			System.out.println(event);
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
 				System.out.println("Update successful");

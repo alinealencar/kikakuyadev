@@ -48,10 +48,12 @@ public class SignUpController {
 		String redirectTo = "index";
 		
 		try {
+			System.out.println("processsignup method");
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){
 				//Send the user name to the request scope
 				request.setAttribute("userName", user.getUserName());
+				System.out.println("signup successful");
 				request.setAttribute("signUpSuccess", "Sign Up Successful. Please log in to start using Kikakuya.");
 				//Set the url the page will be redirected to
 				redirectTo = "index";

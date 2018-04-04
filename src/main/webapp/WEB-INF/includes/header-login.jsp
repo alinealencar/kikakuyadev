@@ -2,6 +2,8 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <body>
+<!-- link js -->
+<script src="resources/js/validateForm.js"></script>
 <div id="container" class="container.container-fluid">
 	<header>
 		<div class="row">
@@ -70,7 +72,7 @@
 					<div id="SignUp" class="col-sm-6">
 						<h1 style="margin-top: 10px;">Sign Up</h1>
 							<span id="formError" class="formError"></span>
-						<form:form action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
+						<form:form id="signUpFormId" action="signup" class="signUpForm" method="post" modelAttribute="user" onsubmit="return validateSignUpForm();">
 							<label for="userName" class="sr-only">Name: </label>
 							<a href="#" data-toggle="tooltip" data-placement="left" title="We recommend to input your full name here.">
 							<form:input path="userName" class="signUpName form-control" oninput="validateName('signUpName')" placeholder="Name"/>
