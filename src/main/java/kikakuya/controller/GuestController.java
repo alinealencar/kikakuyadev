@@ -79,7 +79,7 @@ public class GuestController {
 			int totalAbsentCount = absentCount + absentPlusOneAdultCount + absentPlusOneKidCount;
 			
 			//total no reply guest count including plus ones
-			int totalNoReplyCount = presentCount + noReplyPlusOneAdultCount + noReplyPlusOneKidCount;
+			int totalNoReplyCount = noReplyCount + noReplyPlusOneAdultCount + noReplyPlusOneKidCount;
 			
 			//total adults (all entered guests + adult plus ones)
 			int totalAdultCount = totalPresentCount - presentPlusOneKidCount;
