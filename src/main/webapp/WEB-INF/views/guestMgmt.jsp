@@ -219,7 +219,7 @@
 							</div>
 						</div>
 						<hr>
-						<form:form action="deleteGuest" method="post" class="text-center">
+						<form:form id ="deleteGuestForm" action="deleteGuest" method="post" class="text-center" onclick="deleteGuest()">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
 							<button type="submit" class="btn btn-info" style="background-color: #D90368; color: #F1E9DA; border: none;">
       							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guest</span>

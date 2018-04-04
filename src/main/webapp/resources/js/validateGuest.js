@@ -156,9 +156,8 @@ function validateEditForm(){
 			document.getElementById("lNameEdit").innerHTML = "";
 			editLName = true;
 		}
-		var editEadd = document.getElementsByClassName("guestEmail")[0].value;
-		var emailRegEx = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
-		
+		var editEadd = document.getElementsByClassName("editEmailAdd")[0].value;
+		var emailRegEx = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/
 		
 		if (!emailRegEx.test(editEadd)){
 			document.getElementById("editEmailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
@@ -227,4 +226,12 @@ function editEmailAddress(){
 			document.getElementById("editEmailError").innerHTML = "";
 			editEmail = true;
 		}
+}
+
+function deleteGuest(){
+	var guest = confirm ("Are you sure you want to delete this guest?");
+	
+	if (guest){
+		$("#deleteGuestForm").attr("action", "deleteGuest");
+	}
 }
