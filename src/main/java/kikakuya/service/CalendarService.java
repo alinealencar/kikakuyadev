@@ -13,5 +13,5 @@ public interface CalendarService {
 	public Appointment findAppointment(int apptId) throws SQLException;
 	public boolean editAppointment(Appointment appt) throws SQLException, ParseException;
 	public boolean deleteAppointment(int apptId) throws SQLException;
-	public List<Appointment> findAppointmentsByDay(Calendar date) throws SQLException;
+	public List<Appointment> findAppointmentsByDay(Calendar date, int eventId) throws SQLException;
 }

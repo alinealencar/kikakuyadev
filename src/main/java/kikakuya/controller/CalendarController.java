@@ -169,11 +169,13 @@ public class CalendarController {
 	
 	@RequestMapping(value="/todaysAppts", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Appointment> showTodaysAppts(){
+	public List<Appointment> showTodaysAppts(HttpSession session){
 		List<Appointment> apptList = null;
 		try {
 			Calendar date = Calendar.getInstance();
-			apptList = calendarDelegate.findApptsByDay(date);
+			Event event = (Event) session.getAttribute("event");
+			
+			apptList = calendarDelegate.findApptsByDay(date, event.getEventId());
 			System.out.println("TODAYS APPTS: " + apptList.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -184,13 +186,15 @@ public class CalendarController {
 	
 	@RequestMapping(value="/showApptsByDay", method = RequestMethod.POST)
 	@ResponseBody
-	public List<Appointment> showApptsByDay(@RequestParam("day") int day, @RequestParam("month") int month, @RequestParam("year") int year){
+	public List<Appointment> showApptsByDay(HttpSession session, @RequestParam("day") int day, @RequestParam("month") int month, @RequestParam("year") int year){
 		List<Appointment> apptList = null;
 		try {
 			DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
 			Calendar date  = Calendar.getInstance();
 			date.setTime(df.parse(day + "-" + month + "-" + year));
-			apptList = calendarDelegate.findApptsByDay(date);
+			Event event = (Event) session.getAttribute("event");
+
+			apptList = calendarDelegate.findApptsByDay(date, event.getEventId());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ParseException e) {

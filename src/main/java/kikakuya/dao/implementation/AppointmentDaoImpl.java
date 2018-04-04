@@ -122,12 +122,12 @@ public class AppointmentDaoImpl implements AppointmentDao {
 	}
 
 	@Override
-	public List<Appointment> findAppointmentByDay(Calendar date) throws SQLException {
+	public List<Appointment> findAppointmentByDay(Calendar date, int eventId) throws SQLException {
 		//Build day string
 		String day = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + date.get(Calendar.DATE) + " 00:00:00";
 		String dayEnd = date.get(Calendar.YEAR) + "-" + (Integer.valueOf(date.get(Calendar.MONTH)) + 1) + "-" + (Integer.valueOf(date.get(Calendar.DATE)) + 1) + " 00:00:00";
-		String query = "SELECT * FROM Appointment WHERE apptDateTime >= '" + day 
-				+ "' and apptDateTime < '" + dayEnd + "'"; 
+		String query = "SELECT * FROM Appointment WHERE apptDateTime >= '" + day
+				+ "' and apptDateTime < '" + dayEnd + "' and EventeventId=" + eventId; 
 				
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);

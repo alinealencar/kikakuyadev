@@ -50,8 +50,8 @@ public class CalendarDelegate {
 		return calendarService.deleteAppointment(apptId);
 	}
 	
-	public List<Appointment> findApptsByDay(Calendar date) throws SQLException {
-		return calendarService.findAppointmentsByDay(date);
+	public List<Appointment> findApptsByDay(Calendar date, int eventId) throws SQLException {
+		return calendarService.findAppointmentsByDay(date, eventId);
 	}
 	
 	public List<Event> findEventsByMonth(Calendar date, int userId) throws SQLException {
