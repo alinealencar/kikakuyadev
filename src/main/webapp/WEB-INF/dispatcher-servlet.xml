@@ -59,6 +59,7 @@ http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
     		<mvc:mapping path="/**"/>
     		<mvc:exclude-mapping path="/login"/>
     		<mvc:exclude-mapping path="/"/>
+    		<mvc:exclude-mapping path="/signup"/>
     		<mvc:exclude-mapping path="/logout"/>
     		<mvc:exclude-mapping path="/rsvpResponse"/>
     		<mvc:exclude-mapping path="/sendRsvpResponse"/>

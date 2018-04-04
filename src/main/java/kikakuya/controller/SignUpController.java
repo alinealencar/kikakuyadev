@@ -49,6 +49,7 @@ public class SignUpController {
 		
 		try {
 			System.out.println("processsignup method");
+			System.out.println(user);
 			boolean isValidUser = signUpDelegate.insertUser(user.getUserName(), user.getEmail(), user.getUserPassword());
 			if(isValidUser){
 				//Send the user name to the request scope
