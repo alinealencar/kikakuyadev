@@ -224,4 +224,13 @@ function showEditEvent(){
 function showList(){
 	var alertMsg = document.getElementById("alertMsg");
 }
+
+//confirm if event will be deleted
+function deleteEvent(){
+	var event = confirm ("Are you sure you want to delete this event?");
+	
+	if (event){
+		$("#deleteForm").attr("action", "deleteEvent");
+	}
+}
 	
