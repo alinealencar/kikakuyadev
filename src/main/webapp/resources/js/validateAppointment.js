@@ -74,6 +74,7 @@ function validateColor(val){
 	
 	if (!$("input:radio[name='color']:checked").val()){
 		 document.getElementById("colorError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a color";
+		 aColor = false;
 	}
 	
 	else{

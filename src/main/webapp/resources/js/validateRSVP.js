@@ -8,7 +8,21 @@ function validateRSVPForm(){
 		form.reset();
 	}
 	else{
-		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please select valid date";
+		var today = new Date();
+		var replyDue = new Date(document.getElementsByClassName("replyDue")[0].value);
+		
+		if (replyDue.value == "" || replyDue.value == null){
+			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please select valid date";
+			validReplyDue = false;
+		}
+		else if(replyDue < today){
+			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
+			validReplyDue = false;
+		}
+		else{
+			document.getElementById("replyDueError").innerHTML = "";
+			validReplyDue = true;
+		}
 		return false;
 	}
 	return true;
@@ -19,12 +33,12 @@ function validateReplyDue(){
 	var today = new Date();
 	var replyDue = new Date(document.getElementsByClassName("replyDue")[0].value);
 	
-	if (replyDue.value == ""){
+	if (replyDue == "" || replyDue == null){
 		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please select valid date";
 		validReplyDue = false;
 	}
 	else if(replyDue < today){
-		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please select valid date";
+		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
 		validReplyDue = false;
 	}
 	else{

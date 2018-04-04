@@ -74,7 +74,7 @@ public class EventController {
 					boolean isValidEvent = eventDelegate.insertEvent(event, user);
 					if(isValidEvent){
 						System.out.println("Insert successful");
-						redirectAtt.addFlashAttribute("insertError", "Added successfully!");
+						redirectAtt.addFlashAttribute("insertSuccess", "Added successfully!");
 						
 						//Update event list
 						request.getSession().setAttribute("listEvent", list);
@@ -97,15 +97,17 @@ public class EventController {
 	//Update an event
 	@RequestMapping(value="/update", method = RequestMethod.POST)
 	public String updateEvent(@ModelAttribute("event") Event event, Model model,
-			HttpServletRequest request) throws SQLException{
+			HttpServletRequest request, RedirectAttributes redirectAtt) throws SQLException{
 				
 		try{
 			boolean isUpdateEvent = eventDelegate.updateEvent(event);
 			if(isUpdateEvent){
 				System.out.println("Update successful");
+				redirectAtt.addFlashAttribute("updateSuccess", "Updated successfully!");
 			}
 			else{
 				System.out.println("Update not successful");
+				redirectAtt.addFlashAttribute("updateError", "Updated unsuccessful!");
 			}
 		}
 		catch(Exception e){
@@ -140,10 +142,11 @@ public class EventController {
 			boolean isDeleteEvent = eventDelegate.deleteEvent(event);
 			if(isDeleteEvent){
 				System.out.println("Delete successful");
-				redirectAtt.addFlashAttribute("deleteEvent", "Successfuly deleted!");
+				redirectAtt.addFlashAttribute("deleteEventSuccess", "Successfully deleted!");
 			} 
 			else {
 				System.out.println("Delete unsuccessful");
+				redirectAtt.addFlashAttribute("deleteEventError", "Unuccessfully deleted!");
 			}
 		}
 		catch(Exception e) {
