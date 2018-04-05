@@ -98,7 +98,7 @@
 								<tr class="selectGuest">
 									<td scope="row">${guest.firstName}</td>
 									<td>${guest.lastName}</td>
-									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
+									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
 											<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
 						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>		
