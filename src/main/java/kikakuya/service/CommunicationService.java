@@ -24,5 +24,6 @@ public interface CommunicationService {
 	public boolean countEmailByEvent(Event event) throws SQLException;
 	public boolean deleteGuestToken(Guest guest) throws SQLException;
 	public boolean isTokenFound(String token) throws SQLException;
-	
+	public int countPlusOnesByGuest(int guestId) throws SQLException;
+	public boolean removePlusOneByGuest(int guestId) throws SQLException;
 }

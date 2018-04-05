@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kikakuya.delegate.GuestDelegate;
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
 import kikakuya.model.Email;
@@ -133,8 +134,11 @@ public class RSVPController {
 
 			if(rsvpDelegate.updateGuest(guest)){
 				if(rsvpDelegate.deleteGuestToken(guest)){
+					if(rsvpDelegate.countPlusOnesByGuest(guest.getGuestId()) > 0){
+						if(!rsvpDelegate.removePlusOneByGuest(guest.getGuestId()))
+							request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
+					}
 					for(int i=0; i<plusOneList.size(); i++){
-						System.out.println(plusOneList.get(i).getFullName() + ", ");
 						if(!plusOneList.get(i).getFullName().trim().isEmpty())
 							rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
 						else

@@ -118,6 +118,16 @@ public class CommunicationServiceImpl implements CommunicationService{
 	    return props;
 	}
 	
+	@Override
+	public int countPlusOnesByGuest(int guestId) throws SQLException {
+		return guestPlusOneDao.getPlusOnesTotalByGuest(guestId);
+	}
+
+	@Override
+	public boolean removePlusOneByGuest(int guestId) throws SQLException {
+		return guestPlusOneDao.deletePlusOneByGuest(guestId);
+	}
+	
 	public void sendRSVP(Email email, User user, Event event, List<Guest> guestList)  {
 		String subject = "Kikakuya - RSVP to " + user.getUserName() + "'s Event";
 		String from = "kikakuyadev@gmail.com"; //add email address

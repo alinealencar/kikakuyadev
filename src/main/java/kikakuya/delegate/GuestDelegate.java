@@ -110,4 +110,8 @@ public class GuestDelegate {
 	public int countPlusOnes(Event event) throws SQLException {
 		return guestService.countPlusOnes(event);
 	}
+
+	
+	
+	
 }

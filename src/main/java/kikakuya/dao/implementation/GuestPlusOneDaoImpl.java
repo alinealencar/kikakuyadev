@@ -90,6 +90,21 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		return count;
 	}
 	
+	public int getPlusOnesTotalByGuest(int guestId) throws SQLException {
+		int count = 0;
+		String query = "SELECT COUNT(*) FROM GuestPlusOne"
+				+ " WHERE GuestguestId=" + guestId;
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+            count = rs.getInt(1);
+        }
+		
+		connection.close();
+		return count;
+	}
+	
 	public int getPlusOnesTotal(Event event) throws SQLException {
 		int count = 0;
 		String query = "SELECT COUNT(*) FROM Guest g INNER JOIN GuestPlusOne p"
@@ -109,6 +124,16 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 	@Override
 	public boolean deletePlusOne(int plusOneId) throws SQLException {
 		String query = "delete from GuestPlusOne where guestplusoneid=" + plusOneId;
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
+		return rowsAffected > 0;
+	}
+	
+	public boolean deletePlusOneByGuest(int guestId) throws SQLException {
+		String query = "delete from GuestPlusOne where GuestguestId=" + guestId;
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
