@@ -199,9 +199,9 @@
 							</div>	
 							<div class="col-9">
 								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
-									${person.fullName}
 									<c:if test="${person.category == 'Adult'}">
-										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+										<div>Name:<b> ${person.fullName}</b><br>MealChoice:<b> ${person.mealChoice}</b></div>
+										<hr>
 									</c:if>
 								</c:forEach>
 							</div>
@@ -213,7 +213,8 @@
 							<div class="col-9">
 								<c:forEach items="${plusOnesList.plusOnes}" var="person" >
 									<c:if test="${person.category == 'Kid'}">
-										<div><span>Name: ${person.fullName} - </span><span>Meal Choice: ${person.mealChoice}</span></div>
+										<div>Name:<b> ${person.fullName}</b><br>Meal Choice: <b>${person.mealChoice}</b></div>
+										<hr>
 									</c:if>
 								</c:forEach>
 							</div>
