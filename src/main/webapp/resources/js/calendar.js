@@ -4,7 +4,7 @@ function daysInMonth(month, year) {
 }
 
 $('#year, #month').change(function() {
-  if ($('#year').val().length > 0 && $('#month').val().length > 0) {
+  if ($('#year').val() > 0 && $('#month').val() > 0) {
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
     for (var i = 1; i <= 31; i++) {
@@ -522,12 +522,12 @@ function validateForm(){
 	var minute = $("#minute").val();
 	var ampm = $("#ampm").val();
 	
-	if(title == ""){
+	if(title === ""){
 		 document.getElementById("titleError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an appointment title";
 		 return false;
 	}
 	
-	if (address == ""){
+	if (address === ""){
 		 document.getElementById("addressError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter the address";
 		 return false;
 	}
@@ -537,15 +537,15 @@ function validateForm(){
 		 return false;
 	}
 	
-	if (day == "" || month == "" || year == "" || day == null || month == null || year == null){
+	if (day === "" || month === "" || year === "" || day === null || month === null || year === null){
 			document.getElementById("dateError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select date";
 			return false;
 	}
 	
-	if (hour == "" || minute == "" || ampm == "" || hour == null || minute == null || ampm == null){
+	if (hour === "" || minute === "" || ampm === "" || hour === null || minute === null || ampm === null){
 			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
+			return false;
 	}
-		return false;
 	return true;
 }
 
