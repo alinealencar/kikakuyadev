@@ -219,7 +219,7 @@
 							</div>
 						</div>
 						<hr>
-						<form:form action="deleteGuest" method="post" class="text-center">
+						<form:form id ="deleteGuestForm" action="deleteGuest" method="post" class="text-center" onclick="deleteGuest()">
 							<input name="token" type="hidden" value="${selectedGuest.guestId}"/>
 							<button type="submit" class="btn btn-info" style="background-color: #D90368; color: #F1E9DA; border: none;">
       							<span class="material-icons align-bottom" style="font-size: 150%;">remove_circle</span><span class="align-text-bottom">Remove Guest</span>
@@ -238,17 +238,17 @@
 				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
 				<h2>Edit Guest</h2>
-				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return evalidateGuestForm();">
+				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return validateEditForm();">
 					<form:hidden path="token" value="${selectedGuest.token}"/>
 					<label>First Name:</label>
-					<form:input path="firstName" value="${selectedGuest.firstName}"  class="efName form-control" oninput="evalidateFirstName()" style="margin-bottom:10px;"/>
-						<span id="efNameError" class="formError"></span> <br/>
+					<form:input path="firstName" value="${selectedGuest.firstName}"  class="editfName form-control" oninput="editFirstName()" style="margin-bottom:10px;"/>
+						<span id="fNameEdit" class="formError"></span> <br/>
 					<label>Last Name: </label>
-					<form:input path="lastName" value="${selectedGuest.lastName}" class="elName form-control" oninput="evalidateLastName()" style="margin-bottom:10px;"/>
-						<span id="elNameError" class="formError"></span> <br/>
+					<form:input path="lastName" value="${selectedGuest.lastName}" class="editlName form-control" oninput="editLastName()" style="margin-bottom:10px;"/>
+						<span id="lNameEdit" class="formError"></span> <br/>
 					<label>Email: </label>
-					<form:input path="email" value="${selectedGuest.email}" class="form-control" style="margin-bottom:10px;"/>
-						
+					<form:input path="email" value="${selectedGuest.email}" class="editEmailAdd form-control" oninput="editEmailAddress()" style="margin-bottom:10px;"/>
+						<span id="editEmailError" class="formError"></span> <br/>
 					<div class="form-group row">
 						<div class="col-6">
 							<label>RSVP Status: </label>

@@ -30,7 +30,6 @@ function addEditAppt(action){
             	 
             	 validateForm()
             	 $("#todaysAppts").show();
-            	 
             	 //Show appt after update
                  if(action === "editAppt") {
                 	 var apptId = $("#apptId").val();
@@ -417,6 +416,7 @@ function closeAppt(){
 	$("#timeError").hide();
 	$("#colorError").hide();
 	$("#showDay").hide();
+	$(".errorAlert").hide();
 }
 
 function openAddAppt(){
@@ -427,6 +427,7 @@ function openAddAppt(){
 	$("#showAppt").hide();
 	$("#btnAddAppt").show();
 	$("#showDay").hide();
+	$(".errorAlert").hide();
 }
 
 function showFeedbackMessages(response){
@@ -544,6 +545,7 @@ function validateForm(){
 	if (hour == "" || minute == "" || ampm == "" || hour == null || minute == null || ampm == null){
 			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
 	}
+		return false;
 	return true;
 }
 

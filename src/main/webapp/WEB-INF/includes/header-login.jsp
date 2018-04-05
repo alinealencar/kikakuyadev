@@ -2,6 +2,8 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <body>
+<!-- link js -->
+<script src="resources/js/validateForm.js"></script>
 <div id="container" class="container.container-fluid">
 	<header>
 		<div class="row">

@@ -31,6 +31,7 @@ public class UserDaoImpl implements UserDao {
 		pstmt.setString(3, HelperUtilities.toMd5(user.getUserPassword()));
 		
 		int rowsAffected = pstmt.executeUpdate();
+		System.out.println("dentro do insert user");
 		
 		connection.close();
 		return(rowsAffected > 0);

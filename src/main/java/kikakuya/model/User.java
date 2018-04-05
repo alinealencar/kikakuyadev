@@ -68,4 +68,12 @@ public class User {
 	public void setIsRememberMe(int isRememberMe) {
 		this.isRememberMe = isRememberMe;
 	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userName=" + userName + ", userPassword=" + userPassword + ", email="
+				+ email + ", token=" + token + ", series=" + series + ", isRememberMe=" + isRememberMe + "]";
+	}
+	
+	
 }

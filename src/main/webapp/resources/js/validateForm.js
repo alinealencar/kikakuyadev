@@ -12,8 +12,8 @@ function validateSignUpForm(){
 	console.log("password: " + validPassword);
 	console.log("c password:" + validConfirmPassword);
 	if(validName && validEmail && validPassword && validConfirmPassword){
-		form.submit();
-		form.reset();
+		document.getElementById('signUpFormId').submit();
+		document.getElementById('signUpFormId').reset();
 	}
 	else if ((name == "") || (email === "") || (password === "") || (passwordConfirm === "")) {
 		document.getElementById("formError").innerHTML = "<i class='fas fa-times'></i>  Please fill in missing fields";

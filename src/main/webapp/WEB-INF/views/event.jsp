@@ -6,15 +6,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<script src="resources/css/eventPage.css"></script>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
 		<div id="alertMsg" class="col-sm-10">
-				<div class="${(insertError != null) ? 'alert alert-danger' :''}" role="alert">${insertError}</div>
-				<div class="${(deleteEvent != null) ? 'alert alert-danger' :''}" role="alert">${deleteEvent}</div>				
+			<div class="${(insertSuccess != null) ? 'successAlert':''}">${insertSuccess}</div>
+			<div class="${(insertError != null) ? 'errorAlert':''}">${insertError}</div>	
+			<div class="${(deleteEventSuccess != null) ? 'successAlert':''}">${deleteEventSuccess}</div>	
+			<div class="${(deleteEventError != null) ? 'errorAlert':''}">${deleteEventError}</div>	
+			<div class="${(updateSuccess != null) ? 'successAlert':''}">${updateSuccess}</div>	
+			<div class="${(updateError != null) ? 'errorAlert':''}">${updateError}</div>				
 		</div>
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
@@ -43,7 +46,7 @@
 							<div class="col-8">
 							</div>
 							<div class="col-2 text-right" style="padding-right:0; padding-top:5px">								
-								<form:form action="delete" method="get" onclick="deleteEvent()">
+								<form:form id="deleteForm" action="delete" method="get" onclick="deleteEvent()">
 									<input name="eventId" type="hidden" value="${event.eventId}"/>
 									<button id="deleteBtn" type="submit" class="far fa-trash-alt" style="margin-top:2.5px;"></button>
 								</form:form>
@@ -232,6 +235,23 @@ h1 {
   .popup{
     width: 60%;
   }
+}
+.successAlert{
+	color: #025b19; 
+	background-color: rgba(182, 249, 229, 0.5); 
+	border: 2px solid #14e595; 
+	margin: 7px 0px; 
+	padding: 8px;
+	border-radius: 5px;
+}
+
+.errorAlert{
+	color: #c11d07; 
+	background-color: rgba(242, 198, 205, 0.5); 
+	border: 2px solid #e85c76; 
+	margin: 8px 0px; 
+	padding:8px;
+	border-radius: 5px;
 }
 </style>
 
