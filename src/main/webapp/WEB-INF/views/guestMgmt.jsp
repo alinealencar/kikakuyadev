@@ -290,7 +290,7 @@
 					<label>Group: </label>
 					<form:input path="company" value="${selectedGuest.company}" class="form-control" style="margin-bottom:10px;"/>
 					<label>Notes: </label>
-					<form:textarea path="notes" col="5" value="${selectedGuest.notes}" class="form-control" style="margin-bottom:10px;"/>
+					<textarea name="notes" id="notes" cols="5" class="form-control" style="margin-bottom:10px;"> ${selectedGuest.notes}</textarea>
 					<div class="text-right">
 						<button type="submit" class="btn btn-info">
 	      					Save
@@ -374,10 +374,10 @@
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
 						<!-- TODO: No Reply cannot be default -->
-						<form:select path="isPresent" class="form-control col-6">				
-				  			<form:option value="0" label="Accepted"/>
-				  			<form:option value="1" label="No Reply" selected="selected"/>			
-				  			<form:option value="2" label="Declined"/>
+						<form:select path="isPresent" class="form-control col-6">			
+				  			<option value="0">Accepted</option>	
+				  			<option value="1" selected="true">No Reply</option>
+				  			<option value="2">Declined</option>
 						</form:select>
 				</div>
 				<label>Group: </label>
