@@ -56,7 +56,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO Guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO Guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes, mealChoice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		
@@ -71,6 +71,7 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setInt(9, guest.getEventId());
 		pstmt.setString(10, guest.getToken());
 		pstmt.setString(11, guest.getNotes());
+		pstmt.setString(12, guest.getMealChoice());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -228,7 +229,8 @@ public class GuestDaoImpl implements GuestDao {
 				"', company = '" + guest.getCompany() +
 				"', notes = '" + guest.getNotes() +
 				"', isPresent = " + guest.getIsPresent() +
-				" where guestId = " + guest.getGuestId();
+				", mealChoice= '" + guest.getMealChoice() + 
+				"' where guestId = " + guest.getGuestId();
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();

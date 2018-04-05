@@ -10,7 +10,8 @@ function validateGuestForm(){
 	console.log(validEmail);
 	if (validFirstName && validLastName && validEmail){
 		form.submit();
-		form.reset();
+		$("#guestSuccess").html("Guest was updated!");
+		//form.reset();
 	}
 	else{
 		var fName = document.getElementsByClassName("fName")[0].value;
@@ -123,7 +124,6 @@ function validateEditForm(){
 	console.log(editFName);
 	console.log(editLName);
 	console.log(editEmail);
-//	if (!(editFName && editLName && editEmail)){
 		var editfName = document.getElementsByClassName("editfName")[0].value;
 		
 		if (editfName == ""){
@@ -177,10 +177,6 @@ function validateEditForm(){
 			return true;
 		}
 		return false
-//	}
-//	else {
-//		return false;
-//	}
 }
 
 function editFirstName(){
