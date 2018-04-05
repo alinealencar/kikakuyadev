@@ -304,6 +304,7 @@
 					<div id="plusOnesDiv">
 						<h4 id="plusOnesAdultsLabel">Adults:</h4>
 						<div id="plusOnesAdults"></div>
+						<br>
 						<h4 id="plusOnesKidsLabel">Kids:</h4>
 						<div id="plusOnesKids"></div>
 					</div>
