@@ -19,4 +19,7 @@
 		<img class="img-fluid" alt="Reply RSVP" src="resources/images/guests/reply.png">
 	</div>
 </div>
+<script type="text/javascript">
+window.onbeforeunload = function() { window.history.forward(1); };
+</script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
