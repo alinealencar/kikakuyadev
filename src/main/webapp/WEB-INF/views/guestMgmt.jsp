@@ -239,7 +239,7 @@
 				<!-- Edit Guest -->
 				<h2>Edit Guest</h2>
 				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return validateEditForm();">
-					<form:hidden path="token" value="${selectedGuest.token}"/>
+					<form:hidden path="guestId" value="${selectedGuest.guestId}"/>
 					<label>First Name:</label>
 					<form:input path="firstName" value="${selectedGuest.firstName}"  class="editfName form-control" oninput="editFirstName()" style="margin-bottom:10px;"/>
 						<span id="fNameEdit" class="formError"></span> <br/>
@@ -299,6 +299,7 @@
 				</form:form>
 				<br>
 				<div id="editPlusOnes">
+					<div id="plusOnesSuccess" class="successAlert"></div>
 					<h2>Edit Plus Ones</h2><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a>					
 					<div id="plusOnesDiv">
 						<h4 id="plusOnesAdultsLabel">Adults:</h4>
@@ -371,9 +372,9 @@
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
 						<!-- TODO: No Reply cannot be default -->
-						<form:select path="isPresent" class="form-control col-6">							
+						<form:select path="isPresent" class="form-control col-6">				
 				  			<form:option value="0" label="Accepted"/>
-				  			<form:option value="1" label="No Reply" selected="selected"/>
+				  			<form:option value="1" label="No Reply" selected="selected"/>			
 				  			<form:option value="2" label="Declined"/>
 						</form:select>
 				</div>
