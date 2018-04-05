@@ -431,7 +431,8 @@ function editPlusOnes(id){
 			$("#plusOnesSuccess").show();
 			//validate
 			//validatePlusOne()
-			
+			$( "#guestId"+response.guestId + " td:nth-child(3)" ).html("Adults: " + response.adultsWith + "&nbsp;&nbsp;&nbsp;Kids: " + response.kidsWith);
+
 		}
 	
 	});
@@ -492,8 +493,8 @@ function deletePlusOne(plusOneId, guestId){
 				openEditGuest(guestId)
 				
 				//update the adultswith and kidswith in the table
-				$("#guestId"+response.guestId).html(response.adultsWith + "-" + response.kidsWith);
-			}
+				$( "#guestId"+response.guestId + " td:nth-child(3)" ).html("Adults: " + response.adultsWith + "&nbsp;&nbsp;&nbsp;Kids: " + response.kidsWith);
+				}
 		});
 	}
 }
