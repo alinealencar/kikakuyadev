@@ -7,6 +7,7 @@
 <jsp:include page="/WEB-INF/includes/header-rsvp-response.jsp"/>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+<script src="resources/js/validateRSVPResponse.js"></script>
 
 <div class="container"><!-- body contents start -->
 	<div>
@@ -20,7 +21,7 @@
 	  	<form:hidden value="${guest.guestId}" path="guestId" />
 		<div class="form-group row">
 		  	<label class="radio-inline text-center col-sm-6">
-		  		<h4><form:radiobutton name="attendance" id="attend" value="0" path="isPresent" required="true" checked="true"/>Happily attend!</h4>
+		  		<h4><form:radiobutton name="attendance" id="attend" value="0" path="isPresent" checked="true"/>Happily attend!</h4>
 		  	</label>
 		  	<label class="radio-inline text-center col-sm-6">
 		  		<h4><form:radiobutton name="attendance" id="absent" value="2" path="isPresent" />Sadly decline...</h4>
@@ -403,6 +404,7 @@
 			<button type="button" id="btnSendResponse" class="btn btn-success col-4 mb-2">Send</button>
 		</div>
 		</div>
+		<input type="hidden" id="refreshed" value="no">
 	</form:form>
  <script type="text/javascript">
  $(function() {
@@ -523,7 +525,8 @@
 	        }
 	    });
 });
- $(function() {
+ 
+ $(document).ready(function(){
 	    $('#absent').click(function() {
 	    	$('#adult').prop('disabled', true);
 	    	$('#kid').prop('disabled', true);
@@ -546,7 +549,7 @@
 	    	$('#guestName').prop('disabled', true);
 	    	$('#guestMeal').prop('disabled', true);
 	    	$('#specialRequirements').prop('disabled', true);
-	    		
+	    	
 	    });
 		
  });
@@ -581,5 +584,4 @@ $(function() {
  </script>
 
 </div><!-- body contents end -->
-<script src="resources/js/validateRSVPResponse.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
