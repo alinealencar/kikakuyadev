@@ -13,6 +13,7 @@ public interface GuestService {
 	public boolean deleteGuest(int guestId) throws SQLException;
 	public boolean editGuestRsvpInfo(Guest guest) throws SQLException;
 	public boolean editPlusOneInfo(GuestPlusOne plusOne) throws SQLException;
+	public boolean editGuestAdultsKidsWith(Guest guest) throws SQLException;
 	public boolean deletePlusOne(int plusOneId) throws SQLException;
 	public boolean editGuest(Guest guest) throws SQLException;
 	public List<Guest> getAllGuests(Event event) throws SQLException;
@@ -22,4 +23,5 @@ public interface GuestService {
 	public int countGuestsByStatus(Event event, int status) throws SQLException;
 	public int countPlusOnesByCategory(Event event, String category, int isPresent) throws SQLException;
 	public int countPlusOnes(Event event) throws SQLException;
+	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException;
 }

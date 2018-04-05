@@ -487,7 +487,12 @@ function deletePlusOne(plusOneId, guestId){
 			url: "deletePlusOne",
 			data: {plusOneId: plusOneId},
 			success: function(response){
+				//response is object of Guest type
+				
 				openEditGuest(guestId)
+				
+				//update the adultswith and kidswith in the table
+				$("#guestId"+response.guestId).html(response.adultsWith + "-" + response.kidsWith);
 			}
 		});
 	}

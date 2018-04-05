@@ -95,7 +95,7 @@
 						</thead>
 						<tbody  onclick="openShowGuest()">
 							<c:forEach items="${guests}" var="guest" >
-								<tr class="selectGuest">
+								<tr class="selectGuest" id="guestId${guest.guestId}">
 									<td scope="row">${guest.firstName}</td>
 									<td>${guest.lastName}</td>
 									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>

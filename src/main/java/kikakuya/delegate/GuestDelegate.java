@@ -111,7 +111,13 @@ public class GuestDelegate {
 		return guestService.countPlusOnes(event);
 	}
 
+	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException {
+		return guestService.getPlusOneById(plusOneId);
+	}
 	
+	public boolean editGuestAdultsKidsWith(Guest guest) throws SQLException {
+		return guestService.editGuestAdultsKidsWith(guest);
+	}
 	
 	
 }

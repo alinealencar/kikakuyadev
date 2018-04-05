@@ -284,11 +284,28 @@ public class GuestController {
 	
 	@RequestMapping(value="/deletePlusOne", method = RequestMethod.POST)
 	@ResponseBody
-	public void deletePlusOne(@RequestParam("plusOneId") int plusOneId){
+	public Guest deletePlusOne(@RequestParam("plusOneId") int plusOneId){
+		Guest guest = null;
 		try {
-			guestDelegate.removePlusOne(plusOneId);
+			//get guest plus One
+			GuestPlusOne plusOne = guestDelegate.getPlusOneById(plusOneId);
+			//get guest
+			guest = guestDelegate.getSelectedGuest(plusOne.getGuestGuestId());
+			
+			boolean deleteSuccessful = guestDelegate.removePlusOne(plusOneId);
+			//if delete is successful, decrease either the adultsWith or kidsWith of the guest
+			if(deleteSuccessful){
+				if(plusOne.getCategory().equals("Adult"))
+					guest.setAdultsWith(guest.getAdultsWith() - 1);
+				else
+					guest.setKidsWith(guest.getKidsWith() - 1);
+				
+				guestDelegate.editGuestAdultsKidsWith(guest);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return guest;
 	}
 }

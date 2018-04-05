@@ -224,9 +224,9 @@ public class GuestDaoImpl implements GuestDao {
 		String query = "update Guest set firstName = '" + guest.getFirstName() + 
 				"', lastName = '" + guest.getLastName() + 
 				"', email = '" + guest.getEmail() + 
-				"', adultsMax = '" + guest.getAdultsMax() + 
-				"', kidsMax = '" + guest.getKidsMax() +
-				"', company = '" + guest.getCompany() +
+				"', adultsMax = " + guest.getAdultsMax() + 
+				", kidsMax = " + guest.getKidsMax() +
+				", company = '" + guest.getCompany() +
 				"', notes = '" + guest.getNotes() +
 				"', isPresent = " + guest.getIsPresent() +
 				", mealChoice= '" + guest.getMealChoice() + 
@@ -266,6 +266,20 @@ public class GuestDaoImpl implements GuestDao {
         }
 		connection.close();
 		return count;
+	}
+
+	@Override
+	public boolean updateGuestAdultsKidsWith(Guest guest) throws SQLException {
+		String query = "update Guest set adultsWith = " + guest.getAdultsWith() +
+		", kidsWith = " + guest.getKidsWith() +
+		" where guestId = " + guest.getGuestId();
+		
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
+		return(rowsAffected > 0);
 	}
 
 }
