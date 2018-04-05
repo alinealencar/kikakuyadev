@@ -84,7 +84,7 @@ public class RSVPController {
 				}
 			}
 			else{
-				request.getSession().setAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
+				redirectAtt.addFlashAttribute("sendRSVPError", "Error! You can only send one RSVP per event.");
 				request.setAttribute("guests", guestList);
 			}
 		
