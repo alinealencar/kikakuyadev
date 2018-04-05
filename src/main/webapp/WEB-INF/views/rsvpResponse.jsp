@@ -10,12 +10,12 @@
 
 <div class="container"><!-- body contents start -->
 	<div>
-		<div class="${(sendRSVPError != null) ? 'alert alert-danger':''}" role="alert">${sendRSVPError}</div>
+		<div class="${(respondRSVPError != null) ? 'errorAlert':''}" role="alert">${sendRSVPError}</div>
 	</div>
-	
+	<div id="errorResponse" class="plusOneError errorAlert" style="display:none;"><span class="material-icons align-bottom" style="font-size: 150%;">error</span>&emsp;Please provide missing information</div>
 	<h4 class="text-center">The favor of reply is required by <b>${email.replyDue}</b></h4>
 	<h1 class="text-center">${guest.firstName} ${guest.lastName}</h1>
-	<form:form action="sendRsvpResponse" method="post" modelAttribute="guest" onsubmit="return validateResponseForm();"> 
+	<form:form id="responseForm" action="sendRsvpResponse" method="post" modelAttribute="guest"><!-- onsubmit="return validateResponseForm();"> -->
 	  	<form:hidden value="${token}" path="token" />
 	  	<form:hidden value="${guest.guestId}" path="guestId" />
 		<div class="form-group row">
@@ -67,13 +67,13 @@
 				<div class="col-sm-6">
     				<label for="guestName" class="sr-only">Guest Name</label>
     				<form:input type="text" id="guestName" class="form-control" value="${guest.firstName} ${guest.lastName}" path="${firstName}" oninput="validateGuest(this)"/>
-    				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+    				<span id="mainGuestError" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
     			</div>
     			
     			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
     			<div class="col-sm-6">
     				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="guestMeal" path="mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -93,7 +93,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="guestMealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
     			</div>
     			</c:if>
     		</div>
@@ -104,12 +104,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName1" class="form-control" placeholder="Enter Adult 1" path="plusOneList[0].fullName" oninput="validateGuest(this)"/>
-      				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+      				<span id="adult1Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal1" path="plusOneList[0].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -129,23 +129,23 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
+  					<span id="adult1MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[0].category" />
-      			<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
-    		</div>
+       		</div>
 			
 			<!-- meal choice for Adult +2 -->
     		<div class="row" id="adult2" style="display: none">
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName2" class="form-control" placeholder = "Enter Adult 2" path="plusOneList[1].fullName" oninput="validateGuest(this)"/>
-      				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+      				<span id="adult2Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal2" path="plusOneList[1].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -165,7 +165,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="adult2MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[1].category" />
@@ -176,12 +176,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName3" class="form-control" placeholder="Enter Adult 3" path="plusOneList[2].fullName" oninput="validateGuest(this)"/>
-     				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+     				<span id="adult3Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal3" path="plusOneList[2].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -200,8 +200,8 @@
     					<c:if test="${not empty email.mealChoiceKids}">
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
-    					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
   					</form:select>
+  					<span id="adult3MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[2].category" />
@@ -212,12 +212,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="adultName4" class="form-control" placeholder="Enter Adult 4" path="plusOneList[3].fullName" oninput="validateGuest(this)"/>
-      				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+      				<span id="adult4Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="adultMeal4" path="plusOneList[3].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -237,7 +237,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="adult4MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Adult" path="plusOneList[3].category" />
@@ -248,12 +248,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName1" class="form-control" placeholder="Enter Kid 1" path="plusOneList[4].fullName" oninput="validateGuest(this)"/>
-     				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+     				<span id="kid1Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal1" path="plusOneList[4].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -273,7 +273,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="kid1MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[4].category" />
@@ -284,12 +284,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName2" class="form-control" placeholder="Enter Kid 2" path="plusOneList[5].fullName" oninput="validateGuest(this)"/>
-     				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+     				<span id="kid2Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal2" path="plusOneList[5].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -309,7 +309,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="kid2MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[5].category" />
@@ -321,12 +321,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName3" class="form-control" placeholder="Enter Kid 3" path="plusOneList[6].fullName" oninput="validateGuest(this)"/>
-     				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+     				<span id="kid3Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal3" path="plusOneList[6].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -346,7 +346,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="kid3MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[6].category" />
@@ -358,12 +358,12 @@
 				<div class="col-sm-6">
     				<label for="+1" class="sr-only">Guest +1 Name</label>
      				<form:input type="text" id="kidName4" class="form-control" placeholder="Enter Kid 4" path="plusOneList[7].fullName" oninput="validateGuest(this)"/>
-     				<span class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
+     				<span id="kid4Error" class="plusOneError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please enter name</span>
       			</div>
       			<c:if test="${(not empty email.mealChoiceBeef) || (not empty email.mealChoicePork) || (not empty email.mealChoiceChicken) || (not empty email.mealChoiceVeg) || (not empty email.mealChoiceFish) || (not empty email.mealChoiceKids)}">
       			<div class="col-sm-6">
       				<form:select class="custom-select mb-2 mr-sm-2 mb-sm-0" id="kidMeal4" path="plusOneList[7].mealChoice" onchange="validateMeal(this)">
-    					<option value="" selected>---Select a meal---</option>
+    					<option value="" disabled="disabled" selected>---Select a meal---</option>
     					<c:if test="${not empty email.mealChoiceBeef}">
     						<option value="${email.mealChoiceBeef}">${email.mealChoiceBeef}</option>
     					</c:if>
@@ -383,7 +383,7 @@
     						<option value="${email.mealChoiceKids}">${email.mealChoiceKids}</option>
     					</c:if>
   					</form:select>
-  					<span class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
+  					<span id="kid4MealError" class="mealError formError" style='font-size: 14px; text-align:left; display:none;'><i class='fas fa-times'></i>  Please select a meal</span>
       			</div>
       			</c:if>
       			<form:hidden class="form-control" id="category" value="Kid" path="plusOneList[7].category" />
@@ -400,7 +400,7 @@
 		</div>
 			
 		<div class="text-center">
-			<button type="submit" class="btn btn-success col-4 mb-2">Send</button>
+			<button type="button" id="btnSendResponse" class="btn btn-success col-4 mb-2">Send</button>
 		</div>
 		</div>
 	</form:form>
@@ -414,24 +414,45 @@
                		$('#adult2').hide();
                		$('#adult3').hide();
                		$('#adult4').hide();
+               		$('#adult1Error').hide();
+               		$('#adult2Error').hide();
+               		$('#adult3Error').hide();
+               		$('#adult4Error').hide();
+               		$('#adult1MealError').hide();
+               		$('#adult2MealError').hide();
+               		$('#adult3MealError').hide();
+               		$('#adult4MealError').hide();
                 	break;
 	            case '1':
 	                $('#adult1').show();
 	                $('#adult2').hide();
 	                $('#adult3').hide();
                		$('#adult4').hide();
+               		$('#adult2Error').hide();
+               		$('#adult3Error').hide();
+               		$('#adult4Error').hide();
+               		$('#adult2MealError').hide();
+               		$('#adult3MealError').hide();
+               		$('#adult4MealError').hide();
+               		$
 	                break;
 	            case '2':
 	                $('#adult1').show();
 	                $('#adult2').show();
 	                $('#adult3').hide();
                		$('#adult4').hide();
+               		$('#adult3Error').hide();
+               		$('#adult4Error').hide();
+               		$('#adult3MealError').hide();
+               		$('#adult4MealError').hide();
 	                break;
 	            case '3':
 	               	$('#adult1').show();
 	                $('#adult2').show();
 	                $('#adult3').show();
 	                $('#adult4').hide();
+	                $('#adult4Error').hide();
+               		$('#adult4MealError').hide();
 	               	break;
 	            case '4':
 	               	$('#adult1').show();
@@ -453,24 +474,44 @@
             		$('#kid2').hide();
             		$('#kid3').hide();
             		$('#kid4').hide();
+            		$('#kid1Error').hide();
+               		$('#kid2Error').hide();
+               		$('#kid3Error').hide();
+               		$('#kid4Error').hide();
+               		$('#kid1MealError').hide();
+               		$('#kid2MealError').hide();
+               		$('#kid3MealError').hide();
+               		$('#kid4MealError').hide();
              	break;
 	            case '1':
 	                $('#kid1').show();
 	                $('#kid2').hide();
 	                $('#kid3').hide();
             		$('#kid4').hide();
+            		$('#kid2Error').hide();
+               		$('#kid3Error').hide();
+               		$('#kid4Error').hide();
+               		$('#kid2MealError').hide();
+               		$('#kid3MealError').hide();
+               		$('#kid4MealError').hide();
 	                break;
 	            case '2':
 	                $('#kid1').show();
 	                $('#kid2').show();
 	                $('#kid3').hide();
             		$('#kid4').hide();
+            		$('#kid3Error').hide();
+               		$('#kid4Error').hide();
+               		$('#kid3MealError').hide();
+               		$('#kid4MealError').hide();
 	                break;
 	            case '3':
 	               	$('#kid1').show();
 	                $('#kid2').show();
 	                $('#kid3').show();
 	                $('#kid4').hide();
+	                $('#kid4Error').hide();
+               		$('#kid4MealError').hide();
 	               	break;
 	            case '4':
 	               	$('#kid1').show();

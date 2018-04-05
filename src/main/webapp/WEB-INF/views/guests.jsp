@@ -47,7 +47,7 @@
 				<p><span style="background-color: #dc3545;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;Declined&nbsp;&nbsp;&nbsp;<span style="background-color: #28a745;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp; Accepted&nbsp;&nbsp;&nbsp; <span style="background-color: #ffc107;">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;No Reply
 			</div>
 			<div class="col-sm-6 text-right">
-				<span>Total Adults: ${totalAdult}&nbsp;&nbsp;&nbsp;&nbsp;Total Kids: ${totalKid}</span></p>
+				<span>Confirmed Adults: ${totalAdult}&nbsp;&nbsp;&nbsp;&nbsp;Confirmed Kids: ${totalKid}</span></p>
 			</div>
 		</div>
 	</c:if>
