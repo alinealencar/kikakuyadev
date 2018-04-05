@@ -1,6 +1,6 @@
 /** DOCUMENT.READY **/
 $(document).ready(function() {
-
+	$("#plusOnesSuccess").hide();
 });
 
 /** Make rows in the guest list clickable **/
@@ -247,6 +247,7 @@ function openShowGuest() {
 }
 
 function openEditGuest(id) {
+	$("#plusOnesSuccess").hide();
   document.getElementById("editGuestSection").style.width = "360px";
   document.getElementById("editGuestSection").style.display = "block";
   
@@ -423,9 +424,10 @@ function editPlusOnes(id){
 		data: {editName: editNameArr, editId: editIdArr, editMeal: editMealArr, addAdultName: addNameAdultArr, addAdultMeal: addMealAdultArr, addKidName: addNameKidArr, addKidMeal: addMealKidArr, guestId: id},
 		success: function(response){
 			openEditGuest(id);
-			
+			$("#plusOnesSuccess").html("Done!");
+			$("#plusOnesSuccess").show();
 			//validate
-			validatePlusOne()
+			//validatePlusOne()
 			
 		}
 	
