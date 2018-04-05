@@ -46,3 +46,11 @@ function validateReplyDue(){
 		validReplyDue = true;
 	}
 }
+
+setTimeout(function() {
+    $('.successAlert').fadeOut('fast');
+    }, 3000);
+
+setTimeout(function() {
+    $('.errorAlert').fadeOut('fast');
+    }, 3000);

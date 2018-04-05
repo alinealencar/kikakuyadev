@@ -94,4 +94,6 @@ public class GuestServiceImpl implements GuestService {
 	public int countPlusOnes(Event event) throws SQLException {
 		return plusOneDao.getPlusOnesTotal(event);
 	}
+
+	
 }

@@ -9,6 +9,7 @@ import kikakuya.model.Guest;
 import kikakuya.model.GuestPlusOne;
 import kikakuya.model.User;
 import kikakuya.service.CommunicationService;
+import kikakuya.service.GuestService;
 
 public class RSVPDelegate {
 
@@ -72,6 +73,13 @@ public class RSVPDelegate {
 		return communicationService.deleteGuestToken(guest);
 	}	
 	
+	public int countPlusOnesByGuest(int guestId) throws SQLException {
+		return communicationService.countPlusOnesByGuest(guestId);
+	}
+
+	public boolean removePlusOneByGuest(int guestId) throws SQLException {
+		return communicationService.removePlusOneByGuest(guestId);
+	}
 	
 	
 }

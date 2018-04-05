@@ -273,7 +273,7 @@ function openEditGuest(id) {
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
 					"<label>Meal Choice: </label>" +
-					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
+					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>" ;
 					
 					
 					for(var m = 0; m < response.meals.length; m++){
@@ -283,7 +283,7 @@ function openEditGuest(id) {
 							formItem += "<option>" + response.meals[m] + "</option>";
 					}
 					
-					formItem += "</select>";
+					formItem += "</select><hr>";
 					
 					$("#plusOnesAdults").append(formItem);
 				}
@@ -304,7 +304,7 @@ function openEditGuest(id) {
 							formItem += "<option>" + response.meals[m] + "</option>";
 					}
 					
-					formItem += "</select>";
+					formItem += "</select><hr>";
 					
 					$("#plusOnesKids").append(formItem);
 				}

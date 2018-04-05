@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import kikakuya.delegate.GuestDelegate;
 import kikakuya.delegate.MessageDelegate;
 import kikakuya.delegate.RSVPDelegate;
 import kikakuya.model.Email;
@@ -94,31 +95,6 @@ public class RSVPController {
 		return "redirect:/sendMessage";
 	}
 	
-	/*@RequestMapping(value="/resendRsvp", method = RequestMethod.POST)
-	public String processResendRSVP(HttpServletRequest request, HttpServletResponse response, 
-			@ModelAttribute("email") Email email){
-		
-		String redirectTo = "sendMessage";
-		User user = (User) request.getSession().getAttribute("user");
-		
-		//for testing
-		Event event = new Event(); 
-		event.setEventId(1); 
-		event.setLocation("ACC"); 
-		event.setEventDate("2018-05-29");
-		event.setEventName("Chace's Birthday");
-		
-		try {
-			rsvpDelegate.sendRSVP(email, user, event, guest);
-			request.setAttribute("sendRSVPSuccess", "Success! RSVPs have been successfully sent to all guests.");
-			redirectTo = "sendMessage";
-		
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return redirectTo;
-	}*/
-	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
 	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
 		
@@ -158,8 +134,11 @@ public class RSVPController {
 
 			if(rsvpDelegate.updateGuest(guest)){
 				if(rsvpDelegate.deleteGuestToken(guest)){
+					if(rsvpDelegate.countPlusOnesByGuest(guest.getGuestId()) > 0){
+						if(!rsvpDelegate.removePlusOneByGuest(guest.getGuestId()))
+							request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
+					}
 					for(int i=0; i<plusOneList.size(); i++){
-						System.out.println(plusOneList.get(i).getFullName() + ", ");
 						if(!plusOneList.get(i).getFullName().trim().isEmpty())
 							rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
 						else
@@ -173,6 +152,7 @@ public class RSVPController {
 				request.setAttribute("email", email);
 				request.setAttribute("token", guest.getToken());
 				request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
+				redirectTo = "rsvpResponse";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
