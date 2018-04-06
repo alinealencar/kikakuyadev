@@ -108,8 +108,6 @@
 							<form:input path="eventDate" type="date" class="eventDate form-control" oninput="validateDate()"/>
 								<span id="eventDateError" class="formError"></span>
 							<br>
-							<!--form:input type="date" name="eventDate" path="eventDate"/>
-							<div id="eventDateError" class="inputError"></div-->
 						</div>
 						
 				        <div class="text-right">
