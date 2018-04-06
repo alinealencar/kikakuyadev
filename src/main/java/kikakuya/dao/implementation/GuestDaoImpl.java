@@ -56,7 +56,7 @@ public class GuestDaoImpl implements GuestDao {
 	}
 
 	public boolean insertGuest(Guest guest) throws SQLException {
-		String query = "INSERT INTO Guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+		String query = "INSERT INTO Guest (firstName, lastName, email, isPresent, company, kidsMax, adultsMax, specialRequests, EventeventId, token, notes, mealChoice) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		
@@ -71,6 +71,7 @@ public class GuestDaoImpl implements GuestDao {
 		pstmt.setInt(9, guest.getEventId());
 		pstmt.setString(10, guest.getToken());
 		pstmt.setString(11, guest.getNotes());
+		pstmt.setString(12, guest.getMealChoice());
 		
 		int rowsAffected = pstmt.executeUpdate();
 		
@@ -83,7 +84,8 @@ public class GuestDaoImpl implements GuestDao {
 				"', kidsWith = '" + guest.getKidsWith() + 
 				"', adultsWith = '" + guest.getAdultsWith() + 
 				"', specialRequests = '" + guest.getSpecialRequests() + 
-				"', mealChoice = '" + guest.getMealChoice() + 
+				"', mealChoice = '" + guest.getMealChoice() +
+				"', notes = '" + guest.getNotes() +
 				"' WHERE guestId = '" + guest.getGuestId() + "'";
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
@@ -222,12 +224,13 @@ public class GuestDaoImpl implements GuestDao {
 		String query = "update Guest set firstName = '" + guest.getFirstName() + 
 				"', lastName = '" + guest.getLastName() + 
 				"', email = '" + guest.getEmail() + 
-				"', adultsMax = '" + guest.getAdultsMax() + 
-				"', kidsMax = '" + guest.getKidsMax() +
-				"', company = '" + guest.getCompany() +
+				"', adultsMax = " + guest.getAdultsMax() + 
+				", kidsMax = " + guest.getKidsMax() +
+				", company = '" + guest.getCompany() +
 				"', notes = '" + guest.getNotes() +
 				"', isPresent = " + guest.getIsPresent() +
-				" where guestId = " + guest.getGuestId();
+				", mealChoice= '" + guest.getMealChoice() + 
+				"' where guestId = " + guest.getGuestId();
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 		int rowsAffected = pstmt.executeUpdate();
@@ -263,6 +266,20 @@ public class GuestDaoImpl implements GuestDao {
         }
 		connection.close();
 		return count;
+	}
+
+	@Override
+	public boolean updateGuestAdultsKidsWith(Guest guest) throws SQLException {
+		String query = "update Guest set adultsWith = " + guest.getAdultsWith() +
+		", kidsWith = " + guest.getKidsWith() +
+		" where guestId = " + guest.getGuestId();
+		
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		int rowsAffected = pstmt.executeUpdate();
+		
+		connection.close();
+		return(rowsAffected > 0);
 	}
 
 }

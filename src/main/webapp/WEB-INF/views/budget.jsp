@@ -42,7 +42,7 @@
 				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
-						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$ ${event.totalBudget}</b></span>
+						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$ <script>document.write((${event.totalBudget}).toLocaleString());</script></b></span>
 					</div>					
 					<div class="col-3 d-block d-sm-none" onclick="openAddBudgetForm()">					
 					<button  type="button" class="btn btn-link img-fluid" onclick="">
@@ -77,7 +77,7 @@
 	   								<h5>--</h5>
 	   							</div>
 	   							<div class= "col-5">
-	   								<h5><span class="category${cat}">${good.goodPrice}</span></h5>
+	   								<h5><span class="category${cat}"><script>document.write((${good.goodPrice}).toLocaleString());</script></span></h5>
 	   							</div>
 	   						</div>
 						</c:forEach>
@@ -100,12 +100,12 @@
 				</c:forEach>
 				<div class="row text-center">
 					<div class="col-12">
-						<h3>Grand Total: <b>$<span id="totalBudget"><script>document.write(calculateTotal());</script></span></b></h3>
+						<h3>Grand Total: <b>$<span id="totalBudget"><script>document.write(calculateTotal().toLocaleString());</script></span></b></h3>
 					</div>
 				</div>
 				<div class="row text-center">
 					<div class="col-12">
-						<h3>Amount Remaining: <span id="amountRemaining">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+						<h3>Amount Remaining: <span id="amountRemaining">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()).toLocaleString());</script></span></h3>
 					</div>
 				</div>
 				
@@ -204,7 +204,7 @@
 					</div>
 					<div class="row text-center">
 						<div class="col-12">
-							<h3>Amount Remaining: <span id="amountRemainingEdit">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()));</script></span></h3>
+							<h3>Amount Remaining: <span id="amountRemainingEdit">$<script>document.write(calculateAmountRemaining('${event.totalBudget}', calculateTotal()).toLocaleString());</script></span></h3>
 						</div>
 					</div>
 				</form:form>
