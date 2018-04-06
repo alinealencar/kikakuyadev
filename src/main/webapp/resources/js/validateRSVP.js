@@ -20,7 +20,7 @@ function validateRSVPForm(){
 			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
 			validReplyDue = false;
 		}
-		else if(replyDue => eventDate.value){
+		else if(replyDue >= eventDate.value){
 			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please choose a date before the event date";
 			validReplyDue = false;
 		}
@@ -47,7 +47,7 @@ function validateReplyDue(){
 		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
 		validReplyDue = false;
 	}
-	else if(replyDue => eventDate){
+	else if(replyDue >= eventDate){
 		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please choose a date before the event date";
 		validReplyDue = false;
 	}
