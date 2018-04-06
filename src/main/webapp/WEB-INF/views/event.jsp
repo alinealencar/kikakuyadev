@@ -46,7 +46,7 @@
 							<div class="col-8">
 							</div>
 							<div class="col-2 text-right" style="padding-right:0; padding-top:5px">								
-								<form:form id="deleteForm" action="delete" method="get" onclick="deleteEvent()">
+								<form:form id="deleteForm" action="delete" method="get" onsubmit="return deleteEvent()">
 									<input name="eventId" type="hidden" value="${event.eventId}"/>
 									<button id="deleteBtn" type="submit" class="far fa-trash-alt" style="margin-top:2.5px;"></button>
 								</form:form>

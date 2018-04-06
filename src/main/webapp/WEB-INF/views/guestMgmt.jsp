@@ -95,10 +95,10 @@
 						</thead>
 						<tbody  onclick="openShowGuest()">
 							<c:forEach items="${guests}" var="guest" >
-								<tr class="selectGuest">
+								<tr class="selectGuest" id="guestId${guest.guestId}">
 									<td scope="row">${guest.firstName}</td>
 									<td>${guest.lastName}</td>
-									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
+									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
 											<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
 						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>		
@@ -238,6 +238,7 @@
 			<div class="guestFormPad">
 				<span onclick="closeEditGuest()" class="closebtn"><i class="fas fa-times"></i></span>
 				<!-- Edit Guest -->
+				<div id="guestSuccess" class="successAlert"></div>
 				<h2>Edit Guest</h2>
 				<form:form id="editGuest" action="editGuest" method="post" modelAttribute="guest" onsubmit="return validateEditForm();">
 					<form:hidden path="guestId" value="${selectedGuest.guestId}"/>
@@ -290,7 +291,7 @@
 					<label>Group: </label>
 					<form:input path="company" value="${selectedGuest.company}" class="form-control" style="margin-bottom:10px;"/>
 					<label>Notes: </label>
-					<form:textarea path="notes" col="5" value="${selectedGuest.notes}" class="form-control" style="margin-bottom:10px;"/>
+					<textarea name="notes" id="notes" cols="5" class="form-control" style="margin-bottom:10px;"> ${selectedGuest.notes}</textarea>
 					<div class="text-right">
 						<button type="submit" class="btn btn-info">
 	      					Save
@@ -374,10 +375,10 @@
 				<div class="form-group row">
 					<label class="col-6">RSVP Status: </label>
 						<!-- TODO: No Reply cannot be default -->
-						<form:select path="isPresent" class="form-control col-6">				
-				  			<form:option value="0" label="Accepted"/>
-				  			<form:option value="1" label="No Reply" selected="selected"/>			
-				  			<form:option value="2" label="Declined"/>
+						<form:select path="isPresent" class="form-control col-6">			
+				  			<option value="0">Accepted</option>	
+				  			<option value="1" selected="true">No Reply</option>
+				  			<option value="2">Declined</option>
 						</form:select>
 				</div>
 				<label>Group: </label>

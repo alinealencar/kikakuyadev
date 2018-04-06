@@ -229,8 +229,6 @@ function showList(){
 function deleteEvent(){
 	var event = confirm ("Are you sure you want to delete this event?");
 	
-	if (event){
-		$("#deleteForm").attr("action", "deleteEvent");
-	}
+	return event;
 }
 	

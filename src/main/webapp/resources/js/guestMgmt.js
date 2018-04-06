@@ -1,6 +1,7 @@
 /** DOCUMENT.READY **/
 $(document).ready(function() {
 	$("#plusOnesSuccess").hide();
+	$("#guestSuccess").hide();
 });
 
 /** Make rows in the guest list clickable **/
@@ -248,6 +249,8 @@ function openShowGuest() {
 
 function openEditGuest(id) {
 	$("#plusOnesSuccess").hide();
+	$("#guestSuccess").hide();
+	
   document.getElementById("editGuestSection").style.width = "360px";
   document.getElementById("editGuestSection").style.display = "block";
   
@@ -415,7 +418,7 @@ function editPlusOnes(id){
 		if($(addMealKidNode[i]).val() != false)
 		addMealKidArr.push($(addMealKidNode[i]).val());
 	
-	//show error - valdiation
+	//show error - validation
 	
 	$('#plusOneError').show();
 	$('#mealError').show();
@@ -428,7 +431,8 @@ function editPlusOnes(id){
 			$("#plusOnesSuccess").show();
 			//validate
 			//validatePlusOne()
-			
+			$( "#guestId"+response.guestId + " td:nth-child(3)" ).html("Adults: " + response.adultsWith + "&nbsp;&nbsp;&nbsp;Kids: " + response.kidsWith);
+
 		}
 	
 	});
@@ -477,13 +481,22 @@ $("#btnEditPlusOne").click(function () {
 
 /** DELETE PLUS ONES **/
 function deletePlusOne(plusOneId, guestId){
-	$.post({
-		url: "deletePlusOne",
-		data: {plusOneId: plusOneId},
-		success: function(response){
-			openEditGuest(guestId)
-		}
-	});
+	var deletePlusOne = confirm ("Are you sure you want to delete this guest?");
+	
+	if (deletePlusOne){
+		$.post({
+			url: "deletePlusOne",
+			data: {plusOneId: plusOneId},
+			success: function(response){
+				//response is object of Guest type
+				
+				openEditGuest(guestId)
+				
+				//update the adultswith and kidswith in the table
+				$( "#guestId"+response.guestId + " td:nth-child(3)" ).html("Adults: " + response.adultsWith + "&nbsp;&nbsp;&nbsp;Kids: " + response.kidsWith);
+				}
+		});
+	}
 }
 
 //close side form
@@ -497,6 +510,7 @@ function closeShowGuest() {
 
 function closeEditGuest() {
   document.getElementById("editGuestSection").style.display = "none";
+  closeShowGuest();
 }
 
 /******************************************

@@ -72,18 +72,22 @@ function closeVendorsInfo() {
 
 // Calculate totals and subtotals
 // global variable
-var globalTotal = +0;
+var globalTotal = 0;
 
 function calculateSubtotal(category){
-	var subtotal = +0;
+	var subtotal = 0;
 	$("." + category).each(function() {
-	    subtotal += +$(this)[0].innerHTML;
+		var value = $(this)[0].innerHTML;
+		var scriptTagEnd = value.indexOf("</script>") + 9;
+		value = value.substr(scriptTagEnd);
+	    subtotal += parseFloat(value.replace(/[^0-9-.]/g, ''));
+	    console.log(value);
 	});
 	
 	//update total
-	globalTotal += +subtotal;
+	globalTotal += subtotal;
 	
-	return subtotal;
+	return subtotal.toLocaleString();
 }
 
 function calculateSubtotalLive(budget, catEdit){
@@ -93,7 +97,7 @@ function calculateSubtotalLive(budget, catEdit){
 	    subtotal += +$(this)[0].value;
 	});
 
-	$("#subtotal" + catEdit).html(subtotal);
+	$("#subtotal" + catEdit).html(subtotal.toLocaleString());
 	
 	//update total
 	calculateTotalEdit(budget);
@@ -106,13 +110,13 @@ function calculateTotal(){
 }
 
 function calculateTotalEdit(budget){
-	var total = +0;
+	var total = 0;
 	var $items = $(".subtotalEdit");
 	
 	if ($items.length > 1){
 		for(var i = 0; i < $items.length - 1; i++){
 			$(".subtotalEdit").each(function() {
-				  total += +$(this)[i].innerHTML;
+				  total += parseFloat($(this)[i].innerHTML.replace(/[^0-9-.]/g, ''));
 			});
 		}
 	}
@@ -123,19 +127,19 @@ function calculateTotalEdit(budget){
 		});
 	}
 	
-	$('#totalBudgetEdit').html(total);
+	$('#totalBudgetEdit').html(total.toLocaleString());
 	
 	calculateAmountRemainingLive(budget, total);
+
 }
 
 function calculateAmountRemaining(budget, total) {
-	return budget - total;
+	return (budget - total);
 }
 
 function calculateAmountRemainingLive(budget, total) {
-	var amountRemaining = budget - total;
-
-	$('#amountRemainingEdit').html(amountRemaining);
+	var amountRemaining = (budget - total);
+	$('#amountRemainingEdit').html("$" + amountRemaining.toLocaleString());
 }
 
 

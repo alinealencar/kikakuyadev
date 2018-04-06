@@ -141,4 +141,22 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		connection.close();
 		return rowsAffected > 0;
 	}
+
+	@Override
+	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException {
+		GuestPlusOne plusOne = new GuestPlusOne();
+		String query = "select * from GuestPlusOne where guestplusoneid=" + plusOneId;
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		if (rs.next()){
+            plusOne.setGuestPlusOneId(rs.getInt(1));
+            plusOne.setFullName(rs.getString(2));
+            plusOne.setMealChoice(rs.getString(3));
+            plusOne.setGuestGuestId(rs.getInt(4));
+            plusOne.setCategory(rs.getString(5));
+        } 
+		connection.close();
+		return plusOne;
+	}
 }

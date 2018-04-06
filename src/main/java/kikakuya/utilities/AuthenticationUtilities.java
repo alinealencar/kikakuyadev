@@ -42,7 +42,7 @@ public class AuthenticationUtilities {
 			if(rememberMeCookies[0] != null && rememberMeCookies[1] != null) {
 				System.out.println("DATASOURCE: " + dataSource);
 				User user = new User();
-				String query = "Select userId, userName, email, token, series from user where series = ?";
+				String query = "Select userId, userName, email, token, series from User where series = ?";
 				Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);
 				pstmt.setString(1, rememberMeCookies[1].getValue());
@@ -54,9 +54,11 @@ public class AuthenticationUtilities {
 					user.setToken(resultSet.getString(4));
 					user.setSeries(resultSet.getString(5));
 				}
+				connection.close();
 				
-				if (user.getToken().equals(rememberMeCookies[0].getValue()))
+				if (user != null && user.getToken().equals(rememberMeCookies[0].getValue()))
 					return user;
+				
 			}
 			
 		}

@@ -102,4 +102,4 @@ ALTER TABLE GuestPlusOne ADD INDEX FKGuestPlusOne (GuestguestId), ADD CONSTRAINT
 ALTER TABLE Event ADD INDEX FKEventUser (UseruserId), ADD CONSTRAINT FKEventUser FOREIGN KEY (UseruserId) REFERENCES `User` (userId);
 ALTER TABLE Appointment ADD INDEX FKAppointmentEvent (EventeventId), ADD CONSTRAINT FKAppointmentEvent FOREIGN KEY (EventeventId) REFERENCES Event (eventId) ON DELETE CASCADE;
 ALTER TABLE Guest ADD INDEX FKEventGuest (EventeventId), ADD CONSTRAINT FKEventGuest FOREIGN KEY (EventeventId) REFERENCES Event (eventId);
-ALTER TABLE Email ADD INDEX FKEmailEvent (EventeventId), ADD CONSTRAINT FKEmailEvent FOREIGN KEY (EventeventId) REFERENCES `Event` (eventId);
+ALTER TABLE Email ADD INDEX FKEmailEvent (EventeventId), ADD CONSTRAINT FKEmailEvent FOREIGN KEY (EventeventId) REFERENCES `Event` (eventId) ON DELETE CASCADE;
