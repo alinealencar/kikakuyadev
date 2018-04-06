@@ -49,6 +49,7 @@ public class RSVPController {
 		try {
 			guestList = rsvpDelegate.findGuests(event);
 			request.setAttribute("guests", guestList);
+			request.setAttribute("eventDate", event.getEventDate());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
