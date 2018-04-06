@@ -327,7 +327,7 @@ function openEditGuest(id) {
 						formItem += "<option>" + response.meals[m] + "</option>";
 					}
 					
-					formItem += "</select>";
+					formItem += "</select><hr>";
 					
 					$("#plusOnesAdults").append(formItem);
 				}
@@ -346,7 +346,7 @@ function openEditGuest(id) {
 						formItem += "<option>" + response.meals[m] + "</option>";
 					}
 					
-					formItem += "</select>";
+					formItem += "</select><hr>";
 					
 					$("#plusOnesKids").append(formItem);
 				}
