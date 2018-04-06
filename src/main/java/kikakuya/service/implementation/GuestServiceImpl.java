@@ -95,5 +95,15 @@ public class GuestServiceImpl implements GuestService {
 		return plusOneDao.getPlusOnesTotal(event);
 	}
 
+	@Override
+	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException {
+		return plusOneDao.getPlusOneById(plusOneId);
+	}
+
+	@Override
+	public boolean editGuestAdultsKidsWith(Guest guest) throws SQLException {
+		return guestDao.updateGuestAdultsKidsWith(guest);
+	}
+
 	
 }

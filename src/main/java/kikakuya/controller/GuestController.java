@@ -169,11 +169,15 @@ public class GuestController {
 	//Edit plus ones
 	@RequestMapping(value="/editPlusOnes", method = RequestMethod.POST)
 	@ResponseBody
-	public void processEditPlusOnes(@RequestParam(value="editName[]") String[] editName, @RequestParam(value="editId[]") String[] editId, 
+	public Guest processEditPlusOnes(@RequestParam(value="editName[]") String[] editName, @RequestParam(value="editId[]") String[] editId, 
 			@RequestParam(value="editMeal[]") String[] editMeal, @RequestParam(value="addAdultName[]") String[] addAdultName, @RequestParam(value="addAdultMeal[]") String[] addAdultMeal,
 			@RequestParam(value="addKidName[]") String[] addKidName, @RequestParam(value="addKidMeal[]") String[] addKidMeal,@RequestParam(value="guestId") int guestId) {
 
+		Guest guest = null;
 		try {
+			//get Guest object
+			guest = guestDelegate.getSelectedGuest(guestId);
+			
 			//Edit guests
 			GuestPlusOne plusOne = new GuestPlusOne();
 			int numToEdit = editId.length;
@@ -191,9 +195,12 @@ public class GuestController {
 				plusOneAdd.setFullName(addAdultName[i]);
 				plusOneAdd.setMealChoice(addAdultMeal[i]);
 				plusOneAdd.setCategory("Adult");
-				Guest guest = new Guest();
-				guest.setGuestId(guestId);
 				guestDelegate.addPlusOne(plusOneAdd, guest);
+				
+				//add 1 to adultsWith
+				guest.setAdultsWith(guest.getAdultsWith() + 1);
+				//update adultsWith for the guest in the db
+				guestDelegate.editGuestAdultsKidsWith(guest);
 			}
 			
 			//Add kids
@@ -203,15 +210,20 @@ public class GuestController {
 				plusOneAdd.setFullName(addKidName[i]);
 				plusOneAdd.setMealChoice(addKidMeal[i]);
 				plusOneAdd.setCategory("Kid");
-				Guest guest = new Guest();
-				guest.setGuestId(guestId);
 				guestDelegate.addPlusOne(plusOneAdd, guest);
+				
+				//add 1 to kidsWith
+				guest.setKidsWith(guest.getKidsWith() + 1);
+				//update kidsWith for the guest in the db
+				guestDelegate.editGuestAdultsKidsWith(guest);
 			}
 			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
+		return guest;
 	}
 	
 	//Remove guest
@@ -284,11 +296,28 @@ public class GuestController {
 	
 	@RequestMapping(value="/deletePlusOne", method = RequestMethod.POST)
 	@ResponseBody
-	public void deletePlusOne(@RequestParam("plusOneId") int plusOneId){
+	public Guest deletePlusOne(@RequestParam("plusOneId") int plusOneId){
+		Guest guest = null;
 		try {
-			guestDelegate.removePlusOne(plusOneId);
+			//get guest plus One
+			GuestPlusOne plusOne = guestDelegate.getPlusOneById(plusOneId);
+			//get guest
+			guest = guestDelegate.getSelectedGuest(plusOne.getGuestGuestId());
+			
+			boolean deleteSuccessful = guestDelegate.removePlusOne(plusOneId);
+			//if delete is successful, decrease either the adultsWith or kidsWith of the guest
+			if(deleteSuccessful){
+				if(plusOne.getCategory().equals("Adult"))
+					guest.setAdultsWith(guest.getAdultsWith() - 1);
+				else
+					guest.setKidsWith(guest.getKidsWith() - 1);
+				
+				guestDelegate.editGuestAdultsKidsWith(guest);
+			}
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return guest;
 	}
 }

@@ -31,12 +31,11 @@ function validateEventForm(){
 		var today = new Date();
 		var eventDate = new Date(document.getElementsByClassName("eventDate")[0].value);
 		
-		if (eventDate == null){
+		if (eventDate.value == null || eventDate.value == ""){
 			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
-			console.log("yes!");
 			validDate = false;
 		}
-		else if(eventDate < today){
+		else if(eventDate.value < today || !eventDate.value){
 			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 			validDate = false;
 		}
@@ -44,7 +43,6 @@ function validateEventForm(){
 			document.getElementById("eventDateError").innerHTML = "";
 			validDate = true;
 		}
-		
 		return false;
 	}
 	return true;
@@ -229,8 +227,6 @@ function showList(){
 function deleteEvent(){
 	var event = confirm ("Are you sure you want to delete this event?");
 	
-	if (event){
-		$("#deleteForm").attr("action", "deleteEvent");
-	}
+	return event;
 }
 	

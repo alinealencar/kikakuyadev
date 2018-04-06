@@ -16,4 +16,5 @@ public interface GuestPlusOneDao {
 	public int getPlusOnesTotal(Event event) throws SQLException;
 	public int getPlusOnesTotalByGuest(int guestId) throws SQLException;
 	public boolean deletePlusOneByGuest(int guestId) throws SQLException;
+	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException;
 }
