@@ -11,7 +11,7 @@ function validateRSVPForm(){
 		var today = new Date();
 		var replyDue = new Date(document.getElementsByClassName("replyDue")[0].value);
 		
-		if (replyDue.value == "" || replyDue.value == null){
+		if (replyDue.value == "" || replyDue.value == null || replyDue == "yyyy-mm-dd"){
 			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please select valid date";
 			validReplyDue = false;
 		}
