@@ -9,6 +9,7 @@ function validateRSVPForm(){
 	}
 	else{
 		var today = new Date();
+		var eventDate = new Date(document.getElementById("eventDate").value);
 		var replyDue = new Date(document.getElementsByClassName("replyDue")[0].value);
 		
 		if (replyDue.value == "" || replyDue.value == null){
@@ -17,6 +18,10 @@ function validateRSVPForm(){
 		}
 		else if(replyDue < today){
 			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
+			validReplyDue = false;
+		}
+		else if(replyDue >= eventDate.value){
+			document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please choose a date before the event date";
 			validReplyDue = false;
 		}
 		else{
@@ -31,6 +36,7 @@ function validateRSVPForm(){
 /**Validate Reply Due**/
 function validateReplyDue(){
 	var today = new Date();
+	var eventDate = new Date(document.getElementById("eventDate").value);
 	var replyDue = new Date(document.getElementsByClassName("replyDue")[0].value);
 	
 	if (replyDue == "" || replyDue == null){
@@ -39,6 +45,10 @@ function validateReplyDue(){
 	}
 	else if(replyDue < today){
 		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
+		validReplyDue = false;
+	}
+	else if(replyDue >= eventDate){
+		document.getElementById("replyDueError").innerHTML = "<i class='fas fa-times'></i>  Please choose a date before the event date";
 		validReplyDue = false;
 	}
 	else{

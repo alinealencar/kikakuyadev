@@ -337,6 +337,10 @@ div.calendarDay{
 @media only screen and (min-width: 992px) {
 	.sm-scrollable {display:none;}
 }
+
+.img-fluid{
+	outline: none;
+}
 /*********************************
 slide in form
 **********************************/

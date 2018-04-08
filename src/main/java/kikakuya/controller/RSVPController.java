@@ -49,6 +49,7 @@ public class RSVPController {
 		try {
 			guestList = rsvpDelegate.findGuests(event);
 			request.setAttribute("guests", guestList);
+			request.setAttribute("eventDate", event.getEventDate());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -131,13 +132,17 @@ public class RSVPController {
 				
 		try {
 			Email email = rsvpDelegate.findEmailByEvent(guest);
-
+			
+			//update isPresent and meal choice
 			if(rsvpDelegate.updateGuest(guest)){
+				//delete token
 				if(rsvpDelegate.deleteGuestToken(guest)){
+					//check if there are user-entered plus ones, if yes delete
 					if(rsvpDelegate.countPlusOnesByGuest(guest.getGuestId()) > 0){
 						if(!rsvpDelegate.removePlusOneByGuest(guest.getGuestId()))
 							request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
 					}
+					//insert plus ones
 					for(int i=0; i<plusOneList.size(); i++){
 						if(!plusOneList.get(i).getFullName().trim().isEmpty())
 							rsvpDelegate.insertPlusOne(plusOneList.get(i), guest);
