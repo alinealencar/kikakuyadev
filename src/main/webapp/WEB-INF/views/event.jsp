@@ -52,7 +52,7 @@
 								</form:form>
 							</div>
 							<div class="col-2 text-left" style="padding-left:0; padding-top:5px">
-								<a id="deleteBtn editEventBtn" onclick="updateEvent('${event.eventId}', '${event.eventName}', '${event.eventDate}', '${event.location}');" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
+								<a id="deleteBtn editEventBtn" onclick="updateEvent('${event.eventId}','${event.eventName}', '${event.eventDate}', '${event.location}');" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
 							</div>
 							<br/>
 						</div>					
