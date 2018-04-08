@@ -368,8 +368,12 @@ function openEditGuest(id) {
 					$("#editKidsMax").append("<option value=" + i + ">"+i+"</option>");
 			}
 			
-			for(var i = adultsNow; i <= 4; i++)
-				$("#editAdultsMax").append("<option value=" + i + ">"+i+"</option>");
+			for(var i = adultsNow; i <= 4; i++){
+				if( i === response.guest.adultsMax)
+					$("#editAdultsMax").append("<option value=" + i + " selected>"+i+"</option>");
+				else
+					$("#editAdultsMax").append("<option value=" + i + ">"+i+"</option>");
+			}
 		}
 	});
 }
