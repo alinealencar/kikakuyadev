@@ -230,12 +230,19 @@ function deleteEvent(){
 	return event;
 }
 
+//$(document).ready(function(){
+//	if($('.eventsList').length == 3){
+//		$("#btnAddEvent").hide();	
+//	}
+//	else{
+//		$("#btnAddEvent").show();
+//	}
+//});
+
 $(document).ready(function(){
-	if($('.eventsList').length == 3){
-		$("#btnAddEvent").hide();	
-	}
-	else{
-		$("#btnAddEvent").show();
-	}
+	$("#btnShowAddError").click(function () {
+		$("#countEventError").show();
+	});
 });
+
 	

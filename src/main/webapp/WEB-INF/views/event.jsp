@@ -6,6 +6,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
 <script src="resources/js/validateEvent.js"></script>
@@ -19,12 +20,20 @@
 			<div class="${(deleteEventSuccess != null) ? 'successAlert':''}">${deleteEventSuccess}</div>	
 			<div class="${(deleteEventError != null) ? 'errorAlert':''}">${deleteEventError}</div>	
 			<div class="${(updateSuccess != null) ? 'successAlert':''}">${updateSuccess}</div>	
-			<div class="${(updateError != null) ? 'errorAlert':''}">${updateError}</div>				
+			<div class="${(updateError != null) ? 'errorAlert':''}">${updateError}</div>	
+			<div id="countEventError" class="errorAlert" style="display:none">You can only add up to 3 events</div>			
 		</div>
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
+				<c:choose>	
+					<c:when test="${fn:length(listEvent) < 3}">
 						<a class="button" id="btnAddEvent" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+					</c:when>
+					<c:otherwise>
+							<a class="button" id="btnShowAddError" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+					</c:otherwise>
+				</c:choose>
 				</span>
 			</div>
 		</div>
@@ -37,7 +46,6 @@
 					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 				</div>
 			</c:if>
-			
 	<!-- SHOWING THE EVENTS -->
 	<div class="tile row text-center" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
