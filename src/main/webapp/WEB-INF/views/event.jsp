@@ -8,6 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
+<script src="resources/js/validateEvent.js"></script>
+<script src="resources/js/events.js"></script>
 
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
@@ -22,7 +24,7 @@
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
-						<a class="button" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+						<a class="button" id="btnAddEvent" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
 				</span>
 			</div>
 		</div>
@@ -35,11 +37,11 @@
 					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 				</div>
 			</c:if>
-	
-<!-- SHOWING THE EVENTS -->
+			
+	<!-- SHOWING THE EVENTS -->
 	<div class="tile row text-center" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
-			<div class="col-sm-4">
+			<div class="col-sm-4 eventsList">
 				<div class="eventTile">
 					<div class="tile-head">	
 						<div class="row">
@@ -86,6 +88,7 @@
 	<div class="popup">
 		<h2>Add Event</h2>
 		<a class="close" href="#">&times;</a>
+		<p style="font-size: 12px">Note: You can only add up to 3 events</p>
 		<div class="content">
 		<hr>
 			<form:form modelAttribute="event" class="eventForm" method="POST" action="add" onsubmit="return validateEventForm();">
@@ -253,6 +256,4 @@ h1 {
 }
 </style>
 
-<script src="resources/js/validateEvent.js"></script>
-<script src="resources/js/events.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>
