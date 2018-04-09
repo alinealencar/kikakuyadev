@@ -91,10 +91,10 @@ function calculateSubtotal(category){
 }
 
 function calculateSubtotalLive(budget, catEdit){
-	var subtotal = +0;
+	var subtotal = 0;
 
 	$(".catEdit" + catEdit).each(function() {
-	    subtotal += +$(this)[0].value;
+	    subtotal += parseFloat($(this)[0].value.replace(/[^0-9-.]/g, ''));
 	});
 
 	$("#subtotal" + catEdit).html(subtotal.toLocaleString());
@@ -123,7 +123,7 @@ function calculateTotalEdit(budget){
 
 	else {
 		$(".subtotalEdit").each(function() {
-			  total += +$(this)[0].innerHTML;
+			  total += parseFloat($(this)[0].innerHTML.replace(/[^0-9-.]/g, ''));
 		});
 	}
 	
