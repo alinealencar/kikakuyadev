@@ -181,6 +181,7 @@ public class GuestController {
 			//Edit guests
 			GuestPlusOne plusOne = new GuestPlusOne();
 			int numToEdit = editId.length;
+			System.out.println("number of plus ones to edit: " + editId.length);
 			for(int i = 1; i < numToEdit; i++) {
 				plusOne.setGuestPlusOneId(Integer.valueOf(editId[i]));
 				plusOne.setFullName(editName[i]);
