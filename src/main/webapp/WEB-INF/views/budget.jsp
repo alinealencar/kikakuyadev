@@ -39,7 +39,7 @@
 			<div id="showBudget" ${goodDeleted != '' ? 'style="display:none;"':''} ${noBudget ? 'style="display:none;"' : ''}>
 			<div style="border-style: solid; padding: 10px; border-width:1px; border-color: #cccccc; margin-bottom:20px;">
 				<!-- show budget -->
-				<span onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
+				<span class="float-right" onclick="openEditBudget()"><i class="fas fa-edit"></i></span>
 				<div class="row text-center">
 					<div class="col-9 col-sm-12" style="padding-top:15px;">
 						<span  style="width: 150px; margin:0; font-size:200%;">Budget: <b>$ <script>document.write((${event.totalBudget}).toLocaleString());</script></b></span>

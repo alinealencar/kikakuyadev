@@ -6,8 +6,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <jsp:include page="/WEB-INF/includes/head.jsp" />
 <jsp:include page="/WEB-INF/includes/header-event.jsp" />
+<script src="resources/js/validateEvent.js"></script>
+<script src="resources/js/events.js"></script>
 
 <div class="container">
 	<div class="row"  style="margin-bottom: 45px;">
@@ -17,12 +20,20 @@
 			<div class="${(deleteEventSuccess != null) ? 'successAlert':''}">${deleteEventSuccess}</div>	
 			<div class="${(deleteEventError != null) ? 'errorAlert':''}">${deleteEventError}</div>	
 			<div class="${(updateSuccess != null) ? 'successAlert':''}">${updateSuccess}</div>	
-			<div class="${(updateError != null) ? 'errorAlert':''}">${updateError}</div>				
+			<div class="${(updateError != null) ? 'errorAlert':''}">${updateError}</div>	
+			<div id="countEventError" class="errorAlert" style="display:none">You can only add up to 3 events</div>			
 		</div>
 		<div class="col-sm-2 text-right">		
 			<div class="addEventBtn">
 				<span>
-						<a class="button" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+				<c:choose>	
+					<c:when test="${fn:length(listEvent) < 3}">
+						<a class="button" id="btnAddEvent" href="#addEvent" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+					</c:when>
+					<c:otherwise>
+							<a class="button" id="btnShowAddError" style="color:#D90368;"><i class="fas fa-plus-circle" ></i></a>
+					</c:otherwise>
+				</c:choose>
 				</span>
 			</div>
 		</div>
@@ -35,11 +46,10 @@
 					<img class="img-fluid" src="resources/images/general/not_found.png" alt="not found" height="200" width="200">
 				</div>
 			</c:if>
-	
-<!-- SHOWING THE EVENTS -->
+	<!-- SHOWING THE EVENTS -->
 	<div class="tile row text-center" id="showEventList">
 		<c:forEach items="${listEvent}" var="event">
-			<div class="col-sm-4">
+			<div class="col-sm-4 eventsList">
 				<div class="eventTile">
 					<div class="tile-head">	
 						<div class="row">
@@ -52,7 +62,7 @@
 								</form:form>
 							</div>
 							<div class="col-2 text-left" style="padding-left:0; padding-top:5px">
-								<a id="deleteBtn editEventBtn" onclick="updateEvent('${event.eventId}', '${event.eventName}', '${event.eventDate}', '${event.location}');" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
+								<a id="deleteBtn editEventBtn" onclick="updateEvent('${event.eventId}','${event.eventName}', '${event.eventDate}', '${event.location}');" href="#editEvent" ><i class="fas fa-edit" style="color: #2E294E; margin-top:2.5px;"></i></a>
 							</div>
 							<br/>
 						</div>					
@@ -86,6 +96,7 @@
 	<div class="popup">
 		<h2>Add Event</h2>
 		<a class="close" href="#">&times;</a>
+		<p style="font-size: 12px">Note: You can only add up to 3 events</p>
 		<div class="content">
 		<hr>
 			<form:form modelAttribute="event" class="eventForm" method="POST" action="add" onsubmit="return validateEventForm();">
@@ -253,6 +264,4 @@ h1 {
 }
 </style>
 
-<script src="resources/js/validateEvent.js"></script>
-<script src="resources/js/events.js"></script>
 <jsp:include page="/WEB-INF/includes/footer.jsp"/>

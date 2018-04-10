@@ -33,7 +33,7 @@
 
 	<div  id="rsvpForm" style="display:none;">
 		<form:form action="rsvp" method="post" modelAttribute="email" onsubmit="return validateRSVPForm();">
-		
+			<input type="hidden" id="eventDate" value="${eventDate}">
 			<div  class="form-group row">
 				<div class="col-sm-4">
 					<h5>2. Reply Due <span style="font-size:22px;color:red">*</span></h5>

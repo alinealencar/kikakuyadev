@@ -9,17 +9,6 @@ $(document).ready(function(){
 	console.log(validGuest);
 	console.log(validMeal);
 	var valid = true;
-//	var guestOne = document.getElementById("guestName").value;
-//	var adultName1 = document.getElementById("adultName1").value;
-//	var adultName2 = document.getElementById("adultName2").value;
-//	var adultName3 = document.getElementById("adultName3").value;
-//	var adultName4 = document.getElementById("adultName4").value;
-//	var kidName1 = document.getElementById("kidName1").value;
-//	var kidName2 = document.getElementById("kidName2").value;
-//	var kidName3 = document.getElementById("kidName3").value;
-//	var kidName4 = document.getElementById("kidName4").value;
-//	
-	
 	var guestOne = $('#guestName').val();
 	var adultName1 = $('#adultName1').val();
 	var adultName2 = $('#adultName2').val();
@@ -39,6 +28,7 @@ $(document).ready(function(){
 	var kidMeal3 = $('#kidMeal3').val();
 	var kidMeal4 = $('#kidMeal4').val();
 	
+	if (!$("input:radio[id='absent']:checked").val()){
 		if(guestOne == "" ){
 			$('#mainGuestError').show();
 			valid = false;
@@ -239,12 +229,19 @@ $(document).ready(function(){
 		}
 		else
 			valid = true;
+	}
+	else
+		valid = true;
 		
 		if(valid){
 			$('#responseForm').submit();
 		}
-		else
+		else{
 			$('#errorResponse').show();
+			setTimeout(function() {
+			    $('#errorResponse').fadeOut('fast');
+			    }, 3000);
+		}
 	});
 });
 

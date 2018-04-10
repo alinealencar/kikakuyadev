@@ -261,3 +261,18 @@ setTimeout(function() {
 setTimeout(function() {
     $('.errorAlert').fadeOut('fast');
     }, 3000);
+
+//$(document).ready(function(){
+//	if($('.eventsList').length == 3){
+//		$("#btnAddEvent").hide();	
+//	}
+//	else{
+//		$("#btnAddEvent").show();
+//	}
+//});
+
+$(document).ready(function(){
+	$("#btnShowAddError").click(function () {
+		$("#countEventError").show();
+	});
+});

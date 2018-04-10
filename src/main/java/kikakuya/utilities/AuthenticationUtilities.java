@@ -56,7 +56,7 @@ public class AuthenticationUtilities {
 				}
 				connection.close();
 				
-				if (user != null && user.getToken().equals(rememberMeCookies[0].getValue()))
+				if (user.getToken() != null && user.getToken().equals(rememberMeCookies[0].getValue()))
 					return user;
 				
 			}
