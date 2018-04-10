@@ -11,8 +11,14 @@ function validateEventForm(){
 	}
 	else{
 		var eventName = document.getElementsByClassName("eventName")[0].value;
+		var eNameRegEx = /^[\w\s]*$/
+		
 		if (eventName == ""){
 			document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+			validEventName = false;
+		}
+		else if (!eventName.match(eNameRegEx)){
+			document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
 			validEventName = false;
 		}
 		else{
@@ -36,7 +42,7 @@ function validateEventForm(){
 			validDate = false;
 		}
 		else if(eventDate.value < today || !eventDate.value){
-			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
+			document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
 			validDate = false;
 		}
 		else{
@@ -52,8 +58,14 @@ function validateEventForm(){
 
 function validateEventName(){
 	var eventName = document.getElementsByClassName("eventName")[0].value;
+	var eNameRegEx = /^[\w\s]*$/
+	
 	if (eventName == ""){
 		document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+		validEventName = false;
+	}
+	else if (!eventName.match(eNameRegEx)){
+		document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
 		validEventName = false;
 	}
 	else{
@@ -109,8 +121,14 @@ function validateEditEventForm(){
 	}
 	else{
 		var eventEditName = document.getElementsByClassName("eventName-edit")[0].value;
+		var editRegEx = /^[\w\s]*$/
+		
 		if (eventEditName == "" || eventEditName == null){
 			document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+			validEditEventName = false;
+		}
+		else if (!eventEditName.match(editRegEx)){
+			document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
 			validEditEventName = false;
 		}
 		else{
@@ -129,7 +147,7 @@ function validateEditEventForm(){
 		var editToday = new Date();
 		var eventEditDate = new Date(document.getElementsByClassName("date-edit")[0].value);
 		
-		if (eventEditDate == ""){
+		if (eventEditDate.value == "" || eventEditDate.value == "null"){
 			document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 			console.log("yes!");
 			validEditDate = false;
@@ -151,8 +169,14 @@ function validateEditEventForm(){
 
 function validateEditEventName(){
 	var eventEditName = document.getElementsByClassName("eventName-edit")[0].value;
+	var editRegEx = /^[\w\s]*$/
+	
 	if (eventEditName == "" || eventEditName == null){
 		document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+		validEditEventName = false;
+	}
+	else if (!eventEditName.match(editRegEx)){
+		document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
 		validEditEventName = false;
 	}
 	else{
@@ -177,7 +201,7 @@ function validateEditDate(){
 	var today = new Date();
 	var eventEditDate = new Date(document.getElementsByClassName("date-edit")[0].value);
 	
-	if (eventEditDate.value == ""){
+	if (eventEditDate.value == "" || eventEditValue.value == null){
 		document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
 		console.log("yes!");
 		validEditDate = false;
@@ -229,4 +253,11 @@ function deleteEvent(){
 	
 	return event;
 }
-	
+
+setTimeout(function() {
+    $('.successAlert').fadeOut('fast');
+    }, 3000);
+
+setTimeout(function() {
+    $('.errorAlert').fadeOut('fast');
+    }, 3000);

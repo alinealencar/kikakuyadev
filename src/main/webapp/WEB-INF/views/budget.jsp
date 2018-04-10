@@ -402,6 +402,7 @@
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem" class="col-6">
 		   						<form:input type="text" class="item-big form-control" oninput="validateItem(this)" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
+				
 		   					</div>
 		   					<div id="txtPrice" class="col-6">
 		   						<form:input type="text" class="price-big form-control" oninput="validatePrice(this)" id="price1" placeholder="Price" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodPrice" />
@@ -410,6 +411,7 @@
 		   			</c:forEach>
 		   				<div class="col-6">
 			   				<span id="itemError" class="formError"></span>
+			   				
 			   			</div>
 			   			<div id="priceErrorSM" class="col-6">
 			   				<span id="priceError" class="formError"></span>
