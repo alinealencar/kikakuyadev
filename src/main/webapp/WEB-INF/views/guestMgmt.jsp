@@ -257,9 +257,26 @@
 						</div>
 						<div class="col-6">
 							<form:select path="isPresent" class="form-control" style="margin-bottom:10px;">
-								<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
+								<!--<form:option value="1" label="No Reply" selected="${(selectedGuest.isPresent eq 1) ? 'selected' : ''}"/>
 						  		<form:option value="0" label="Accepted" selected="${(selectedGuest.isPresent eq 0) ? 'selected' : ''}"/>
-						  		<form:option value="2" label="Declined" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>
+						  		<form:option value="2" label="Declined" selected="${(selectedGuest.isPresent eq 2) ? 'selected' : ''}"/>-->
+						  		<c:choose>
+						  			<c:when test="${selectedGuest.isPresent eq 0}">
+						  				<form:option value="0" label="Accepted" selected="selected"/>
+						  				<form:option value="1" label="No Reply"/>
+						  				<form:option value="2" label="Declined" />
+						  			</c:when>
+						  			<c:when test="${selectedGuest.isPresent eq 1}">
+						  				<form:option value="0" label="Accepted" />
+						  				<form:option value="1" label="No Reply" selected="selected"/>
+						  				<form:option value="2" label="Declined" />
+						  			</c:when>
+						  			<c:otherwise>
+						  				<form:option value="0" label="Accepted" />
+						  				<form:option value="1" label="No Reply" />
+						  				<form:option value="2" label="Declined" selected="selected"/>
+						  			</c:otherwise>
+						  		</c:choose>
 							</form:select>
 						</div>
 					</div>
