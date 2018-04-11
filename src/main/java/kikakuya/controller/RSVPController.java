@@ -98,13 +98,26 @@ public class RSVPController {
 	
 	@RequestMapping(value="/rsvpResponse", method = RequestMethod.GET)
 	public String viewResponseForm(@RequestParam("token") String token, Model model, HttpServletRequest request){
-		
-		
+		List<GuestPlusOne> adults = new ArrayList<>();
+		List<GuestPlusOne> kids = new ArrayList<>();
 		String redirectTo = "rsvpResponse";
+		Event event = (Event) request.getSession().getAttribute("event");
 		try {
+			//find guest by token
 			if(rsvpDelegate.isTokenFound(token)){
 				Guest guest = rsvpDelegate.findGuestByToken(token);
 				Email email = rsvpDelegate.findEmailByEvent(guest);
+				//get all user-entered plus ones for guest
+				adults = rsvpDelegate.findPlusOneByToken(token, "Adult");
+				kids = rsvpDelegate.findPlusOneByToken(token, "Kid");
+				
+				if(adults.size() > 0){
+					request.setAttribute("adults", adults);
+				}
+				
+				if(kids.size() > 0){
+					request.setAttribute("kids", kids);
+				}
 				
 				model.addAttribute("guest", guest);
 				request.setAttribute("guest", guest);
@@ -138,7 +151,7 @@ public class RSVPController {
 				//delete token
 				if(rsvpDelegate.deleteGuestToken(guest)){
 					//check if there are user-entered plus ones, if yes delete
-					if(rsvpDelegate.countPlusOnesByGuest(guest.getGuestId()) > 0){
+					if(rsvpDelegate.countPlusOnesByGuest(guest.getGuestId()) > 0 && guest.getIsPresent() == 0){
 						if(!rsvpDelegate.removePlusOneByGuest(guest.getGuestId()))
 							request.setAttribute("respondRSVPError", "Error! Your response was not sent successfully!");
 					}

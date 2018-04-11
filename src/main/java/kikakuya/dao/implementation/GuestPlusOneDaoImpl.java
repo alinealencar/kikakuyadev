@@ -159,4 +159,28 @@ public class GuestPlusOneDaoImpl implements GuestPlusOneDao{
 		connection.close();
 		return plusOne;
 	}
+	
+	@Override
+	public List<GuestPlusOne> getPlusOneByToken(String token, String category) throws SQLException {
+		List<GuestPlusOne> plusOnes = new ArrayList<>();
+		String query = "select * from GuestPlusOne p inner join Guest g "
+				+ "on p.GuestguestId = g.GuestId " 
+				+ "where g.token='" + token + "' and p.category='" + category + "'"; 
+		Connection connection = dataSource.getConnection();
+		PreparedStatement pstmt = connection.prepareStatement(query);
+		ResultSet rs = pstmt.executeQuery(query);
+		while (rs.next()){
+			GuestPlusOne plusOne = new GuestPlusOne();
+            plusOne.setGuestPlusOneId(rs.getInt(1));
+            plusOne.setFullName(rs.getString(2));
+            plusOne.setMealChoice(rs.getString(3));
+            plusOne.setGuestGuestId(rs.getInt(4));
+            plusOne.setCategory(rs.getString(5));
+            
+            plusOnes.add(plusOne);
+        } 
+		connection.close();
+		return plusOnes;
+	}
+
 }
