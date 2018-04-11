@@ -275,7 +275,7 @@ function openEditGuest(id) {
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
+					"<label>Meal Choice: </label>&nbsp;<a class='rsvpMealChoiceMsg' href='#' data-toggle='tooltip' data-placement='top' title='Keep in mind that you must send the RSVPs for this event before selecting a meal choice.'><span class='info'><i class='fas fa-question-circle'></i></span></a>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>" ;
 					
 					if (response.meals.length > 0){
@@ -301,19 +301,23 @@ function openEditGuest(id) {
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
+					"<label>Meal Choice: </label>&nbsp;<a class='rsvpMealChoiceMsg' href='#' data-toggle='tooltip' data-placement='top' title='Keep in mind that you must send the RSVPs for this event before selecting a meal choice.'><span class='info'><i class='fas fa-question-circle'></i></span></a>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
 					
-					for(var m = 0; m < response.meals.length; m++){
-						if(response.meals[m] === response.plusOnes[i].mealChoice)
-							formItem += "<option selected>" + response.meals[m] + "</option>";
-						else
-							formItem += "<option>" + response.meals[m] + "</option>";
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							if(response.meals[m] === response.plusOnes[i].mealChoice)
+								formItem += "<option selected>" + response.meals[m] + "</option>";
+							else
+								formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
-					
+
 					formItem += "</select><hr>";
-					
 					$("#plusOnesKids").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".editPlusOneMeal").attr("disabled", true);
 				}
 				
 			}
@@ -326,17 +330,23 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: </label>" +
 					"<input name='plusOneName' class='form-control addPlusOneNameAdult' style='margin-bottom:10px;' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
+					"<label>Meal Choice: </label>&nbsp;<a class='rsvpMealChoiceMsg' href='#' data-toggle='tooltip' data-placement='top' title='Keep in mind that you must send the RSVPs for this event before selecting a meal choice.'><span class='info'><i class='fas fa-question-circle'></i></span></a>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealAdult' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
-						
-					for(var m = 0; m < response.meals.length; m++){
-						formItem += "<option>" + response.meals[m] + "</option>";
+					
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
 					
 					formItem += "</select><hr>";
 					
 					$("#plusOnesAdults").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".addPlusOneMealAdult").attr("disabled", true);
+					
 				}
 			}
 			
@@ -345,17 +355,22 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: </label>" +
 					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px; oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
+					"<label>Meal Choice: &nbsp;<a class='rsvpMealChoiceMsg' href='#' data-toggle='tooltip' data-placement='top' title='Keep in mind that you must send the RSVPs for this event before selecting a meal choice.'><span class='info'><i class='fas fa-question-circle'></i></span></a></label>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
-						
-					for(var m = 0; m < response.meals.length; m++){
-						formItem += "<option>" + response.meals[m] + "</option>";
+					
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
 					
 					formItem += "</select><hr>";
 					
 					$("#plusOnesKids").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".addPlusOneMealKid").attr("disabled", true);
 				}
 			}
 			
@@ -378,6 +393,32 @@ function openEditGuest(id) {
 				else
 					$("#editAdultsMax").append("<option value=" + i + ">"+i+"</option>");
 			}
+		
+			//Populate main guest's meal choice
+			var formItem = "<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
+			
+				console.log(response.guest.mealChoice);
+			if (response.meals.length > 0){
+				for(var m = 0; m < response.meals.length; m++){
+					//auto populate with the guests choice from the rsvp
+					if(response.meals[m] === response.guest.mealChoice)
+						formItem += "<option selected>" + response.meals[m] + "</option>";
+					else
+						formItem += "<option>" + response.meals[m] + "</option>";
+				}
+				
+				//show help bubble for meal choice
+				$(".rsvpMealChoiceMsg").hide();
+			}
+			
+			$("#guestMealChoice").append(formItem);
+			console.log("formItem");
+			console.log("#guestMealChoice");
+			
+			if(response.meals.length <= 0)
+				$("#guestMealChoice").attr("disabled", true);
+			
+		
 		}
 	});
 }
@@ -510,6 +551,10 @@ function deletePlusOne(plusOneId, guestId){
 //close side form
 function closeAddGuest() {
   document.getElementById("addGuestSection").style.width = "0";
+  $("#fNameError").hide();
+  $("#lNameError").hide();
+  $("#emailError").hide();
+  
 }
 
 function closeShowGuest() {
@@ -519,6 +564,10 @@ function closeShowGuest() {
 function closeEditGuest() {
   document.getElementById("editGuestSection").style.display = "none";
   closeShowGuest();
+  
+  $("#fNameEdit").hide();
+  $("#lNameEdit").hide();
+  $("#editEmailError").hide();
 }
 
 /******************************************

@@ -62,10 +62,12 @@ function validateEventName(){
 	
 	if (eventName == ""){
 		document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+		$("#eventNameError").show();
 		validEventName = false;
 	}
 	else if (!eventName.match(eNameRegEx)){
 		document.getElementById("eventNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
+		$("#eventNameError").show();
 		validEventName = false;
 	}
 	else{
@@ -78,6 +80,7 @@ function validateLocation(){
 	var location = document.getElementsByClassName("location")[0].value;
 	if (location == ""){
 		document.getElementById("locationError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
+		$("#locationError").show();
 		validLocation = false;
 	}
 	else{
@@ -92,11 +95,12 @@ function validateDate(){
 	
 	if (eventDate.value == ""){
 		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
-		console.log("yes!");
+		$("#eventDateError").show();
 		validDate = false;
 	}
 	else if(eventDate < today){
 		document.getElementById("eventDateError").innerHTML = "<i class='fas fa-times'></i>  You chose a past date";
+		$("#eventDateError").show();
 		validDate = false;
 	}
 	else{
@@ -173,10 +177,12 @@ function validateEditEventName(){
 	
 	if (eventEditName == "" || eventEditName == null){
 		document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter an event name";
+		$("#eventEditNameError").show();
 		validEditEventName = false;
 	}
 	else if (!eventEditName.match(editRegEx)){
 		document.getElementById("eventEditNameError").innerHTML = "<i class='fas fa-times'></i>  No special characters";
+		$("#eventEditNameError").show();
 		validEditEventName = false;
 	}
 	else{
@@ -189,6 +195,7 @@ function validateEditLocation(){
 	var editLocation = document.getElementsByClassName("location-edit")[0].value;
 	if (editLocation == ""){
 		document.getElementById("locationEditError").innerHTML = "<i class='fas fa-times'></i>  Please enter a location";
+		$("#locationEditError").show();
 		validEditLocation = false;
 	}
 	else{
@@ -203,11 +210,12 @@ function validateEditDate(){
 	
 	if (eventEditDate.value == "" || eventEditValue.value == null){
 		document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i>  Please enter valid date";
-		console.log("yes!");
+		$("#eventEditDateError").show();
 		validEditDate = false;
 	}
 	else if(eventEditDate < today){
 		document.getElementById("eventEditDateError").innerHTML = "<i class='fas fa-times'></i> You chose a past date";
+		$("#eventEditDateError").show();
 		validEditDate = false;
 	}
 	else{
@@ -276,3 +284,14 @@ $(document).ready(function(){
 		$("#countEventError").show();
 	});
 });
+
+function hideError(){
+	$("#eventNameError").hide();
+	$("#locationError").hide();
+	$("#eventDateError").hide();
+}
+function editHideError(){
+	$("#eventEditNameError").hide();
+	$("#locationEditError").hide();
+	$("#eventEditDateError").hide();
+}

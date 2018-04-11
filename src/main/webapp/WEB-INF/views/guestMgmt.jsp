@@ -15,6 +15,8 @@
 		
 			<div class="row">
 				<div class="col-sm-3">
+					<div class="${(editGuestSuccess != null) ? 'successAlert':''}">${editGuestSuccess}</div>	
+					<div class="${(editGuestError != null) ? 'errorAlert':''}">${editGuestError}</div>
 					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none" >
 						<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
@@ -68,20 +70,20 @@
 									</div>
 								</th>
 								<th scope="col" class="align-baseline">
-									<div class="col-md-6">
+									<div class="col-md-8">
 										Plus Ones&nbsp;
 										<a href="#" data-toggle="tooltip" data-placement="right" title="People accompanying the invited guest">
 											<span class="info"><i class="fas fa-question-circle"></i></span>
 										</a>
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-8">
 									</div>
 								</th>
 								<th scope="col">
-									<div class="col-md-6">
+									<div class="col-md-8">
 										RSVP Status
 									</div>
-									<div class="col-md-6">
+									<div class="col-md-8">
 										<button type="button" class="btn btn-link" style="background-color: #F1E9DA; color: #D90368; padding:6px 14px;" onclick="ascStatus()">
 											<i class="fas fa-sort-up"></i>
 										</button>
@@ -100,9 +102,9 @@
 									<td>${guest.lastName}</td>
 									<td>Adults: ${guest.adultsWith}&nbsp;&nbsp;&nbsp;Kids: ${guest.kidsWith}</td>
 									<td><c:choose>
-											<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle"></i></span></c:when>
-						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle"></i></span></c:when>		
-						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle"></i></span></c:otherwise>
+											<c:when test="${guest.isPresent eq 0? true : false}"><span class="present"><i class="fas fa-check-circle" style="margin-left: 50px"></i></span></c:when>
+						  					<c:when test="${guest.isPresent eq 1? true : false}"><span class="noReply"><i class="fas fa-exclamation-circle" style="margin-left: 50px"></i></span></c:when>		
+						  					<c:otherwise><span class="absent"><i class="fas fa-times-circle" style="margin-left: 50px"></i></span></c:otherwise>
 										</c:choose>
 										<form class="showGuestForm" action="showGuest" method="post">
 											<input name="selectedGuest" type="hidden" value="${guest.guestId}"/>
@@ -277,6 +279,16 @@
 							</form:select>
 						</div>
 					</div>
+					<div class="form-group row">
+						<div class="col-6">
+							<label>Meal Choice <a class="rsvpMealChoiceMsg" href="#" data-toggle="tooltip" data-placement="top" title="Keep in mind that you must send the RSVPs for this event before selecting a meal choice."><span class="info"><i class="fas fa-question-circle"></i></span></a> :</label>
+						</div>
+						<div class="col-6">
+							<form:select id="guestMealChoice" path="mealChoice" class="form-control" style="margin-bottom:10px;">
+								
+							</form:select>
+						</div>
+					</div>
 					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You cannot change this value to a number smaller than the number of plus ones already registered.">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
@@ -316,7 +328,7 @@
 				<br>
 				<div id="editPlusOnes">
 					<div id="plusOnesSuccess" class="successAlert"></div>
-					<h2>Edit Plus Ones</h2><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a>					
+					<h2>Edit Plus Ones <sup><a href="#" data-toggle="tooltip" data-placement="top" title="To change the number of plus ones, please change the maximum number of adults and kids this guest can bring with them in the form above."><span class="info"><i class="fas fa-question-circle"></i></span></a></sup></h2>					
 					<div id="plusOnesDiv">
 						<h4 id="plusOnesAdultsLabel">Adults:</h4>
 						<div id="plusOnesAdults"></div>
@@ -390,9 +402,9 @@
 					<label class="col-6">RSVP Status: </label>
 						<!-- TODO: No Reply cannot be default -->
 						<form:select path="isPresent" class="form-control col-6">			
-				  			<option value="0">Accepted</option>	
-				  			<option value="1" selected="true">No Reply</option>
-				  			<option value="2">Declined</option>
+				  			<form:option value="0" label="Accepted" />
+						  	<form:option value="1" label="No Reply" selected="selected"/>
+						  	<form:option value="2" label="Declined" />
 						</form:select>
 				</div>
 				<label>Group: </label>
