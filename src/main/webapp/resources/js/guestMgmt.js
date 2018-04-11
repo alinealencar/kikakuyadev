@@ -397,10 +397,11 @@ function openEditGuest(id) {
 			//Populate main guest's meal choice
 			var formItem = "<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
 			
+				console.log(response.guest.mealChoice);
 			if (response.meals.length > 0){
 				for(var m = 0; m < response.meals.length; m++){
 					//auto populate with the guests choice from the rsvp
-					if(response.meals[m] === response.mealChoice)
+					if(response.meals[m] === response.guest.mealChoice)
 						formItem += "<option selected>" + response.meals[m] + "</option>";
 					else
 						formItem += "<option>" + response.meals[m] + "</option>";
