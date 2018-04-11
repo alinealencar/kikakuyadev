@@ -67,10 +67,12 @@ function validateFirstName(){
 	
 	if (fName == ""){
 		document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
+		$("#fNameError").show();
 		validFirstName = false;
 	}
 	else if (!fName.match(/^[a-zA-Z\s]+$/)){
 		document.getElementById("fNameError").innerHTML = "<i class='fas fa-times' font-size:''></i>  Alphabets only";
+		$("#fNameError").show();
 		validFirstName = false;
 	}
 	else{
@@ -84,10 +86,12 @@ function validateLastName(){
 	
 	if (lName == ""){
 		document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Please enter last name";
+		$("#lNameError").show();
 		validLastName = false;
 	}
 	else if (!lName.match(/^[a-zA-Z\s]+$/)){
 		document.getElementById("lNameError").innerHTML = "<i class='fas fa-times'></i>  Alphabets only";
+		$("#lNameError").show();
 		validLastName = false;
 	}
 	else{
@@ -102,10 +106,12 @@ function validateEmail(){
 	
 	if (!emailRegEx.test(email)){
 		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
+		$("#emailError").show();
 		validEmail = false;
 	}
 	else if (email === "" || email === null){
 		document.getElementById("emailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
+		$("#emailError").show();
 		validEmail = false;
 	}
 	else {
@@ -184,10 +190,12 @@ function editFirstName(){
 	
 	if (editfName == ""){
 		document.getElementById("fNameEdit").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
+		$("#fNameEdit").show();
 		editFName = false;
 	}
 	else if (!editfName.match(/^[a-zA-Z\s]+$/)){
 		document.getElementById("fNameEdit").innerHTML = "<i class='fas fa-times' font-size:''></i>  Alphabets only";
+		$("#fNameEdit").show();
 		editFName = false;
 	}
 	else{
@@ -201,10 +209,12 @@ function editLastName(){
 	
 	if (editlName == ""){
 		document.getElementById("lNameEdit").innerHTML = "<i class='fas fa-times' font-size:''></i>  Please enter first name";
+		$("#lNameEdit").show();
 		editLName = false;
 	}
 	else if (!editlName.match(/^[a-zA-Z\s]+$/)){
 		document.getElementById("lNameEdit").innerHTML = "<i class='fas fa-times' font-size:''></i>  Alphabets only";
+		$("#lNameEdit").show();
 		editLName = false;
 	}
 	else{
@@ -219,10 +229,12 @@ function editEmailAddress(){
 		
 		if (!emailRegEx.test(editEadd)){
 			document.getElementById("editEmailError").innerHTML = "<i class='fas fa-times'></i>  Email is not valid";
+			$("#editEmailError").show();
 			editEmail = false;
 		}
 		else if (editEadd === "" || editEadd === null){
 			document.getElementById("editEmailError").innerHTML = "<i class='fas fa-times'></i>  Enter email address";
+			$("#editEmailError").show();
 			editEmail = false;
 		}
 		else {
@@ -238,3 +250,4 @@ function deleteGuest(){
 		$("#deleteGuestForm").attr("action", "deleteGuest");
 	}
 }
+

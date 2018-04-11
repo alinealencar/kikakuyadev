@@ -94,9 +94,8 @@
 
 <div id="addEvent" class="overlay">
 	<div class="popup">
-		<h2>Add Event</h2>
-		<a class="close" href="#">&times;</a>
-		<p style="font-size: 12px">Note: You can only add up to 3 events</p>
+		<h2>Create Event</h2>
+		<a class="close" href="#" onclick="hideError()">&times;</a>
 		<div class="content">
 		<hr>
 			<form:form modelAttribute="event" class="eventForm" method="POST" action="add" onsubmit="return validateEventForm();">
@@ -136,7 +135,7 @@
 <div id="editEvent" class="overlay">
 	<div class="popup">
 		<h2>Edit Event</h2>
-		<a class="close" href="#">&times;</a>
+		<a class="close" href="#" onclick="editHideError()">&times;</a>
 		<div class="content">
 		<hr>
 			<form:form modelAttribute="event" method="POST" action="update" onsubmit="return validateEditEventForm();">

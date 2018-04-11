@@ -551,6 +551,10 @@ function deletePlusOne(plusOneId, guestId){
 //close side form
 function closeAddGuest() {
   document.getElementById("addGuestSection").style.width = "0";
+  $("#fNameError").hide();
+  $("#lNameError").hide();
+  $("#emailError").hide();
+  
 }
 
 function closeShowGuest() {
@@ -560,6 +564,10 @@ function closeShowGuest() {
 function closeEditGuest() {
   document.getElementById("editGuestSection").style.display = "none";
   closeShowGuest();
+  
+  $("#fNameEdit").hide();
+  $("#lNameEdit").hide();
+  $("#editEmailError").hide();
 }
 
 /******************************************
