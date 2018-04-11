@@ -281,12 +281,6 @@
    				<legend  style="width:auto; margin-bottom: 0px; font-size: 1rem; border-color: #cccccc">Items</legend>
    				<div id="item-price">
    				<c:forEach begin="0" end="${fn:length($vendor.goodsList)}" varStatus="loop">
-   				<div class="col-6">
-			   			<span id="itemError-sm" class="formError"></span>
-			   		</div>
-			   		<div id="priceErrorSM" class="col-6">
-			   			<span id="priceError-sm" class="formError"></span>
-					</div>
 	   				<div id="itemTextBoxGroup" class="row">
 		   					<div id="txtItem-sm" class="col-6">
 		   						<form:input type="text" class="item-sm form-control" oninput="validateItemSM(this)" id="item1" placeholder="Item" style="margin-bottom: 5px;" path="goodsList[${loop.index}].goodName"/>
@@ -298,7 +292,10 @@
 		   					</div>
 		   			</div>
 		   			</c:forEach>
-		   			
+		   				<div>
+			   				<span id="itemError-sm" class="formError"></span>
+			   				<span id="priceError-sm" class="formError" style="float: right; margin-right: 40px"></span>
+			   			</div>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice-sm" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
@@ -410,13 +407,10 @@
 		   					</div>
 		   			</div>
 		   			</c:forEach>
-		   				<div class="col-6">
+		   				<div>
 			   				<span id="itemError" class="formError"></span>
-			   				
+			   				<span id="priceError" class="formError" style="float: right; margin-right: 15%"></span>
 			   			</div>
-			   			<div id="priceErrorSM" class="col-6">
-			   				<span id="priceError" class="formError"></span>
-						</div>
 	   				<div class="text-center">
 						<button id="btnAddItemPrice" type="button" class="btn btn-link" style="margin: 10px;">
       						<span class="material-icons" style="font-size: 170%; background-color: #F1E9DA; color: #D90368;">add_circle</span><span class="align-text-bottom" style="color: #D90368; font-size: 20px"></span>
