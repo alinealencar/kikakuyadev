@@ -277,6 +277,16 @@
 							</form:select>
 						</div>
 					</div>
+					<div class="form-group row">
+						<div class="col-6">
+							<label>Meal Choice <a class="rsvpMealChoiceMsg" href="#" data-toggle="tooltip" data-placement="top" title="Keep in mind that you must send the RSVPs for this event before selecting a meal choice."><span class="info"><i class="fas fa-question-circle"></i></span></a> :</label>
+						</div>
+						<div class="col-6">
+							<form:select id="guestMealChoice" path="mealChoice" class="form-control" style="margin-bottom:10px;">
+								
+							</form:select>
+						</div>
+					</div>
 					<label>Plus ones <a href="#" data-toggle="tooltip" data-placement="top" title="This is the maximum number of plus ones the guest can RSVP to. You cannot change this value to a number smaller than the number of plus ones already registered.">
 						<span class="info"><i class="fas fa-question-circle"></i></span>
 					</a>(Maximum):</label>
@@ -390,9 +400,9 @@
 					<label class="col-6">RSVP Status: </label>
 						<!-- TODO: No Reply cannot be default -->
 						<form:select path="isPresent" class="form-control col-6">			
-				  			<option value="0">Accepted</option>	
-				  			<option value="1" selected="true">No Reply</option>
-				  			<option value="2">Declined</option>
+				  			<form:option value="0" label="Accepted" />
+						  	<form:option value="1" label="No Reply" selected="selected"/>
+						  	<form:option value="2" label="Declined" />
 						</form:select>
 				</div>
 				<label>Group: </label>
