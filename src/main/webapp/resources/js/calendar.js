@@ -7,6 +7,7 @@ $('#year, #month').change(function() {
   if ($('#year').val() > 0 && $('#month').val() > 0) {
     var daysInSelectedMonth = daysInMonth($('#month').val(), $('#year').val());
 
+    console.log(daysInSelectedMonth);
     for (var i = 1; i <= 31; i++) {
     	if(i > daysInSelectedMonth)
     		$("#day option[value='" + i + "']").remove();
@@ -14,9 +15,10 @@ $('#year, #month').change(function() {
     		$('#day').append($("<option></option>").attr("value", i).text(i));
     }
 
-  } else {
-    $('#day').prop('disabled', true);
-  }
+  } 
+//  else {
+//    $('#day').prop('disabled', true);
+//  }
 
 });
 
@@ -428,6 +430,11 @@ function openAddAppt(){
 	$("#btnAddAppt").show();
 	$("#showDay").hide();
 	$(".errorAlert").hide();
+	
+	//Populate day dropdown from 1 to 31 (it will change depending on the month)
+	for (var i = 1; i <= 31; i++) {
+    		$('#day').append($("<option></option>").attr("value", i).text(i));
+    }
 }
 
 function showFeedbackMessages(response){
