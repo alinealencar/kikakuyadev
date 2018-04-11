@@ -26,4 +26,5 @@ public interface CommunicationService {
 	public boolean isTokenFound(String token) throws SQLException;
 	public int countPlusOnesByGuest(int guestId) throws SQLException;
 	public boolean removePlusOneByGuest(int guestId) throws SQLException;
+	public List<GuestPlusOne> findPlusOneByToken(String token, String category) throws SQLException;
 }

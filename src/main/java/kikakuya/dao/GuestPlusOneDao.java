@@ -17,4 +17,5 @@ public interface GuestPlusOneDao {
 	public int getPlusOnesTotalByGuest(int guestId) throws SQLException;
 	public boolean deletePlusOneByGuest(int guestId) throws SQLException;
 	public GuestPlusOne getPlusOneById(int plusOneId) throws SQLException;
+	public List<GuestPlusOne> getPlusOneByToken(String token, String category) throws SQLException;
 }

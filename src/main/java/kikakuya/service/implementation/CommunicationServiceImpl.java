@@ -219,4 +219,9 @@ public class CommunicationServiceImpl implements CommunicationService{
 			e.printStackTrace();
 		}
 	}
+
+	@Override
+	public List<GuestPlusOne> findPlusOneByToken(String token, String category) throws SQLException {
+		return guestPlusOneDao.getPlusOneByToken(token, category);
+	}
 }

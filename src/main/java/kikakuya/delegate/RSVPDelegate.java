@@ -80,6 +80,10 @@ public class RSVPDelegate {
 	public boolean removePlusOneByGuest(int guestId) throws SQLException {
 		return communicationService.removePlusOneByGuest(guestId);
 	}
+
+	public List<GuestPlusOne> findPlusOneByToken(String token, String category) throws SQLException {
+		return communicationService.findPlusOneByToken(token, category);
+	}
 	
 	
 }
