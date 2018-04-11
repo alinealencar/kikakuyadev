@@ -275,29 +275,33 @@ function openEditGuest(id) {
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>" +
+					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>" ;
 					
-					
-					for(var m = 0; m < response.meals.length; m++){
-						if(response.meals[m] === response.plusOnes[i].mealChoice)
-							formItem += "<option selected>" + response.meals[m] + "</option>";
-						else
-							formItem += "<option>" + response.meals[m] + "</option>";
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							if(response.meals[m] === response.plusOnes[i].mealChoice)
+								formItem += "<option selected>" + response.meals[m] + "</option>";
+							else
+								formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
-					
+					else {
+						$(".editPlusOneMeal").attr("disabled", true);
+					}
 					formItem += "</select><hr>";
-					
 					$("#plusOnesAdults").append(formItem);
+					
 				}
 				else {
 					txtBxCountKids++;
 					var formItem = "<label>Name: &nbsp;&nbsp;&nbsp;" +
 					"<button onclick='deletePlusOne(" + response.plusOnes[i].guestPlusOneId + ", " + id + ");' class='fabutton absent'><i class='far fa-trash-alt'></i></button></label>" +
+					"<input type='hidden' class='editPlusOneId' value='" + response.plusOnes[i].guestPlusOneId +"'/>"+
 					"<input name='" + response.plusOnes[i].fullName + "' value='" +
 					response.plusOnes[i].fullName + "' class='form-control editPlusOneName' style='margin-bottom:10px;' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>" +
+					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
 					
 					for(var m = 0; m < response.meals.length; m++){
@@ -322,7 +326,7 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: </label>" +
 					"<input name='plusOneName' class='form-control addPlusOneNameAdult' style='margin-bottom:10px;' oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>" +
+					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealAdult' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
 						
@@ -341,7 +345,7 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: </label>" +
 					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px; oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>" +
+					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
 						
@@ -391,7 +395,7 @@ function editPlusOnes(id){
 	var editMealArr = [""];
 	for(var i = 0; i < editMealNode.length; i++)
 		if($(editMealNode[i]).val() != false)
-		editMealArr.push($(editMealNode[i]).val());
+			editMealArr.push($(editMealNode[i]).val());
 	
 	var editIdNode = $(".editPlusOneId");
 	var editIdArr = [""];
@@ -408,19 +412,19 @@ function editPlusOnes(id){
 	var addMealAdultArr = [""];
 	for(var i = 0; i < addMealAdultNode.length; i++)
 		if($(addMealAdultNode[i]).val() != false)
-		addMealAdultArr.push($(addMealAdultNode[i]).val());
+			addMealAdultArr.push($(addMealAdultNode[i]).val());
 	
 	var addNameKidNode = $(".addPlusOneNameKid");
 	var addNameKidArr = [""];
 	for(var i = 0; i < addNameKidNode.length; i++)
 		if($(addNameKidNode[i]).val() != false)
-		addNameKidArr.push($(addNameKidNode[i]).val());
+			addNameKidArr.push($(addNameKidNode[i]).val());
 	
 	var addMealKidNode = $(".addPlusOneMealKid");
 	var addMealKidArr = [""];
 	for(var i = 0; i < addMealKidNode.length; i++)
 		if($(addMealKidNode[i]).val() != false)
-		addMealKidArr.push($(addMealKidNode[i]).val());
+			addMealKidArr.push($(addMealKidNode[i]).val());
 	
 	//show error - validation
 	

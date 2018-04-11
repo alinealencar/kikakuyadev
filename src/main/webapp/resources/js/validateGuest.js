@@ -109,8 +109,8 @@ function validateEmail(){
 		validEmail = false;
 	}
 	else {
-	document.getElementById("emailError").innerHTML = "";
-	validEmail = true;
+		document.getElementById("emailError").innerHTML = "";
+		validEmail = true;
 	}
 }
 
