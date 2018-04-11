@@ -31,10 +31,10 @@
 	</div>
 	<br>
 	<c:if test="${totalGuests > 0}">
-		<c:if test="${presentGuests <= 1}">
+		<c:if test="${presentGuests == 1}">
 			<h3>${presentGuests} guest of ${totalGuests}</h3>	
 		</c:if>
-		<c:if test="${presentGuests > 1}">
+		<c:if test="${presentGuests != 1}">
 			<h3>${presentGuests} guests of ${totalGuests}</h3>	
 		</c:if>
 		<div class="progress" style="margin-bottom: 25px;">

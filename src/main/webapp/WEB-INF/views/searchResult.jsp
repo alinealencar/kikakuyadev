@@ -92,7 +92,7 @@
 					${vendor.phoneNo}<br>
 					<form:hidden path="address" value="${vendor.address}"/>
 					<form:hidden path="phoneNo" value="${vendor.phoneNo}"/>
-					<a href="${vendor.website}"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
+					<a href="${vendor.website}" target="_blank"><img border="0" alt="Yelp logo" src="resources/images/search/yelp_logo.png"  width="80" height="50"></a>
 					<form:hidden path="website" value="${vendor.website}" />
 				</div>
 				<div class="col-md-3">
