@@ -151,11 +151,11 @@ public class GuestController {
 			boolean editGuestSuccessful = guestDelegate.editGuest(guest);
 			if(editGuestSuccessful){
 				System.out.println("Edit guest successful");
-				request.setAttribute("editGuestSuccess", "edit sucessful");
+				request.setAttribute("editGuestSuccess", "Guest updated successfully");
 			}
 			else {
 				System.out.println("Edit guest failed");
-				request.setAttribute("editGuestError", "Error in the edit guest");
+				request.setAttribute("editGuestError", "Error! Guest could not be updated. Please try again.");
 			}
 				
 		} catch(Exception e){

@@ -15,6 +15,8 @@
 		
 			<div class="row">
 				<div class="col-sm-3">
+					<div class="${(editGuestSuccess != null) ? 'successAlert':''}">${editGuestSuccess}</div>	
+					<div class="${(editGuestError != null) ? 'errorAlert':''}">${editGuestError}</div>
 					<span  style="width: 150px; margin:0; font-size:200%;">Guest List</span>
 					<div class="text-right  float-right  d-block d-sm-none" >
 						<button  type="button" class="btn btn-link img-fluid showAddGuest" onclick="openAddGuest()">
