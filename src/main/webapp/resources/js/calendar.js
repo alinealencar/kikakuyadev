@@ -531,27 +531,27 @@ function validateForm(){
 	
 	if(title === ""){
 		 document.getElementById("titleError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an appointment title";
-		 return false;
+		 $("#titleError").show();
 	}
 	
 	if (address === ""){
 		 document.getElementById("addressError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter the address";
-		 return false;
+		 $("#addressError").show();
 	}
 	
 	if (!$("input:radio[name='color']:checked").val()){
 		 document.getElementById("colorError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select a color";
-		 return false;
+		 $("#colorError").show();
 	}
 	
 	if (day === "" || month === "" || year === "" || day === null || month === null || year === null){
 			document.getElementById("dateError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select date";
-			return false;
+			$("#dateError").show();
 	}
 	
 	if (hour === "" || minute === "" || ampm === "" || hour === null || minute === null || ampm === null){
 			document.getElementById("timeError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please select time";
-			return false;
+			$("#timeError").show();
 	}
 	return true;
 }
