@@ -304,16 +304,20 @@ function openEditGuest(id) {
 					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='" + response.plusOnes[i].mealChoice + "' class='form-control editPlusOneMeal' style='margin-bottom:10px;'>";
 					
-					for(var m = 0; m < response.meals.length; m++){
-						if(response.meals[m] === response.plusOnes[i].mealChoice)
-							formItem += "<option selected>" + response.meals[m] + "</option>";
-						else
-							formItem += "<option>" + response.meals[m] + "</option>";
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							if(response.meals[m] === response.plusOnes[i].mealChoice)
+								formItem += "<option selected>" + response.meals[m] + "</option>";
+							else
+								formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
-					
+
 					formItem += "</select><hr>";
-					
 					$("#plusOnesKids").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".editPlusOneMeal").attr("disabled", true);
 				}
 				
 			}
@@ -329,14 +333,20 @@ function openEditGuest(id) {
 					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealAdult' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
-						
-					for(var m = 0; m < response.meals.length; m++){
-						formItem += "<option>" + response.meals[m] + "</option>";
+					
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
 					
 					formItem += "</select><hr>";
 					
 					$("#plusOnesAdults").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".addPlusOneMealAdult").attr("disabled", true);
+					
 				}
 			}
 			
@@ -345,17 +355,22 @@ function openEditGuest(id) {
 					var formItem = "<label>Name: </label>" +
 					"<input name='plusOneName' class='form-control addPlusOneNameKid' style='margin-bottom:10px; oninput='validateName()'/>" +
 					"<div><span id='plusOneError' class='formError'></span></div>"+
-					"<label>Meal Choice: </label>&nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a>" +
+					"<label>Meal Choice: &nbsp;<a href=\"#\" data-toggle=\"tooltip\" data-placement=\"top\" title=\"Keep in mind that you must send the RSVPs for this event before selecting a meal choice.\"><span class=\"info\"><i class=\"fas fa-question-circle\"></i></span></a></label>" +
 					"<select name='mealChoice' class='form-control addPlusOneMealKid' style='margin-bottom:10px;'>" +
 					"<option value='' disabled='disabled' selected='true'>-- Meal Choice --</option>"
-						
-					for(var m = 0; m < response.meals.length; m++){
-						formItem += "<option>" + response.meals[m] + "</option>";
+					
+					if (response.meals.length > 0){
+						for(var m = 0; m < response.meals.length; m++){
+							formItem += "<option>" + response.meals[m] + "</option>";
+						}
 					}
 					
 					formItem += "</select><hr>";
 					
 					$("#plusOnesKids").append(formItem);
+					
+					if(response.meals.length <= 0)
+						$(".addPlusOneMealKid").attr("disabled", true);
 				}
 			}
 			
