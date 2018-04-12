@@ -195,23 +195,35 @@ $(document).ready(function(){
 		var prices = document.getElementsByClassName("price-big");
 		for(i=0;i<items.length;i++){
 			var item = items[i].value;
-			if(!item){
-				document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
-				$('#itemError').show();
-				validItem = false;
+			var txtItem = document.getElementsByClassName("item-big")[i];
+			if($(txtItem).is(":visible")){
+				if(!item){
+					document.getElementById("itemError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter an item";
+					$('#itemError').show();
+					validItem = false;
+				}
+				else
+					validItem = true;
 			}
 			else
 				validItem = true;
 		}
+		
 		for(i=0;i<prices.length;i++){
 			var price = prices[i].value;
-			if(!price || price <= 0){
-				document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter price";
-				$('#priceError').show();
-				validPrice = false;
+			var txtPrice = document.getElementsByClassName("price-big")[i];
+			if($(txtPrice).is(":visible")){
+				if(!price || price <= 0){
+					document.getElementById("priceError").innerHTML = "<span style='font-size: 10px; text-align:left;'><i class='fas fa-times'></i>  Please enter price";
+					$('#priceError').show();
+					validPrice = false;
+				}
+				else
+					validPrice = true;
 			}
 			else
 				validPrice = true;
+				$('#priceError').hide();
 		}
 		if(valueFromSS && vendor && validItem && validPrice){
 			$( "#formAddToBudget" ).submit();

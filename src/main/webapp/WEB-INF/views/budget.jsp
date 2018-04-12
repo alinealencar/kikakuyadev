@@ -219,7 +219,7 @@
 				<h4><span id="selectedVendorName"></span></h4> <br>
 				<b>Phone: </b> <span id="selectedVendorPhone"></span> <br>
 				<b>Address: </b><br> <span id="selectedVendorAddress"></span> <br> 
-				<b>Web site: </b><a id="selectedVendorWebsite" href="">Yelp</a>
+				<b>Web site: </b><a id="selectedVendorWebsite" href="" target="_blank">Yelp</a>
 				</fieldset>
 			</div>
  		</div>

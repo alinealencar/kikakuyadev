@@ -85,7 +85,6 @@ public class GuestDaoImpl implements GuestDao {
 				"', adultsWith = '" + guest.getAdultsWith() + 
 				"', specialRequests = '" + guest.getSpecialRequests() + 
 				"', mealChoice = '" + guest.getMealChoice() +
-				"', notes = '" + guest.getNotes() +
 				"' WHERE guestId = '" + guest.getGuestId() + "'";
 		Connection connection = dataSource.getConnection();
 		PreparedStatement pstmt = connection.prepareStatement(query);

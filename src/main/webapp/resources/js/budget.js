@@ -199,11 +199,15 @@ $(document).ready(function(){
 $(document).ready(function(){
 	$('#btnRemoveItemPrice').click(function(){
 		if($('#txtItem').children().length > 1){
-			$('#txtItem :last-child').remove();
+			//$('#txtItem :last-child').remove();
+			$('#txtItem :last-child').hide();
+			$('#txtItem :last-child').val('');
 			$('#itemError').hide();
 		}
 		if($('#txtPrice').children().length > 1){
-			$('#txtPrice :last-child').remove();
+			//$('#txtPrice :last-child').remove();
+			$('#txtPrice :last-child').hide();
+			$('#txtPrice :last-child').val('0');
 			$('#priceError').hide();
 		}	
 	});
