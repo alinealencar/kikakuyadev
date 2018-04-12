@@ -126,7 +126,10 @@ public class BudgetController {
 			budgetDelegate.editCategory(vendor);
 			//insert goods
 			for(int i=0; i<vendor.getGoodsList().size(); i++){
-				budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+				if(!vendor.getGoodsList().get(i).getGoodName().trim().isEmpty())
+					budgetDelegate.addGood(vendor.getGoodsList().get(i), budgetDelegate.getVendorEventId(vendor));
+				else
+					continue;
 			}
 			redirectTo = "redirect:/budget";
 			List vendorList = budgetDelegate.getVendors(event);
