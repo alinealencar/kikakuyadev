@@ -191,6 +191,6 @@ public class EventController {
 			catch (Exception e){
 				e.printStackTrace();
 			}
-			return "redirect:/guestsDash";
+			return "redirect:/calendar";
 		}
 }
