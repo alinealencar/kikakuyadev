@@ -171,7 +171,7 @@
 								<label>Meal Choice:</label>
 							</div>
 							<div class="col-6">
-							 	${selectedGuest.mealChoice}
+							 	${selectedGuest.mealChoice eq 'null'? '': selectedGuest.mealChoice}
 							</div>
 						</div>
 						<label>Plus Ones:</label>
